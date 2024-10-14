@@ -1,4 +1,4 @@
-name: Mirror NSRingo Dev Branches
+name: Mirror Upstream Dev Branches
 
 on:
   schedule:
@@ -37,6 +37,8 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
 
+          CHANGES_DETECTED=false
+
           for REPO in ${REPOS[@]}; do
             UPSTREAM_REPO="https://github.com/$REPO.git"
             REMOTE_NAME="${REPO//\//-}"
@@ -48,22 +50,22 @@ jobs:
             git fetch "$REMOTE_NAME" dev
 
             echo "Merging $REMOTE_NAME/dev into local dev branch"
-            git merge --no-edit --allow-unrelated-histories "$REMOTE_NAME/dev"
+            git merge --no-edit --allow-unrelated-histories "$REMOTE_NAME/dev" || true
 
-            echo "Removing remote $REMOTE_NAME"
             git remote remove "$REMOTE_NAME"
           done
 
-      - name: Check for changes
-        run: |
           if [[ -n $(git status --porcelain) ]]; then
-            echo "Changes detected, preparing to commit."
+            echo "Changes detected."
+            CHANGES_DETECTED=true
           else
-            echo "No changes detected, exiting."
-            exit 0
+            echo "No changes detected."
           fi
 
+          echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_ENV
+
       - name: Commit and push changes to dev branch
+        if: env.CHANGES_DETECTED == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -74,3 +76,7 @@ jobs:
           git add .
           git commit -m "Mirror upstream dev branches at $DATE (UTC+8)"
           git push origin dev
+
+      - name: No changes detected
+        if: env.CHANGES_DETECTED != 'true'
+        run: echo "No changes detected. Workflow will exit without committing."
