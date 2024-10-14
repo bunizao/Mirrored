@@ -105,16 +105,8 @@ jobs:
             echo -e "\nLast fetch time: $DATE" >> README.md
           fi
 
-      - name: Check for changes
-        run: |
-          if [[ -n $(git status --porcelain) ]]; then
-            echo "Changes detected, preparing to commit."
-          else
-            echo "No changes detected, exiting."
-            exit 0
-          fi
-
       - name: Commit and push changes to main branch
+        if: env.ASSETS_CHANGED == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -125,3 +117,7 @@ jobs:
           git add .
           git commit -m "Update mirrored assets at $DATE (UTC+8)"
           git push origin main
+
+      - name: No changes detected
+        if: env.ASSETS_CHANGED != 'true'
+        run: echo "No changes detected. Workflow will exit without committing."
