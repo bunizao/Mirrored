@@ -1,0 +1,125 @@
+name: Mirror NSRingo Release Assets
+
+on:
+  schedule:
+    - cron: '5,25,55 * * * *'
+  workflow_dispatch:
+
+jobs:
+  download_assets:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Set repository list
+        run: |
+          REPOS=(
+            "NSRingo/WeatherKit"
+            "NSRingo/News"
+            "NSRingo/Testflight"
+            "NSRingo/GeoServices"
+            "NSRingo/Siri"
+            "NSRingo/TV"
+          )
+          echo "REPOS<<EOF" >> $GITHUB_ENV
+          printf "%s\n" "${REPOS[@]}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Download and categorize release assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p ./iRingo/js
+          mkdir -p ./iRingo/plugin
+          mkdir -p ./iRingo/sgmodule
+          mkdir -p ./iRingo/snippet
+          mkdir -p ./iRingo/stoverride
+
+          ASSETS_CHANGED=false
+
+          while IFS= read -r REPO; do
+            echo "Processing repository: $REPO"
+
+            RELEASE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/latest")
+
+            if [ "$(echo "$RELEASE" | jq -r '.message')" = "Not Found" ]; then
+              echo "Release not found for $REPO, skipping."
+              continue
+            fi
+
+            ASSETS=$(echo "$RELEASE" | jq -c '.assets[]')
+
+            echo "$ASSETS" | while IFS= read -r ASSET; do
+              ASSET_NAME=$(echo "$ASSET" | jq -r '.name')
+              ASSET_URL=$(echo "$ASSET" | jq -r '.url')
+
+              EXTENSION="${ASSET_NAME##*.}"
+
+              case "$EXTENSION" in
+                js)
+                  OUTPUT_DIR="./iRingo/js"
+                  ;;
+                plugin)
+                  OUTPUT_DIR="./iRingo/plugin"
+                  ;;
+                sgmodule)
+                  OUTPUT_DIR="./iRingo/sgmodule"
+                  ;;
+                snippet)
+                  OUTPUT_DIR="./iRingo/snippet"
+                  ;;
+                stoverride)
+                  OUTPUT_DIR="./iRingo/stoverride"
+                  ;;
+                *)
+                  echo "Unknown file type: $ASSET_NAME, skipping."
+                  continue
+                  ;;
+              esac
+
+              echo "Downloading: $ASSET_NAME to $OUTPUT_DIR"
+              curl -L -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/octet-stream" "$ASSET_URL" -o "$OUTPUT_DIR/$ASSET_NAME"
+
+              ASSETS_CHANGED=true
+            done
+
+          done < <(printf '%s\n' "${REPOS[@]}")
+
+          echo "ASSETS_CHANGED=$ASSETS_CHANGED" >> $GITHUB_ENV
+
+      - name: Update README.md fetch time
+        if: env.ASSETS_CHANGED == 'true'
+        run: |
+          DATE="$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
+          if grep -q '^Last fetch time:' README.md; then
+            sed -i "s/^Last fetch time:.*/Last fetch time: $DATE/" README.md
+          else
+            echo -e "\nLast fetch time: $DATE" >> README.md
+          fi
+
+      - name: Check for changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "Changes detected, preparing to commit."
+          else
+            echo "No changes detected, exiting."
+            exit 0
+          fi
+
+      - name: Commit and push changes to main branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "your_email@example.com"  # Replace with your email
+          git config --local user.name "Your Name"               # Replace with your name
+          git add .
+          git commit -m "Update mirrored assets and README.md"
+          git push origin main
