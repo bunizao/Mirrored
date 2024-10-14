@@ -2,7 +2,7 @@ name: Mirror NSRingo Release Assets
 
 on:
   schedule:
-    - cron: '5,25,55 * * * *'
+    - cron: '5,30,55 * * * *'  # Runs every 25 minutes
   workflow_dispatch:
 
 jobs:
@@ -118,8 +118,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --local user.email "your_email@example.com"  # Replace with your email
-          git config --local user.name "Your Name"               # Replace with your name
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "${{ github.actor }}"
           git add .
           git commit -m "Update mirrored assets and README.md"
           git push origin main
