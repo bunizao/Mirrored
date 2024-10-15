@@ -38,10 +38,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ASSETS_CHANGED=false
+          UPDATED_FILES=()
 
           while IFS= read -r REPO; do
             echo "Processing repository: $REPO"
-            REPO_NAME=$(basename "$REPO")
 
             RELEASE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/latest")
 
@@ -59,9 +59,6 @@ jobs:
               EXTENSION="${ASSET_NAME##*.}"
 
               case "$EXTENSION" in
-                js)
-                  OUTPUT_DIR="./iRingo/js"
-                  ;;
                 plugin)
                   OUTPUT_DIR="./iRingo/plugin"
                   ;;
@@ -75,35 +72,45 @@ jobs:
                   OUTPUT_DIR="./iRingo/stoverride"
                   ;;
                 *)
-                  echo "Unknown file type: $ASSET_NAME, skipping."
+                  echo "Skipping file: $ASSET_NAME"
                   continue
                   ;;
               esac
 
               mkdir -p "$OUTPUT_DIR"
 
-              # Rename the file to include the repository name
-              OUTPUT_FILE="$OUTPUT_DIR/${REPO_NAME}_${ASSET_NAME}"
+              OUTPUT_FILE="$OUTPUT_DIR/$ASSET_NAME"
 
-              echo "Downloading: $ASSET_NAME as $OUTPUT_FILE"
-              curl -L -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/octet-stream" "$ASSET_URL" -o "$OUTPUT_FILE"
+              # Download the asset
+              echo "Downloading: $ASSET_NAME to $OUTPUT_FILE"
+              curl -L -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/octet-stream" "$ASSET_URL" -o "$OUTPUT_FILE.tmp"
 
-              ASSETS_CHANGED=true
+              # Check if the file has changed
+              if [ -f "$OUTPUT_FILE" ]; then
+                if cmp -s "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"; then
+                  echo "No changes in $ASSET_NAME"
+                  rm "$OUTPUT_FILE.tmp"
+                else
+                  echo "Updating $ASSET_NAME"
+                  mv "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"
+                  UPDATED_FILES+=("$ASSET_NAME")
+                  ASSETS_CHANGED=true
+                fi
+              else
+                echo "Adding new file $ASSET_NAME"
+                mv "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"
+                UPDATED_FILES+=("$ASSET_NAME")
+                ASSETS_CHANGED=true
+              fi
+
             done
 
           done < <(printf '%s\n' "${REPOS[@]}")
 
           echo "ASSETS_CHANGED=$ASSETS_CHANGED" >> $GITHUB_ENV
-
-      - name: Update README.md fetch time
-        if: env.ASSETS_CHANGED == 'true'
-        run: |
-          DATE="$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
-          if grep -q '^Last fetch time:' README.md; then
-            sed -i "s/^Last fetch time:.*/Last fetch time: $DATE/" README.md
-          else
-            echo -e "\nLast fetch time: $DATE" >> README.md
-          fi
+          echo "UPDATED_FILES<<EOF" >> $GITHUB_ENV
+          printf "%s\n" "${UPDATED_FILES[@]}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Commit and push changes to main branch
         if: env.ASSETS_CHANGED == 'true'
@@ -114,8 +121,13 @@ jobs:
           git config --local user.name "GitHub Actions"
 
           DATE="$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
+
           git add .
-          git commit -m "Update mirrored assets at $DATE (UTC+8)"
+
+          # Prepare the commit message with updated files
+          COMMIT_MESSAGE="Updated assets: ${UPDATED_FILES[*]} at $DATE (UTC+8)"
+
+          git commit -m "$COMMIT_MESSAGE"
           git push origin main
 
       - name: No changes detected
