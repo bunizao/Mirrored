@@ -37,16 +37,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mkdir -p ./iRingo/js
-          mkdir -p ./iRingo/plugin
-          mkdir -p ./iRingo/sgmodule
-          mkdir -p ./iRingo/snippet
-          mkdir -p ./iRingo/stoverride
-
           ASSETS_CHANGED=false
 
           while IFS= read -r REPO; do
             echo "Processing repository: $REPO"
+            REPO_NAME=$(basename "$REPO")
 
             RELEASE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/latest")
 
@@ -85,8 +80,13 @@ jobs:
                   ;;
               esac
 
-              echo "Downloading: $ASSET_NAME to $OUTPUT_DIR"
-              curl -L -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/octet-stream" "$ASSET_URL" -o "$OUTPUT_DIR/$ASSET_NAME"
+              mkdir -p "$OUTPUT_DIR"
+
+              # Rename the file to include the repository name
+              OUTPUT_FILE="$OUTPUT_DIR/${REPO_NAME}_${ASSET_NAME}"
+
+              echo "Downloading: $ASSET_NAME as $OUTPUT_FILE"
+              curl -L -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/octet-stream" "$ASSET_URL" -o "$OUTPUT_FILE"
 
               ASSETS_CHANGED=true
             done
