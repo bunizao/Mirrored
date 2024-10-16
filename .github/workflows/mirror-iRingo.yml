@@ -33,6 +33,9 @@ jobs:
       - name: Install jq
         run: sudo apt-get install -y jq
 
+      - name: Install sha256sum (if not available)
+        run: sudo apt-get install -y coreutils
+
       - name: Download and categorize release assets
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,16 +48,24 @@ jobs:
 
             RELEASE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/latest")
 
-            if [ "$(echo "$RELEASE" | jq -r '.message')" = "Not Found" ]; then
+            # Check if release data was retrieved
+            if [ -z "$RELEASE" ] || [ "$RELEASE" == "null" ] || [ "$(echo "$RELEASE" | jq -r '.message')" = "Not Found" ]; then
               echo "Release not found for $REPO, skipping."
               continue
             fi
+
+            # Log release information
+            echo "Release data for $REPO:"
+            echo "$RELEASE" | jq '.'
 
             ASSETS=$(echo "$RELEASE" | jq -c '.assets[]')
 
             echo "$ASSETS" | while IFS= read -r ASSET; do
               ASSET_NAME=$(echo "$ASSET" | jq -r '.name')
               ASSET_URL=$(echo "$ASSET" | jq -r '.url')
+              ASSET_SIZE=$(echo "$ASSET" | jq -r '.size')
+
+              echo "Found asset: $ASSET_NAME (Size: $ASSET_SIZE bytes)"
 
               EXTENSION="${ASSET_NAME##*.}"
 
@@ -81,13 +92,25 @@ jobs:
 
               OUTPUT_FILE="$OUTPUT_DIR/$ASSET_NAME"
 
-              # Download the asset
-              echo "Downloading: $ASSET_NAME to $OUTPUT_FILE"
+              # Download the asset to a temporary file
+              echo "Downloading: $ASSET_NAME"
               curl -L -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/octet-stream" "$ASSET_URL" -o "$OUTPUT_FILE.tmp"
 
-              # Check if the file has changed
+              # Verify download success
+              if [ ! -f "$OUTPUT_FILE.tmp" ]; then
+                echo "Failed to download $ASSET_NAME"
+                continue
+              fi
+
+              # Compute checksums
+              NEW_CHECKSUM=$(sha256sum "$OUTPUT_FILE.tmp" | awk '{ print $1 }')
+              echo "New checksum for $ASSET_NAME: $NEW_CHECKSUM"
+
               if [ -f "$OUTPUT_FILE" ]; then
-                if cmp -s "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"; then
+                EXISTING_CHECKSUM=$(sha256sum "$OUTPUT_FILE" | awk '{ print $1 }')
+                echo "Existing checksum for $ASSET_NAME: $EXISTING_CHECKSUM"
+
+                if [ "$NEW_CHECKSUM" = "$EXISTING_CHECKSUM" ]; then
                   echo "No changes in $ASSET_NAME"
                   rm "$OUTPUT_FILE.tmp"
                 else
