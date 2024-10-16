@@ -60,7 +60,8 @@ jobs:
 
             ASSETS=$(echo "$RELEASE" | jq -c '.assets[]')
 
-            echo "$ASSETS" | while IFS= read -r ASSET; do
+            # Use a here-string to avoid subshell
+            while IFS= read -r ASSET; do
               ASSET_NAME=$(echo "$ASSET" | jq -r '.name')
               ASSET_URL=$(echo "$ASSET" | jq -r '.url')
               ASSET_SIZE=$(echo "$ASSET" | jq -r '.size')
@@ -126,7 +127,7 @@ jobs:
                 ASSETS_CHANGED=true
               fi
 
-            done
+            done <<< "$ASSETS"
 
           done < <(printf '%s\n' "${REPOS[@]}")
 
