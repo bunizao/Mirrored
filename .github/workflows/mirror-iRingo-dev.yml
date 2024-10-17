@@ -49,11 +49,11 @@ jobs:
             # Add the upstream repository as a remote
             git remote add "$REPO_NAME" "$UPSTREAM_REPO"
 
-            # Fetch the dev branch from the upstream repository
-            git fetch "$REPO_NAME" dev
-
             # Check if the dev branch exists in the upstream repository
-            if git rev-parse --verify "$REPO_NAME/dev" >/dev/null 2>&1; then
+            if git ls-remote --exit-code --heads "$UPSTREAM_REPO" dev; then
+              # Fetch the dev branch from the upstream repository
+              git fetch "$REPO_NAME" dev
+
               # Merge the upstream dev branch into the local dev branch using 'theirs' strategy
               echo "Merging $REPO_NAME/dev into local dev branch"
 
