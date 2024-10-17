@@ -1,0 +1,26 @@
+#!name =  iRingo: 📺 TV app
+#!desc = 全面自定义「TV app」功能
+#!openUrl = http://boxjs.com/#/app/iRingo.TV
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/apple-tv
+#!icon = https://developer.apple.com/assets/elements/icons/apple-tv/apple-tv-128x128.png
+#!tag =  iRingo
+#!system = iOS,iPadOS,tvOS,macOS,watchOS
+#!date = 2024-10-14 17:00:38
+#!version = 3.3.6
+
+[Argument]
+ThirdParty = switch,false,tag=启用第三方App与TV app关联功能,desc=是否将桌面版/macOS版/app版等平台的TV app转换至iPad版，以启用第三方App与TV app关联功能(如: Disney+,Prime Video等)。
+HLSUrl = select,"play-edge.itunes.apple.com","","play.itunes.apple.com",tag=HTTP实时流(HLS)地址,desc=因为FPS服务域名禁止MitM，修改此地址可以分离HLS与FPS的域名，从而恢复对DualSubs的双语字幕支持。
+FPSUrl = select,"play.itunes.apple.com","","play-edge.itunes.apple.com",tag=FairPlay流(FPS)地址,desc=因为FPS服务域名禁止MitM，修改此地址可以分离HLS与FPS的域名，从而恢复对DualSubs的双语字幕支持。
+
+[Script]
+http-request ^https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/ script-path=https://github.com/NSRingo/TV/releases/download/v3.3.6/request.js, requires-body=1, tag=📺 TV.uts.request, argument=[{ThirdParty},{HLSUrl},{FPSUrl}]
+http-response ^https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/ script-path=https://github.com/NSRingo/TV/releases/download/v3.3.6/response.js, requires-body=1, tag=📺 TV.uts.response, argument=[{ThirdParty},{HLSUrl},{FPSUrl}]
+http-request ^https?:\/\/umc-tempo-api\.apple\.com\/(v1|v2|v3)\/ script-path=https://github.com/NSRingo/TV/releases/download/v3.3.6/request.js, requires-body=1, tag=📺 TV.umc.request
+
+http-request ^https?:\/\/play(-edge)?\.itunes\.apple\.com\/WebObjects\/MZPlay(Local)?\.woa\/hls(\/(subscription|workout))?\/playlist\.m3u8 script-path=https://github.com/NSRingo/TV/releases/download/v3.3.6/request.js, tag=📺 TV.hls.request
+http-request ^https?:\/\/play(-edge)?\.itunes\.apple\.com\/WebObjects\/MZPlay(Local)?\.woa\/wa\/(fpsRequest|checkInNonceRequest) script-path=https://github.com/NSRingo/TV/releases/download/v3.3.6/request.js, tag=📺 TV.wa.request
+
+[MITM]
+hostname = uts-api.itunes.apple.com, umc-tempo-api.apple.com

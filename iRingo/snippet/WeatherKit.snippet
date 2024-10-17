@@ -1,0 +1,20 @@
+#!name =  iRingo: 🌤 WeatherKit
+#!desc = iOS 18 & macOS 15 & watchOS 11\n1.解锁全部天气功能\n2.替换空气质量数据\n3.添加下一小时降水数据
+#!openUrl = http://boxjs.com/#/app/iRingo.WeatherKit
+#!author = VirgilClyne[https://github.com/VirgilClyne],WordlessEcho[https://github.com/WordlessEcho]
+#!homepage = https://github.com/NSRingo/WeatherKit/wiki
+#!icon = https://developer.apple.com/assets/elements/icons/weatherkit/weatherkit-128x128.png
+#!category =  iRingo
+#!date = 2024-10-17 04:54:43
+#!version = 1.8.17
+
+#[rewrite_local]
+# 🌤 WeatherKit.api.v1.availability.response
+^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/ url script-response-body https://github.com/NSRingo/WeatherKit/releases/download/v1.8.17/response.bundle.js
+# 🌤 WeatherKit.api.v2.weather.response
+^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ url script-response-body https://github.com/NSRingo/WeatherKit/releases/download/v1.8.17/response.bundle.js
+# 🌤 Weather Analytics
+^https?:\/\/weather-analytics-events\.apple\.com\/ url reject
+
+#[mitm]
+hostname = weatherkit.apple.com, weather-analytics-events.apple.com, *.tthr.apple.com
