@@ -2,7 +2,7 @@ name: Mirror NSRingo Release Assets
 
 on:
   schedule:
-    - cron: '5,30,55 * * * *'  # Runs every 25 minutes
+    - cron: '5,30,55 * * * *'  # Runs every 25 minutes at minute 5, 30, and 55
   workflow_dispatch:
 
 jobs:
@@ -137,11 +137,13 @@ jobs:
 
       - name: Modify files after sync
         run: |
+          MODIFICATIONS_MADE=false
+
           # Modify News.sgmodule
           if [ -f "./iRingo/sgmodule/News.sgmodule" ]; then
             echo "Modifying News.sgmodule"
             sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1🇺🇸United States/ }' ./iRingo/sgmodule/News.sgmodule
-            ASSETS_CHANGED=true
+            MODIFICATIONS_MADE=true
           else
             echo "News.sgmodule not found, skipping modification."
           fi
@@ -156,7 +158,7 @@ jobs:
           if [ -f "./iRingo/sgmodule/Siri.V2.beta.sgmodule" ]; then
             echo "Modifying Siri.V2.beta.sgmodule"
             sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1🇺🇸United States/ }' ./iRingo/sgmodule/Siri.V2.beta.sgmodule
-            ASSETS_CHANGED=true
+            MODIFICATIONS_MADE=true
           else
             echo "Siri.V2.beta.sgmodule not found, skipping modification."
           fi
@@ -165,13 +167,22 @@ jobs:
           if [ -f "./iRingo/sgmodule/Siri.V2.macOS.beta.sgmodule" ]; then
             echo "Modifying Siri.V2.macOS.beta.sgmodule"
             sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1🇺🇸United States/ }' ./iRingo/sgmodule/Siri.V2.macOS.beta.sgmodule
-            ASSETS_CHANGED=true
+            MODIFICATIONS_MADE=true
           else
             echo "Siri.V2.macOS.beta.sgmodule not found, skipping modification."
           fi
 
-          # Export ASSETS_CHANGED to environment
+          # Set ASSETS_CHANGED to true if modifications were made
+          if [ "$MODIFICATIONS_MADE" = "true" ]; then
+            ASSETS_CHANGED=true
+            echo "Modifications were made."
+          else
+            echo "No modifications were made."
+          fi
+
+          # Export variables to environment
           echo "ASSETS_CHANGED=$ASSETS_CHANGED" >> $GITHUB_ENV
+          echo "MODIFICATIONS_MADE=$MODIFICATIONS_MADE" >> $GITHUB_ENV
 
       - name: Commit and push changes to main branch
         if: env.ASSETS_CHANGED == 'true'
@@ -185,8 +196,12 @@ jobs:
 
           git add .
 
-          # Prepare the commit message with updated files
-          COMMIT_MESSAGE="Updated assets: ${UPDATED_FILES[*]} at $DATE (UTC+8)"
+          # Determine commit message based on whether modifications were made
+          if [ "$MODIFICATIONS_MADE" = "true" ]; then
+            COMMIT_MESSAGE="🔧 Synched and modified with upstream at $DATE (UTC+8)"
+          else
+            COMMIT_MESSAGE="🌬️ Synched with upstream at $DATE (UTC+8)"
+          fi
 
           git commit -m "$COMMIT_MESSAGE"
           git push origin main
