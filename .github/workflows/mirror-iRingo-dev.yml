@@ -54,29 +54,28 @@ jobs:
               # Fetch the dev branch from the upstream repository
               git fetch "$REPO_NAME" dev
 
-              # Configure the 'ours' merge driver for workflow files
-              echo ".github/workflows/* merge=ours" >> .gitattributes
-              git config merge.ours.driver true
-
-              # Merge the upstream dev branch into the local dev branch using 'theirs' strategy
+              # Merge the upstream dev branch into the local dev branch using 'theirs' strategy and no commit
               echo "Merging $REPO_NAME/dev into local dev branch"
 
-              # Store the current state of the repository to detect changes later
-              PRE_MERGE_HASH=$(git rev-parse HEAD)
+              # Perform the merge without committing
+              git merge --allow-unrelated-histories -X theirs --no-commit "$REPO_NAME/dev"
 
-              # Perform the merge with 'theirs' strategy
-              git merge --no-edit --allow-unrelated-histories -X theirs "$REPO_NAME/dev"
+              # Discard any changes to workflow files
+              git reset HEAD .github/workflows/
+              git checkout -- .github/workflows/
 
-              # Store the new state of the repository
-              POST_MERGE_HASH=$(git rev-parse HEAD)
+              # Check if there are any changes to commit
+              if [[ -n $(git diff --cached --name-only) ]]; then
+                # Commit the merge
+                git commit -m "Merged $REPO_NAME/dev into dev branch"
 
-              # Check if the merge resulted in changes
-              if [ "$PRE_MERGE_HASH" != "$POST_MERGE_HASH" ]; then
-                echo "Changes detected after merging $REPO_NAME/dev"
+                # Add repository to updated list
                 UPDATED_REPOS+=("$REPO_NAME")
                 ASSETS_CHANGED=true
               else
                 echo "No changes detected after merging $REPO_NAME/dev"
+                # Abort the merge
+                git merge --abort
               fi
             else
               echo "Branch 'dev' not found in $REPO, skipping."
