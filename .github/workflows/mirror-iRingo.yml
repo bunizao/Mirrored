@@ -2,7 +2,7 @@ name: Mirror NSRingo Release Assets
 
 on:
   schedule:
-    - cron: '5,30,55 * * * *'  # Runs every 25 minutes at minute 5, 30, and 55
+    - cron: '5,30,55 * * * *'  # Runs at minute 5, 30, and 55 of every hour
   workflow_dispatch:
 
 jobs:
@@ -188,7 +188,9 @@ jobs:
         if: env.ASSETS_CHANGED == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MODIFICATIONS_MADE: ${{ env.MODIFICATIONS_MADE }}
         run: |
+          set +e  # Disable exit on error
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
 
@@ -203,8 +205,13 @@ jobs:
             COMMIT_MESSAGE="🌬️ Synched with upstream at $DATE (UTC+8)"
           fi
 
-          git commit -m "$COMMIT_MESSAGE"
-          git push origin main
+          # Check if there are changes to commit
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "$COMMIT_MESSAGE"
+            git push origin main
+          fi
 
       - name: No changes detected
         if: env.ASSETS_CHANGED != 'true'
