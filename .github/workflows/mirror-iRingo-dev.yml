@@ -54,28 +54,74 @@ jobs:
               # Fetch the dev branch from the upstream repository
               git fetch "$REPO_NAME" dev
 
-              # Merge the upstream dev branch into the local dev branch using 'theirs' strategy and no commit
-              echo "Merging $REPO_NAME/dev into local dev branch"
+              # Special handling for NSRingo/Siri to mirror only the 'modules' folder
+              if [ "$REPO_NAME" = "Siri" ]; then
+                echo "Mirroring only the 'modules' folder from $REPO_NAME/dev"
 
-              # Perform the merge without committing
-              git merge --allow-unrelated-histories -X theirs --no-commit "$REPO_NAME/dev"
+                # Create a temporary directory for sparse checkout
+                TEMP_DIR=$(mktemp -d)
+                cd "$TEMP_DIR"
 
-              # Discard any changes to workflow files
-              git reset HEAD .github/workflows/
-              git checkout -- .github/workflows/
+                # Initialize a new repository
+                git init
+                git remote add origin "$UPSTREAM_REPO"
+                git config core.sparseCheckout true
 
-              # Check if there are any changes to commit
-              if [[ -n $(git diff --cached --name-only) ]]; then
-                # Commit the merge
-                git commit -m "Merged $REPO_NAME/dev into dev branch"
+                # Set up sparse-checkout to include only the 'modules' folder
+                echo "modules/" >> .git/info/sparse-checkout
 
-                # Add repository to updated list
-                UPDATED_REPOS+=("$REPO_NAME")
-                ASSETS_CHANGED=true
+                # Fetch and checkout the 'dev' branch
+                git fetch origin dev
+                git checkout dev
+
+                # Copy the 'modules' folder to the main repository
+                cd -
+                rsync -av --delete "$TEMP_DIR/modules/" "./modules/"
+
+                # Clean up the temporary directory
+                rm -rf "$TEMP_DIR"
+
+                # Add changes to git
+                git add modules/
+
+                # Check if there are any changes to commit
+                if [[ -n $(git diff --cached --name-only) ]]; then
+                  # Commit the changes
+                  git commit -m "Updated modules from $REPO_NAME/dev"
+
+                  # Add repository to updated list
+                  UPDATED_REPOS+=("$REPO_NAME")
+                  ASSETS_CHANGED=true
+                else
+                  echo "No changes detected in 'modules' folder from $REPO_NAME/dev"
+                fi
               else
-                echo "No changes detected after merging $REPO_NAME/dev"
-                # Abort the merge
-                git merge --abort
+                # Merge the upstream dev branch into the local dev branch using 'theirs' strategy and no commit
+                echo "Merging $REPO_NAME/dev into local dev branch"
+
+                # Perform the merge without committing
+                git merge --allow-unrelated-histories -X theirs --no-commit "$REPO_NAME/dev"
+
+                # Discard any changes to workflow files
+                git reset HEAD .github/workflows/
+                git checkout -- .github/workflows/
+
+                # Remove any untracked files in .github/workflows/
+                git clean -fd .github/workflows/
+
+                # Check if there are any changes to commit
+                if [[ -n $(git diff --cached --name-only) ]]; then
+                  # Commit the merge
+                  git commit -m "Merged $REPO_NAME/dev into dev branch"
+
+                  # Add repository to updated list
+                  UPDATED_REPOS+=("$REPO_NAME")
+                  ASSETS_CHANGED=true
+                else
+                  echo "No changes detected after merging $REPO_NAME/dev"
+                  # Abort the merge
+                  git merge --abort
+                fi
               fi
             else
               echo "Branch 'dev' not found in $REPO, skipping."
