@@ -1,8 +1,8 @@
-name: Mirror NSRingo Dev Branches
+name: Mirror Upstream Dev Branches
 
 on:
   schedule:
-    - cron: '1 1 1 1 1'  # Runs every 25 minutes
+    - cron: '0,25,50 * * * *'  # Runs every 25 minutes
   workflow_dispatch:
 
 jobs:
@@ -37,40 +37,72 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
 
-          for REPO in ${REPOS[@]}; do
+          ASSETS_CHANGED=false
+          UPDATED_REPOS=()
+
+          while IFS= read -r REPO; do
+            echo "Processing repository: $REPO"
+
+            REPO_NAME=$(basename "$REPO")
             UPSTREAM_REPO="https://github.com/$REPO.git"
-            REMOTE_NAME="${REPO//\//-}"
 
-            echo "Adding upstream repository $REPO as remote $REMOTE_NAME"
-            git remote add "$REMOTE_NAME" "$UPSTREAM_REPO"
+            # Add the upstream repository as a remote
+            git remote add "$REPO_NAME" "$UPSTREAM_REPO"
 
-            echo "Fetching dev branch from $REMOTE_NAME"
-            git fetch "$REMOTE_NAME" dev
+            # Fetch the dev branch from the upstream repository
+            git fetch "$REPO_NAME" dev
 
-            echo "Merging $REMOTE_NAME/dev into local dev branch"
-            git merge --no-edit --allow-unrelated-histories "$REMOTE_NAME/dev"
+            # Check if the dev branch exists in the upstream repository
+            if git rev-parse --verify "$REPO_NAME/dev" >/dev/null 2>&1; then
+              # Merge the upstream dev branch into the local dev branch
+              echo "Merging $REPO_NAME/dev into local dev branch"
 
-            echo "Removing remote $REMOTE_NAME"
-            git remote remove "$REMOTE_NAME"
-          done
+              # Store the current state of the repository to detect changes later
+              PRE_MERGE_HASH=$(git rev-parse HEAD)
 
-      - name: Check for changes
-        run: |
-          if [[ -n $(git status --porcelain) ]]; then
-            echo "Changes detected, preparing to commit."
-          else
-            echo "No changes detected, exiting."
-            exit 0
-          fi
+              # Perform the merge
+              git merge --no-edit --allow-unrelated-histories "$REPO_NAME/dev"
+
+              # Store the new state of the repository
+              POST_MERGE_HASH=$(git rev-parse HEAD)
+
+              # Check if the merge resulted in changes
+              if [ "$PRE_MERGE_HASH" != "$POST_MERGE_HASH" ]; then
+                echo "Changes detected after merging $REPO_NAME/dev"
+                UPDATED_REPOS+=("$REPO_NAME")
+                ASSETS_CHANGED=true
+              else
+                echo "No changes detected after merging $REPO_NAME/dev"
+              fi
+            else
+              echo "Branch 'dev' not found in $REPO, skipping."
+            fi
+
+            # Remove the remote
+            git remote remove "$REPO_NAME"
+
+          done < <(printf '%s\n' "${REPOS[@]}")
+
+          echo "ASSETS_CHANGED=$ASSETS_CHANGED" >> $GITHUB_ENV
+          echo "UPDATED_REPOS<<EOF" >> $GITHUB_ENV
+          printf "%s\n" "${UPDATED_REPOS[@]}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Commit and push changes to dev branch
+        if: env.ASSETS_CHANGED == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE="$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
 
           git add .
-          git commit -m "Mirror upstream dev branches at $DATE (UTC+8)"
+
+          # Prepare the commit message with updated repositories
+          COMMIT_MESSAGE="Updated dev branches: ${UPDATED_REPOS[*]} at $DATE (UTC+8)"
+
+          git commit -m "$COMMIT_MESSAGE"
           git push origin dev
+
+      - name: No changes detected
+        if: env.ASSETS_CHANGED != 'true'
+        run: echo "No changes detected. Workflow will exit without committing."
