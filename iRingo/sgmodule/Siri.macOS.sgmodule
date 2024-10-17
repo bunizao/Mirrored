@@ -7,7 +7,7 @@
 #!icon=https://raw.githubusercontent.com/NSRingo/Siri/main/images/icon/v1/Siri%20-%20Icon.png
 #!category= iRingo
 #!system=mac
-#!arguments=CountryCode:SG,Proxy:🌑Proxy
+#!arguments=CountryCode:SG,Proxy:🇺🇸United States
 #!arguments-desc=CountryCode: 国家或地区代码\nProxy: macOS‘查询’代理策略
 
 [Rule]
