@@ -2,7 +2,7 @@ name: Mirror Upstream Dev Branches
 
 on:
   schedule:
-    - cron: '0,25,50 * * * *'  # Runs every 25 minutes
+    - cron: '1 1 1 1 1'  # Runs every 25 minutes
   workflow_dispatch:
 
 jobs:
