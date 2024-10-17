@@ -130,47 +130,30 @@ jobs:
 
           done < <(printf '%s\n' "${REPOS[@]}")
 
+          # Download additional files (Siri modules)
+          echo "Downloading additional Siri modules"
+          mkdir -p ./iRingo/sgmodule
+          curl -L -o ./iRingo/sgmodule/Siri.V2.beta.sgmodule https://raw.githubusercontent.com/NSRingo/Siri/dev/debug/Siri.V2.beta.sgmodule
+          curl -L -o ./iRingo/sgmodule/Siri.V2.macOS.beta.sgmodule https://raw.githubusercontent.com/NSRingo/Siri/dev/debug/Siri.V2.macOS.beta.sgmodule
+
+          # Update ASSETS_CHANGED flag if new Siri modules were downloaded
+          ASSETS_CHANGED=true
+
           echo "ASSETS_CHANGED=$ASSETS_CHANGED" >> $GITHUB_ENV
           echo "UPDATED_FILES<<EOF" >> $GITHUB_ENV
           printf "%s\n" "${UPDATED_FILES[@]}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Modify files after sync
+      - name: Modify sgmodule files after sync
         run: |
           MODIFICATIONS_MADE=false
 
-          # Modify News.sgmodule
-          if [ -f "./iRingo/sgmodule/News.sgmodule" ]; then
-            echo "Modifying News.sgmodule"
-            sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1🇺🇸United States/ }' ./iRingo/sgmodule/News.sgmodule
+          # Find all sgmodule files and apply modifications
+          find ./iRingo/sgmodule -type f -name "*.sgmodule" | while read -r FILE; do
+            echo "Modifying $FILE"
+            sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1🇺🇸United States/ }' "$FILE"
             MODIFICATIONS_MADE=true
-          else
-            echo "News.sgmodule not found, skipping modification."
-          fi
-
-          # Download additional files
-          echo "Downloading additional files"
-          mkdir -p ./iRingo/sgmodule
-          curl -L -o ./iRingo/sgmodule/Siri.V2.beta.sgmodule https://raw.githubusercontent.com/NSRingo/Siri/dev/debug/Siri.V2.beta.sgmodule
-          curl -L -o ./iRingo/sgmodule/Siri.V2.macOS.beta.sgmodule https://raw.githubusercontent.com/NSRingo/Siri/dev/debug/Siri.V2.macOS.beta.sgmodule
-
-          # Modify Siri.V2.beta.sgmodule
-          if [ -f "./iRingo/sgmodule/Siri.V2.beta.sgmodule" ]; then
-            echo "Modifying Siri.V2.beta.sgmodule"
-            sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1🇺🇸United States/ }' ./iRingo/sgmodule/Siri.V2.beta.sgmodule
-            MODIFICATIONS_MADE=true
-          else
-            echo "Siri.V2.beta.sgmodule not found, skipping modification."
-          fi
-
-          # Modify Siri.V2.macOS.beta.sgmodule
-          if [ -f "./iRingo/sgmodule/Siri.V2.macOS.beta.sgmodule" ]; then
-            echo "Modifying Siri.V2.macOS.beta.sgmodule"
-            sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1🇺🇸United States/ }' ./iRingo/sgmodule/Siri.V2.macOS.beta.sgmodule
-            MODIFICATIONS_MADE=true
-          else
-            echo "Siri.V2.macOS.beta.sgmodule not found, skipping modification."
-          fi
+          done
 
           # Set ASSETS_CHANGED to true if modifications were made
           if [ "$MODIFICATIONS_MADE" = "true" ]; then
