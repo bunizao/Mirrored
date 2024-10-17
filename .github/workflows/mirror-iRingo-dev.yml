@@ -54,6 +54,10 @@ jobs:
               # Fetch the dev branch from the upstream repository
               git fetch "$REPO_NAME" dev
 
+              # Configure the 'ours' merge driver for workflow files
+              echo ".github/workflows/* merge=ours" >> .gitattributes
+              git config merge.ours.driver true
+
               # Merge the upstream dev branch into the local dev branch using 'theirs' strategy
               echo "Merging $REPO_NAME/dev into local dev branch"
 
