@@ -88,21 +88,13 @@ jobs:
           printf "%s\n" "${UPDATED_REPOS[@]}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Commit and push changes to dev branch
+      - name: Push changes to dev branch
         if: env.ASSETS_CHANGED == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          DATE="$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
-
-          git add .
-
-          # Prepare the commit message with updated repositories
-          COMMIT_MESSAGE="Updated dev branches: ${UPDATED_REPOS[*]} at $DATE (UTC+8)"
-
-          git commit -m "$COMMIT_MESSAGE"
           git push origin dev
 
       - name: No changes detected
         if: env.ASSETS_CHANGED != 'true'
-        run: echo "No changes detected. Workflow will exit without committing."
+        run: echo "No changes detected. Workflow will exit without pushing."
