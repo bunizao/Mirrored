@@ -54,14 +54,14 @@ jobs:
 
             # Check if the dev branch exists in the upstream repository
             if git rev-parse --verify "$REPO_NAME/dev" >/dev/null 2>&1; then
-              # Merge the upstream dev branch into the local dev branch
+              # Merge the upstream dev branch into the local dev branch using 'theirs' strategy
               echo "Merging $REPO_NAME/dev into local dev branch"
 
               # Store the current state of the repository to detect changes later
               PRE_MERGE_HASH=$(git rev-parse HEAD)
 
-              # Perform the merge
-              git merge --no-edit --allow-unrelated-histories "$REPO_NAME/dev"
+              # Perform the merge with 'theirs' strategy
+              git merge --no-edit --allow-unrelated-histories -X theirs "$REPO_NAME/dev"
 
               # Store the new state of the repository
               POST_MERGE_HASH=$(git rev-parse HEAD)
