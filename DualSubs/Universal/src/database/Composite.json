@@ -1,9 +1,0 @@
-{
-	"Settings": {
-		"CacheSize": 20,
-		"ShowOnly": false,
-		"Position": "Reverse",
-		"Offset": 0,
-		"Tolerance": 1000
-	}
-}
