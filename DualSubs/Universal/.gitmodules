@@ -1,0 +1,15 @@
+[submodule "src/XML"]
+	path = src/XML
+	url = https://github.com/NanoCat-Me/XML.git
+[submodule "src/EXTM3U"]
+	path = src/EXTM3U
+	url = https://github.com/DualSubs/EXTM3U.git
+[submodule "src/WebVTT"]
+	path = src/WebVTT
+	url = https://github.com/DualSubs/WebVTT.git
+[submodule "src/LRC"]
+	path = src/LRC
+	url = https://github.com/DualSubs/LRC.git
+[submodule "src/utils"]
+	path = src/utils
+	url = https://github.com/NanoCat-Me/utils.git
