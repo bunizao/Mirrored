@@ -6,11 +6,11 @@ desc: |-
 openUrl: "http://boxjs.com/#/app/iRingo.News"
 author: |-
   VirgilClyne[https://github.com/VirgilClyne]
-homepage: "https://github.com/NSRingo/News/wiki"
+homepage: "https://NSRingo.github.io/guide/apple-news"
 icon: "https://developer.apple.com/assets/elements/icons/news/news-128x128.png"
 category: " iRingo"
-date: "2024-10-13 07:31:04"
-version: "3.1.4"
+date: "2024-10-18 06:32:19"
+version: "3.1.5"
 
 rules:
   - DOMAIN,gateway.icloud.com,PROXY
@@ -42,5 +42,5 @@ http:
 
 script-providers:
   News.request:
-    url: https://github.com/NSRingo/News/releases/download/v3.1.4/request.js
+    url: https://github.com/NSRingo/News/releases/download/v3.1.5/request.bundle.js
     interval: 86400
