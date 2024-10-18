@@ -1,4 +1,4 @@
-name: Mirror DualSubs Release Assets
+name: Mirror DualSubs Repositories
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  download_dualsubs_assets:
+  download_dualsubs_repos:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -28,104 +28,63 @@ jobs:
           printf "%s\n" "${REPOS[@]}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Install jq
-        run: sudo apt-get install -y jq
+      - name: Install rsync (if not available)
+        run: sudo apt-get install -y rsync
 
-      - name: Install sha256sum (if not available)
-        run: sudo apt-get install -y coreutils
-
-      - name: Download and categorize DualSubs release assets
+      - name: Clone and collect assets from DualSubs repositories
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ASSETS_CHANGED=false
-          UPDATED_FILES=()
+
+          # Directory to store cloned repositories
+          CLONE_DIR="./cloned_dualsubs_repos"
+          mkdir -p "$CLONE_DIR"
 
           while IFS= read -r REPO; do
             echo "Processing repository: $REPO"
 
-            RELEASE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/latest")
+            REPO_NAME=$(basename "$REPO")
+            REPO_URL="https://github.com/$REPO.git"
 
-            # Check if release data was retrieved
-            if [ -z "$RELEASE" ] || [ "$RELEASE" == "null" ] || [ "$(echo "$RELEASE" | jq -r '.message')" = "Not Found" ]; then
-              echo "Release not found for $REPO, skipping."
+            # Clone the repository
+            echo "Cloning $REPO"
+            git clone --depth=1 "$REPO_URL" "$CLONE_DIR/$REPO_NAME"
+
+            # Check if clone was successful
+            if [ ! -d "$CLONE_DIR/$REPO_NAME" ]; then
+              echo "Failed to clone $REPO, skipping."
               continue
             fi
 
-            # Log release information
-            echo "Release data for $REPO:"
-            echo "$RELEASE" | jq '.'
+            # Define source and destination directories
+            SOURCE_DIR="$CLONE_DIR/$REPO_NAME"
+            DEST_DIR="./DualSubs/$REPO_NAME"
 
-            ASSETS=$(echo "$RELEASE" | jq -c '.assets[]')
+            # Create destination directory
+            mkdir -p "$DEST_DIR"
 
-            while IFS= read -r ASSET; do
-              ASSET_NAME=$(echo "$ASSET" | jq -r '.name')
-              ASSET_URL=$(echo "$ASSET" | jq -r '.url')
-              ASSET_SIZE=$(echo "$ASSET" | jq -r '.size')
+            # Copy desired assets from the source to the destination
+            # Adjust the paths and patterns below based on where the assets are located in the repositories
+            echo "Collecting assets from $REPO_NAME"
 
-              echo "Found asset: $ASSET_NAME (Size: $ASSET_SIZE bytes)"
+            # Example: Copy all files in the repository (excluding .git directory)
+            rsync -av --exclude='.git/' "$SOURCE_DIR/" "$DEST_DIR/"
 
-              EXTENSION="${ASSET_NAME##*.}"
+            # Set ASSETS_CHANGED to true if any files were updated
+            if [ "$(git status --porcelain)" ]; then
+              ASSETS_CHANGED=true
+              echo "Assets updated for $REPO_NAME"
+            else
+              echo "No changes detected for $REPO_NAME"
+            fi
 
-              case "$EXTENSION" in
-                crx)
-                  OUTPUT_DIR="./DualSubs/crx"
-                  ;;
-                zip)
-                  OUTPUT_DIR="./DualSubs/zip"
-                  ;;
-                *)
-                  echo "Skipping file: $ASSET_NAME"
-                  continue
-                  ;;
-              esac
-
-              mkdir -p "$OUTPUT_DIR"
-
-              OUTPUT_FILE="$OUTPUT_DIR/$ASSET_NAME"
-
-              # Download the asset to a temporary file
-              echo "Downloading: $ASSET_NAME"
-              curl -L -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/octet-stream" "$ASSET_URL" -o "$OUTPUT_FILE.tmp"
-
-              # Verify download success
-              if [ ! -f "$OUTPUT_FILE.tmp" ]; then
-                echo "Failed to download $ASSET_NAME"
-                continue
-              fi
-
-              # Compute checksums
-              NEW_CHECKSUM=$(sha256sum "$OUTPUT_FILE.tmp" | awk '{ print $1 }')
-              echo "New checksum for $ASSET_NAME: $NEW_CHECKSUM"
-
-              if [ -f "$OUTPUT_FILE" ]; then
-                EXISTING_CHECKSUM=$(sha256sum "$OUTPUT_FILE" | awk '{ print $1 }')
-                echo "Existing checksum for $ASSET_NAME: $EXISTING_CHECKSUM"
-
-                if [ "$NEW_CHECKSUM" = "$EXISTING_CHECKSUM" ]; then
-                  echo "No changes in $ASSET_NAME"
-                  rm "$OUTPUT_FILE.tmp"
-                else
-                  echo "Updating $ASSET_NAME"
-                  mv "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"
-                  UPDATED_FILES+=("$ASSET_NAME")
-                  ASSETS_CHANGED=true
-                fi
-              else
-                echo "Adding new file $ASSET_NAME"
-                mv "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"
-                UPDATED_FILES+=("$ASSET_NAME")
-                ASSETS_CHANGED=true
-              fi
-
-            done <<< "$ASSETS"
+            # Clean up cloned repository
+            rm -rf "$SOURCE_DIR"
 
           done < <(printf '%s\n' "${REPOS[@]}")
 
           echo "ASSETS_CHANGED=$ASSETS_CHANGED" >> $GITHUB_ENV
-          echo "UPDATED_FILES<<EOF" >> $GITHUB_ENV
-          printf "%s\n" "${UPDATED_FILES[@]}" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
 
       - name: Commit and push changes to main branch
         if: env.ASSETS_CHANGED == 'true'
@@ -140,7 +99,7 @@ jobs:
 
           git add .
 
-          COMMIT_MESSAGE="🌬️ Synched DualSubs assets with upstream at $DATE (UTC+8)"
+          COMMIT_MESSAGE="🌬️ Synched DualSubs repositories at $DATE (UTC+8)"
 
           # Check if there are changes to commit
           if git diff --cached --quiet; then
