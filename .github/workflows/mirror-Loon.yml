@@ -41,6 +41,8 @@ jobs:
         echo "Download completed."
 
     - name: Commit changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "Configuring Git user information..."
         git config --local user.name "github-actions[bot]"
@@ -54,5 +56,5 @@ jobs:
           echo "Committing changes to the repository..."
           git commit -m "Download updated .plugin file"
           git push
-          echo "Changes have been pushed."
+          echo "🌬️ Synched Loon Plugins with upstream at $DATE (UTC+8)"
         fi
