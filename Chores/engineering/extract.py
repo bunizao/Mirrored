@@ -86,7 +86,7 @@ template_data = {
 }
 
 # 将数据写入 JSON 文件
-output_file = 'data/sgmodules_data.json'
+output_file = 'Chores/engineering/data/sgmodules_data.json'
 os.makedirs(os.path.dirname(output_file), exist_ok=True)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(template_data, f, ensure_ascii=False, indent=2)
