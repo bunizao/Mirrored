@@ -51,12 +51,14 @@ jobs:
       - name: Process and download sgmodule files
         run: |
           mkdir -p Chores/sgmodule
+          category="🚫 AD Block"
+          encoded_category=$(echo "$category" | jq -sRr @uri)
           while read -r plugin_url; do
-            plugin_name=$(basename "$plugin_url" .plugin)
-            encoded_plugin_name=$(echo "$plugin_name" | jq -sRr @uri)
-            download_url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${encoded_plugin_name}.sgmodule?type=loon-plugin&target=surge-module&sni=%20%2C%20&del=true&pm=REJECT&category=🚫%20AD%20Block"
-            echo "Downloading from $download_url"
-            curl -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url"
+          plugin_name=$(basename "$plugin_url" .plugin)
+          encoded_plugin_name=$(echo "$plugin_name" | jq -sRr @uri)
+          download_url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${encoded_plugin_name}.sgmodule?type=loon-plugin&target=surge-module&category=${encoded_category}"
+          echo "Downloading from $download_url"
+          curl -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url"
           done < plugin_urls.txt
 
       - name: Commit and push changes
