@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 允许推送更改到仓库
     services:
       docker:
         image: xream/script-hub:latest
@@ -18,6 +20,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false  # 禁用自动凭证，以便使用我们的凭证
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Install dependencies
         run: |
@@ -51,3 +60,11 @@ jobs:
             echo "Downloading from $download_url"
             curl -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url"
           done < plugin_urls.txt
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add Chores/sgmodule/*.sgmodule
+          git commit -m "Initial Commit"
+          git push
