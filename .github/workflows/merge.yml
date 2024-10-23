@@ -43,7 +43,7 @@ jobs:
 
       - name: Generate All-in-One-2.x.sgmodule using Node.js script
         run: |
-          node render_template.js
+          node Chores/engineering/render_template.js
   
       - name: Commit and push changes
         env:
