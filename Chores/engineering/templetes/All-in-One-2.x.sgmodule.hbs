@@ -15,10 +15,12 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 
 {{#each mergedSections}}
 {{#if this.length}}
+{{#if (ne @key "Rule")}}  <!-- 跳过已经手动添加的 [Rule] 部分 -->
 [{{@key}}]
 {{#each this}}
 {{this}}
 {{/each}}
 
+{{/if}}
 {{/if}}
 {{/each}}
