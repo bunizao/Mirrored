@@ -54,7 +54,8 @@ jobs:
           echo "No changes to commit"
         else
           echo "Committing changes to the repository..."
-          git commit -m "Download updated .plugin file"
+          DATE="$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
+          git commit -m "🌬️ Synched Loon Plugins with upstream at $DATE (UTC+8)"
           git push
           echo "🌬️ Synched Loon Plugins with upstream at $DATE (UTC+8)"
         fi
