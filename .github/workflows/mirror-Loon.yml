@@ -3,7 +3,7 @@ name: Extract and Download Links
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # 每天运行一次（可以根据需要调整时间）
+    - cron: '*/30 * * * *' # 每30分钟运行一次
 
 jobs:
   download-plugin:
@@ -16,13 +16,12 @@ jobs:
     - name: Extract .plugin URL
       id: extract_url
       run: |
-        # 下载 README.md 文件
-        curl -o README.md https://raw.githubusercontent.com/luestr/ProxyResource/refs/heads/main/README.md
+        echo "Downloading README.md from the remote repository..."
+        curl -s -o README.md https://raw.githubusercontent.com/luestr/ProxyResource/refs/heads/main/README.md
 
-        # 提取符合条件的 .plugin 链接
-        PLUGIN_URL=$(grep -oP '(?<=\?plugin=)[^"]*\.plugin' README.md)
+        echo "Extracting .plugin URL from README.md..."
+        PLUGIN_URL=$(grep -oP '(?<=\?plugin=)[^"]*\.plugin' README.md | head -n 1)
 
-        # 检查是否找到了链接
         if [ -z "$PLUGIN_URL" ]; then
           echo "Error: No .plugin URL found"
           exit 1
@@ -33,21 +32,27 @@ jobs:
 
     - name: Download .plugin file
       run: |
-        # 使用提取的链接下载 .plugin 文件
+        echo "Creating directory Loon if it doesn't exist..."
         mkdir -p Loon
-        curl -o Loon/plugin.plugin ${{ steps.extract_url.outputs.plugin_url }}
+        
+        echo "Downloading the .plugin file from URL: ${{ steps.extract_url.outputs.plugin_url }}"
+        curl -s -o Loon/plugin.plugin ${{ steps.extract_url.outputs.plugin_url }}
+
+        echo "Download completed."
 
     - name: Commit changes
       run: |
-        # 配置 Git 用户信息
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        echo "Configuring Git user information..."
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
-        # 检查是否有变化并提交
+        echo "Checking for changes to commit..."
         git add Loon/plugin.plugin
         if git diff-index --quiet HEAD; then
           echo "No changes to commit"
         else
+          echo "Committing changes to the repository..."
           git commit -m "Download updated .plugin file"
           git push
+          echo "Changes have been pushed."
         fi
