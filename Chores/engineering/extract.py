@@ -31,7 +31,8 @@ sgmodule_info = [
         'url': 'https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/JD_remove_ads.sgmodule',
         'header': 'JD'
     },
-
+    # 可以在这里添加更多的模块信息
+]
 # 生成合并链接
 base_url = 'https://script-hub.tutuis.me/file/_start_/'
 end_url = '/_end_/Zhihu_remove_ads.sgmodule?type=surge-module&target=surge-module&del=true'
