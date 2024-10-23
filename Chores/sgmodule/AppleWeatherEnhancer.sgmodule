@@ -1,0 +1,25 @@
+#!name=Apple天气增强
+#!desc=解锁Apple天气的全部功能、替换空气质量数据源、添加下一小时降水数据，仅支持iOS 18和iPadOS 18。
+#!author=VirgilClyne[https://github.com/VirgilClyne], WordlessEcho[https://github.com/WordlessEcho/]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/AppleWeather.png
+#!category=ð« AD Block
+#!openUrl=https://itunes.apple.com/app/id1069513131
+#!tag=功能增强
+#!system=ios
+#!system_version=18
+#!loon_version=3.2.1(749)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2024-10-17 21:06:24
+
+[Rule]
+DOMAIN,weather-analytics-events.apple.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,tthr.apple.com,REJECT,extended-matching,pre-matching
+
+[Script]
+Availability响应处理 = type=http-response, pattern=^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.8.17/response.bundle.js, requires-body=true, argument="[{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token}]"
+
+Weather响应处理 = type=http-response, pattern=^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.8.17/response.bundle.js, requires-body=true, binary-body-mode=true, argument="[{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token}]"
+
+[MITM]
+hostname = %APPEND% weatherkit.apple.com
+

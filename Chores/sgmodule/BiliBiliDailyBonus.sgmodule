@@ -1,0 +1,18 @@
+#!name=BiliBili每日等级任务
+#!desc=定时任务及Cookie获取
+#!author=MartinsKing（@ClydeTime）
+#!icon=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/database/icon_Avatar.png
+#!category=ð« AD Block
+#!homepage=https://github.com/ClydeTime/BiliBili/tree/master
+
+[Script]
+# BiliBili每日等级任务
+B站每日等级任务 = type=cron, cronexp="30 7 * * *", script-path=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/js/BiliBiliDailyBonus.js
+
+B站Cookie(APP) = type=http-request, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/fingerprint\?, script-path=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/js/BiliBiliDailyBonus.js
+
+B站Cookie(网页) = type=http-request, pattern=^https?:\/\/m.bilibili.com/$, script-path=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/js/BiliBiliDailyBonus.js
+
+[MITM]
+hostname = %APPEND% app.bilibili.com, m.bilibili.com
+
