@@ -2,7 +2,8 @@
 #!desc=过滤宝宝树孕育广告
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BabyTree.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id523063187
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,15 +12,15 @@
 
 [Rule]
 # 首页 - 活动弹窗、签到图标
-URL-REGEX,^http:\/\/go\.babytree\.com\/go_pregnancy\/api\/(index_activity\/get_app_index_activity|sign\/sign_h_5)\?,REJECT-TINYGIF,extended-matching
+URL-REGEX,^http:\/\/go\.babytree\.com\/go_pregnancy\/api\/(index_activity\/get_app_index_activity|sign\/sign_h_5)\?,REJECT-TINYGIF
 # 搜索框填充词
-URL-REGEX,^http:\/\/go\.babytree\.com\/go_search\/api\/mobile_search_new\/get_multi_search_default_keywords\?,REJECT-TINYGIF,extended-matching
+URL-REGEX,^http:\/\/go\.babytree\.com\/go_search\/api\/mobile_search_new\/get_multi_search_default_keywords\?,REJECT-TINYGIF
 # 我的页面商品信息流
-URL-REGEX,^http:\/\/m\.meitun\.com\/newapi\/router\/topic\/hometptf\/feedRecommend,REJECT-TINYGIF,extended-matching
+URL-REGEX,^http:\/\/m\.meitun\.com\/newapi\/router\/topic\/hometptf\/feedRecommend,REJECT-TINYGIF
 # 新客专享红包
-URL-REGEX,^http:\/\/pic08\.babytreeimg\.com\/knowledge\/2022\/0923\/\w+,REJECT,extended-matching
+URL-REGEX,^http:\/\/pic08\.babytreeimg\.com\/knowledge\/2022\/0923\/\w+,REJECT
 # 开屏广告
-URL-REGEX,^http:\/\/plough\.babytree\.com\/plough\.do,REJECT-TINYGIF,extended-matching
+URL-REGEX,^http:\/\/plough\.babytree\.com\/plough\.do,REJECT-TINYGIF
 
 [Script]
 # 整体配置

@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、弹窗、横幅、各类关注推荐。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DubbingShow.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id746925035
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,14 +12,32 @@
 
 [Rule]
 # 腾讯优量汇 - 广告服务商
-DOMAIN,ios.bugly.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,sdk.e.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,us.l.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,ugdtimg.com,REJECT,extended-matching,pre-matching
+DOMAIN,ios.bugly.qq.com,REJECT
+DOMAIN,sdk.e.qq.com,REJECT
+DOMAIN,us.l.qq.com,REJECT
+DOMAIN-SUFFIX,ugdtimg.com,REJECT
+#DOMAIN,adsmind.ugdtimg.com,REJECT
+# DOMAIN, adsmind.ugdtimg.com, REJECT
+#DOMAIN,pgdt.ugdtimg.com,REJECT
+# DOMAIN, pgdt.ugdtimg.com, REJECT
+#DOMAIN,qzs.gdtimg.com,REJECT
 # DOMAIN, qzs.gdtimg.com, REJECT
-DOMAIN-SUFFIX,gdt.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+#DOMAIN,mi.gdt.qq.com,REJECT
+# DOMAIN, mi.gdt.qq.com, REJECT
+#DOMAIN,win.gdt.qq.com,REJECT
+# DOMAIN, win.gdt.qq.com, REJECT
+#DOMAIN,v2.gdt.qq.com,REJECT
 # c2.gdt.qq.com, REJECT
-DOMAIN,tmeadcomm.y.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,tmeadcomm.y.qq.com,REJECT
+
+[URL Rewrite]
+# DOMAIN, v2.gdt.qq.com, REJECT
+#v.gdt.qq.com, - reject
+# v.gdt.qq.com, REJECT
+#t.gdt.qq.com, - reject
+# t.gdt.qq.com, REJECT
+#c2.gdt.qq.com, - reject
 
 [Script]
 body_rewrite_30 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/live\/LiveList, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banners%22%5D%5D%5D

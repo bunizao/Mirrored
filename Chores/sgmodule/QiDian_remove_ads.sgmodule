@@ -2,7 +2,8 @@
 #!desc=移除起点读书开屏广告、每日导读、发现页活动弹窗、底栏活动标签及其他推广行为。
 #!author=app2smile[https://github.com/app2smile]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/QiDian.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id534174796
 #!tag=去广告
 #!loon_version=3.2.1(749)

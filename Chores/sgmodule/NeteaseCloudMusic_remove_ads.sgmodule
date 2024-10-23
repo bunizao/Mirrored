@@ -2,7 +2,8 @@
 #!desc=过滤网易云音乐广告，并允许自定义界面。
 #!author=RuCu6[https://github.com/RuCu6], Keywos[https://github.com/Keywos]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/NeteaseCloudMusic.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id590338362
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,13 +11,14 @@
 #!date=2024-10-11 07:22:12
 
 [Rule]
-DOMAIN,httpdns.music.163.com,REJECT,extended-matching,pre-matching
-DOMAIN,httpdns.n.netease.com,REJECT,extended-matching,pre-matching
-DOMAIN,iadmat.nosdn.127.net,REJECT,extended-matching,pre-matching
-DOMAIN,iadmatapk.nosdn.127.net,REJECT,extended-matching,pre-matching
-DOMAIN,iadmusicmat.music.126.net,REJECT,extended-matching,pre-matching
+DOMAIN,httpdns.music.163.com,REJECT
+DOMAIN,httpdns.n.netease.com,REJECT
+DOMAIN,iadmat.nosdn.127.net,REJECT
+DOMAIN,iadmatapk.nosdn.127.net,REJECT
+DOMAIN,iadmusicmat.music.126.net,REJECT
+#DOMAIN,iadmusicmatvideo.music.126.net,REJECT
 # DOMAIN, iadmusicmatvideo.music.126.net, REJECT
-DOMAIN-SUFFIX,163jiasu.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,163jiasu.com,REJECT
 
 [Header Rewrite]
 # 新版加密通用处理

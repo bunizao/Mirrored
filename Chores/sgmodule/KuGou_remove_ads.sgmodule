@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、应用各类弹窗、各类横幅广告、评论区广告和播放器界面广告。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/KuGou.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id472208016
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,23 +11,41 @@
 #!date=2024-07-25 00:46:39
 
 [Rule]
-DOMAIN,ads.service.kugou.com,REJECT,extended-matching,pre-matching
-DOMAIN,adstats.tencentmusic.com,REJECT,extended-matching,pre-matching
-DOMAIN,adsmind.gdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,adserviceretry.kugou.com,REJECT,extended-matching,pre-matching
-DOMAIN,adserviceretry.kglink.cn,REJECT,extended-matching,pre-matching
-DOMAIN,ad.tencentmusic.com,REJECT,extended-matching,pre-matching
-DOMAIN,adservice.kugou.com,REJECT,extended-matching,pre-matching
-DOMAIN,splashimgretrybssdl.cloud.kugou.com,REJECT,extended-matching,pre-matching
+DOMAIN,ads.service.kugou.com,REJECT
+DOMAIN,adstats.tencentmusic.com,REJECT
+DOMAIN,adsmind.gdtimg.com,REJECT
+DOMAIN,adserviceretry.kugou.com,REJECT
+DOMAIN,adserviceretry.kglink.cn,REJECT
+DOMAIN,ad.tencentmusic.com,REJECT
+DOMAIN,adservice.kugou.com,REJECT
+DOMAIN,splashimgretrybssdl.cloud.kugou.com,REJECT
 # 腾讯优量汇 - 广告服务商
-DOMAIN,ios.bugly.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,sdk.e.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,us.l.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,ugdtimg.com,REJECT,extended-matching,pre-matching
+DOMAIN,ios.bugly.qq.com,REJECT
+DOMAIN,sdk.e.qq.com,REJECT
+DOMAIN,us.l.qq.com,REJECT
+DOMAIN-SUFFIX,ugdtimg.com,REJECT
+#DOMAIN,adsmind.ugdtimg.com,REJECT
+# DOMAIN, adsmind.ugdtimg.com, REJECT
+#DOMAIN,pgdt.ugdtimg.com,REJECT
+# DOMAIN, pgdt.ugdtimg.com, REJECT
+#DOMAIN,qzs.gdtimg.com,REJECT
 # DOMAIN, qzs.gdtimg.com, REJECT
-DOMAIN-SUFFIX,gdt.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+#DOMAIN,mi.gdt.qq.com,REJECT
+# DOMAIN, mi.gdt.qq.com, REJECT
+#DOMAIN,win.gdt.qq.com,REJECT
+# DOMAIN, win.gdt.qq.com, REJECT
+#DOMAIN,v2.gdt.qq.com,REJECT
 # c2.gdt.qq.com, REJECT
-URL-REGEX,^http:\/\/log\.stat\.kugou\.com\/mobile\/ad\.html,REJECT,extended-matching
+URL-REGEX,^http:\/\/log\.stat\.kugou\.com\/mobile\/ad\.html,REJECT
+
+[URL Rewrite]
+# DOMAIN, v2.gdt.qq.com, REJECT
+#v.gdt.qq.com, - reject
+# v.gdt.qq.com, REJECT
+#t.gdt.qq.com, - reject
+# t.gdt.qq.com, REJECT
+#c2.gdt.qq.com, - reject
 
 [Map Local]
 # 广告配置

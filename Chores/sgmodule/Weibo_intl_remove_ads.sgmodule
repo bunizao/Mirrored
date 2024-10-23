@@ -2,7 +2,8 @@
 #!desc=过滤轻享国际版广告及去除各部分推广模块
 #!author=Keywos[https://github.com/Keywos], kokoryh[https://github.com/kokoryh]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Weibo_intl.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1215210046
 #!tag=去广告
 #!loon_version=3.2.1(749)

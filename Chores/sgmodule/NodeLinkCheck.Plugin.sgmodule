@@ -2,7 +2,8 @@
 #!desc=查看目标节点的代理走向，点击下方链接查看使用方法。
 #!author=I-am-R-E[https://github.com/I-am-R-E]
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Stack.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://github.com/luestr/ProxyResource/blob/main/Resource/Markdown/NodeLinkCheck/README.md
 #!tag=节点检测
 #!loon_version=3.2.1(749)

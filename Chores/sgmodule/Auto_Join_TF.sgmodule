@@ -2,7 +2,8 @@
 #!desc=自动监控TestFlight名额，一旦有新的名额即刻加入。
 #!author=DecoAri[https://github.com/DecoAri], xream[https://github.com/xream]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/TestFlight.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id899247664
 #!tag=定时任务
 #!loon_version=3.2.1(749)

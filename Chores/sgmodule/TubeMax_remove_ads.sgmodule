@@ -2,7 +2,8 @@
 #!desc=过滤TubeMax广告
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/TubeMax.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1634335563
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,14 +11,14 @@
 #!date=2023-09-08 13:48:55
 
 [Rule]
-DOMAIN-SUFFIX,adjust.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,applvn.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,app-measurement.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,pangle.io,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,applovin.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,appier.net,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,adsmoloco.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,adcanvas.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,adjust.com,REJECT
+DOMAIN-SUFFIX,applvn.com,REJECT
+DOMAIN-SUFFIX,app-measurement.com,REJECT
+DOMAIN-SUFFIX,pangle.io,REJECT
+DOMAIN-SUFFIX,applovin.com,REJECT
+DOMAIN-SUFFIX,appier.net,REJECT
+DOMAIN-SUFFIX,adsmoloco.com,REJECT
+DOMAIN-SUFFIX,adcanvas.com,REJECT
 
 [URL Rewrite]
 ^https:\/\/.*\.i18n-pglstatp\.com\/obj\/ad-pattern-sg - reject

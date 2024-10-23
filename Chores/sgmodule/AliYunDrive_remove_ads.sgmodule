@@ -2,7 +2,8 @@
 #!desc=移除首页广告横幅、弹窗和顶部奖励。
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/AliYunDrive.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1494661473
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,7 +11,7 @@
 #!date=2024-07-15 22:28:47
 
 [Rule]
-IP-CIDR,203.107.1.1/24,REJECT,no-resolve,pre-matching
+IP-CIDR,203.107.1.1/24,REJECT,no-resolve
 
 [Map Local]
 # 首页活动日历

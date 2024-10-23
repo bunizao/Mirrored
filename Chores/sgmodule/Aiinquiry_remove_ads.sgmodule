@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、应用内弹窗、首页轮播图、悬浮部件、信息流和搜索填充词。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Aiinquiry.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1527039353
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,7 +11,7 @@
 #!date=2024-06-29 19:35:12
 
 [Rule]
-URL-REGEX,^http:\/\/180\.76\.76\.112\/v\d\/,REJECT,extended-matching
+URL-REGEX,^http:\/\/180\.76\.76\.112\/v\d\/,REJECT
 
 [URL Rewrite]
 ^https:\/\/aiqicha\.baidu\.com\/app\/commonstatusAjax - reject
@@ -45,6 +46,9 @@ URL-REGEX,^http:\/\/180\.76\.76\.112\/v\d\/,REJECT,extended-matching
 
 # 首页 - 搜索栏大家都在搜
 ^https:\/\/aiqicha\.baidu\.com\/apps\/searchRecommendAjax data-type=text data="{}" status-code=200
+
+# 未知的视频
+#^https:\/\/b2baifanfan\.baidu\.com\/crm\/web\/b2b\/im\/common\/getConfigByDeviceNum data-type=text data="{}" status-code=200
 
 [MITM]
 hostname = %APPEND% aiqicha.baidu.com

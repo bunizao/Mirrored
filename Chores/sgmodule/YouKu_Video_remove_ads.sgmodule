@@ -2,7 +2,8 @@
 #!desc=过滤优酷视频客户端广告，由于此插件不再维护，客户端版本高于11.0.48可能会导致此插件失效，请勿升级客户端。
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/YouKu_Video.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id336141475
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,29 +12,29 @@
 
 [Rule]
 # 放行地址
-DOMAIN,push.m.youku.com,DIRECT,extended-matching
-DOMAIN,un-acs.youku.com,DIRECT,extended-matching
-DOMAIN,dorangesource.alicdn.com,DIRECT,extended-matching
+DOMAIN,push.m.youku.com,DIRECT
+DOMAIN,un-acs.youku.com,DIRECT
+DOMAIN,dorangesource.alicdn.com,DIRECT
 # 拦截地址
-DOMAIN,acs4baichuan.m.taobao.com,REJECT,extended-matching,pre-matching
-DOMAIN,adsmind.ugdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,amdc.m.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,api.sm.cn,REJECT,extended-matching,pre-matching
-DOMAIN,apiv4-iyes.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,baichuan-sdk.alicdn.com,REJECT,extended-matching,pre-matching
-DOMAIN,cad.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,huichuan-mc.sm.cn,REJECT,extended-matching,pre-matching
-DOMAIN,huichuan.sm.cn,REJECT,extended-matching,pre-matching
-DOMAIN,iyes.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,m-vali.cp31.ott.cibntv.net,REJECT,extended-matching,pre-matching
-DOMAIN,mc.atm.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,nbsdk-baichuan.alicdn.com,REJECT,extended-matching,pre-matching
-DOMAIN,pre-acs.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,vali-g1.cp31.ott.cibntv.net,REJECT,extended-matching,pre-matching
-DOMAIN,vali-ugc.cp31.ott.cibntv.net,REJECT,extended-matching,pre-matching
-DOMAIN,yk-ssp.ad.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,ykad-data.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,youku-acs.m.taobao.com,REJECT,extended-matching,pre-matching
+DOMAIN,acs4baichuan.m.taobao.com,REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
+DOMAIN,amdc.m.youku.com,REJECT
+DOMAIN,api.sm.cn,REJECT
+DOMAIN,apiv4-iyes.youku.com,REJECT
+DOMAIN,baichuan-sdk.alicdn.com,REJECT
+DOMAIN,cad.youku.com,REJECT
+DOMAIN,huichuan-mc.sm.cn,REJECT
+DOMAIN,huichuan.sm.cn,REJECT
+DOMAIN,iyes.youku.com,REJECT
+DOMAIN,m-vali.cp31.ott.cibntv.net,REJECT
+DOMAIN,mc.atm.youku.com,REJECT
+DOMAIN,nbsdk-baichuan.alicdn.com,REJECT
+DOMAIN,pre-acs.youku.com,REJECT
+DOMAIN,vali-g1.cp31.ott.cibntv.net,REJECT
+DOMAIN,vali-ugc.cp31.ott.cibntv.net,REJECT
+DOMAIN,yk-ssp.ad.youku.com,REJECT
+DOMAIN,ykad-data.youku.com,REJECT
+DOMAIN,youku-acs.m.taobao.com,REJECT
 
 [Map Local]
 # 播放页弹窗动图

@@ -2,7 +2,8 @@
 #!desc=移除开屏广告，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/NetEaseGodlike.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1359055423
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,16 +12,16 @@
 
 [Rule]
 # 拦截HTTPDNS
-DOMAIN,httpdns.music.163.com,REJECT,extended-matching,pre-matching
-DOMAIN,httpdns.n.netease.com,REJECT,extended-matching,pre-matching
-DOMAIN,httpdns-sdk.n.netease.com,REJECT,extended-matching,pre-matching
-DOMAIN,httpdns.yunxindns.com,REJECT,extended-matching,pre-matching
-DOMAIN,lofter.httpdns.c.163.com,REJECT,extended-matching,pre-matching
-DOMAIN,music.httpdns.c.163.com,REJECT,extended-matching,pre-matching
-IP-CIDR,59.111.239.61/32,REJECT,no-resolve,pre-matching
-IP-CIDR,59.111.239.62/32,REJECT,no-resolve,pre-matching
-IP-CIDR,115.236.121.51/32,REJECT,no-resolve,pre-matching
-IP-CIDR,115.236.121.195/32,REJECT,no-resolve,pre-matching
+DOMAIN,httpdns.music.163.com,REJECT
+DOMAIN,httpdns.n.netease.com,REJECT
+DOMAIN,httpdns-sdk.n.netease.com,REJECT
+DOMAIN,httpdns.yunxindns.com,REJECT
+DOMAIN,lofter.httpdns.c.163.com,REJECT
+DOMAIN,music.httpdns.c.163.com,REJECT
+IP-CIDR,59.111.239.61/32,REJECT,no-resolve
+IP-CIDR,59.111.239.62/32,REJECT,no-resolve
+IP-CIDR,115.236.121.51/32,REJECT,no-resolve
+IP-CIDR,115.236.121.195/32,REJECT,no-resolve
 
 [URL Rewrite]
 # 广告下发
@@ -31,6 +32,8 @@ IP-CIDR,115.236.121.195/32,REJECT,no-resolve,pre-matching
 ^https:\/\/god\.gameyw\.netease\.com\/v\d\/app\/static\/conf\/getByModuleNameList$ data-type=text data="{}" status-code=200
 
 [Script]
+body_rewrite_29 = type=http-response, pattern=#^https:\/\/god-act\.gameyw\.netease\.com\/v1\/act\/pageConf\/commonAppConfig$, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.itemList%5B1%5D.itemList%5B4%5D.itemList%5B2%5D%22%5D%5D%5D
+
 body_rewrite_31 = type=http-response, pattern=^https:\/\/app-conf\.ds\.163\.com\/v\d\/app\/base\/conf\/static\/start-config\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.updateConfig%5B2%5D.itemList%5B94%5D.itemList%5B2%5D%22%5D%5D%5D
 
 [MITM]

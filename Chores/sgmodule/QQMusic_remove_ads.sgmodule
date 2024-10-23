@@ -2,7 +2,8 @@
 #!desc=过滤QQ音乐广告
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/QQMusic.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id414603431
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,23 +11,23 @@
 #!date=2024-10-19 17:18:31
 
 [Rule]
-DOMAIN,adstats.tencentmusic.com,REJECT,extended-matching,pre-matching
-DOMAIN,ad.tencentmusic.com,REJECT,extended-matching,pre-matching
-DOMAIN,adcdn.tencentmusic.com,REJECT,extended-matching,pre-matching
-DOMAIN,adcdn6.tencentmusic.com,REJECT,extended-matching,pre-matching
-DOMAIN,adexpo.tencentmusic.com,REJECT,extended-matching,pre-matching
-DOMAIN,adclick.tencentmusic.com,REJECT,extended-matching,pre-matching
-DOMAIN,otheve.beacon.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,monitor.music.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,stat.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmead.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmeadquic.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,oth.str.mdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,h.trace.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,sdk.e.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,p.l.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,us.l.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tangram.e.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmeadbak.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,imtmp.net,REJECT,extended-matching,pre-matching
+DOMAIN,adstats.tencentmusic.com,REJECT
+DOMAIN,ad.tencentmusic.com,REJECT
+DOMAIN,adcdn.tencentmusic.com,REJECT
+DOMAIN,adcdn6.tencentmusic.com,REJECT
+DOMAIN,adexpo.tencentmusic.com,REJECT
+DOMAIN,adclick.tencentmusic.com,REJECT
+DOMAIN,otheve.beacon.qq.com,REJECT
+DOMAIN,monitor.music.qq.com,REJECT
+DOMAIN,stat.y.qq.com,REJECT
+DOMAIN,tmead.y.qq.com,REJECT
+DOMAIN,tmeadquic.y.qq.com,REJECT
+DOMAIN,oth.str.mdt.qq.com,REJECT
+DOMAIN,h.trace.qq.com,REJECT
+DOMAIN,sdk.e.qq.com,REJECT
+DOMAIN,p.l.qq.com,REJECT
+DOMAIN,us.l.qq.com,REJECT
+DOMAIN,tangram.e.qq.com,REJECT
+DOMAIN,tmeadbak.y.qq.com,REJECT
+DOMAIN-SUFFIX,imtmp.net,REJECT
 

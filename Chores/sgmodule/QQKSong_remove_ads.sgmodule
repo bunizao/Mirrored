@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、歌房页面弹窗广告、消息页广告和我的页面广告。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/QQKSong.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id910513149
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,42 +11,42 @@
 #!date=2024-09-08 16:16:45
 
 [Rule]
-DOMAIN,adsmind.gdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,adsmind.ugdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,c2.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,huatuocode.huatuo.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,info4.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,info6.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,ios.bugly.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,ios.video.mpush.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,adsmind.gdtimg.com,REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
+DOMAIN,c2.gdt.qq.com,REJECT
+DOMAIN,huatuocode.huatuo.qq.com,REJECT
+DOMAIN,info4.video.qq.com,REJECT
+DOMAIN,info6.video.qq.com,REJECT
+DOMAIN,ios.bugly.qq.com,REJECT
+DOMAIN,ios.video.mpush.qq.com,REJECT
 # DOMAIN, mazu.m.qq.com, REJECT // 误杀
-DOMAIN,mi.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,otheve.beacon.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,pgdt.gtimg.cn,REJECT,extended-matching,pre-matching
-DOMAIN,pgdt.ugdtimg.com,REJECT,extended-matching,pre-matching
+DOMAIN,mi.gdt.qq.com,REJECT
+DOMAIN,otheve.beacon.qq.com,REJECT
+DOMAIN,pgdt.gtimg.cn,REJECT
+DOMAIN,pgdt.ugdtimg.com,REJECT
 # DOMAIN, qzonestyle.gtimg.cn, REJECT // 误杀
-DOMAIN,qzs.gdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,qzs.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,rmonitor.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,sdk.e.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,sdkconfig.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,t.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmead.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmeadbak.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmeadcomm.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tpns.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,v.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,v2.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,win.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,wup.imtt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tpstelemetry.tencent.com,REJECT,extended-matching,pre-matching
-DOMAIN-KEYWORD,trace.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-KEYWORD,trace.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,l.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,ugdtimg.com,REJECT,extended-matching,pre-matching
-IP-CIDR,47.110.187.87/32,REJECT,no-resolve,pre-matching
-URL-REGEX,^http:\/\/y\.gtimg\.cn\/music\/common\/upload\/t_k_main_page_banner\/,REJECT,extended-matching
+DOMAIN,qzs.gdtimg.com,REJECT
+DOMAIN,qzs.qq.com,REJECT
+DOMAIN,rmonitor.qq.com,REJECT
+DOMAIN,sdk.e.qq.com,REJECT
+DOMAIN,sdkconfig.video.qq.com,REJECT
+DOMAIN,t.gdt.qq.com,REJECT
+DOMAIN,tmead.y.qq.com,REJECT
+DOMAIN,tmeadbak.y.qq.com,REJECT
+DOMAIN,tmeadcomm.y.qq.com,REJECT
+DOMAIN,tpns.qq.com,REJECT
+DOMAIN,v.gdt.qq.com,REJECT
+DOMAIN,v2.gdt.qq.com,REJECT
+DOMAIN,win.gdt.qq.com,REJECT
+DOMAIN,wup.imtt.qq.com,REJECT
+DOMAIN,tpstelemetry.tencent.com,REJECT
+DOMAIN-KEYWORD,trace.qq.com,REJECT
+DOMAIN-KEYWORD,trace.video.qq.com,REJECT
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+DOMAIN-SUFFIX,l.qq.com,REJECT
+DOMAIN-SUFFIX,ugdtimg.com,REJECT
+IP-CIDR,47.110.187.87/32,REJECT,no-resolve
+URL-REGEX,^http:\/\/y\.gtimg\.cn\/music\/common\/upload\/t_k_main_page_banner\/,REJECT
 
 [Map Local]
 ^https:\/\/wallpaper-\d+\.file\.myqcloud\.com\/dsl\/ data-type=text data="{}" status-code=200

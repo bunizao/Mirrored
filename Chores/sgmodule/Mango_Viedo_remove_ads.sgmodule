@@ -2,7 +2,8 @@
 #!desc=过滤芒果TV客户端广告
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Mango_TV.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id629774477
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,27 +11,27 @@
 #!date=2024-07-23 17:17:38
 
 [Rule]
-DOMAIN,credits.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,credits2.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,credits3.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,dflow.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,encounter.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,floor.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,layer.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,mob.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,rc-topic-api.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,rprain.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,rprain.log.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN,vip.bz.mgtv.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,da.mgtv.com,REJECT,extended-matching,pre-matching
+DOMAIN,credits.bz.mgtv.com,REJECT
+DOMAIN,credits2.bz.mgtv.com,REJECT
+DOMAIN,credits3.bz.mgtv.com,REJECT
+DOMAIN,dflow.bz.mgtv.com,REJECT
+DOMAIN,encounter.bz.mgtv.com,REJECT
+DOMAIN,floor.bz.mgtv.com,REJECT
+DOMAIN,layer.bz.mgtv.com,REJECT
+DOMAIN,mob.bz.mgtv.com,REJECT
+DOMAIN,rc-topic-api.bz.mgtv.com,REJECT
+DOMAIN,rprain.bz.mgtv.com,REJECT
+DOMAIN,rprain.log.mgtv.com,REJECT
+DOMAIN,vip.bz.mgtv.com,REJECT
+DOMAIN-SUFFIX,da.mgtv.com,REJECT
 # 无用请求
-URL-REGEX,^http:\/\/[\d\.]+:\d{5}\/\?cmd=indexes,REJECT,extended-matching
+URL-REGEX,^http:\/\/[\d\.]+:\d{5}\/\?cmd=indexes,REJECT
 # 首页左上角推广
-URL-REGEX,^http:\/\/[\d\.]+\/odin\/c1\/(channel\/ads|skin\/config)\?,REJECT-TINYGIF,extended-matching
+URL-REGEX,^http:\/\/[\d\.]+\/odin\/c1\/(channel\/ads|skin\/config)\?,REJECT-TINYGIF
 # 播放详情页
-URL-REGEX,^http:\/\/mobile-thor\.api\.mgtv\.com\/v1\/vod\/cms\/list\?,REJECT-TINYGIF,extended-matching
+URL-REGEX,^http:\/\/mobile-thor\.api\.mgtv\.com\/v1\/vod\/cms\/list\?,REJECT-TINYGIF
 # 搜索框填充词
-URL-REGEX,^http:\/\/mobileso\.bz\.mgtv\.com\/spotlight\/search\/v1\?,REJECT-TINYGIF,extended-matching
+URL-REGEX,^http:\/\/mobileso\.bz\.mgtv\.com\/spotlight\/search\/v1\?,REJECT-TINYGIF
 
 [Map Local]
 # 底部tab红点

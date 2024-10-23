@@ -2,7 +2,8 @@
 #!desc=收录常用小程序的去广告，作者署名在插件内。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/WeixinMiniPrograms.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id414478124
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,15 +12,15 @@
 
 [Rule]
 # 微信小程序通用规则
-DOMAIN,wxsnsdy.wxs.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,wxsmsdy.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,wxsnsdythumb.wxs.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,wxsnsdy.wxs.qq.com,REJECT
+DOMAIN,wxsmsdy.video.qq.com,REJECT
+DOMAIN,wxsnsdythumb.wxs.qq.com,REJECT
 # 收钱吧广告
-DOMAIN,ads-shopping.shouqianba.com,REJECT,extended-matching,pre-matching
+DOMAIN,ads-shopping.shouqianba.com,REJECT
 # 猫眼电影
-DOMAIN,ad.maoyan.com,REJECT,extended-matching,pre-matching
+DOMAIN,ad.maoyan.com,REJECT
 # 捷停车 @怎么肥事
-DOMAIN,e.jparking.cn,REJECT,extended-matching,pre-matching
+DOMAIN,e.jparking.cn,REJECT
 
 [URL Rewrite]
 ^https:\/\/webapi\.qmai\.cn\/web\/cmk-center\/marketing\/canvas\/advert-reach - reject
@@ -86,6 +87,18 @@ DOMAIN,e.jparking.cn,REJECT,extended-matching,pre-matching
 
 # 必胜客 res.pizzahut.com.cn
 ^https:\/\/res\.pizzahut\.com\.cn\/CRM data-type=text data="{}" status-code=200
+
+# 肯德基 orders.kfc.com.cn, dynamicad.kfc.com.cn, res.kfc.com.cn
+#^https:\/\/orders\.kfc\.com\.cn\/preorder-portal\/api\/v2\/coupon data-type=text data="{}" status-code=200
+
+# ^https:\/\/orders\.kfc\.com\.cn\/preorder-portal\/api\/v2\/coupon reject-dict
+#^https:\/\/dynamicad\.kfc\.com\.cn\/api data-type=text data="{}" status-code=200
+
+# ^https:\/\/dynamicad\.kfc\.com\.cn\/api reject-dict
+#^https:\/\/res\.kfc\.com\.cn\/CRM\/kfcad\/custom_v2\/wxapp data-type=text data="{}" status-code=200
+
+# ^https:\/\/res\.kfc\.com\.cn\/CRM\/kfcad\/custom_v2\/wxapp reject-dict
+#^https:\/\/orders\.kfc\.com\.cn\/preorder-portal\/api\/v2\/activity data-type=text data="{}" status-code=200
 
 # 麦当劳 api.mcd.cn
 ^https:\/\/api\.mcd\.cn\/bff\/portal\/home\/hotActivity data-type=text data="{}" status-code=200
@@ -173,6 +186,12 @@ DOMAIN,e.jparking.cn,REJECT,extended-matching,pre-matching
 # 松果出行 @Keywos api.songguo7.com
 ^https:\/\/api\.songguo7\.com\/(\w{3})?mp\/v2\/misc\/(toast|user_operate_info|unlock_without_order|unlock_operate_info) data-type=text data="{}" status-code=200
 
+# 花小猪打车 api.hongyibo.com.cn, res.hongyibo.com.cn
+#^https:\/\/api\.hongyibo\.com\.cn data-type=text data="{}" status-code=200
+
+# ^https:\/\/api\.hongyibo\.com\.cn reject-dict
+#^https:\/\/res\.hongyibo\.com\.cn\/os\/gs\/resapi\/activity data-type=text data="{}" status-code=200
+
 # 奈雪 tm-api.pin-dao.cn
 ^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/index\/activeConfig\/v2 data-type=text data="{}" status-code=200
 
@@ -216,6 +235,9 @@ DOMAIN,e.jparking.cn,REJECT,extended-matching,pre-matching
 
 # 一点点 cappapi.alittle-tea.com, alittle-tea.oss-cn-shanghai.aliyuncs.com
 ^https:\/\/alittle-tea\.oss-cn-shanghai\.aliyuncs\.com\/images\/platform\/alittle data-type=text data="{}" status-code=200
+
+# Manner triangle.wearemanner.com
+#^https:\/\/triangle\.wearemanner\.com\/mp-api\/v1\/ads data-type=text data="{}" status-code=200
 
 # M Stand api.prod.dj.mstand.cn, api.prod.dj.mstand.cn
 ^https:\/\/api\.prod\.dj\.mstand\.cn\/scrm\/app\/mdm\/index\/listAdv\?types data-type=text data="{}" status-code=200

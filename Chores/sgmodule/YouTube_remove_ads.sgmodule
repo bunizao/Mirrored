@@ -2,7 +2,8 @@
 #!desc=移除YouTube视频、瀑布流、搜索和Shorts中的广告，移除底部的上传按钮，增加画中画及字幕翻译功能。移除YouTube Music底部的上传、选段和升级按钮，增加歌词翻译，支持二者的后台播放。此插件需要Loon版本为3.1.7(677)及以上，且需要启用QUIC回退保护。支持Premium订阅用户使用，不支持tvOS设备。
 #!author=Maasea[https://github.com/Maasea], VirgilClyne[https://github.com/VirgilClyne], Choler[https://github.com/Choler], DivineEngine[https://github.com/DivineEngine], app2smile[https://github.com/app2smile]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/YouTube.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id544007664
 #!tag=去广告
 #!system_version=15
@@ -11,8 +12,8 @@
 #!date=2024-06-11 21:59:22
 
 [Rule]
-AND, ((DOMAIN-SUFFIX, googlevideo.com,extended-matching),  (PROTOCOL, QUIC)), REJECT
-AND, ((DOMAIN-SUFFIX, youtubei.googleapis.com,extended-matching),  (PROTOCOL, QUIC)), REJECT
+AND, ((DOMAIN-SUFFIX, googlevideo.com),  (PROTOCOL, QUIC)), REJECT
+AND, ((DOMAIN-SUFFIX, youtubei.googleapis.com),  (PROTOCOL, QUIC)), REJECT
 
 [Map Local]
 # 使用reject-dict方法以减少开销

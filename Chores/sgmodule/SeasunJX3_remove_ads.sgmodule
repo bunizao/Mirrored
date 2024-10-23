@@ -2,7 +2,8 @@
 #!desc=移除热门推送活动，并解决无法在Loon运行时更新和登录的问题。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/SeasunJX3.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1002355194
 #!tag=去广告
 #!loon_version=3.2.1(749)

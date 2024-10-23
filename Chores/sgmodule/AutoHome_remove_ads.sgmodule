@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、各类广告横幅、各类信息流广告、各类弹窗推广、各类浮窗、我的页面广告。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/AutoHome.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id385919493
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,10 +12,10 @@
 
 [Rule]
 # 拦截HTTPDNS
-IP-CIDR,119.29.29.98/32,REJECT,no-resolve,pre-matching
-IP-CIDR,119.29.29.99/32,REJECT,no-resolve,pre-matching
-URL-REGEX,^http:\/\/182\.254\.116\.116\/d,REJECT,extended-matching
-DOMAIN,adproxy.autohome.com.cn,REJECT,extended-matching,pre-matching
+IP-CIDR,119.29.29.98/32,REJECT,no-resolve
+IP-CIDR,119.29.29.99/32,REJECT,no-resolve
+URL-REGEX,^http:\/\/182\.254\.116\.116\/d,REJECT
+DOMAIN,adproxy.autohome.com.cn,REJECT
 
 [Map Local]
 # 我的页面 - 广告横幅
@@ -71,6 +72,9 @@ DOMAIN,adproxy.autohome.com.cn,REJECT,extended-matching,pre-matching
 
 # 选车 - 新能源报价页面直播内容
 ^https:\/\/a\.athm\.cn\/clientlive\.api\.autohome\.com\.cn\/api\/live\/getserieswindowsinfo data-type=text data="{}" status-code=200
+
+# 选车 - 买车 - 竖版焦点图广告
+#^https:\/\/dealer\.m\.autohome\.com\.cn\/handler\/other\/getdata\?__action=dealerlq\.getpics&picType=195 data-type=text data="{}" status-code=200
 
 [Script]
 # 首页 - 左上角以旧换新

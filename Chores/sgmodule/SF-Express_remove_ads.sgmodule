@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、首页下拉抽屉、首页推广、应用内悬浮窗、横幅广告，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/SF-Express.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id899529698
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,58 +12,58 @@
 
 [Rule]
 # 腾讯
-DOMAIN,adsmind.gdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,adsmind.ugdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,c2.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,huatuocode.huatuo.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,info4.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,info6.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,ios.bugly.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,ios.video.mpush.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,adsmind.gdtimg.com,REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
+DOMAIN,c2.gdt.qq.com,REJECT
+DOMAIN,huatuocode.huatuo.qq.com,REJECT
+DOMAIN,info4.video.qq.com,REJECT
+DOMAIN,info6.video.qq.com,REJECT
+DOMAIN,ios.bugly.qq.com,REJECT
+DOMAIN,ios.video.mpush.qq.com,REJECT
 # DOMAIN, mazu.m.qq.com, REJECT // 误杀
-DOMAIN,mi.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,otheve.beacon.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,pgdt.gtimg.cn,REJECT,extended-matching,pre-matching
-DOMAIN,pgdt.ugdtimg.com,REJECT,extended-matching,pre-matching
+DOMAIN,mi.gdt.qq.com,REJECT
+DOMAIN,otheve.beacon.qq.com,REJECT
+DOMAIN,pgdt.gtimg.cn,REJECT
+DOMAIN,pgdt.ugdtimg.com,REJECT
 # DOMAIN, qzonestyle.gtimg.cn, REJECT // 误杀
-DOMAIN,qzs.gdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,qzs.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,rmonitor.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,sdk.e.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,sdkconfig.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,t.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmead.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmeadbak.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tmeadcomm.y.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tpns.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,v.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,v2.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,win.gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,wup.imtt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,tpstelemetry.tencent.com,REJECT,extended-matching,pre-matching
-DOMAIN-KEYWORD,trace.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-KEYWORD,trace.video.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,gdt.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,l.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,ugdtimg.com,REJECT,extended-matching,pre-matching
-IP-CIDR,47.110.187.87/32,REJECT,no-resolve,pre-matching
+DOMAIN,qzs.gdtimg.com,REJECT
+DOMAIN,qzs.qq.com,REJECT
+DOMAIN,rmonitor.qq.com,REJECT
+DOMAIN,sdk.e.qq.com,REJECT
+DOMAIN,sdkconfig.video.qq.com,REJECT
+DOMAIN,t.gdt.qq.com,REJECT
+DOMAIN,tmead.y.qq.com,REJECT
+DOMAIN,tmeadbak.y.qq.com,REJECT
+DOMAIN,tmeadcomm.y.qq.com,REJECT
+DOMAIN,tpns.qq.com,REJECT
+DOMAIN,v.gdt.qq.com,REJECT
+DOMAIN,v2.gdt.qq.com,REJECT
+DOMAIN,win.gdt.qq.com,REJECT
+DOMAIN,wup.imtt.qq.com,REJECT
+DOMAIN,tpstelemetry.tencent.com,REJECT
+DOMAIN-KEYWORD,trace.qq.com,REJECT
+DOMAIN-KEYWORD,trace.video.qq.com,REJECT
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+DOMAIN-SUFFIX,l.qq.com,REJECT
+DOMAIN-SUFFIX,ugdtimg.com,REJECT
+IP-CIDR,47.110.187.87/32,REJECT,no-resolve
 # 极光 - 广告服务商
-DOMAIN,ali-stats.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,ce3e75d5.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,config-junion.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,config.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,fcapi-ipv6.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,gd-stats.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,s.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,sdk.verification.jiguang.cn,REJECT,extended-matching,pre-matching
-DOMAIN,sis-ipv6.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,smartop-sdkapi.jiguang.cn,REJECT,extended-matching,pre-matching
-DOMAIN,status-ipv6.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,tsis.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN,user.jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,jiguang.cn,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,jpush.cn,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,jpush.io,REJECT,extended-matching,pre-matching
+DOMAIN,ali-stats.jpush.cn,REJECT
+DOMAIN,ce3e75d5.jpush.cn,REJECT
+DOMAIN,config-junion.jpush.cn,REJECT
+DOMAIN,config.jpush.cn,REJECT
+DOMAIN,fcapi-ipv6.jpush.cn,REJECT
+DOMAIN,gd-stats.jpush.cn,REJECT
+DOMAIN,s.jpush.cn,REJECT
+DOMAIN,sdk.verification.jiguang.cn,REJECT
+DOMAIN,sis-ipv6.jpush.cn,REJECT
+DOMAIN,smartop-sdkapi.jiguang.cn,REJECT
+DOMAIN,status-ipv6.jpush.cn,REJECT
+DOMAIN,tsis.jpush.cn,REJECT
+DOMAIN,user.jpush.cn,REJECT
+DOMAIN-SUFFIX,jiguang.cn,REJECT
+DOMAIN-SUFFIX,jpush.cn,REJECT
+DOMAIN-SUFFIX,jpush.io,REJECT
 
 [Map Local]
 # 广告下发

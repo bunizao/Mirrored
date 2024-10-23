@@ -2,7 +2,8 @@
 #!desc=JavaScript数据管理器，用于管理脚本储存的数据。使用前请在本插件的详情页面为[PROXY]项分配代理策略。
 #!author=chavyleung[https://github.com/chavyleung]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/BoxJS.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=http://boxjs.com
 #!tag=数据管理
 #!loon_version=3.2.1(749)

@@ -2,7 +2,8 @@
 #!desc=移除大部分七猫小说广告，但受限于七猫小说自身对MitM和VPN状态的检测，部分页面广告无法移除。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/SevenCat.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1387717110
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,13 +11,17 @@
 #!date=2024-09-29 12:44:08
 
 [Rule]
-DOMAIN,cdn-ad.wtzw.com,REJECT,extended-matching,pre-matching
-DOMAIN,cdn-new-ad.wtzw.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,gdt.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,cdn-ad.wtzw.com,REJECT
+DOMAIN,cdn-new-ad.wtzw.com,REJECT
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
 
 [URL Rewrite]
+# 福利中心
+#^https:\/\/xiaoshuo\.wtzw\.com\/app-h5\/freebook\/welfare-center - reject
 # 头条广告SDK
 ^https:\/\/sf3-fe-tos\.pglstatp-toutiao\.com\/obj\/ad-pattern\/ - reject
+# 底栏提现红点
+#^https:\/\/xiaoshuo\.wtzw\.com\/api\/v\d\/user\/red-point - reject
 # 其他广告
 ^https:\/\/api-cfg\.wtzw\.com\/v\d\/reward\/ - reject
 ^https:\/\/api-cfg\.wtzw\.com\/v\d\/adv\/ - reject
@@ -27,6 +32,8 @@ DOMAIN-SUFFIX,gdt.qq.com,REJECT,extended-matching,pre-matching
 
 # 腾格尔打卡喵喵歌
 ^https:\/\/api-bc\.wtzw\.com\/api\/v4\/search\/dispose data-type=text data="{}" status-code=200
+
+#^https:\/\/xiaoshuo\.wtzw\.com\/api\/v2\/init\/other-data data-type=text data="{}" status-code=200
 
 # 必读榜弹窗
 ^https:\/\/api-bc\.wtzw\.com\/api\/v\d\/book-store\/config data-type=text data="{}" status-code=200

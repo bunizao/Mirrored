@@ -2,7 +2,8 @@
 #!desc=过滤菜鸟广告
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Cainiao.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id951610982
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,20 +11,21 @@
 #!date=2024-09-27 11:50:35
 
 [Rule]
-AND, ((URL-REGEX, ^http:\/\/amdc\.m\.taobao\.com\/amdc\/mobileDispatch,extended-matching), (USER-AGENT, Cainiao4iPhone*)), REJECT
-DOMAIN,adsmind.ugdtimg.com,REJECT,extended-matching,pre-matching
-DOMAIN,amdc.m.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,apiv4-iyes.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,httpdns.alicdn.com,REJECT,extended-matching,pre-matching
-DOMAIN,huichuan-mc.sm.cn,REJECT,extended-matching,pre-matching
-DOMAIN,huichuan.sm.cn,REJECT,extended-matching,pre-matching
-DOMAIN,iyes.youku.com,REJECT,extended-matching,pre-matching
+AND, ((URL-REGEX, ^http:\/\/amdc\.m\.taobao\.com\/amdc\/mobileDispatch), (USER-AGENT, Cainiao4iPhone*)), REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
+DOMAIN,amdc.m.youku.com,REJECT
+DOMAIN,apiv4-iyes.youku.com,REJECT
+DOMAIN,httpdns.alicdn.com,REJECT
+DOMAIN,huichuan-mc.sm.cn,REJECT
+DOMAIN,huichuan.sm.cn,REJECT
+DOMAIN,iyes.youku.com,REJECT
+#DOMAIN,m-vali.cp31.ott.cibntv.net,REJECT
 # DOMAIN, m-vali.cp31.ott.cibntv.net, REJECT
-DOMAIN,mc.atm.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,vali-g1.cp31.ott.cibntv.net,REJECT,extended-matching,pre-matching
-DOMAIN,vali-ugc.cp31.ott.cibntv.net,REJECT,extended-matching,pre-matching
-DOMAIN,yk-ssp.ad.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,ykad-data.youku.com,REJECT,extended-matching,pre-matching
+DOMAIN,mc.atm.youku.com,REJECT
+DOMAIN,vali-g1.cp31.ott.cibntv.net,REJECT
+DOMAIN,vali-ugc.cp31.ott.cibntv.net,REJECT
+DOMAIN,yk-ssp.ad.youku.com,REJECT
+DOMAIN,ykad-data.youku.com,REJECT
 
 [Map Local]
 # 底栏 - 发现标签的角标

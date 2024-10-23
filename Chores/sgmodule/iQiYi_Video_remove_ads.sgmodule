@@ -2,7 +2,8 @@
 #!desc=过滤爱奇艺客户端广告，由于此插件不再维护，客户端版本高于14.11.6可能会导致此插件失效，请勿升级客户端。
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/iQiYi_Video.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1190755526
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,9 +12,9 @@
 
 [Rule]
 # 放行地址
-DOMAIN-SUFFIX,cupid.iqiyi.com,DIRECT,extended-matching
+DOMAIN-SUFFIX,cupid.iqiyi.com,DIRECT
 # 拦截地址
-DOMAIN,api.iqiyi.com,REJECT,extended-matching,pre-matching
+DOMAIN,api.iqiyi.com,REJECT
 
 [Map Local]
 # 播放页开通会员提示

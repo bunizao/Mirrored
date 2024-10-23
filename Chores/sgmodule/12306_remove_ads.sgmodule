@@ -2,7 +2,8 @@
 #!desc=过滤12306应用内广告及开屏广告
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/12306.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id564818797
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,7 +12,7 @@
 
 [Rule]
 # 放行规则
-DOMAIN,ad.12306.cn,DIRECT,extended-matching
+DOMAIN,ad.12306.cn,DIRECT
 
 [Script]
 # 移除12306开屏广告

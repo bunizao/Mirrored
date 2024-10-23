@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、应用内悬浮窗、各类横幅广告、你可能喜欢、小说推荐、首页弹窗，精简首页标签、底栏活动按钮和我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BiliComic.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id1426252715
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,8 +12,8 @@
 
 [Rule]
 # 拦截HTTPDNS
-URL-REGEX,^http:\/\/203\.107\.1\.33\/191607\/resolve\?,REJECT,extended-matching
-URL-REGEX,^http:\/\/119\.29\.29\.29\/d,REJECT,extended-matching
+URL-REGEX,^http:\/\/203\.107\.1\.33\/191607\/resolve\?,REJECT
+URL-REGEX,^http:\/\/119\.29\.29\.29\/d,REJECT
 
 [Map Local]
 # 底栏 - 活动按钮

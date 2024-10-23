@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、置顶新闻、热搜列表和搜索栏填充词。
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/NeteaseNews.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id425349261
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,8 +12,8 @@
 
 [Rule]
 # 放行规则
-DOMAIN,nex.163.com,DIRECT,extended-matching
-DOMAIN,gw.m.163.com,DIRECT,extended-matching
+DOMAIN,nex.163.com,DIRECT
+DOMAIN,gw.m.163.com,DIRECT
 
 [URL Rewrite]
 ^https?:\/\/interface\.music\.163\.com\/eapi\/ad - reject

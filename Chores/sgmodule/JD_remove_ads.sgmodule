@@ -2,7 +2,8 @@
 #!desc=移除京东开屏广告，精简我的页面产品推广。
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/JD.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id414245413
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,10 +11,10 @@
 #!date=2024-04-21 15:41:21
 
 [Rule]
-DOMAIN,dns.jd.com,REJECT,extended-matching,pre-matching
-URL-REGEX,^http:\/\/\w{32}\.jddebug\.com\/diagnose\?,REJECT,extended-matching
-IP-CIDR,101.124.19.122/32,REJECT,no-resolve,pre-matching
-IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve,pre-matching
+DOMAIN,dns.jd.com,REJECT
+URL-REGEX,^http:\/\/\w{32}\.jddebug\.com\/diagnose\?,REJECT
+IP-CIDR,101.124.19.122/32,REJECT,no-resolve
+IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
 
 [Map Local]
 ^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(searchBoxWord|stationPullService|uniformRecommend[06]) data-type=text data="{}" status-code=200

@@ -2,7 +2,8 @@
 #!desc=过滤淘宝开屏广告
 #!author=RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Taobao.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id387682726
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,12 +11,12 @@
 #!date=2024-01-25 18:00:54
 
 [Rule]
-DOMAIN,adashx.m.taobao.com,REJECT,extended-matching,pre-matching
-DOMAIN,ossgw.alicdn.com,REJECT,extended-matching,pre-matching
-DOMAIN,ems.youku.com,REJECT,extended-matching,pre-matching
-DOMAIN,hudong.alicdn.com,REJECT,extended-matching,pre-matching
-DOMAIN,h-adashx.ut.taobao.com,REJECT,extended-matching,pre-matching
-DOMAIN,ut.taobao.com,REJECT,extended-matching,pre-matching
+DOMAIN,adashx.m.taobao.com,REJECT
+DOMAIN,ossgw.alicdn.com,REJECT
+DOMAIN,ems.youku.com,REJECT
+DOMAIN,hudong.alicdn.com,REJECT
+DOMAIN,h-adashx.ut.taobao.com,REJECT
+DOMAIN,ut.taobao.com,REJECT
 
 [Map Local]
 # 阿里巴巴 //acs.m.taobao.com, heic.alicdn.com, guide-acs.m.taobao.com, poplayer.template.alibaba.com

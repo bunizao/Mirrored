@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、出行页面推广、周边页面推广、打车页面推广，精简我的页面。
 #!author=可莉🅥[https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BaiduMap.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id452186370
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -11,12 +12,14 @@
 
 [Rule]
 # 拦截HTTPDNS
-DOMAIN,httpdns.baidubce.com,REJECT,extended-matching,pre-matching
-IP-CIDR,186.76.76.200/32,REJECT,no-resolve,pre-matching
+DOMAIN,httpdns.baidubce.com,REJECT
+IP-CIDR,186.76.76.200/32,REJECT,no-resolve
 
 [Map Local]
 # 开屏广告
 ^https:\/\/afd\.baidu\.com\/afd\/entry\?action=(update|query) data-type=text data="{}" status-code=200
+
+#^https:\/\/newclient\.map\.baidu\.com\/client\/imap\/dl\/s\/UpdateInfo\.php\? data-type=text data="{}" status-code=200
 
 # 打车 - 弹窗
 ^https:\/\/yongche\.baidu\.com\/gomarketing\/api\/popup\/getentrancecordovaurl$ data-type=text data="{}" status-code=200

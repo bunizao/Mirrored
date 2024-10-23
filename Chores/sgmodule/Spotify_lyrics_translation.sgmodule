@@ -2,7 +2,8 @@
 #!desc=将Spotify的外语歌词翻译为简体中文，并提供双语翻译支持。
 #!author=VirgilClyne[https://github.com/VirgilClyne]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Spotify.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id324684580
 #!tag=功能增强
 #!loon_version=3.2.1(749)

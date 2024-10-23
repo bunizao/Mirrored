@@ -2,7 +2,8 @@
 #!desc=移除开屏广告、首页顶部广告、好价信息顶部广告、信息页广告、红包弹窗、精简我的页面。
 #!author=ZenmoFeiShi[https://github.com/ZenmoFeiShi]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/smzdm.png
-#!category=ð« AD Block
+#!category=🚫 AD Block
+
 #!openUrl=https://apps.apple.com/app/id518213356
 #!tag=去广告
 #!loon_version=3.2.1(749)
@@ -10,16 +11,16 @@
 #!date=2024-09-08 20:59:02
 
 [Rule]
-DOMAIN,aaid.uyunad.com,REJECT,extended-matching,pre-matching
-DOMAIN,acs4baichuan.m.taobao.com,REJECT,extended-matching,pre-matching
-DOMAIN,adashxgc.ut.taobao.com,REJECT,extended-matching,pre-matching
-DOMAIN,analytics-api.smzdm.com,REJECT,extended-matching,pre-matching
-DOMAIN,baichuan-sdk.alicdn.com,REJECT,extended-matching,pre-matching
-DOMAIN,dgstatic.jd.com,REJECT,extended-matching,pre-matching
-DOMAIN,msg.umengcloud.com,REJECT,extended-matching,pre-matching
-DOMAIN,sec.umeng.com,REJECT,extended-matching,pre-matching
-DOMAIN,ulogs.umeng.com,REJECT,extended-matching,pre-matching
-DOMAIN,ynuf.aliapp.org,REJECT,extended-matching,pre-matching
+DOMAIN,aaid.uyunad.com,REJECT
+DOMAIN,acs4baichuan.m.taobao.com,REJECT
+DOMAIN,adashxgc.ut.taobao.com,REJECT
+DOMAIN,analytics-api.smzdm.com,REJECT
+DOMAIN,baichuan-sdk.alicdn.com,REJECT
+DOMAIN,dgstatic.jd.com,REJECT
+DOMAIN,msg.umengcloud.com,REJECT
+DOMAIN,sec.umeng.com,REJECT
+DOMAIN,ulogs.umeng.com,REJECT
+DOMAIN,ynuf.aliapp.org,REJECT
 
 [Map Local]
 ^https:\/\/haojia\.m\.smzdm\.com\/detail_modul\/(other_modul|wiki_related_modul)|^https:\/\/s3\.zdmimg\.com\/third\/index|^https:\/\/app-api\.smzdm\.com\/util\/loading data-type=text data="{}" status-code=200
