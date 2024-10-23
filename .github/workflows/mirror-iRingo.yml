@@ -174,8 +174,8 @@ jobs:
           MODIFICATIONS_MADE: ${{ env.MODIFICATIONS_MADE }}
         run: |
           set +e  # Disable exit on error
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
           DATE="$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
 
