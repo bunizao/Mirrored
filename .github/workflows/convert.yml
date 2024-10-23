@@ -1,0 +1,53 @@
+name: Extract plugin URLs and download sgmodule files
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: xream/script-hub:latest
+        ports:
+          - 9100:9100
+          - 9101:9101
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl jq netcat
+
+      - name: Wait for Docker service to be ready
+        run: |
+          echo "Waiting for Docker service to be ready..."
+          for i in {1..10}; do
+            nc -z localhost 9101 && break
+            sleep 5
+          done
+
+      - name: Download README.md
+        run: |
+          curl -s -o README.md https://raw.githubusercontent.com/luestr/ProxyResource/refs/heads/main/README.md
+
+      - name: Extract .plugin URLs
+        run: |
+          grep -oP 'https?://[^ )"]+\?plugin=[^ )"]+' README.md > plugin_urls_raw.txt
+          grep -oP '(?<=\?plugin=)[^ )"]+' plugin_urls_raw.txt > plugin_urls.txt
+
+      - name: Process and download sgmodule files
+        run: |
+          mkdir -p Chores/sgmodule
+          while read -r plugin_url; do
+            plugin_name=$(basename "$plugin_url" .plugin)
+            encoded_plugin_name=$(echo "$plugin_name" | jq -sRr @uri)
+            download_url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${encoded_plugin_name}.sgmodule?type=loon-plugin&target=surge-module&sni=%20%2C%20&del=true&pm=REJECT&category=🚫%20AD%20Block"
+            echo "Downloading from $download_url"
+            curl -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url"
+          done < plugin_urls.txt
