@@ -37,14 +37,14 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install Handlebars CLI
+      - name: Install Node.js dependencies
         run: |
-          npm install -g handlebars
+          npm install
 
-      - name: Generate All-in-One-2.x.sgmodule using Handlebars
+      - name: Generate All-in-One-2.x.sgmodule using Node.js script
         run: |
-          handlebars Chores/engineering/templetes/All-in-One-2.x.sgmodule.hbs -f Chores/sgmodule/All-in-One-2.x.sgmodule -d Chores/engineering/data/sgmodules_data.json
-
+          node render_template.js
+  
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 将 GITHUB_TOKEN 传递给 Git 命令
