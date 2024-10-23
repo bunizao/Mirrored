@@ -43,7 +43,7 @@ jobs:
 
       - name: Generate All-in-One-2.x.sgmodule using Handlebars
         run: |
-          handlebars templates/All-in-One-2.x.sgmodule.hbs -f Chores/sgmodule/All-in-One-2.x.sgmodule -d Chores/engineering/data/sgmodules_data.json
+          handlebars Chores/engineering/templetes/All-in-One-2.x.sgmodule.hbs -f Chores/sgmodule/All-in-One-2.x.sgmodule -d Chores/engineering/data/sgmodules_data.json
 
       - name: Commit and push changes
         env:
