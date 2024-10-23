@@ -16,7 +16,7 @@ jobs:
     - name: Extract .plugin URL
       id: extract_url
       run: |
-        USER_AGENT="Mozilla/5.0 (compatible; GitHub Actions)"
+        USER_AGENT="script-hub/1.0.0"
         echo "Downloading README.md from the remote repository..."
         curl -s -o README.md https://raw.githubusercontent.com/luestr/ProxyResource/refs/heads/main/README.md
 
