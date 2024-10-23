@@ -1,3 +1,14 @@
-"dependencies": {
-  "handlebars": "^4.7.7"
+{
+  "name": "Mirrored",
+  "version": "1.0.0",
+  "description": "Mirrored",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 1"
+  },
+  "author": "Mirrored",
+  "license": "MIT",
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
 }
