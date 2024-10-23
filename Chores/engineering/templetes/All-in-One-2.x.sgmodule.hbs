@@ -8,7 +8,11 @@
 # 高德地图需要卸载重装 & 重启手机 才会生效
 # 请关注频道 @hututu00 获取更多资源 🤪
 
-{{!-- 合并的部分 --}}
+[Rule]
+# 十分重要
+RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT
+RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject-Drop.list,REJECT-DROP
+
 {{#each mergedSections}}
 {{#if this.length}}
 [{{@key}}]
