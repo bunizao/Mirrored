@@ -1,0 +1,59 @@
+name: Merge sgmodule files with merged sections
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'Chores/sgmodule/All-in-One-2.x.sgmodule'
+  schedule:
+    - cron: '0 0 * * *'  # 每天运行一次
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run extract.py
+        run: |
+          python Chores/engineering/extract.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install Handlebars CLI
+        run: |
+          npm install -g handlebars
+
+      - name: Generate All-in-One-2.x.sgmodule using Handlebars
+        run: |
+          handlebars templates/All-in-One-2.x.sgmodule.hbs -f Chores/sgmodule/All-in-One-2.x.sgmodule -d Chores/engineering/data/sgmodules_data.json
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Chores/sgmodule/AD_ByeBye_2.x.sgmodule
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-merge sgmodule files with merged sections"
+            git push
