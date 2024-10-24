@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
+
+// 引入并注册所有 helpers
 const helpers = require('handlebars-helpers')({
   handlebars: Handlebars
 });
