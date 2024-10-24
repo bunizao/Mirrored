@@ -2,10 +2,18 @@ const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
 
-// 引入并注册所有 helpers
+// 手动注册 'ne' helper
+Handlebars.registerHelper('ne', function(v1, v2, options) {
+  return v1 !== v2 ? options.fn(this) : options.inverse(this);
+});
+
+// 引入并注册所有 helpers（可选）
 const helpers = require('handlebars-helpers')({
   handlebars: Handlebars
 });
+
+// 打印已注册的 helpers
+console.log('Registered helpers:', Object.keys(Handlebars.helpers));
 
 // 当前脚本所在目录
 const currentDir = __dirname;
