@@ -36,12 +36,12 @@ jobs:
           echo "Waiting for Docker service to be ready..."
           for i in {1..10}; do
             nc -z localhost 9101 && break
-            sleep 5
+            sleep 10
           done
 
       - name: Download README.md
         run: |
-          curl -s -o README.md https://raw.githubusercontent.com/luestr/ProxyResource/refs/heads/main/README.md
+          curl -s -o README.md https://raw.githubusercontent.com/luestr/ProxyResource/main/README.md
 
       - name: Extract .plugin URLs
         run: |
