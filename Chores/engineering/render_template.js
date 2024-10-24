@@ -6,13 +6,13 @@ const Handlebars = require('handlebars');
 const currentDir = __dirname;
 
 // 模板文件路径
-const templatePath = path.resolve(currentDir, '../../templates/All-in-One-2.x.sgmodule.hbs');
+const templatePath = path.resolve(currentDir, 'templates/All-in-One-2.x.sgmodule.hbs');
 
 // 数据文件路径
 const dataPath = path.resolve(currentDir, 'data/sgmodules_data.json');
 
-// 输出文件路径
-const outputPath = path.resolve(currentDir, '../../sgmodule/All-in-One-2.x.sgmodule');
+// 输出文件路径（上一级目录的 sgmodule 文件夹）
+const outputPath = path.resolve(currentDir, '../sgmodule/All-in-One-2.x.sgmodule');
 
 // 调试输出路径
 console.log(`模板路径：${templatePath}`);
@@ -30,7 +30,13 @@ const data = JSON.parse(dataContent);
 // 渲染模板
 const output = template(data);
 
+// 确保输出目录存在
+const outputDir = path.dirname(outputPath);
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
+
 // 写入输出文件
 fs.writeFileSync(outputPath, output, 'utf-8');
 
-console.log(`Render success and saved in ${outputPath}`);
+console.log(`模板已成功渲染并保存到 ${outputPath}`);
