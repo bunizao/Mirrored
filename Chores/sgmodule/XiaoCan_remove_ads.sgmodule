@@ -12,7 +12,7 @@
 
 [Header Rewrite]
 # 红包推广
-http-request ^https:\/\/gw\.xiaocantech\.com\/rpc header-replace-regex methodname .*(GetBannerList|IsShowOrderAwardPopup|UserLifeShopList|BrandBannerList|GetPromotionGlobalCfg) null
+http-request ^https:\/\/gw\.xiaocantech\.com\/rpc header-replace-regex 'methodname' '.*(GetBannerList|IsShowOrderAwardPopup|UserLifeShopList|BrandBannerList|GetPromotionGlobalCfg)' 'null'
 
 [Map Local]
 # 首页横幅推广

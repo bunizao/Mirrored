@@ -22,8 +22,8 @@ DOMAIN-SUFFIX,163jiasu.com,REJECT
 
 [Header Rewrite]
 # 新版加密通用处理
-http-request ^https?:\/\/interface\d?\.music\.163\.com\/e?api\/(?:batch|v2\/resource\/comment\/floor\/get|homepage\/block\/page|link\/home\/framework\/tab|link\/page\/rcmd\/block\/resource\/multi\/refresh|link\/page\/rcmd\/resource\/show|user\/follow\/users\/mixed\/get) header-replace x-aeapi false
-http-request ^https?:\/\/interface\d?\.music\.163\.com\/w?eapi\/(?:activity\/bonus\/playpage\/time\/query|resource-exposure\/|search\/(?:chart\/|default\/|rcmd\/keyword\/|specialkeyword\/)) header-del x-aeapi
+http-request ^https?:\/\/interface\d?\.music\.163\.com\/e?api\/(?:batch|v2\/resource\/comment\/floor\/get|homepage\/block\/page|link\/home\/framework\/tab|link\/page\/rcmd\/block\/resource\/multi\/refresh|link\/page\/rcmd\/resource\/show|user\/follow\/users\/mixed\/get) header-replace 'x-aeapi' 'false'
+http-request ^https?:\/\/interface\d?\.music\.163\.com\/w?eapi\/(?:activity\/bonus\/playpage\/time\/query|resource-exposure\/|search\/(?:chart\/|default\/|rcmd\/keyword\/|specialkeyword\/)) header-del 'x-aeapi'
 
 [Map Local]
 # 开屏广告
