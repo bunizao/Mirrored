@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
+const helpers = require('handlebars-helpers')({
+  handlebars: Handlebars
+});
 
 // 当前脚本所在目录
 const currentDir = __dirname;
