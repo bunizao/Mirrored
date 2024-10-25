@@ -31,10 +31,6 @@ jobs:
         run: |
           mkdir -p Chores/sgmodule
 
-      - name: Move merged file to output directory
-        run: |
-          mv Chores/engineering/merged_output.sgmodule Chores/sgmodule/All-in-One-2.x.sgmodule
-
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
