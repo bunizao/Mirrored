@@ -9,7 +9,7 @@
 
 [Rule]
 DOMAIN,wbapp.uve.weibo.com,DIRECT
-RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT
+RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT,extended-matching,pre-matching
 
 [URL Rewrite]
 
