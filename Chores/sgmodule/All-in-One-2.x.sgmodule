@@ -1,53 +1,305 @@
-(function() {
-  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['All-in-One-2.x.sgmodule.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
-          return parent[propertyName];
-        }
-        return undefined
-    };
+#!name=AD ByeBye+ 2.x
+#!desc=(2.x)以最优性能表现去除各种繁杂广告。| Repo: https://tuu.cat/repo・Update: {{currentDate}}・Support: @bunizao
+#!category=🚫 AD Block
+#!author=@hututu0 整理，来源见脚本以及注释，感谢以下大佬！！！
+#!source=Rules@hututu0 | Xiaohongshu@ddgksf2013 | Amap@kokoryh | Cainiao@Keywos | Weibo@RuCu6 | Zhihu@RuCu6 | Tools@ScriptHub
+#------------------------------------------------------
+# 目前包括：高德地图，微博，知乎，Pixiv, 百度贴吧，小红书, 微信小程序, 爱奇艺，优酷，腾讯视频
+# 高德地图需要卸载重装 & 重启手机 才会生效
+# 请关注频道 @hututu00 获取更多资源 🤪
 
-  return ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"length") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":17,"column":0},"end":{"line":25,"column":7}}})) != null ? stack1 : "");
-},"2":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
-        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
-          return parent[propertyName];
-        }
-        return undefined
-    };
+[Rule]
+# 十分重要
+RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT
+RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject-Drop.list,REJECT-DROP
 
-  return ((stack1 = lookupProperty(helpers,"if").call(alias1,(lookupProperty(helpers,"ne")||(depth0 && lookupProperty(depth0,"ne"))||container.hooks.helperMissing).call(alias1,(data && lookupProperty(data,"key")),"Rule",{"name":"ne","hash":{},"data":data,"loc":{"start":{"line":18,"column":6},"end":{"line":18,"column":22}}}),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":0},"end":{"line":24,"column":7}}})) != null ? stack1 : "");
-},"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
-        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
-          return parent[propertyName];
-        }
-        return undefined
-    };
+[URL Rewrite]
+# ------------------------------------- Zhihu --------------------------------------
+^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card - reject
+# 其他 - 服务器推送配置
+^https:\/\/api\.zhihu\.com\/ab\/api\/v1\/products\/zhihu\/platforms\/ios\/config - reject
+^https:\/\/link\.zhihu\.com\/\?target=(?:https?)?(?:%3A|:)?(?:\/\/|%2F%2F)?(.*) http://$1 302
+^https:\/\/www\.zhihu\.com\/api\/v4\/hot_recommendation - reject
+^https:\/\/www\.zhihu\.com\/api\/v4\/mcn\/v2\/linkcards\? - reject
+^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings - reject
+^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner - reject
+^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation - reject
 
-  return "  <!-- 跳过已经手动添加的 [Rule] 部分 -->\n["
-    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"key") || (data && lookupProperty(data,"key"))) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"key","hash":{},"data":data,"loc":{"start":{"line":19,"column":1},"end":{"line":19,"column":9}}}) : helper)))
-    + "]\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,depth0,{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":0},"end":{"line":22,"column":9}}})) != null ? stack1 : "")
-    + "\n";
-},"4":function(container,depth0,helpers,partials,data) {
-    return container.escapeExpression(container.lambda(depth0, depth0))
-    + "\n";
-},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
-        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
-          return parent[propertyName];
-        }
-        return undefined
-    };
+# ------------------------------------- Weibo --------------------------------------
+^https:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/(get-lbs-cell-info\.php|sdkconfig\.php) - reject
 
-  return "#!name=AD ByeBye+ 2.x\n#!desc=(2.x)以最优性能表现去除各种繁杂广告。| Repo: https://tuu.cat/repo・Update: "
-    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"currentDate") || (depth0 != null ? lookupProperty(depth0,"currentDate") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"currentDate","hash":{},"data":data,"loc":{"start":{"line":2,"column":65},"end":{"line":2,"column":80}}}) : helper)))
-    + "・Support: @bunizao\n#!category=🚫 AD Block\n#!author=@hututu0 整理，来源见脚本以及注释，感谢以下大佬！！！\n#!source=Rules@hututu0 | Xiaohongshu@ddgksf2013 | Amap@kokoryh | Cainiao@Keywos | Weibo@RuCu6 | Zhihu@RuCu6 | Tools@ScriptHub\n#------------------------------------------------------\n# 目前包括：高德地图，微博，知乎，Pixiv, 百度贴吧，小红书, 微信小程序, 爱奇艺，优酷，腾讯视频\n# 高德地图需要卸载重装 & 重启手机 才会生效\n# 请关注频道 @hututu00 获取更多资源 🤪\n\n[Rule]\n# 十分重要\nRULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT\nRULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject-Drop.list,REJECT-DROP\n\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"mergedSections") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":0},"end":{"line":26,"column":9}}})) != null ? stack1 : "");
-},"useData":true});
-templates['sgmodules_data.json'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "{\n  \"currentDate\": \"10/23/2024\",\n  \"mergedSections\": {\n    \"URL Rewrite\": [\n      \"# -------------------------------------- Zhihu --------------------------------------\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/unlimited\\\\/go\\\\/my_card - reject\",\n      \"# 其他 - 服务器推送配置\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/ab\\\\/api\\\\/v1\\\\/products\\\\/zhihu\\\\/platforms\\\\/ios\\\\/config - reject\",\n      \"# 重定向页面\",\n      \"^https:\\\\/\\\\/link\\\\.zhihu\\\\.com\\\\/\\\\?target=(?:https?)?(?:%3A|:)?(?:\\\\/\\\\/|%2F%2F)?(.*) http://$1 302\",\n      \"^https:\\\\/\\\\/www\\\\.zhihu\\\\.com\\\\/api\\\\/v4\\\\/hot_recommendation - reject\",\n      \"^https:\\\\/\\\\/www\\\\.zhihu\\\\.com\\\\/api\\\\/v4\\\\/mcn\\\\/v2\\\\/linkcards\\\\? - reject\",\n      \"^https:\\\\/\\\\/www\\\\.zhihu\\\\.com\\\\/api\\\\/v4/(answers|questions)\\\\/\\\\d+/related-readings - reject\",\n      \"^https:\\\\/\\\\/www\\\\.zhihu\\\\.com\\\\/commercial_api\\\\/banners_v3\\\\/mobile_banner - reject\",\n      \"^https:\\\\/\\\\/zhuanlan\\\\.zhihu\\\\.com\\\\/api\\\\/articles\\\\/\\\\d+\\\\/recommendation - reject\",\n      \"# -------------------------------------- Weibo --------------------------------------\",\n      \"^https:\\\\/\\\\/sdkapp\\\\.uve\\\\.weibo\\\\.com\\\\/interface\\\\/sdk\\\\/(get-lbs-cell-info\\\\.php|sdkconfig\\\\.php) - reject\"\n    ],\n    \"Script\": [\n      \"# -------------------------------------- Zhihu --------------------------------------\",\n      \"body_rewrite_30 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/bazaar\\\\/vip_tab\\\\/header\\\\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22activity_banner%22%2C%22activity_window%22%2C%22vip_tip%22%5D%5D%5D\",\n      \"# 首页 - 悬浮图标、顶部横幅、开屏广告、关注页推荐、推荐信息流、热榜信息流、热榜直播、回答底部卡片、精简顶部标签\",\n      \"移除首页推广 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/commercial_api\\\\/app_float_layer, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"移除首页推广 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/feed\\\\/render\\\\/tab\\\\/config\\\\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"移除首页推广 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/(moments_v3|topstory\\\\/hot-lists\\\\/total|topstory\\\\/recommend), script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"移除首页推广 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/v2\\\\/topstory\\\\/hot-lists\\\\/everyone-seeing\\\\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"精简顶部标签 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/root\\\\/tab, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"移除首页推广 = type=http-response, pattern=^https:\\\\/\\\\/(api|page-info)\\\\.zhihu\\\\.com\\\\/(answers|articles)\\\\/v2\\\\/\\\\d+, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"# 搜索页 - 关键词、猜你想搜\",\n      \"移除搜索页关键词 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/search\\\\/recommend_query\\\\/v2\\\\?, script-path=https://kelee.one/Resource/Script/CommonScript/replace-body.js, requires-body=true, argument=\\\"\\\"recommend_queries\\\":\\\\{.+\\\\}->\\\"recommend_queries\\\":{}\\\"\",\n      \"# 回答详情页 - 评论区顶部、下一个回答\",\n      \"移除回答详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/next-(bff|data|render)\\\\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"移除回答详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/questions\\\\/\\\\d+(\\\\/answers|\\\\/feeds|\\\\?include=), script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"移除回答详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/www\\\\.zhihu\\\\.com\\\\/api\\\\/v4\\\\/(articles|answers)\\\\/\\\\d+\\\\/recommendations?\\\\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"# 其他 - 服务器推送配置\",\n      \"拦截服务器推送配置 = type=http-response, pattern=^https:\\\\/\\\\/appcloud2\\\\.zhihu\\\\.com\\\\/v3\\\\/config, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"拦截服务器推送配置 = type=http-response, pattern=^https:\\\\/\\\\/m-cloud\\\\.zhihu\\\\.com\\\\/api\\\\/cloud\\\\/zhihu\\\\/config\\\\/all\\\\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true\",\n      \"# -------------------------------------- Amap --------------------------------------\",\n      \"body_rewrite_22 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/search_business\\\\/process\\\\/marketingOperationStructured\\\\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tipsOperationLocation%22%2C%22obj.data.resourcePlacement%22%5D%5D%5D\",\n      \"body_rewrite_23 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/search_poi\\\\/homepage\\\\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22history_tags%22%5D%5D%5D\",\n      \"body_rewrite_34 = type=http-response, pattern=^https:\\\\/\\\\/m5-zb\\\\.amap\\\\.com\\\\/ws\\\\/sharedtrip\\\\/taxi\\\\/order_detail_car_tips\\\\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.carTips.data.popupInfo%22%5D%5D%5D\",\n      \"# 导航详情页 - 路线规划、地点详情页、搜索详情页、导航结束页\",\n      \"移除导航详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/aos\\\\/perception\\\\/publicTravel\\\\/beforeNavi\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"移除导航详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/bus\\\\/plan\\\\/integrate\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"移除导航详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/c3frontend\\\\/af-(hotel|launch)\\\\/page\\\\/main\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"移除导航详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/perception\\\\/drive\\\\/(routeInfo|routePlan), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"移除导航详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/search\\\\/(common\\\\/coupon\\\\/info|poi\\\\/detail), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"移除导航详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/search_bff\\\\/hotword\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"移除导航详情页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/search_poi\\\\/(?:mps|search\\\\/sp|sug|tips_operation_location), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"# 首页 - 推广卡片、红点角标、右上角动图、搜索框热词、左下角天气、消息横幅\",\n      \"移除首页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/faas\\\\/amap-navigation\\\\/(card-service-plan-home|main-page), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"移除首页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/frogserver\\\\/aocs\\\\/updatable\\\\/1\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"# 我的页面 - 个人主页、推广卡片\",\n      \"移除我的页面推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/dsp\\\\/profile\\\\/index\\\\/nodefaasv3\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"# 附近页\",\n      \"移除附近页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/search\\\\/nearbyrec_smart\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"# 开屏广告\",\n      \"移除开屏广告 = type=http-response, pattern=^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/valueadded\\\\/alimama\\\\/splash_screen\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"# 打车页 - 红点角标、弹窗、天气图标、推广卡片\",\n      \"移除打车页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5-zb\\\\.amap\\\\.com\\\\/ws\\\\/boss\\\\/(car\\\\/order\\\\/content_info|order_web\\\\/friendly_information), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"移除打车页推广 = type=http-response, pattern=^https:\\\\/\\\\/m5-zb\\\\.amap\\\\.com\\\\/ws\\\\/promotion-web\\\\/resource(\\\\/home)?\\\\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true\",\n      \"# -------------------------------------- Weibo --------------------------------------\",\n      \"# 首页 - 签到、发布按钮、侧边栏、右上角红包、顶部标签页、侧边栏提醒、超话标签页悬浮、顶部直播\",\n      \"移除首页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/(checkin\\\\/show|client\\\\/publisher_list|push\\\\/active)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除首页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/groups\\\\/allgroups\\\\/v2\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"# 详情页 - 超话、评论区、看图界面、个人主页、我的页面、信息流、商品橱窗、视频流、视频号、视频调查、话题卡片\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/(cardlist|page)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/comments\\\\/build_comments\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/(container\\\\/asyn|flowlist|flowpage)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/friendships\\\\/(create|destroy)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/profile\\\\/(container_timeline|dealatt|me|statuses\\\\/tab|userinfo)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/statuses\\\\/(container_timeline(_hot|_topic|_topicpage|_unread)?|unread_hot_timeline)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/statuses\\\\/(extend|show)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/video\\\\/tiny_stream_video_list\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除详情页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/!\\\\/huati\\\\/discovery_home_bottom_channels\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"# 消息页\",\n      \"移除消息页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/direct_messages\\\\/user_list\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除消息页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/messageflow\\\\/notice\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"# 发现页 - 热门微博信息流、搜索列表、热搜提醒、猜你想搜、视频流红包\",\n      \"移除发现页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/search\\\\/(container_timeline|finder)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除发现页广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/searchall\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"# 开屏广告 //*.uve.weibo.com\",\n      \"移除开屏广告 = type=http-response, pattern=^https:\\\\/\\\\/bootpreload\\\\.uve\\\\.weibo\\\\.com\\\\/v[12]\\\\/ad\\\\/preload, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除开屏广告 = type=http-response, pattern=^https:\\\\/\\\\/sdkapp\\\\.uve\\\\.weibo\\\\.com\\\\/interface\\\\/sdk\\\\/sdkad\\\\.php, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"移除开屏广告 = type=http-response, pattern=^https:\\\\/\\\\/wbapp\\\\.uve\\\\.weibo\\\\.com\\\\/(preload\\\\/get_ad|wbapplua\\\\/wbpullad\\\\.lua)\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"# 会员图标\",\n      \"会员图标 = type=http-response, pattern=^https:\\\\/\\\\/new\\\\.vip\\\\.weibo\\\\.cn\\\\/aj\\\\/appicon\\\\/list\\\\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true\",\n      \"# -------------------------------------- Tieba --------------------------------------\",\n      \"清理首页 = type=http-response, pattern=^https:\\\\/\\\\/tiebac\\\\.baidu\\\\.com\\\\/livefeed\\\\/feed, script-path=https://kelee.one/Resource/Script/Tieba/Tieba_remove_ads.js, requires-body=true\",\n      \"清理侧拉抽屉 = type=http-response, pattern=^https:\\\\/\\\\/tiebac\\\\.baidu\\\\.com\\\\/c\\\\/f\\\\/sidebar\\\\/home, script-path=https://kelee.one/Resource/Script/Tieba/Tieba_remove_ads.js, requires-body=true\",\n      \"清理我的页面 = type=http-response, pattern=^https:\\\\/\\\\/tiebac\\\\.baidu\\\\.com\\\\/c\\\\/u\\\\/user\\\\/profile, script-path=https://kelee.one/Resource/Script/Tieba/Tieba_remove_ads.js, requires-body=true\",\n      \"清理首页 = type=http-response, pattern=^https:\\\\/\\\\/tieba\\\\.baidu\\\\.com\\\\/c\\\\/f\\\\/frs\\\\/frsBottom, script-path=https://kelee.one/Resource/Script/Tieba/Tieba_remove_ads.js, requires-body=true\",\n      \"JSON处理 = type=http-response, pattern=^http(s:\\\\/\\\\/tiebac|:\\\\/\\\\/c\\\\.tieba)\\\\.baidu\\\\.com\\\\/(c\\\\/f\\\\/(frs\\\\/(page|threadlist|generalTabList)|pb\\\\/page|excellent\\\\/personalized)$|tiebaads\\\\/commonbatch|c\\\\/s\\\\/sync$), script-path=https://kelee.one/Resource/Script/Tieba/tieba-json.js, requires-body=true, timeout=10\",\n      \"Proto处理 = type=http-response, pattern=^http(s:\\\\/\\\\/tiebac|:\\\\/\\\\/c\\\\.tieba)\\\\.baidu\\\\.com\\\\/c\\\\/f\\\\/(frs\\\\/(page|threadlist|generalTabList)|pb\\\\/page|excellent\\\\/personalized)\\\\?cmd, script-path=https://kelee.one/Resource/Script/Tieba/tieba-proto.js, requires-body=true, binary-body-mode=true, timeout=10\",\n      \"# -------------------------------------- PinDuoDuo --------------------------------------\",\n      \"body_rewrite_32 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/oak\\\\/integration\\\\/render, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22bottom_section_list%22%2C%22ui.bottom_section%22%2C%22ui.live_section.float_info%22%5D%5D%5D\",\n      \"body_rewrite_33 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/philo\\\\/personal\\\\/hub\\\\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22monthly_card_entrance%22%2C%22personal_center_style_v2_vo%22%2C%22icon_set.icons%22%2C%22icon_set.top_personal_icons%22%2C%22title_bar_items%22%5D%5D%5D\",\n      \"body_rewrite_35 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/search, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22expansion%22%5D%5D%5D\",\n      \"精简首页 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/alexa\\\\/homepage\\\\/hub\\\\?, script-path=https://kelee.one/Resource/Script/PinDuoDuo/PinDuoDuo_remove_ads.js, requires-body=true\",\n      \"# -------------------------------------- JD --------------------------------------\",\n      \"移除京东广告 = type=http-response, pattern=^https:\\\\/\\\\/api\\\\.m\\\\.jd\\\\.com\\\\/client\\\\.action\\\\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome), script-path=https://kelee.one/Resource/Script/JD/JD_remove_ads.js, requires-body=true\"\n    ],\n    \"Map Local\": [\n      \"# -------------------------------------- Zhihu --------------------------------------\",\n      \"# 首页 - 悬浮图标、顶部横幅、开屏广告、关注页推荐、推荐信息流、热榜信息流、热榜直播、回答底部卡片、双十一弹窗\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/commercial_api\\\\/ data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/content-distribution-core\\\\/bubble\\\\/common\\\\/settings data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/(moments\\\\/lastread|drama\\\\/hot-drama-list) data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/root\\\\/window data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 会员页面 - 弹窗、悬浮动图\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/(bazaar\\\\/float_window|market\\\\/popovers_v2) data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 我的页面 - 项目列表、会员卡片\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/me\\\\/guides data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 搜索页 - 关键词、猜你想搜\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/search\\\\/(hot_search|preset_words) data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/www\\\\.zhihu\\\\.com\\\\/api\\\\/v4\\\\/search\\\\/related_queries\\\\/(article|answer)\\\\/\\\\d+ data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 回答详情页 - 评论区顶部、下一个回答\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/comment_v5\\\\/(articles|answers)\\\\/\\\\d+\\\\/list-headers data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/prague\\\\/related_suggestion_native\\\\/feed\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/v5\\\\.1\\\\/topics\\\\/answer\\\\/\\\\d+\\\\/relation data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/ad-style-service\\\\/request data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/appcloud2\\\\.zhihu\\\\.com\\\\/v3\\\\/resource\\\\?group_name=mp data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 网页版去广告 //www.zhihu.com, zhuanlan.zhihu.com\",\n      \"^https:\\\\/\\\\/api\\\\.zhihu\\\\.com\\\\/distribute\\\\/rhea\\\\/qa_ad_card\\\\/h5\\\\/recommendation\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# -------------------------------------- Amap --------------------------------------\",\n      \"# 导航详情页 - 路线规划、地点详情页、搜索详情页、导航结束页\",\n      \"^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/aos\\\\/main\\\\/page\\\\/product\\\\/list\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/search\\\\/new_hotword\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/faas\\\\/amap-navigation\\\\/card-service-(car-end|route-plan) data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/search_poi\\\\/tips_adv\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/oss\\\\.amap\\\\.com\\\\/ws\\\\/banner\\\\/lists\\\\/\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 首页 - 推广卡片、红点角标、右上角动图、搜索框热词、左下角天气、消息横幅\",\n      \"^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/faas\\\\/amap-navigation\\\\/(main-page-assets|main-page-location|ridewalk-end-fc) data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/(mapapi\\\\/hint_text\\\\/offline_data|message\\\\/notice\\\\/list|shield\\\\/search\\\\/new_hotword) data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/shield\\\\/scene\\\\/recommend\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/m5\\\\.amap\\\\.com\\\\/ws\\\\/valueadded\\\\/weather\\\\/v2\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/sns\\\\.amap\\\\.com\\\\/ws\\\\/msgbox\\\\/pull_mp\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 打车页 - 红点角标、弹窗、天气图标、推广卡片\",\n      \"^https:\\\\/\\\\/m5-zb\\\\.amap\\\\.com\\\\/ws\\\\/boss\\\\/(order\\\\/car\\\\/king_toolbox_car_bubble|tips\\\\/onscene_visual_optimization) data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# -------------------------------------- Weibo --------------------------------------\",\n      \"# 首页 - 签到、发布按钮、侧边栏、右上角红包、顶部标签页、侧边栏提醒、超话标签页悬浮、顶部直播\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/(ug\\\\/checkin\\\\/list|push\\\\/daily)\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/!\\\\/live\\\\/media_homelist\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 详情页 - 超话、评论区、看图界面、个人主页、我的页面、信息流、商品橱窗、视频流、视频号、视频调查、话题卡片\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/comments\\\\/bullet_screens\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/photo\\\\/info\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/statuses\\\\/(container_positive|push_info)\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/vote\\\\/get_vote_detail\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/!\\\\/chaohua\\\\/discovery\\\\/home_bottom\\\\/switch\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/!\\\\/huati\\\\/(discovery_home_bottom_getdotinfo|mobile_discovery_searchchange)\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/!\\\\/wbox\\\\/\\\\w+\\\\/(home_bottom_modal|interest_category)\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 发现页 - 热门微博信息流、搜索列表、热搜提醒、猜你想搜、视频流红包\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/search\\\\/container_discover\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/hot\\\\/hours_spotlight\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/2\\\\/video\\\\/redpacket\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.weibo\\\\.cn\\\\/!\\\\/sug\\\\/list\\\\/finderchange\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 开屏广告 //*.uve.weibo.com\",\n      \"^https:\\\\/\\\\/bootrealtime\\\\.uve\\\\.weibo\\\\.com\\\\/v[23]\\\\/ad\\\\/realtime data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# 微博长文章推广\",\n      \"^https:\\\\/\\\\/card\\\\.weibo\\\\.com\\\\/article\\\\/m\\\\/aj\\\\/(reward|uvead)\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/weibo\\\\.com\\\\/ttarticle\\\\/x\\\\/m\\\\/aj\\\\/(reward|uvead)\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# -------------------------------------- Tieba --------------------------------------\",\n      \"^https:\\\\/\\\\/tiebac\\\\.baidu\\\\.com\\\\/c\\\\/f\\\\/search\\\\/discover data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/tiebac\\\\.baidu\\\\.com\\\\/c\\\\/f\\\\/forum\\\\/forumGuide data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# -------------------------------------- PinDuoDuo --------------------------------------\",\n      \"^https:\\\\/\\\\/api\\\\.(?:pinduoduo|yangkeduo)\\\\.com\\\\/api\\\\/cappuccino\\\\/splash\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/alexa\\\\/goods\\\\/back_up\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/aquarius\\\\/hungary\\\\/global\\\\/homepage\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/brand-olay\\\\/goods_detail\\\\/bybt_guide data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/caterham\\\\/v3\\\\/query\\\\/(?:likes|my_order_group|new_chat_group|order_express_group|personal) data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/engels\\\\/reviews\\\\/require\\\\/append data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/flow\\\\/hungary\\\\/window\\\\/global\\\\/v2\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/api\\\\/zaire_biz\\\\/chat\\\\/resource\\\\/get_list_data data-type=text data=\\\"{}\\\" status-code=200\",\n      \"^https:\\\\/\\\\/api\\\\.pinduoduo\\\\.com\\\\/search_hotquery\\\\? data-type=text data=\\\"{}\\\" status-code=200\",\n      \"# -------------------------------------- JD --------------------------------------\",\n      \"^https:\\\\/\\\\/api\\\\.m\\\\.jd\\\\.com\\\\/client\\\\.action\\\\?functionId=(searchBoxWord|stationPullService|uniformRecommend[06]) data-type=text data=\\\"{}\\\" status-code=200\"\n    ],\n    \"MITM\": [\n      \"hostname = %APPEND% api.zhihu.com\",\n      \"www.zhihu.com\",\n      \"appcloud2.zhihu.com\",\n      \"link.zhihu.com\",\n      \"zhuanlan.zhihu.com\",\n      \"m-cloud.zhihu.com\",\n      \"m5.amap.com\",\n      \"m5-zb.amap.com\",\n      \"oss.amap.com\",\n      \"sns.amap.com\",\n      \"*.weibo.cn\",\n      \"*.weibo.com\",\n      \"weibo.com\",\n      \"tiebac.baidu.com\",\n      \"tieba.baidu.com\",\n      \"api.pinduoduo.com\",\n      \"api.yangkeduo.com\",\n      \"api.m.jd.com\"\n    ]\n  }\n}";
-},"useData":true});
-})();
+[Map Local]
+# ------------------------------------- Zhihu --------------------------------------
+# 首页 - 悬浮图标、顶部横幅、开屏广告、关注页推荐、推荐信息流、热榜信息流、热榜直播、回答底部卡片
+^https:\/\/api\.zhihu\.com\/commercial_api\/ data-type=text data="{}" status-code=200
+
+^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/settings data-type=text data="{}" status-code=200
+
+^https:\/\/api\.zhihu\.com\/(?:moments\/lastread|drama\/hot-drama-list) data-type=text data="{}" status-code=200
+
+^https:\/\/api\.zhihu\.com\/root\/window data-type=text data="{}" status-code=200
+
+# 会员页面 - 弹窗、悬浮动图
+^https:\/\/api\.zhihu\.com\/(?:bazaar\/float_window|market\/popovers_v2) data-type=text data="{}" status-code=200
+
+# 我的页面 - 项目列表、会员卡片
+^https:\/\/api\.zhihu\.com\/me\/guides data-type=text data="{}" status-code=200
+
+# 搜索页 - 关键词、猜你想搜
+^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words) data-type=text data="{}" status-code=200
+
+^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+ data-type=text data="{}" status-code=200
+
+# 回答详情页 - 评论区顶部、下一个回答
+^https:\/\/api\.zhihu\.com\/comment_v5\/(?:articles|answers)\/\d+\/list-headers data-type=text data="{}" status-code=200
+
+^https:\/\/api\.zhihu\.com\/prague\/related_suggestion_native\/feed\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.zhihu\.com\/v5\.1\/topics\/answer\/\d+\/relation data-type=text data="{}" status-code=200
+
+^https:\/\/api\.zhihu\.com\/ad-style-service\/request data-type=text data="{}" status-code=200
+
+^https:\/\/appcloud2\.zhihu\.com\/v3\/resource\?group_name=mp data-type=text data="{}" status-code=200
+
+# 网页版去广告 //www.zhihu.com, zhuanlan.zhihu.com
+^https:\/\/api\.zhihu\.com\/distribute\/rhea\/qa_ad_card\/h5\/recommendation\? data-type=text data="{}" status-code=200
+
+# ------------------------------------- Amap --------------------------------------
+# 导航详情页 - 路线规划、地点详情页、搜索详情页、导航结束页
+^https:\/\/m5\.amap\.com\/ws\/aos\/main\/page\/product\/list\? data-type=text data="{}" status-code=200
+
+^https:\/\/m5\.amap\.com\/ws\/shield\/search\/new_hotword\? data-type=text data="{}" status-code=200
+
+^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/card-service-(car-end|route-plan) data-type=text data="{}" status-code=200
+
+^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/tips_adv\? data-type=text data="{}" status-code=200
+
+^https:\/\/oss\.amap\.com\/ws\/banner\/lists\/\? data-type=text data="{}" status-code=200
+
+# 首页 - 推广卡片、红点角标、右上角动图、搜索框热词、左下角天气、消息横幅
+^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/(main-page-assets|main-page-location|ridewalk-end-fc) data-type=text data="{}" status-code=200
+
+^https:\/\/m5\.amap\.com\/ws\/(mapapi\/hint_text\/offline_data|message\/notice\/list|shield\/search\/new_hotword) data-type=text data="{}" status-code=200
+
+^https:\/\/m5\.amap\.com\/ws\/shield\/scene\/recommend\? data-type=text data="{}" status-code=200
+
+^https:\/\/m5\.amap\.com\/ws\/valueadded\/weather\/v2\? data-type=text data="{}" status-code=200
+
+^https:\/\/sns\.amap\.com\/ws\/msgbox\/pull_mp\? data-type=text data="{}" status-code=200
+
+# 打车页 - 红点角标、弹窗、天气图标、推广卡片
+^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(order\/car\/king_toolbox_car_bubble|tips\/onscene_visual_optimization) data-type=text data="{}" status-code=200
+
+# ------------------------------------- Weibo --------------------------------------
+# 首页 - 签到、发布按钮、侧边栏、右上角红包、顶部标签页、侧边栏提醒、超话标签页悬浮、顶部直播
+^https:\/\/api\.weibo\.cn\/2\/(ug\/checkin\/list|push\/daily)\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/!\/live\/media_homelist\? data-type=text data="{}" status-code=200
+
+# 详情页 - 超话、评论区、看图界面、个人主页、我的页面、信息流、商品橱窗、视频流、视频号、视频调查、话题卡片
+^https:\/\/api\.weibo\.cn\/2\/comments\/bullet_screens\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/photo\/info\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/statuses\/(container_positive|push_info)\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/vote\/get_vote_detail\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/!\/chaohua\/discovery\/home_bottom\/switch\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/!\/huati\/(discovery_home_bottom_getdotinfo|mobile_discovery_searchchange)\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/!\/wbox\/\w+\/(home_bottom_modal|interest_category)\? data-type=text data="{}" status-code=200
+
+# 发现页 - 热门微博信息流、搜索列表、热搜提醒、猜你想搜、视频流红包
+^https:\/\/api\.weibo\.cn\/2\/search\/container_discover\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/hot\/hours_spotlight\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/2\/video\/redpacket\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.weibo\.cn\/!\/sug\/list\/finderchange\? data-type=text data="{}" status-code=200
+
+# 开屏广告 //*.uve.weibo.com
+^https:\/\/bootrealtime\.uve\.weibo\.com\/v[23]\/ad\/realtime data-type=text data="{}" status-code=200
+
+# 微博长文章推广
+^https:\/\/card\.weibo\.com\/article\/m\/aj\/(reward|uvead)\? data-type=text data="{}" status-code=200
+
+^https:\/\/weibo\.com\/ttarticle\/x\/m\/aj\/(reward|uvead)\? data-type=text data="{}" status-code=200
+
+# ------------------------------------- Tieba --------------------------------------
+^https:\/\/tiebac\.baidu\.com\/c\/f\/search\/discover data-type=text data="{}" status-code=200
+
+^https:\/\/tiebac\.baidu\.com\/c\/f\/forum\/forumGuide data-type=text data="{}" status-code=200
+
+# ------------------------------------- PinDuoDuo --------------------------------------
+^https:\/\/api\.(?:pinduoduo|yangkeduo)\.com\/api\/cappuccino\/splash\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.pinduoduo\.com\/api\/alexa\/goods\/back_up\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.pinduoduo\.com\/api\/aquarius\/hungary\/global\/homepage\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.pinduoduo\.com\/api\/brand-olay\/goods_detail\/bybt_guide data-type=text data="{}" status-code=200
+
+^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/(?:likes|my_order_group|new_chat_group|order_express_group|personal) data-type=text data="{}" status-code=200
+
+^https:\/\/api\.pinduoduo\.com\/api\/engels\/reviews\/require\/append data-type=text data="{}" status-code=200
+
+^https:\/\/api\.pinduoduo\.com\/api\/flow\/hungary\/window\/global\/v2\? data-type=text data="{}" status-code=200
+
+^https:\/\/api\.pinduoduo\.com\/api\/zaire_biz\/chat\/resource\/get_list_data data-type=text data="{}" status-code=200
+
+^https:\/\/api\.pinduoduo\.com\/search_hotquery\? data-type=text data="{}" status-code=200
+
+# ------------------------------------- JD --------------------------------------
+^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(searchBoxWord|stationPullService|uniformRecommend[06]) data-type=text data="{}" status-code=200
+
+[Script]
+# ------------------------------------- Zhihu --------------------------------------
+body_rewrite_30 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22activity_banner%22%2C%22activity_window%22%2C%22vip_tip%22%5D%5D%5D
+
+body_rewrite_36 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/search\/recommend_query\/v2\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22replace-regex%22%2C%5B%5B%22%5C%22recommend_queries%5C%22%3A%5C%5C%7B.%2B%5C%5C%7D%22%2C%22%5C%22recommend_queries%5C%22%3A%7B%7D%22%5D%5D%5D%5D
+
+# 首页 - 悬浮图标、顶部横幅、开屏广告、关注页推荐、推荐信息流、热榜信息流、热榜直播、回答底部卡片、精简顶部标签
+移除首页推广 = type=http-response, pattern=^https:\/\/(?:api|page-info)\.zhihu\.com\/(?:answers|articles)\/v2\/\d+, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+移除首页推广 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+移除首页推广 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+移除首页推广 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/(?:moments_v3|topstory\/hot-lists\/total|topstory\/recommend), script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+精简顶部标签 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/root\/tab, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+移除首页推广 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+# 回答详情页 - 评论区顶部、下一个回答
+移除回答详情页推广 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/next-(?:bff|data|render), script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+移除回答详情页推广 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|\?include=), script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+移除回答详情页推广 = type=http-response, pattern=^https:\/\/www\.zhihu\.com\/api\/v4\/(?:articles|answers)\/\d+\/recommendations?\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+# 其他 - 服务器推送配置
+拦截服务器推送配置 = type=http-response, pattern=^https:\/\/appcloud2\.zhihu\.com\/v3\/config, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+拦截服务器推送配置 = type=http-response, pattern=^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/zhihu\/config\/all\?, script-path=https://kelee.one/Resource/Script/Zhihu/Zhihu_remove_ads.js, requires-body=true
+
+# ------------------------------------- Amap --------------------------------------
+body_rewrite_22 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_business\/process\/marketingOperationStructured\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tipsOperationLocation%22%2C%22obj.data.resourcePlacement%22%5D%5D%5D
+
+body_rewrite_23 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/homepage\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22history_tags%22%5D%5D%5D
+
+body_rewrite_34 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/sharedtrip\/taxi\/order_detail_car_tips\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.carTips.data.popupInfo%22%5D%5D%5D
+
+# 导航详情页 - 路线规划、地点详情页、搜索详情页、导航结束页
+移除导航详情页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/aos\/perception\/publicTravel\/beforeNavi\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+移除导航详情页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/bus\/plan\/integrate\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+移除导航详情页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/c3frontend\/af-(hotel|launch)\/page\/main\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+移除导航详情页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/perception\/drive\/(routeInfo|routePlan), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+移除导航详情页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search\/(common\/coupon\/info|poi\/detail), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+移除导航详情页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_bff\/hotword\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+移除导航详情页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/(?:mps|search\/sp|sug|tips_operation_location), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+# 首页 - 推广卡片、红点角标、右上角动图、搜索框热词、左下角天气、消息横幅
+移除首页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/(card-service-plan-home|main-page), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+移除首页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+# 我的页面 - 个人主页、推广卡片
+移除我的页面推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaasv3\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+# 附近页
+移除附近页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search\/nearbyrec_smart\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+# 开屏广告
+移除开屏广告 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/valueadded\/alimama\/splash_screen\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+# 打车页 - 红点角标、弹窗、天气图标、推广卡片
+移除打车页推广 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(car\/order\/content_info|order_web\/friendly_information), script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+移除打车页推广 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/promotion-web\/resource(\/home)?\?, script-path=https://kelee.one/Resource/Script/Amap/Amap_remove_ads.js, requires-body=true
+
+# ------------------------------------- Weibo --------------------------------------
+# 首页 - 签到、发布按钮、侧边栏、右上角红包、顶部标签页、侧边栏提醒、超话标签页悬浮、顶部直播
+移除首页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/(checkin\/show|client\/publisher_list|push\/active)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除首页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/groups\/allgroups\/v2\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+# 详情页 - 超话、评论区、看图界面、个人主页、我的页面、信息流、商品橱窗、视频流、视频号、视频调查、话题卡片
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/(cardlist|page)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/comments\/build_comments\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/(container\/asyn|flowlist|flowpage)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/friendships\/(create|destroy)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/profile\/(container_timeline|dealatt|me|statuses\/tab|userinfo)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/statuses\/(container_timeline(_hot|_topic|_topicpage|_unread)?|unread_hot_timeline)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/statuses\/(extend|show)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/video\/tiny_stream_video_list\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除详情页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/!\/huati\/discovery_home_bottom_channels\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+# 消息页
+移除消息页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/direct_messages\/user_list\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除消息页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/messageflow\/notice\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+# 发现页 - 热门微博信息流、搜索列表、热搜提醒、猜你想搜、视频流红包
+移除发现页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/search\/(container_timeline|finder)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除发现页广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/searchall\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+# 开屏广告 //*.uve.weibo.com
+移除开屏广告 = type=http-response, pattern=^https:\/\/bootpreload\.uve\.weibo\.com\/v[12]\/ad\/preload, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除开屏广告 = type=http-response, pattern=^https:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkad\.php, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+移除开屏广告 = type=http-response, pattern=^https:\/\/wbapp\.uve\.weibo\.com\/(preload\/get_ad|wbapplua\/wbpullad\.lua)\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+# 会员图标
+会员图标 = type=http-response, pattern=^https:\/\/new\.vip\.weibo\.cn\/aj\/appicon\/list\?, script-path=https://kelee.one/Resource/Script/Weibo/Weibo_remove_ads.js, requires-body=true
+
+# ------------------------------------- Tieba --------------------------------------
+清理首页 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/livefeed\/feed, script-path=https://kelee.one/Resource/Script/Tieba/Tieba_remove_ads.js, requires-body=true
+
+清理侧拉抽屉 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/f\/sidebar\/home, script-path=https://kelee.one/Resource/Script/Tieba/Tieba_remove_ads.js, requires-body=true
+
+清理我的页面 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/u\/user\/profile, script-path=https://kelee.one/Resource/Script/Tieba/Tieba_remove_ads.js, requires-body=true
+
+清理首页 = type=http-response, pattern=^https:\/\/tieba\.baidu\.com\/c\/f\/frs\/frsBottom, script-path=https://kelee.one/Resource/Script/Tieba/Tieba_remove_ads.js, requires-body=true
+
+JSON处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/(c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized)$|tiebaads\/commonbatch|c\/s\/sync$), script-path=https://kelee.one/Resource/Script/Tieba/tieba-json.js, requires-body=true, timeout=10
+
+Proto处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized)\?cmd, script-path=https://kelee.one/Resource/Script/Tieba/tieba-proto.js, requires-body=true, binary-body-mode=true, timeout=10
+
+# ------------------------------------- PinDuoDuo --------------------------------------
+body_rewrite_32 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/oak\/integration\/render, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22bottom_section_list%22%2C%22ui.bottom_section%22%2C%22ui.live_section.float_info%22%5D%5D%5D
+
+body_rewrite_33 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/philo\/personal\/hub\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22monthly_card_entrance%22%2C%22personal_center_style_v2_vo%22%2C%22icon_set.icons%22%2C%22icon_set.top_personal_icons%22%2C%22title_bar_items%22%5D%5D%5D
+
+body_rewrite_35 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/search, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22expansion%22%5D%5D%5D
+
+精简首页 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://kelee.one/Resource/Script/PinDuoDuo/PinDuoDuo_remove_ads.js, requires-body=true
+
+# ------------------------------------- JD --------------------------------------
+移除京东广告 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome), script-path=https://kelee.one/Resource/Script/JD/JD_remove_ads.js, requires-body=true
+
+[MITM]
+[MITM]
+hostname = %APPEND% %APPEND% *.zhihu.com, %APPEND% m5.amap.com, m5-zb.amap.com, oss.amap.com, sns.amap.com, %APPEND% *.weibo.cn, *.weibo.com, weibo.com, %APPEND% tiebac.baidu.com, tieba.baidu.com, %APPEND% api.pinduoduo.com, api.yangkeduo.com, %APPEND% api.m.jd.com
+h2 = true
+tcp-connection = true
+
