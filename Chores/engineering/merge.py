@@ -56,7 +56,7 @@ for info in sgmodule_info:
         # 将内容按区块插入到相应部分
         for section, text in matches:
             if section in sections and section != "MITM":  # 排除 MITM，稍后处理
-                divider = f"# ------------------------------------- {info['header']} --------------------------------------"
+                divider = f"# ------------------------------------- {info['header']} --------------------------------------\n"
                 sections[section].append(f"{divider}\n{text.strip()}")
             elif section == "MITM":
                 # 查找 hostname 行并提取主机名
@@ -74,7 +74,7 @@ for info in sgmodule_info:
 # 生成 MITM 区块格式
 unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重主机名
 mitm_content = "[MITM]\n"
-mitm_content += f"hostname = %APPEND% {', '.join(unique_hostnames)}\n"  # 只在开头插入一次 %APPEND%
+mitm_content += f"hostname = %APPEND% {', '.join(unique_hostnames)}\n"
 mitm_content += "h2 = true\n"
 mitm_content += "tcp-connection = true\n"
 sections["MITM"] = mitm_content
