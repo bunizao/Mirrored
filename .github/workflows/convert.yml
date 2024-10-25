@@ -58,17 +58,18 @@ jobs:
           encoded_plugin_name=$(echo "$plugin_name" | jq -sRr @uri)
           download_url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${encoded_plugin_name}.sgmodule?type=loon-plugin&target=surge-module&category=${encoded_category}"
           echo "Downloading from $download_url"
-          curl -A "Surge Mac/2985" -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url"
+          curl -A "Surge Mac/2985" -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url" || echo "Failed to download ${plugin_name}.sgmodule"
           done < plugin_urls.txt
 
       - name: Find and replace external JS resources
+        continue-on-error: true  # 确保步骤在部分失败时继续执行
         run: |
           base_js_url="https://github.com/bunizao/Mirrored/raw/main/Chores/js"
           mkdir -p Chores/js
           for sgmodule_file in Chores/sgmodule/*.sgmodule; do
             echo "Processing $sgmodule_file"
             # 查找 .js 文件的外部链接
-            js_links=$(grep -oP 'https?://[^ ]+\.js' "$sgmodule_file")
+            js_links=$(grep -oP 'https?://[^ ]+\.js' "$sgmodule_file" || echo "")
             for js_link in $js_links; do
               js_filename=$(basename "$js_link")
               local_js_path="Chores/js/$js_filename"
