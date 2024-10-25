@@ -14,11 +14,11 @@ sections = {
     "Map Local": [],
     "Script": [],
     "MITM": [],   # 将所有的 hostname 收集到这里
-    "Rules": []   # 新增一个区块用于收集 Rules 部分内容
+    "Rule": []    # 新增一个区块用于收集 Rule 部分内容
 }
 
-# 定义正则表达式来匹配区块内容和 hostname 行
-section_pattern = re.compile(r'\[(.*?)\]\n(.*?)(?=\n\[|$)', re.DOTALL)
+# 更新正则表达式来匹配区块内容和 hostname 行
+section_pattern = re.compile(r'\[(.*?)\]\s*\n(.*?)(?=\n\[|$)', re.DOTALL)
 hostname_pattern = re.compile(r'hostname\s*=\s*(.*)', re.IGNORECASE)
 
 # 下载并解析每个文件的内容
@@ -30,15 +30,16 @@ for info in sgmodule_info:
         
         # 匹配区块并提取内容
         content = response.text
+        print(f"[Debug] Parsing content from {info['header']}")  # Debug log
         matches = section_pattern.findall(content)
         
         # 将内容按区块插入到相应部分
         for section, text in matches:
             if section in sections and section != "MITM":  # 排除 MITM，稍后处理
-                if section == "Rules":
-                    # 将 Rules 内容存储到 sections["Rules"] 列表中
-                    sections["Rules"].append(text.strip())
-                    print(f"[Debug] Added Rules content from {info['header']}: {text.strip()}")  # Debug log
+                if section == "Rule":
+                    # 将 Rule 内容存储到 sections["Rule"] 列表中
+                    sections["Rule"].append(text.strip())
+                    print(f"[Debug] Added Rule content from {info['header']}: {text.strip()}")  # Debug log
                 else:
                     divider = f"# ------------------------------------- {info['header']} --------------------------------------\n"
                     sections[section].append(f"{divider}\n{text.strip()}")
@@ -55,17 +56,17 @@ for info in sgmodule_info:
     except requests.exceptions.RequestException as e:
         print(f"无法下载 {info['header']} 文件: {e}")
 
-# 检查 Rules 内容是否成功提取
-if sections["Rules"]:
-    print(f"[Debug] Total Rules content to be saved: {len(sections['Rules'])} lines")
+# 检查 Rule 内容是否成功提取
+if sections["Rule"]:
+    print(f"[Debug] Total Rule content to be saved: {len(sections['Rule'])} lines")
 else:
-    print("[Warning] No Rules content extracted")
+    print("[Warning] No Rule content extracted")
 
-# 保存 Rules 部分内容到 reject.list 文件
+# 保存 Rule 部分内容到 reject.list 文件
 os.makedirs('Chores/ruleset', exist_ok=True)
 with open('Chores/ruleset/reject.list', 'w') as ruleset_file:
-    ruleset_file.write("\n".join(sections["Rules"]))
-print("成功保存 [Rules] 内容到 Chores/ruleset/reject.list")
+    ruleset_file.write("\n".join(sections["Rule"]))
+print("成功保存 [Rule] 内容到 Chores/ruleset/reject.list")
 
 # 生成合并的 hostname 列表并格式化
 unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重主机名
