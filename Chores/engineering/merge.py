@@ -88,8 +88,8 @@ for section, contents in sections.items():
     if section == "MITM":
         section_content = contents  # 插入完整的 MITM 区块内容
     else:
-        section_content = "\n\n".join(contents)  # 其他区块内容合并为字符串
-    template_content = template_content.replace(placeholder, section_content)
+        section_content = "\n\n".join(contents)  # 将其他区块内容合并成字符串
+    template_content = template_content.replace(placeholder, str(section_content))
 
 # 替换 `{hostname_append}` 占位符
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
