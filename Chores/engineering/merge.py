@@ -5,7 +5,7 @@ from datetime import datetime
 import yaml
 
 # 从 YAML 文件中加载 sgmodule_info
-with open('CChores/engineering/data/sgmodules.yaml', 'r') as f:
+with open('Chores/engineering/data/sgmodules.yaml', 'r') as f:
     sgmodule_info = yaml.safe_load(f)
 
 # 定义区块
