@@ -312,7 +312,6 @@ body_rewrite_35 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/se
 移除京东广告 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome), script-path=https://kelee.one/Resource/Script/JD/JD_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% *.zhihu.com, m5.amap.com, m5-zb.amap.com, oss.amap.com, sns.amap.com, *.weibo.cn, *.weibo.com, weibo.com, tiebac.baidu.com, tieba.baidu.com, api.pinduoduo.com, api.yangkeduo.com, api.m.jd.com
+hostname = %APPEND% abc.com, *.zhihu.com, m5.amap.com, m5-zb.amap.com, oss.amap.com, sns.amap.com, *.weibo.cn, *.weibo.com, weibo.com, tiebac.baidu.com, tieba.baidu.com, api.pinduoduo.com, api.yangkeduo.com, api.m.jd.com
 h2 = true
 tcp-connection = true
-
