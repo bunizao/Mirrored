@@ -38,6 +38,7 @@ for info in sgmodule_info:
                 if section == "Rules":
                     # 将 Rules 内容存储到 sections["Rules"] 列表中
                     sections["Rules"].append(text.strip())
+                    print(f"[Debug] Added Rules content from {info['header']}: {text.strip()}")  # Debug log
                 else:
                     divider = f"# ------------------------------------- {info['header']} --------------------------------------\n"
                     sections[section].append(f"{divider}\n{text.strip()}")
@@ -53,6 +54,12 @@ for info in sgmodule_info:
         
     except requests.exceptions.RequestException as e:
         print(f"无法下载 {info['header']} 文件: {e}")
+
+# 检查 Rules 内容是否成功提取
+if sections["Rules"]:
+    print(f"[Debug] Total Rules content to be saved: {len(sections['Rules'])} lines")
+else:
+    print("[Warning] No Rules content extracted")
 
 # 保存 Rules 部分内容到 reject.list 文件
 os.makedirs('Chores/ruleset', exist_ok=True)
@@ -86,9 +93,6 @@ for section, contents in sections.items():
 # 替换 `{hostname_append}` 占位符和 `{{currentDate}}`
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
 template_content = template_content.replace("{{currentDate}}", current_date)
-
-# 下载和替换 JS 链接
-# (可选择的代码)
 
 # 将合并内容写入输出文件
 with open(output_path, 'w') as output_file:
