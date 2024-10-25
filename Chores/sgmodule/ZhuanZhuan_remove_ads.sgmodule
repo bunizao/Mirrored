@@ -23,10 +23,10 @@
 
 [Script]
 # 移除悬浮窗
-移除悬浮窗 = type=http-response, pattern=^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzinfoshow\/getfeedflowinfo, script-path=https://kelee.one/Resource/Script/ZhuanZhuan/ZhuanZhuan_remove_ads.js, requires-body=true
+移除悬浮窗 = type=http-response, pattern=^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzinfoshow\/getfeedflowinfo, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/ZhuanZhuan_remove_ads.js, requires-body=true
 
 # 精简我的页面
-精简我的页面 = type=http-response, pattern=^https:\/\/app\.zhuanzhuan\.com\/zz\/transfer\/getmyprofilev3, script-path=https://kelee.one/Resource/Script/ZhuanZhuan/ZhuanZhuan_remove_ads.js, requires-body=true
+精简我的页面 = type=http-response, pattern=^https:\/\/app\.zhuanzhuan\.com\/zz\/transfer\/getmyprofilev3, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/ZhuanZhuan_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% app.zhuanzhuan.com

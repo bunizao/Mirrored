@@ -50,19 +50,19 @@
 
 [Script]
 # 首页顶部去除直播
-移除首页直播推广 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-category\/customCategories, script-path=https://kelee.one/Resource/Script/Himalaya/Himalaya_remove_ads.js, requires-body=true
+移除首页直播推广 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-category\/customCategories, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
 
 # 屏蔽首页横幅广告
-移除首页横幅广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/focus-mobile\/focusPic, script-path=https://kelee.one/Resource/Script/Himalaya/Himalaya_remove_ads.js, requires-body=true
+移除首页横幅广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/focus-mobile\/focusPic, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
 
 # 屏蔽首页动态广告
-移除首页动态广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-feed\/v\d\/mix, script-path=https://kelee.one/Resource/Script/Himalaya/Himalaya_remove_ads.js, requires-body=true
+移除首页动态广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-feed\/v\d\/mix, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
 
 # 屏蔽标签页滚动广告
-移除标签页滚动广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-category\/v\d/category, script-path=https://kelee.one/Resource/Script/Himalaya/Himalaya_remove_ads.js, requires-body=true
+移除标签页滚动广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-category\/v\d/category, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
 
 # 去除我的页面广告标签
-移除我的页面广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/mobile-user\/v\d\/homePage, script-path=https://kelee.one/Resource/Script/Himalaya/Himalaya_remove_ads.js, requires-body=true
+移除我的页面广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/mobile-user\/v\d\/homePage, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% *.xima*.*, *.xmcdn.*

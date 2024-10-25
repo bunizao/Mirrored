@@ -136,7 +136,7 @@ DOMAIN,plbslog.umeng.com,REJECT
 
 [Script]
 # 配置修改
-配置修改 = type=http-response, pattern=^https:\/\/base\.mkzcdn\.com\/app\/config\/, script-path=https://kelee.one/Resource/Script/MKZ/MKZ_remove_ads.js, requires-body=true
+配置修改 = type=http-response, pattern=^https:\/\/base\.mkzcdn\.com\/app\/config\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/MKZ_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% base.mkzcdn.com

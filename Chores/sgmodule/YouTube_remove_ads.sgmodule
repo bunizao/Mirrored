@@ -21,9 +21,9 @@ AND, ((DOMAIN-SUFFIX, youtubei.googleapis.com),  (PROTOCOL, QUIC)), REJECT
 
 [Script]
 # YouTube去广告
-YouTube请求 = type=http-request, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch), script-path=https://kelee.one/Resource/Script/YouTube/YouTube_remove_ads/YouTube_remove_ads_request.js, requires-body=true, binary-body-mode=true
+YouTube请求 = type=http-request, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_request.js, requires-body=true, binary-body-mode=true
 
-YouTube响应 = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), script-path=https://kelee.one/Resource/Script/YouTube/YouTube_remove_ads/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true
+YouTube响应 = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true
 
 [MITM]
 hostname = %APPEND% *.googlevideo.com, youtubei.googleapis.com

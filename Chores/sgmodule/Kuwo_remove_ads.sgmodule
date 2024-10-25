@@ -75,7 +75,7 @@ URL-REGEX,^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/album\/adBar\/,REJECT-TINYGIF
 
 [Script]
 # 移除听书页面广告
-移除听书页面广告 = type=http-response, pattern=^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/tingshu\/index\/radio, script-path=https://kelee.one/Resource/Script/Kuwo/Kuwo_remove_ads.js, requires-body=true
+移除听书页面广告 = type=http-response, pattern=^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/tingshu\/index\/radio, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Kuwo_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% appi.kuwo.cn, mc.tencentmusic.com, vip*.kuwo.cn, tingshu.kuwo.cn

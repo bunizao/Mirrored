@@ -20,11 +20,11 @@ DOMAIN,tysdk.95516.com,REJECT
 ^https:\/\/wallet\.95516\.com(:10533)?\/s\/wl\/icon\/large\/1 - reject
 
 [Script]
-移除云闪付推广 = type=http-response, pattern=^https:\/\/base\.95516\.com\/app\/inApp\/sys\/appShowGroup\/, script-path=https://kelee.one/Resource/Script/UnionPay/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
+移除云闪付推广 = type=http-response, pattern=^https:\/\/base\.95516\.com\/app\/inApp\/sys\/appShowGroup\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
 
-移除云闪付推广 = type=http-response, pattern=^https:\/\/account\.95516\.com\/fortune\/inApp\/common\/, script-path=https://kelee.one/Resource/Script/UnionPay/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
+移除云闪付推广 = type=http-response, pattern=^https:\/\/account\.95516\.com\/fortune\/inApp\/common\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
 
-移除云闪付推广 = type=http-response, pattern=^https:\/\/content\.95516\.com\/koala-pre\/koala\/(recommend\/hotList|right\/queryAllRights), script-path=https://kelee.one/Resource/Script/UnionPay/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
+移除云闪付推广 = type=http-response, pattern=^https:\/\/content\.95516\.com\/koala-pre\/koala\/(recommend\/hotList|right\/queryAllRights), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% account.95516.com, base.95516.com, content.95516.com

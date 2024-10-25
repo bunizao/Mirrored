@@ -11,7 +11,7 @@
 #!date=2024-07-07 15:54:03
 
 [Script]
-起点读书去广告 = type=http-response, pattern=^https:\/\/magev6\.if\.qidian\.com\/argus\/api\/(v4\/client\/getsplashscreen|v2\/(deeplink\/geturl|dailyrecommend\/getdailyrecommend)|v1\/(client\/getconf$|bookshelf\/getHoverAdv|adv\/getadvlistbatch\?positions=iOS_tab)), script-path=https://kelee.one/Resource/Script/QiDian/QiDian_remove_ads.js, requires-body=true
+起点读书去广告 = type=http-response, pattern=^https:\/\/magev6\.if\.qidian\.com\/argus\/api\/(v4\/client\/getsplashscreen|v2\/(deeplink\/geturl|dailyrecommend\/getdailyrecommend)|v1\/(client\/getconf$|bookshelf\/getHoverAdv|adv\/getadvlistbatch\?positions=iOS_tab)), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/QiDian_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% magev6.if.qidian.com

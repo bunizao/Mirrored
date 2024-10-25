@@ -11,7 +11,7 @@
 #!date=2024-01-28 16:25:19
 
 [Script]
-移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://kelee.one/Resource/Script/Reddit/Reddit_remove_ads.js, requires-body=true
+移除广告 = type=http-response, pattern=^https?:\/\/gql(-fed)?\.reddit\.com, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Reddit_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% gql.reddit.com, gql-fed.reddit.com

@@ -11,7 +11,7 @@
 #!date=2024-09-18 16:14:34
 
 [Script]
-京东比价 = type=http-response, pattern=^https?:\/\/api\.m\.jd\.com/client\.action\?functionId=(wareBusiness|serverConfig|basicConfig), script-path=https://kelee.one/Resource/Script/JD/JD_Price.js, requires-body=true
+京东比价 = type=http-response, pattern=^https?:\/\/api\.m\.jd\.com/client\.action\?functionId=(wareBusiness|serverConfig|basicConfig), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% api.m.jd.com

@@ -79,7 +79,7 @@ DOMAIN,utoken.umeng.com,REJECT
 
 [Script]
 # 移除底栏视频标签
-移除底栏视频标签 = type=http-response, pattern=^https:\/\/saas\.hpplay\.cn\/api\/lebo-desk\/endpoint\/app-resource\/app_tab_red_dot\?user-tag=1$, script-path=https://kelee.one/Resource/Script/TV_Assistant/TV_Assistant_remove_ads.js, requires-body=true
+移除底栏视频标签 = type=http-response, pattern=^https:\/\/saas\.hpplay\.cn\/api\/lebo-desk\/endpoint\/app-resource\/app_tab_red_dot\?user-tag=1$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TV_Assistant_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% saas.hpplay.cn

@@ -47,10 +47,10 @@ URL-REGEX,^http:\/\/119\.29\.29\.29\/d,REJECT
 
 [Script]
 # 顶部标签
-移除顶部标签 = type=http-response, pattern=^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetClassPageAllTabs, script-path=https://kelee.one/Resource/Script/BiliComic/BiliComic_remove_ads.js, requires-body=true
+移除顶部标签 = type=http-response, pattern=^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetClassPageAllTabs, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliComic_remove_ads.js, requires-body=true
 
 # 我的页面
-精简我的页面 = type=http-response, pattern=^https:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.User\/UCenterConf, script-path=https://kelee.one/Resource/Script/BiliComic/BiliComic_remove_ads.js, requires-body=true
+精简我的页面 = type=http-response, pattern=^https:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.User\/UCenterConf, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliComic_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% manga.bilibili.com
