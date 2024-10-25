@@ -26,6 +26,6 @@ jobs:
           TUTUBETTERRULES_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
         run: |
           curl -X POST -H "Accept: application/vnd.github.everest-preview+json" \
-               -H "Authorization: token $TUTUBETTERRULES_TOKEN" \
+               -H "Authorization: token $DISPATCH_TOKEN" \
                https://api.github.com/repos/bunizao/TutuBetterRules/dispatches \
                -d '{"event_type": "sync_files"}'
