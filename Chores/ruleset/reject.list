@@ -14,7 +14,7 @@ DOMAIN,free-aos-cdn-image.amap.com
 DOMAIN-SUFFIX,v.smtcdns.com
 AND, ((PROTOCOL, QUIC), (DOMAIN-SUFFIX, xiaohongshu.com))
 # 请求放行
-DOMAIN,wbapp.uve.weibo.com,DIRECT
+DOMAIN,wbapp.uve.weibo.com
 # 微博开屏广告
 DOMAIN-SUFFIX,biz.weibo.com
 # 拦截HTTPDNS
