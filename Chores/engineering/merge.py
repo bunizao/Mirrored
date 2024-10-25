@@ -71,13 +71,9 @@ for info in sgmodule_info:
     except requests.exceptions.RequestException as e:
         print(f"无法下载 {info['header']} 文件: {e}")
 
-# 生成 MITM 区块格式
+# 生成合并的 hostname 列表并格式化
 unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重主机名
-mitm_content = "[MITM]\n"
-mitm_content += f"hostname = %APPEND% {', '.join(unique_hostnames)}\n"
-mitm_content += "h2 = true\n"
-mitm_content += "tcp-connection = true\n"
-sections["MITM"] = mitm_content
+hostname_append_content = ", ".join(unique_hostnames)  # 合并后的 hostname 列表
 
 # 读取模板文件
 template_path = 'Chores/engineering/templates/All-in-One-2.x.sgmodule.template'
@@ -94,6 +90,9 @@ for section, contents in sections.items():
     else:
         section_content = "\n\n".join(contents)  # 其他区块内容合并为字符串
     template_content = template_content.replace(placeholder, section_content)
+
+# 替换 `{hostname_append}` 占位符
+template_content = template_content.replace("{hostname_append}", hostname_append_content)
 
 # 将合并内容写入输出文件
 with open(output_path, 'w') as output_file:
