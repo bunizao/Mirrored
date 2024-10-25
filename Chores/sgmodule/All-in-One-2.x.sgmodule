@@ -14,6 +14,7 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject-Drop.list,REJECT-DROP
 
 [URL Rewrite]
+
 # ------------------------------------- Zhihu --------------------------------------
 
 ^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card - reject
@@ -38,7 +39,10 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/fuss10.elemecdn.com\/.+\.mp4 - reject
 ^https:\/\/www1.elecfans.com\/www\/delivery - reject
 
+########################################################################################
+
 [Map Local]
+
 # ------------------------------------- Zhihu --------------------------------------
 
 # 首页 - 悬浮图标、顶部横幅、开屏广告、关注页推荐、推荐信息流、热榜信息流、热榜直播、回答底部卡片
@@ -245,7 +249,10 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/img\.meituan\.net\/bizad\/bizad_brandCpt_\d+\.jpg data-type=text data="{}" status-code=200
 ^https:\/\/s3plus\.meituan\.net\/v1\/mss_\w+\/(brandcpt-vedio|waimai-alita)\/\w+\.zip$ data-type=text data="{}" status-code=200
 
+########################################################################################
+
 [Script]
+
 # ------------------------------------- Zhihu --------------------------------------
 
 body_rewrite_30 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22activity_banner%22%2C%22activity_window%22%2C%22vip_tip%22%5D%5D%5D
@@ -412,6 +419,8 @@ body_rewrite_35 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/se
 # ------------------------------------- Pixiv ---------------------------------------
 
 pixivAd = type=http-response,pattern=^https?:\/\/oauth\.secure\.pixiv\.net\/(auth\/token),requires-body=1,max-size=3145728,script-path=https://github.com/ddgksf2013/Scripts/raw/master/pixivAds.js,script-update-interval=0
+
+########################################################################################
 
 [MITM]
 hostname = %APPEND% oauth.secure.pixiv.net, api.mcd.cn, orders.kfc.com.cn, dynamicad.kfc.com.cn, res.kfc.com.cn, res.pizzahut.com.cn, 3pp.starbucks.com.cn, htwkop.xiaojukeji.com, tm-api.pin-dao.cn, webchatapp.fcbox.com, dsp.fcbox.com, go.heytea.com, api.hellobike.com, ucmp.sf-express.com, vod-movie.maoyan.com, api.maoyan.com, ad.maoyan.com, wx.maoyan.com, elemecdn.com, fuss10.elemecdn.com, www1.elecfans.com, flowplus.meituan.net, img.meituan.net, s3plus.meituan.net, *.zhihu.com, m5.amap.com, m5-zb.amap.com, oss.amap.com, sns.amap.com, *.weibo.cn, *.weibo.com, weibo.com, tiebac.baidu.com, tieba.baidu.com, cn-acs.m.cainiao.com, guide-acs.m.taobao.com, api.pinduoduo.com, api.yangkeduo.com, api.m.jd.com
