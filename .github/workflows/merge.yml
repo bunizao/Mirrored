@@ -3,8 +3,8 @@ name: Merge sgmodule files with merged sections
 on:
   push:
     branches:
-      - main  # 或指定你希望工作流运行的分支
-  workflow_dispatch:  # 允许手动触发工作流
+      - main 
+  workflow_dispatch:  
 
 jobs:
   merge_files:
@@ -30,13 +30,18 @@ jobs:
       - name: Check output directory
         run: |
           mkdir -p Chores/sgmodule
+          mkdir -p Chores/ruleset
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add Chores/sgmodule/All-in-One-2.x.sgmodule
-          git commit -m "Update merged All-in-One-2.x.sgmodule"
-          git push
+          git add Chores/sgmodule/All-in-One-2.x.sgmodule Chores/ruleset/reject.list
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update merged All-in-One-2.x.sgmodule and reject list"
+            git push
+          fi
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
