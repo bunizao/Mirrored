@@ -62,7 +62,8 @@ for info in sgmodule_info:
                 # 查找 hostname 行并提取主机名
                 hostname_match = hostname_pattern.search(text)
                 if hostname_match:
-                    hostnames = hostname_match.group(1).split(',')
+                    # 去掉每个 hostname 中的 %APPEND% 标记
+                    hostnames = hostname_match.group(1).replace("%APPEND%", "").split(',')
                     sections["MITM"].extend([hostname.strip() for hostname in hostnames if hostname.strip()])
         
         print(f"成功合并: {info['header']}")
@@ -73,7 +74,7 @@ for info in sgmodule_info:
 # 生成 MITM 区块格式
 unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重主机名
 mitm_content = "[MITM]\n"
-mitm_content += f"hostname = %APPEND% {', '.join(unique_hostnames)}\n"
+mitm_content += f"hostname = %APPEND% {', '.join(unique_hostnames)}\n"  # 只在开头插入一次 %APPEND%
 mitm_content += "h2 = true\n"
 mitm_content += "tcp-connection = true\n"
 sections["MITM"] = mitm_content
