@@ -1,4 +1,4 @@
-name: Dispatch Sync on File Change
+name: Dispatch Sync
 
 on:
   push:
