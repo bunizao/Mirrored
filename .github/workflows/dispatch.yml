@@ -5,6 +5,7 @@ on:
     paths:
       - "Chores/ruleset/reject.list"
       - "Chores/sgmodule/All-in-One-2.x.sgmodule"
+  workflow_dispatch: 
 
 jobs:
   check_and_dispatch:
