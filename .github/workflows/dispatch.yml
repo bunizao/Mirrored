@@ -1,11 +1,10 @@
-name: Dispatch Sync
+name: Dispatch Sync on File Change
 
 on:
   push:
     paths:
       - "Chores/ruleset/reject.list"
       - "Chores/sgmodule/All-in-One-2.x.sgmodule"
-  workflow_dispatch: 
 
 jobs:
   check_and_dispatch:
@@ -22,7 +21,7 @@ jobs:
           git diff --quiet HEAD^ HEAD Chores/ruleset/reject.list Chores/sgmodule/All-in-One-2.x.sgmodule || echo "changes_detected=true" >> $GITHUB_ENV
 
       - name: Trigger repository dispatch in TutuBetterRules
-        if: env.changes_detected == 'true'  # Only trigger if changes are detected
+        if: env.changes_detected == 'true'
         env:
           DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
         run: |
