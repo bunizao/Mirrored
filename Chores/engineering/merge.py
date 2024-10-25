@@ -4,99 +4,82 @@ import os
 from datetime import datetime
 import yaml
 
-# 从 YAML 文件中加载 sgmodule_info
 with open('Chores/engineering/data/sgmodules.yaml', 'r') as f:
     sgmodule_info = yaml.safe_load(f)
 
-# 定义区块
 sections = {
     "URL Rewrite": [],
     "Map Local": [],
     "Script": [],
-    "MITM": [],   # 将所有的 hostname 收集到这里
-    "Rule": []    # 新增一个区块用于收集 Rule 部分内容
+    "MITM": [],
+    "Rule": []
 }
 
-# 更新正则表达式来匹配区块内容和 hostname 行
 section_pattern = re.compile(r'\[(.*?)\]\s*\n(.*?)(?=\n\[|$)', re.DOTALL)
 hostname_pattern = re.compile(r'hostname\s*=\s*(.*)', re.IGNORECASE)
 
-# 下载并解析每个文件的内容
 for info in sgmodule_info:
     try:
-        # 下载文件内容
         response = requests.get(info['url'])
         response.raise_for_status()
         
-        # 匹配区块并提取内容
         content = response.text
-        print(f"[Debug] Parsing content from {info['header']}")  # Debug log
+        print(f"[Debug] Parsing content from {info['header']}")
         matches = section_pattern.findall(content)
         
-        # 将内容按区块插入到相应部分
         for section, text in matches:
-            if section in sections and section != "MITM":  # 排除 MITM，稍后处理
+            if section in sections and section != "MITM":
                 if section == "Rule":
-                    # 将 Rule 内容存储到 sections["Rule"] 列表中
-                    sections["Rule"].append(text.strip())
-                    print(f"[Debug] Added Rule content from {info['header']}: {text.strip()}")  # Debug log
+                    cleaned_text = text.replace(",REJECT", "").strip()
+                    sections["Rule"].append(cleaned_text)
+                    print(f"[Debug] Added cleaned Rule content from {info['header']}: {cleaned_text}")
                 else:
                     divider = f"# ------------------------------------- {info['header']} --------------------------------------\n"
                     sections[section].append(f"{divider}\n{text.strip()}")
             elif section == "MITM":
-                # 查找 hostname 行并提取主机名
                 hostname_match = hostname_pattern.search(text)
                 if hostname_match:
-                    # 去掉每个 hostname 中的 %APPEND% 标记
                     hostnames = hostname_match.group(1).replace("%APPEND%", "").split(',')
                     sections["MITM"].extend([hostname.strip() for hostname in hostnames if hostname.strip()])
         
-        print(f"成功合并: {info['header']}")
+        print(f"Successfully merged: {info['header']}")
         
     except requests.exceptions.RequestException as e:
-        print(f"无法下载 {info['header']} 文件: {e}")
+        print(f"Failed to download {info['header']} file: {e}")
 
-# 检查 Rule 内容是否成功提取
 if sections["Rule"]:
     print(f"[Debug] Total Rule content to be saved: {len(sections['Rule'])} lines")
 else:
     print("[Warning] No Rule content extracted")
 
-# 保存 Rule 部分内容到 reject.list 文件
 os.makedirs('Chores/ruleset', exist_ok=True)
 with open('Chores/ruleset/reject.list', 'w') as ruleset_file:
     ruleset_file.write("\n".join(sections["Rule"]))
-print("成功保存 [Rule] 内容到 Chores/ruleset/reject.list")
+print("Successfully saved [Rule] content to Chores/ruleset/reject.list")
 
-# 生成合并的 hostname 列表并格式化
-unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重主机名
-hostname_append_content = ", ".join(unique_hostnames)  # 合并后的 hostname 列表
+unique_hostnames = list(dict.fromkeys(sections["MITM"]))
+hostname_append_content = ", ".join(unique_hostnames)
 
-# 获取当前日期并格式化为 mm/dd/yyyy
 current_date = datetime.now().strftime("%m/%d/%Y")
 
-# 读取模板文件
 template_path = 'Chores/engineering/templates/All-in-One-2.x.sgmodule.template'
 output_path = 'Chores/sgmodule/All-in-One-2.x.sgmodule'
 
 with open(template_path, 'r') as template_file:
     template_content = template_file.read()
 
-# 替换模板中的占位符
 for section, contents in sections.items():
-    placeholder = f"{{{section}}}"  # 例如 {URL Rewrite}
+    placeholder = f"{{{section}}}"
     if section == "MITM":
-        section_content = contents  # 插入完整的 MITM 区块内容
+        section_content = contents
     else:
-        section_content = "\n\n".join(contents)  # 将其他区块内容合并成字符串
+        section_content = "\n\n".join(contents)
     template_content = template_content.replace(placeholder, str(section_content))
 
-# 替换 `{hostname_append}` 占位符和 `{{currentDate}}`
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
 template_content = template_content.replace("{{currentDate}}", current_date)
 
-# 将合并内容写入输出文件
 with open(output_path, 'w') as output_file:
     output_file.write(template_content)
 
-print(f"文件已合并并保存为: {output_path}")
+print(f"File successfully merged and saved to: {output_path}")
