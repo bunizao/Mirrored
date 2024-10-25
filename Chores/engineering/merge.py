@@ -1,11 +1,11 @@
-import yaml
 import requests
 import re
 import os
 from datetime import datetime
+import yaml
 
 # 从 YAML 文件中加载 sgmodule_info
-with open('Chores/engineering/data/sgmodules.yaml', 'r') as f:
+with open('Chores/engineering/sgmodule_info.yaml', 'r') as f:
     sgmodule_info = yaml.safe_load(f)
 
 # 定义区块
@@ -13,7 +13,8 @@ sections = {
     "URL Rewrite": [],
     "Map Local": [],
     "Script": [],
-    "MITM": []  # 将所有的 hostname 收集到这里
+    "MITM": [],   # 将所有的 hostname 收集到这里
+    "Rules": []   # 新增一个区块用于收集 Rules 部分内容
 }
 
 # 定义正则表达式来匹配区块内容和 hostname 行
@@ -34,8 +35,12 @@ for info in sgmodule_info:
         # 将内容按区块插入到相应部分
         for section, text in matches:
             if section in sections and section != "MITM":  # 排除 MITM，稍后处理
-                divider = f"# ------------------------------------- {info['header']} --------------------------------------\n"
-                sections[section].append(f"{divider}\n{text.strip()}")
+                if section == "Rules":
+                    # 将 Rules 内容存储到 sections["Rules"] 列表中
+                    sections["Rules"].append(text.strip())
+                else:
+                    divider = f"# ------------------------------------- {info['header']} --------------------------------------\n"
+                    sections[section].append(f"{divider}\n{text.strip()}")
             elif section == "MITM":
                 # 查找 hostname 行并提取主机名
                 hostname_match = hostname_pattern.search(text)
@@ -48,6 +53,12 @@ for info in sgmodule_info:
         
     except requests.exceptions.RequestException as e:
         print(f"无法下载 {info['header']} 文件: {e}")
+
+# 保存 Rules 部分内容到 reject.list 文件
+os.makedirs('Chores/ruleset', exist_ok=True)
+with open('Chores/ruleset/reject.list', 'w') as ruleset_file:
+    ruleset_file.write("\n".join(sections["Rules"]))
+print("成功保存 [Rules] 内容到 Chores/ruleset/reject.list")
 
 # 生成合并的 hostname 列表并格式化
 unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重主机名
@@ -75,6 +86,9 @@ for section, contents in sections.items():
 # 替换 `{hostname_append}` 占位符和 `{{currentDate}}`
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
 template_content = template_content.replace("{{currentDate}}", current_date)
+
+# 下载和替换 JS 链接
+# (可选择的代码)
 
 # 将合并内容写入输出文件
 with open(output_path, 'w') as output_file:
