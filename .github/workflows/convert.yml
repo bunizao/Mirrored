@@ -61,14 +61,31 @@ jobs:
           curl -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url"
           done < plugin_urls.txt
 
+      - name: Find and replace external JS resources
+        run: |
+          base_js_url="https://github.com/bunizao/Mirrored/raw/main/Chores/js"
+          mkdir -p Chores/js
+          for sgmodule_file in Chores/sgmodule/*.sgmodule; do
+            echo "Processing $sgmodule_file"
+            js_links=$(grep -oP 'https?://[^ ]+\.js' "$sgmodule_file")
+            for js_link in $js_links; do
+              js_filename=$(basename "$js_link")
+              local_js_path="Chores/js/$js_filename"
+              echo "Downloading $js_link to $local_js_path"
+              curl -L -o "$local_js_path" "$js_link"
+              github_js_url="$base_js_url/$js_filename"
+              sed -i "s|$js_link|$github_js_url|g" "$sgmodule_file"
+            done
+          done
+
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git add Chores/sgmodule/*.sgmodule
+          git add Chores/sgmodule/*.sgmodule Chores/js/*.js
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Initial Commit"
+            git commit -m "Update sgmodule files with GitHub-hosted JS resources"
             git push
           fi
