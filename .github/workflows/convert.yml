@@ -58,7 +58,7 @@ jobs:
           encoded_plugin_name=$(echo "$plugin_name" | jq -sRr @uri)
           download_url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${encoded_plugin_name}.sgmodule?type=loon-plugin&target=surge-module&category=${encoded_category}"
           echo "Downloading from $download_url"
-          curl -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url"
+          curl -A "Surge Mac/2985" -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url"
           done < plugin_urls.txt
 
       - name: Find and replace external JS resources
@@ -67,14 +67,21 @@ jobs:
           mkdir -p Chores/js
           for sgmodule_file in Chores/sgmodule/*.sgmodule; do
             echo "Processing $sgmodule_file"
+            # 查找 .js 文件的外部链接
             js_links=$(grep -oP 'https?://[^ ]+\.js' "$sgmodule_file")
             for js_link in $js_links; do
               js_filename=$(basename "$js_link")
               local_js_path="Chores/js/$js_filename"
+              # 使用指定的 User-Agent 下载 .js 文件
               echo "Downloading $js_link to $local_js_path"
-              curl -L -o "$local_js_path" "$js_link"
-              github_js_url="$base_js_url/$js_filename"
-              sed -i "s|$js_link|$github_js_url|g" "$sgmodule_file"
+              if curl -A "Surge Mac/2985" -L -o "$local_js_path" "$js_link"; then
+                echo "Download successful for $js_link"
+                # 替换 sgmodule 文件中的链接为 GitHub 仓库的路径
+                github_js_url="$base_js_url/$js_filename"
+                sed -i "s|$js_link|$github_js_url|g" "$sgmodule_file"
+              else
+                echo "Failed to download $js_link, skipping..."
+              fi
             done
           done
 
