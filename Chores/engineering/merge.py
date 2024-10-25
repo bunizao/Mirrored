@@ -74,7 +74,7 @@ for info in sgmodule_info:
 # 生成 MITM 区块格式
 unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重
 mitm_content = "[MITM]\n"
-mitm_content += f"hostname = %APPEND% {', '.join(unique_hostnames)}\n"
+mitm_content += f"hostname = %APPEND% {', '.join(unique_hostnames)}\n"  # 只在开头插入一次 %APPEND%
 mitm_content += "h2 = true\n"
 mitm_content += "tcp-connection = true\n"
 sections["MITM"] = mitm_content
