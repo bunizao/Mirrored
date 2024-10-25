@@ -2,59 +2,45 @@ name: Merge sgmodule files with merged sections
 
 on:
   push:
-    branches: [ main ]
-    paths-ignore:
-      - 'Chores/sgmodule/All-in-One-2.x.sgmodule'
-  schedule:
-    - cron: '0 0 * * *'  # 每天运行一次
+    branches:
+      - main  # 或指定你希望工作流运行的分支
+  workflow_dispatch:  # 允许手动触发工作流
 
 jobs:
-  build:
+  merge_files:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Check out the repository
+        uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: '3.x'
 
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run extract.py
+      - name: Run merge script
         run: |
-          python Chores/engineering/extract.py
+          python Chores/engineering/merge.py
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Install Node.js dependencies
+      - name: Check output directory
         run: |
-          npm install
+          mkdir -p Chores/sgmodule
 
-      - name: Generate All-in-One-2.x.sgmodule using Node.js script
+      - name: Move merged file to output directory
         run: |
-          node Chores/engineering/render_template.js
-  
+          mv Chores/engineering/merged_output.sgmodule Chores/sgmodule/All-in-One-2.x.sgmodule
+
       - name: Commit and push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 将 GITHUB_TOKEN 传递给 Git 命令
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           git add Chores/sgmodule/All-in-One-2.x.sgmodule
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto-merge sgmodule files with merged sections"
-            git push
-          fi
+          git commit -m "Update merged All-in-One-2.x.sgmodule"
+          git push
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
