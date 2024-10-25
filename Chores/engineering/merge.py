@@ -1,6 +1,5 @@
 import requests
 import re
-from urllib.parse import quote
 import os
 
 # 定义 URL 和 header 别名信息
@@ -36,11 +35,12 @@ sections = {
     "URL Rewrite": [],
     "Map Local": [],
     "Script": [],
-    "MITM": ""  # 将 MITM 部分直接作为一个完整的字符串存储
+    "MITM": []  # 将所有的 hostname 收集到这里
 }
 
-# 定义正则表达式来匹配区块内容
+# 定义正则表达式来匹配区块内容和 hostname 行
 section_pattern = re.compile(r'\[(.*?)\]\n(.*?)(?=\n\[|$)', re.DOTALL)
+hostname_pattern = re.compile(r'hostname\s*=\s*(.*)', re.IGNORECASE)
 
 # 下载并解析每个文件的内容
 for info in sgmodule_info:
@@ -58,42 +58,25 @@ for info in sgmodule_info:
             if section in sections and section != "MITM":  # 排除 MITM，稍后处理
                 divider = f"# ------------------------------------- {info['header']} --------------------------------------"
                 sections[section].append(f"{divider}\n{text.strip()}")
+            elif section == "MITM":
+                # 查找 hostname 行并提取主机名
+                hostname_match = hostname_pattern.search(text)
+                if hostname_match:
+                    hostnames = hostname_match.group(1).split(',')
+                    sections["MITM"].extend([hostname.strip() for hostname in hostnames if hostname.strip()])
         
         print(f"成功合并: {info['header']}")
         
     except requests.exceptions.RequestException as e:
         print(f"无法下载 {info['header']} 文件: {e}")
 
-# 生成合并链接
-base_url = 'https://script-hub.tutuis.me/file/_start_/'
-end_url = '/_end_/Zhihu_remove_ads.sgmodule?type=surge-module&target=surge-module&del=true'
-separator = '😂'
-
-# 提取 URL 列表并编码为合并链接
-module_urls = [module['url'] for module in sgmodule_info]
-combined_urls = separator.join(module_urls)
-encoded_combined_urls = quote(combined_urls, safe=':/')
-combined_link = f"{base_url}{encoded_combined_urls}{end_url}"
-
-# 从合并链接中获取 [MITM] 部分
-try:
-    response = requests.get(combined_link)
-    response.raise_for_status()
-    
-    # 匹配 [MITM] 部分内容
-    content = response.text
-    mitm_pattern = re.compile(r'\[MITM\]\n((?:.|\n)*?)(?=\n\[|$)')
-    mitm_match = mitm_pattern.search(content)
-    
-    if mitm_match:
-        # 将完整的 [MITM] 内容直接存入 sections["MITM"]
-        sections["MITM"] = "[MITM]\n" + mitm_match.group(1).strip()
-        print("成功提取 [MITM] 部分")
-    else:
-        print('未找到 [MITM] 部分')
-        
-except requests.exceptions.RequestException as e:
-    print(f"无法获取合并链接的内容: {e}")
+# 生成 MITM 区块格式
+unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重主机名
+mitm_content = "[MITM]\n"
+mitm_content += f"hostname = %APPEND% {', '.join(unique_hostnames)}\n"
+mitm_content += "h2 = true\n"
+mitm_content += "tcp-connection = true\n"
+sections["MITM"] = mitm_content
 
 # 读取模板文件
 template_path = 'Chores/engineering/templates/All-in-One-2.x.sgmodule.template'
