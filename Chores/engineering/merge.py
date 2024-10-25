@@ -1,6 +1,7 @@
 import requests
 import re
 import os
+from datetime import datetime
 
 # 定义 URL 和 header 别名信息
 sgmodule_info = [
@@ -75,6 +76,9 @@ for info in sgmodule_info:
 unique_hostnames = list(dict.fromkeys(sections["MITM"]))  # 去重主机名
 hostname_append_content = ", ".join(unique_hostnames)  # 合并后的 hostname 列表
 
+# 获取当前日期并格式化为 mm/dd/yyyy
+current_date = datetime.now().strftime("%m/%d/%Y")
+
 # 读取模板文件
 template_path = 'Chores/engineering/templates/All-in-One-2.x.sgmodule.template'
 output_path = 'Chores/sgmodule/All-in-One-2.x.sgmodule'
@@ -91,8 +95,9 @@ for section, contents in sections.items():
         section_content = "\n\n".join(contents)  # 将其他区块内容合并成字符串
     template_content = template_content.replace(placeholder, str(section_content))
 
-# 替换 `{hostname_append}` 占位符
+# 替换 `{hostname_append}` 占位符和 `{{currentDate}}`
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
+template_content = template_content.replace("{{currentDate}}", current_date)
 
 # 将合并内容写入输出文件
 with open(output_path, 'w') as output_file:
