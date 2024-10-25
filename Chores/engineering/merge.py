@@ -1,35 +1,12 @@
+import yaml
 import requests
 import re
 import os
 from datetime import datetime
 
-# 定义 URL 和 header 别名信息
-sgmodule_info = [
-    {
-        'url': 'https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Zhihu_remove_ads.sgmodule',
-        'header': 'Zhihu'
-    },
-    {
-        'url': 'https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Amap_remove_ads.sgmodule',
-        'header': 'Amap'
-    },
-    {
-        'url': 'https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Weibo_remove_ads.sgmodule',
-        'header': 'Weibo'
-    },
-    {
-        'url': 'https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Tieba_remove_ads.sgmodule',
-        'header': 'Tieba'
-    },
-    {
-        'url': 'https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/PinDuoDuo_remove_ads.sgmodule',
-        'header': 'PinDuoDuo'
-    },
-    {
-        'url': 'https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/JD_remove_ads.sgmodule',
-        'header': 'JD'
-    }
-]
+# 从 YAML 文件中加载 sgmodule_info
+with open('Chores/engineering/data/sgmodules.yaml', 'r') as f:
+    sgmodule_info = yaml.safe_load(f)
 
 # 定义区块
 sections = {
