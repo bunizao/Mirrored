@@ -22,4 +22,7 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 [Script]
 {Script}
 
-{MITM}
+[MITM]
+hostname = %APPEND% abc.com, {hostname_append}
+h2 = true
+tcp-connection = true
