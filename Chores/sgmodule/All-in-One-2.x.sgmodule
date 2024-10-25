@@ -295,5 +295,11 @@ body_rewrite_35 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/se
 精简首页 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://kelee.one/Resource/Script/PinDuoDuo/PinDuoDuo_remove_ads.js, requires-body=true
 
 # ------------------------------------- JD --------------------------------------
+移除京东广告 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome), script-path=https://kelee.one/Resource/Script/JD/JD_remove_ads.js, requires-body=true
 
+[MITM]
+[MITM]
+hostname = %APPEND% %APPEND% *.zhihu.com, %APPEND% m5.amap.com, m5-zb.amap.com, oss.amap.com, sns.amap.com, %APPEND% *.weibo.cn, *.weibo.com, weibo.com, %APPEND% tiebac.baidu.com, tieba.baidu.com, %APPEND% api.pinduoduo.com, api.yangkeduo.com, %APPEND% api.m.jd.com
+h2 = true
+tcp-connection = true
 
