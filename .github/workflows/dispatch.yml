@@ -23,7 +23,7 @@ jobs:
       - name: Trigger repository dispatch in TutuBetterRules
         if: env.changes_detected == 'true'  # Only trigger if changes are detected
         env:
-          TUTUBETTERRULES_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+          DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
         run: |
           curl -X POST -H "Accept: application/vnd.github.everest-preview+json" \
                -H "Authorization: token $DISPATCH_TOKEN" \
