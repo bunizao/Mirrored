@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.1(749)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-09-28 01:25:08
+#!date=2024-10-27 21:09:24
 
 [Rule]
 # 拦截HTTPDNS
