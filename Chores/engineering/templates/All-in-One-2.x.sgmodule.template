@@ -5,7 +5,7 @@
 #!author=@hututu0 & Everyone in the community
 #!source=Rules@hututu0 | Xiaohongshu@ddgksf2013 | Amap@kokoryh | Cainiao@Keywos | Weibo@RuCu6 | Zhihu@RuCu6 | MiniProgram@bunizao | Tools@ScriptHub
 #!arguments=WeiboProxy:DIRECT
-#!arguments-desc=WeiboProxy:Customizable Weibo Strategy, defalt set to DIRECT./n可指定微博策略，默认为直连。
+#!arguments-desc=WeiboProxy:Customizable Weibo Strategy, defalt set to DIRECT.\n可指定微博策略，默认为直连。
 #------------------------------------------------------
 # Subscribe Telegram Channel: @hututu00
 
