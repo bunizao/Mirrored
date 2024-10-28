@@ -94,6 +94,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
+            git pull --rebase  # 拉取远程更新以避免冲突
             git commit -m "Update sgmodule files with GitHub-hosted JS resources"
             git push
           fi
