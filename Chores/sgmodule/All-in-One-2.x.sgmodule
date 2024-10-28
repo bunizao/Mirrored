@@ -1,5 +1,5 @@
 #!name=AD ByeBye+ 2.x
-#!desc=(2.x) Most Optimized Ad-free Experience presented with automated updates. | Repo: https://tuu.cat/repo・Update: 10/25/2024・Support: @bunizao
+#!desc=(2.x) Most Optimized Ad-free Experience presented with automated updates. | Repo: https://tuu.cat/repo・Update: 10/28/2024・Support: @bunizao
 #!url=https://tuu.cat/ADBlock
 #!category=🚫 AD Block
 #!author=@hututu0 & Everyone in the community
@@ -9,7 +9,7 @@
 
 [Rule]
 DOMAIN,wbapp.uve.weibo.com,DIRECT
-RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT,pre-matching,extended-matching
+RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT,extended-matching
 
 [URL Rewrite]
 
@@ -462,7 +462,7 @@ body_rewrite_35 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/se
 
 # ------------------------------------- Pixiv ---------------------------------------
 
-pixivAd = type=http-response,pattern=^https?:\/\/oauth\.secure\.pixiv\.net\/(auth\/token),requires-body=1,max-size=3145728,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/pixivAds.js,script-update-interval=0
+pixivAd = type=http-response,pattern=^https?:\/\/oauth\.secure\.pixiv\.net\/(auth\/token),requires-body=1,max-size=3145728,script-path=https://github.com/ddgksf2013/Scripts/raw/master/pixivAds.js,script-update-interval=0
 
 ########################################################################################
 
