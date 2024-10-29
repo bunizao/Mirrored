@@ -1,7 +1,7 @@
 /*
 引用地址：https://raw.githubusercontent.com/RuCu6/Loon/main/Scripts/weibo.js
 */
-// 2024-10-29 02:55
+// 2024-10-29 14:50
 
 const url = $request.url;
 if (!$response) $done({});
@@ -1164,6 +1164,16 @@ if (url.includes("/interface/sdk/sdkad.php")) {
     }
     if (obj?.enable_comment_guide) {
       obj.enable_comment_guide = false; // 评论指引
+    }
+  } else if (url.includes("/2/statuses/repost_timeline")) {
+    if (obj?.reposts?.length > 0) {
+      let newReposts=[];
+      for (let item of obj.reposts){
+        if(!isAd(item)){
+          newReposts.push(item);
+        }
+      }
+      obj.reposts=newReposts;
     }
   } else if (url.includes("/2/statuses/show")) {
     removeFeedAd(obj); // 信息流推广
