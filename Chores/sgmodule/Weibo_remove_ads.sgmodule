@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.1(749)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-10-28 10:13:51
+#!date=2024-10-29 13:58:09
 
 [Rule]
 # 请求放行
