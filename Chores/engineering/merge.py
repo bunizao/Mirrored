@@ -40,9 +40,12 @@ for info in sgmodule_info:
                     sections["Rule"].append(cleaned_text)
                     print(f"[Debug] Added cleaned Rule content from {info['header']}: {cleaned_text}")
                 else:
-                    # 去除不必要的注释和分隔符行
-                    cleaned_text = "\n".join(line for line in text.strip().splitlines() if not line.strip().startswith("#"))
-                    sections[section].append(cleaned_text)
+                    # 删除内容中的注释行和空行，但保留 divider
+                    cleaned_lines = "\n".join(
+                        line for line in text.strip().splitlines() 
+                        if line.strip() and not line.strip().startswith("#")
+                    )
+                    sections[section].append(f"{divider}\n{cleaned_lines}")
             elif section == "MITM":
                 hostname_match = hostname_pattern.search(text)
                 if hostname_match:
@@ -54,6 +57,7 @@ for info in sgmodule_info:
     except requests.exceptions.RequestException as e:
         print(f"Failed to download {info['header']} file: {e}")
 
+# 合并所有 headers
 headers_combined = ", ".join(headers)
 
 if sections["Rule"]:
@@ -77,12 +81,13 @@ output_path = 'Chores/sgmodule/All-in-One-2.x.sgmodule'
 with open(template_path, 'r') as template_file:
     template_content = template_file.read()
 
+# 替换模板中的各个占位符
 for section, contents in sections.items():
     placeholder = f"{{{section}}}"
     section_content = "\n\n".join(contents) if section != "MITM" else contents
     template_content = template_content.replace(placeholder, str(section_content))
 
-template_content = template_content.replace("#!including={header}", headers_combined)
+template_content = template_content.replace("{headers}", headers_combined)  # 插入所有 headers
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
 template_content = template_content.replace("{{currentDate}}", current_date)
 
