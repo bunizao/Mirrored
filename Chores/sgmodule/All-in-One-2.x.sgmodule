@@ -1,5 +1,5 @@
 #!name=AD ByeBye+ 2.x
-#!desc=(2.x) Most Optimized Ad-free Experience presented with automated updates. | 提供最优化无广告体验，自动同步更新。\nRepo: https://tuu.cat/repo・Update: 11/01/2024・Support: @bunizao
+#!desc=Most Optimized Ad-free Experience presented with automated updates. | 提供最优化无广告体验，自动同步更新。\nRepo: https://tuu.cat/repo・Update: 11/01/2024・Support: @bunizao・ Channel: @hututu00
 #!include=Zhihu, Amap, REDnote, Weibo, Tieba, Cainiao, PinDuoDuo, JD, Bilibili, 12306, Eleme, Meituan, MiniProgram, Pixiv
 #!url=https://tuu.cat/ADBlock
 #!category=🚫 AD Block
@@ -8,7 +8,7 @@
 #!arguments=WeiboProxy:DIRECT
 #!arguments-desc=WeiboProxy:Customizable Weibo Strategy, defalt set to DIRECT.\n可指定微博策略，默认为直连。
 #------------------------------------------------------
-# Subscribe Telegram Channel: @hututu00
+
 
 [Rule]
 DOMAIN,wbapp.uve.weibo.com,{{{WeiboProxy}}}
