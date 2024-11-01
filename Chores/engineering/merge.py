@@ -19,6 +19,8 @@ section_pattern = re.compile(r'\[(.*?)\]\s*\n(.*?)(?=\n\[|$)', re.DOTALL)
 hostname_pattern = re.compile(r'hostname\s*=\s*(.*)', re.IGNORECASE)
 headers = []
 
+max_divider_length = 30  # 最大分隔符长度（不包括header的长度）
+
 for info in sgmodule_info:
     try:
         response = requests.get(info['url'])
@@ -30,8 +32,10 @@ for info in sgmodule_info:
         
         headers.append(info['header'])
         
-        divider_length = 80 - len(info['header']) - 7
-        divider = f"# {'-' * divider_length} {info['header']} {'-' * divider_length}"
+        # 计算动态分隔线
+        left_dash_count = (max_divider_length - len(info['header'])) // 2
+        right_dash_count = max_divider_length - len(info['header']) - left_dash_count
+        divider = f"# {'-' * left_dash_count} {info['header']} {'-' * right_dash_count}"
         
         for section, text in matches:
             if section in sections and section != "MITM":
@@ -57,7 +61,6 @@ for info in sgmodule_info:
     except requests.exceptions.RequestException as e:
         print(f"Failed to download {info['header']} file: {e}")
 
-# 合并所有 headers
 headers_combined = ", ".join(headers)
 
 if sections["Rule"]:
@@ -81,13 +84,12 @@ output_path = 'Chores/sgmodule/All-in-One-2.x.sgmodule'
 with open(template_path, 'r') as template_file:
     template_content = template_file.read()
 
-# 替换模板中的各个占位符
 for section, contents in sections.items():
     placeholder = f"{{{section}}}"
     section_content = "\n\n".join(contents) if section != "MITM" else contents
     template_content = template_content.replace(placeholder, str(section_content))
 
-template_content = template_content.replace("{headers}", headers_combined)  # 插入所有 headers
+template_content = template_content.replace("{headers}", headers_combined)
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
 template_content = template_content.replace("{{currentDate}}", current_date)
 
