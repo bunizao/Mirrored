@@ -17,6 +17,7 @@ sections = {
 
 section_pattern = re.compile(r'\[(.*?)\]\s*\n(.*?)(?=\n\[|$)', re.DOTALL)
 hostname_pattern = re.compile(r'hostname\s*=\s*(.*)', re.IGNORECASE)
+headers = []
 
 for info in sgmodule_info:
     try:
@@ -27,16 +28,21 @@ for info in sgmodule_info:
         print(f"[Debug] Parsing content from {info['header']}")
         matches = section_pattern.findall(content)
         
+        headers.append(info['header'])
+        
+        divider_length = 80 - len(info['header']) - 7
+        divider = f"# {'-' * divider_length} {info['header']} {'-' * divider_length}"
+        
         for section, text in matches:
             if section in sections and section != "MITM":
                 if section == "Rule":
-                    # Remove both ", REJECT" and ", DIRECT"
                     cleaned_text = re.sub(r",\s*(REJECT|DIRECT)", "", text).strip()
                     sections["Rule"].append(cleaned_text)
                     print(f"[Debug] Added cleaned Rule content from {info['header']}: {cleaned_text}")
                 else:
-                    divider = f"# ------------------------------------- {info['header']} --------------------------------------\n"
-                    sections[section].append(f"{divider}\n{text.strip()}")
+                    # 去除不必要的注释和分隔符行
+                    cleaned_text = "\n".join(line for line in text.strip().splitlines() if not line.strip().startswith("#"))
+                    sections[section].append(cleaned_text)
             elif section == "MITM":
                 hostname_match = hostname_pattern.search(text)
                 if hostname_match:
@@ -47,6 +53,8 @@ for info in sgmodule_info:
         
     except requests.exceptions.RequestException as e:
         print(f"Failed to download {info['header']} file: {e}")
+
+headers_combined = ", ".join(headers)
 
 if sections["Rule"]:
     print(f"[Debug] Total Rule content to be saved: {len(sections['Rule'])} lines")
@@ -71,12 +79,10 @@ with open(template_path, 'r') as template_file:
 
 for section, contents in sections.items():
     placeholder = f"{{{section}}}"
-    if section == "MITM":
-        section_content = contents
-    else:
-        section_content = "\n\n".join(contents)
+    section_content = "\n\n".join(contents) if section != "MITM" else contents
     template_content = template_content.replace(placeholder, str(section_content))
 
+template_content = template_content.replace("#!including={header}", headers_combined)
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
 template_content = template_content.replace("{{currentDate}}", current_date)
 
