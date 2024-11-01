@@ -60,3 +60,6 @@ DOMAIN,dns.jd.com
 URL-REGEX,"^http:\/\/\w{32}\.jddebug\.com\/diagnose\?"
 IP-CIDR,101.124.19.122/32,no-resolve
 IP-CIDR6,2402:db40:5100:1011::5/128,no-resolve
+# 开屏广告
+URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH"-TINYGIF
+URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH"-TINYGIF
