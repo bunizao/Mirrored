@@ -25,13 +25,13 @@ DOMAIN,rprain.log.mgtv.com,REJECT
 DOMAIN,vip.bz.mgtv.com,REJECT
 DOMAIN-SUFFIX,da.mgtv.com,REJECT
 # 无用请求
-URL-REGEX,^http:\/\/[\d\.]+:\d{5}\/\?cmd=indexes,REJECT
+URL-REGEX,"^http:\/\/[\d\.]+:\d{5}\/\?cmd=indexes",REJECT
 # 首页左上角推广
-URL-REGEX,^http:\/\/[\d\.]+\/odin\/c1\/(channel\/ads|skin\/config)\?,REJECT-TINYGIF
+URL-REGEX,"^http:\/\/[\d\.]+\/odin\/c1\/(channel\/ads|skin\/config)\?",REJECT-TINYGIF
 # 播放详情页
-URL-REGEX,^http:\/\/mobile-thor\.api\.mgtv\.com\/v1\/vod\/cms\/list\?,REJECT-TINYGIF
+URL-REGEX,"^http:\/\/mobile-thor\.api\.mgtv\.com\/v1\/vod\/cms\/list\?",REJECT-TINYGIF
 # 搜索框填充词
-URL-REGEX,^http:\/\/mobileso\.bz\.mgtv\.com\/spotlight\/search\/v1\?,REJECT-TINYGIF
+URL-REGEX,"^http:\/\/mobileso\.bz\.mgtv\.com\/spotlight\/search\/v1\?",REJECT-TINYGIF
 
 [Map Local]
 # 底部tab红点

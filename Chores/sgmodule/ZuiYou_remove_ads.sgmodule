@@ -38,9 +38,9 @@ DOMAIN-SUFFIX,adukwai.com,REJECT
 # 其他广告
 DOMAIN,adapi.izuiyou.com,REJECT
 # 信息流广告
-URL-REGEX,^http:\/\/mercury-gateway\.ixiaochuan\.cn\/mercury\/v1\/ad\/,REJECT-TINYGIF
+URL-REGEX,"^http:\/\/mercury-gateway\.ixiaochuan\.cn\/mercury\/v1\/ad\/",REJECT-TINYGIF
 # 搜索 - 榜单页面
-URL-REGEX,^http:\/\/file-share\.izuiyou\.com\/octopus\/media\/templates\/search_home_page_(nv|nv_v2)\/search_home_page_nv,REJECT
+URL-REGEX,"^http:\/\/file-share\.izuiyou\.com\/octopus\/media\/templates\/search_home_page_(nv|nv_v2)\/search_home_page_nv",REJECT
 
 [URL Rewrite]
 # 其他广告

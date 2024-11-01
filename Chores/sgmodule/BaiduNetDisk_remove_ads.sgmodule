@@ -14,7 +14,7 @@
 DOMAIN,frontier-aweme-hl.snssdk.com,REJECT
 DOMAIN,frontier-aweme.snssdk.com,REJECT
 DOMAIN,frontier-quic-test.bytedance.com,REJECT
-URL-REGEX,^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/,REJECT
+URL-REGEX,"^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/",REJECT
 DOMAIN,mon.zijieapi.com,REJECT
 DOMAIN,lf-ad-ies.bytecdn.cn,REJECT
 DOMAIN,i.snssdk.com,REJECT

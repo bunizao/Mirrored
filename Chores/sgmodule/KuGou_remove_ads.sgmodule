@@ -37,7 +37,7 @@ DOMAIN-SUFFIX,gdt.qq.com,REJECT
 # DOMAIN, win.gdt.qq.com, REJECT
 #DOMAIN,v2.gdt.qq.com,REJECT
 # c2.gdt.qq.com, REJECT
-URL-REGEX,^http:\/\/log\.stat\.kugou\.com\/mobile\/ad\.html,REJECT
+URL-REGEX,"^http:\/\/log\.stat\.kugou\.com\/mobile\/ad\.html",REJECT
 
 [URL Rewrite]
 # DOMAIN, v2.gdt.qq.com, REJECT

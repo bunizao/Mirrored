@@ -11,7 +11,7 @@
 #!date=2024-07-14 20:23:48
 
 [Rule]
-URL-REGEX,^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/,REJECT
+URL-REGEX,"^http:\/\/p\d+-be-pack-sign\.pglstatp-toutiao\.com\/(ad-app-package|web\.business\.image)\/",REJECT
 DOMAIN,mon.zijieapi.com,REJECT
 DOMAIN,lf-ad-ies.bytecdn.cn,REJECT
 DOMAIN,i.snssdk.com,REJECT
@@ -40,7 +40,7 @@ DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT
 DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 # 小川在线
 DOMAIN,adapi.izuiyou.com,REJECT
-URL-REGEX,^http:\/\/mercury-gateway\.ixiaochuan\.cn\/mercury\/v1\/ad\/,REJECT-TINYGIF
+URL-REGEX,"^http:\/\/mercury-gateway\.ixiaochuan\.cn\/mercury\/v1\/ad\/",REJECT-TINYGIF
 # 上海优比客思科技有限公司 - 广告服务商
 DOMAIN,e-u1.ubixioe.com,REJECT
 DOMAIN,sdk-data.ubixioe.com,REJECT

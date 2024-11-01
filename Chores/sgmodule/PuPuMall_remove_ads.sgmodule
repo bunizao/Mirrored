@@ -14,10 +14,10 @@
 force-http-engine-hosts = %APPEND% 54.222.159.138:8053, 101.42.130.147:8053, 106.55.220.18:8053, 139.196.12.179:8053
 
 [Rule]
-URL-REGEX,^http:\/\/54\.222\.159\.138:8053\/httpdns\/,REJECT
-URL-REGEX,^http:\/\/101\.42\.130\.147:8053\/httpdns\/,REJECT
-URL-REGEX,^http:\/\/106\.55\.220\.18:8053\/httpdns\/,REJECT
-URL-REGEX,^http:\/\/139\.196\.12\.179:8053\/httpdns\/,REJECT
+URL-REGEX,"^http:\/\/54\.222\.159\.138:8053\/httpdns\/",REJECT
+URL-REGEX,"^http:\/\/101\.42\.130\.147:8053\/httpdns\/",REJECT
+URL-REGEX,"^http:\/\/106\.55\.220\.18:8053\/httpdns\/",REJECT
+URL-REGEX,"^http:\/\/139\.196\.12\.179:8053\/httpdns\/",REJECT
 
 [URL Rewrite]
 ^https:\/\/j1\.pupuapi\.com\/client\/account\/discount\/order - reject

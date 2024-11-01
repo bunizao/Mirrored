@@ -26,7 +26,7 @@ DOMAIN-SUFFIX,doubleclick.net,REJECT
 # 虎牙直播开屏广告
 DOMAIN,business.msstatic.com,REJECT
 DOMAIN-SUFFIX,v1d.szbdyd.com,REJECT
-URL-REGEX,^http:\/\/cdn\.wup\.huya\.com\/launch\/queryHttpDns$,REJECT
+URL-REGEX,"^http:\/\/cdn\.wup\.huya\.com\/launch\/queryHttpDns$",REJECT
 # 中国联通
 DOMAIN-SUFFIX,m1.ad.10010.com,REJECT
 # 中国电信
@@ -37,8 +37,8 @@ DOMAIN,adshows.21cn.com,REJECT
 IP-CIDR,122.229.8.47/32,REJECT,no-resolve
 IP-CIDR,122.229.29.89/32,REJECT,no-resolve
 # 快递100
-URL-REGEX,^http:\/\/p\.kuaidi100\.com\/mobile\/mobileapi\.do,REJECT-TINYGIF
-URL-REGEX,^http:\/\/p\.kuaidi100\.com\/advertisement\/,REJECT-TINYGIF
+URL-REGEX,"^http:\/\/p\.kuaidi100\.com\/mobile\/mobileapi\.do",REJECT-TINYGIF
+URL-REGEX,"^http:\/\/p\.kuaidi100\.com\/advertisement\/",REJECT-TINYGIF
 # 亲邻开门
 DOMAIN,mall-dsp2.qinlinkeji.com,REJECT
 DOMAIN,mallapi2.qinlinkeji.com,REJECT

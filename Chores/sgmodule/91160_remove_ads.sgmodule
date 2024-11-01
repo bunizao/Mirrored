@@ -12,9 +12,9 @@
 
 [Rule]
 # 放行请求
-URL-REGEX,^https:\/\/patientgate\.91160\.com\/advert-api\/v1\/advert\/homepage_icon\?,DIRECT
+URL-REGEX,"^https:\/\/patientgate\.91160\.com\/advert-api\/v1\/advert\/homepage_icon\?",DIRECT
 # 广告下发
-URL-REGEX,^https:\/\/patientgate\.91160\.com\/advert-api\/,REJECT-TINYGIF
+URL-REGEX,"^https:\/\/patientgate\.91160\.com\/advert-api\/",REJECT-TINYGIF
 # 拦截HTTPDNS
 DOMAIN,httpdns.music.163.com,REJECT
 DOMAIN,httpdns.n.netease.com,REJECT

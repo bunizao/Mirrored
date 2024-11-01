@@ -12,8 +12,8 @@
 
 [Rule]
 # 拦截HTTPDNS
-URL-REGEX,^http:\/\/203\.107\.1\.33\/191607\/resolve\?,REJECT
-URL-REGEX,^http:\/\/119\.29\.29\.29\/d,REJECT
+URL-REGEX,"^http:\/\/203\.107\.1\.33\/191607\/resolve\?",REJECT
+URL-REGEX,"^http:\/\/119\.29\.29\.29\/d",REJECT
 
 [Map Local]
 # 底栏 - 活动按钮

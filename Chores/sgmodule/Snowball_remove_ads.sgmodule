@@ -11,7 +11,7 @@
 #!date=2024-07-11 11:22:18
 
 [Rule]
-URL-REGEX,^http:\/\/119\.29\.29\.98\/d\?,REJECT
+URL-REGEX,"^http:\/\/119\.29\.29\.98\/d\?",REJECT
 
 [Map Local]
 # 开屏广告

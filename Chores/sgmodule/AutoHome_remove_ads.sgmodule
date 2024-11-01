@@ -14,7 +14,7 @@
 # 拦截HTTPDNS
 IP-CIDR,119.29.29.98/32,REJECT,no-resolve
 IP-CIDR,119.29.29.99/32,REJECT,no-resolve
-URL-REGEX,^http:\/\/182\.254\.116\.116\/d,REJECT
+URL-REGEX,"^http:\/\/182\.254\.116\.116\/d",REJECT
 DOMAIN,adproxy.autohome.com.cn,REJECT
 
 [Map Local]
