@@ -1,0 +1,149 @@
+name: Mirror BiliUniverse Release Assets
+
+on:
+  schedule:
+    - cron: '5,30,55 * * * *'  # Runs at minute 5, 30, and 55 of every hour
+  workflow_dispatch:
+
+jobs:
+  download_dualsubs_sgmodule_assets:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Set DualSubs repository list
+        run: |
+          REPOS=(
+            "BiliUniverse/Global"
+            "BiliUniverse/Redirect"
+            "BiliUniverse/Enhanced"
+            "BiliUniverse/ADBlock"
+          )
+          echo "REPOS<<EOF" >> $GITHUB_ENV
+          printf "%s\n" "${REPOS[@]}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Install sha256sum (if not available)
+        run: sudo apt-get install -y coreutils
+
+      - name: Download sgmodule assets from BiliUniverse releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ASSETS_CHANGED=false
+          UPDATED_FILES=()
+
+          while IFS= read -r REPO; do
+            echo "Processing repository: $REPO"
+
+            RELEASE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/latest")
+
+            # Check if release data was retrieved
+            if [ -z "$RELEASE" ] || [ "$RELEASE" == "null" ] || [ "$(echo "$RELEASE" | jq -r '.message')" = "Not Found" ]; then
+              echo "Release not found for $REPO, skipping."
+              continue
+            fi
+
+            # Log release information
+            echo "Release data for $REPO:"
+            echo "$RELEASE" | jq '.'
+
+            ASSETS=$(echo "$RELEASE" | jq -c '.assets[]')
+
+            while IFS= read -r ASSET; do
+              ASSET_NAME=$(echo "$ASSET" | jq -r '.name')
+              ASSET_URL=$(echo "$ASSET" | jq -r '.url')
+              ASSET_SIZE=$(echo "$ASSET" | jq -r '.size')
+
+              echo "Found asset: $ASSET_NAME (Size: $ASSET_SIZE bytes)"
+
+              EXTENSION="${ASSET_NAME##*.}"
+
+              if [ "$EXTENSION" = "sgmodule" ]; then
+                OUTPUT_DIR="./BiliUniverse"
+              else
+                echo "Skipping file: $ASSET_NAME"
+                continue
+              fi
+
+              mkdir -p "$OUTPUT_DIR"
+
+              OUTPUT_FILE="$OUTPUT_DIR/$ASSET_NAME"
+
+              # Download the asset to a temporary file
+              echo "Downloading: $ASSET_NAME"
+              curl -L -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/octet-stream" "$ASSET_URL" -o "$OUTPUT_FILE.tmp"
+
+              # Verify download success
+              if [ ! -f "$OUTPUT_FILE.tmp" ]; then
+                echo "Failed to download $ASSET_NAME"
+                continue
+              fi
+
+              # Compute checksums
+              NEW_CHECKSUM=$(sha256sum "$OUTPUT_FILE.tmp" | awk '{ print $1 }')
+              echo "New checksum for $ASSET_NAME: $NEW_CHECKSUM"
+
+              if [ -f "$OUTPUT_FILE" ]; then
+                EXISTING_CHECKSUM=$(sha256sum "$OUTPUT_FILE" | awk '{ print $1 }')
+                echo "Existing checksum for $ASSET_NAME: $EXISTING_CHECKSUM"
+
+                if [ "$NEW_CHECKSUM" = "$EXISTING_CHECKSUM" ]; then
+                  echo "No changes in $ASSET_NAME"
+                  rm "$OUTPUT_FILE.tmp"
+                else
+                  echo "Updating $ASSET_NAME"
+                  mv "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"
+                  UPDATED_FILES+=("$ASSET_NAME")
+                  ASSETS_CHANGED=true
+                fi
+              else
+                echo "Adding new file $ASSET_NAME"
+                mv "$OUTPUT_FILE.tmp" "$OUTPUT_FILE"
+                UPDATED_FILES+=("$ASSET_NAME")
+                ASSETS_CHANGED=true
+              fi
+
+            done <<< "$ASSETS"
+
+          done < <(printf '%s\n' "${REPOS[@]}")
+
+          echo "ASSETS_CHANGED=$ASSETS_CHANGED" >> $GITHUB_ENV
+          echo "UPDATED_FILES<<EOF" >> $GITHUB_ENV
+          printf "%s\n" "${UPDATED_FILES[@]}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Commit and push changes to main branch
+        if: env.ASSETS_CHANGED == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e  # Disable exit on error
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          DATE="$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
+
+          git add .
+
+          COMMIT_MESSAGE="🌬️ Synched BiliUniverse assets with upstream at $DATE (UTC+8)"
+
+          # Check if there are changes to commit
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "$COMMIT_MESSAGE"
+            git push origin main
+          fi
+
+      - name: No changes detected
+        if: env.ASSETS_CHANGED != 'true'
+        run: echo "No changes detected. Workflow will exit without committing."
