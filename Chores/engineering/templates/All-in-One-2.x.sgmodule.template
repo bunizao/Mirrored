@@ -1,5 +1,6 @@
 #!name=AD ByeBye+ 2.x
 #!desc=(2.x) Most Optimized Ad-free Experience presented with automated updates. | Repo: https://tuu.cat/repo・Update: {{currentDate}}・Support: @bunizao
+#!include={headers}
 #!url=https://tuu.cat/ADBlock
 #!category=🚫 AD Block
 #!author=@hututu0 & Everyone in the community
