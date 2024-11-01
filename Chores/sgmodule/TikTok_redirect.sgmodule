@@ -10,9 +10,6 @@
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!date=2024-07-27 20:21:36
 
-[Rule]
-AND, ((GEOIP, CN), (DOMAIN, pitaya.bytedance.com)), DIRECT
-
 [URL Rewrite]
 # 去广告
 ^https:\/\/api-va\.tiktokv\.com\/api\/ad\/ - reject
