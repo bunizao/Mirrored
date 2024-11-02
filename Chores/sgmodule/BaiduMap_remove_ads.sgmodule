@@ -41,7 +41,7 @@ body_rewrite_19 = type=http-response, pattern=^https:\/\/newclient\.map\.baidu\.
 
 body_rewrite_22 = type=http-response, pattern=^https:\/\/newclient\.map\.baidu\.com\/client\/noticebar\/get\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22content.multi_data%22%5D%5D%5D
 
-body_rewrite_24 = type=http-response, pattern=^https:\/\/newclient\.map\.baidu\.com\/(client\/)?usersystem\/mine\/page\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%22%7B%7D%22%5D%5D%5D%5D
+body_rewrite_24 = type=http-response, pattern=^https:\/\/newclient\.map\.baidu\.com\/(client\/)?usersystem\/mine\/page\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
 
 body_rewrite_26 = type=http-response, pattern=^https:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads&type=user_home_new_service, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22ads%22%5D%5D%5D
 

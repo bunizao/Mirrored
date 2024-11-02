@@ -95,7 +95,7 @@ DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 [Script]
 body_rewrite_86 = type=http-response, pattern=^https:\/\/beta-luna\.douyin\.com\/luna\/me\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22reward_ad_banner%22%5D%5D%5D
 
-body_rewrite_90 = type=http-response, pattern=^https:\/\/beta-luna\.douyin\.com\/luna\/card\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22card_items%5B0%5D.priority_display%22%2C%22false%22%5D%2C%5B%22card_items%5B0%5D.is_show%22%2C%22false%22%5D%2C%5B%22preview_guide%22%2C%22null%22%5D%5D%5D%5D
+body_rewrite_90 = type=http-response, pattern=^https:\/\/beta-luna\.douyin\.com\/luna\/card\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22card_items%5B0%5D.priority_display%22%2Cfalse%5D%2C%5B%22card_items%5B0%5D.is_show%22%2Cfalse%5D%2C%5B%22preview_guide%22%2Cnull%5D%5D%5D%5D
 
 body_rewrite_92 = type=http-response, pattern=^https:\/\/beta-luna\.douyin\.com\/luna\/more-panel\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22blocks%5B1%5D%22%5D%5D%5D
 
