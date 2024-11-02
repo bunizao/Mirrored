@@ -16,5 +16,5 @@
   header: "JD"
 - url: "https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Bilibili_remove_ads.sgmodule"
   header: "Bilibili"
-- url: "https://github.com/bunizao/Mirrored/blob/main/Chores/sgmodule/12306_remove_ads.sgmodule"
+- url: "https://script-hub.tutuis.me/file/_start_/https://raw.githubusercontent.com/ddgksf2013/Scripts/master/12306.js/_end_/12306.sgmodule?type=qx-rewrite&target=surge-module&del=true"
   header: "12306"
