@@ -12,6 +12,7 @@
 
 [Rule]
 DOMAIN,wbapp.uve.weibo.com,{{{WeiboProxy}}}
+DOMAIN,ad.12306.cn,DIRECT
 RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT,extended-matching
 
 [URL Rewrite]
