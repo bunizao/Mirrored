@@ -1,6 +1,6 @@
 /*
 脚本引用 https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/TB.js
-更新时间 2024-07-08 10:50:32
+更新时间 2024-11-04 22:58:40
 */
 const url = $request.url;
 let obj;
@@ -9,7 +9,6 @@ try {
 } catch (error) {
     console.error("JSON 解析错误：", error);
     $done({});
-    return;
 }
 
 // 清理侧拉抽屉
