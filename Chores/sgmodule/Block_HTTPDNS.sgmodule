@@ -7,7 +7,7 @@
 #!tag=DNS
 #!loon_version=3.2.1(749)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-09-25 15:45:58
+#!date=2024-11-05 10:03:15
 
 [Rule]
 # YY语音
@@ -163,6 +163,8 @@ DOMAIN,dig.zjurl.cn,REJECT
 DOMAIN,dotserver.douyucdn.cn,REJECT
 # 金山云
 DOMAIN,hdns.ksyun.com,REJECT
+# 马蜂窝
+URL-REGEX,"^http:\/\/162\.14\.3\.250\/v4",REJECT
 # OPPO
 DOMAIN,httpdns.push.oppomobile.com,REJECT
 DOMAIN,httpdns.ocloud.oppomobile.com,REJECT
