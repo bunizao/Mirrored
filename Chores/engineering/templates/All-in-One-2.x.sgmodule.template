@@ -50,7 +50,7 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/3pp\.starbucks\.com\.cn\/wxmem\/index\/global data-type=text data="{}" status-code=200
 # > 丰巢
 ^https:\/\/webchatapp\.fcbox\.com\/fcboxactivityweb\/api\/v2\/clientPage data-type=text data="{}" status-code=200
-^https:\/\/dsp\.fcbox\.com data-type=text data="{}" status-code=200
+^https:\/\/dsp\.fcbox\.com data-type=base64 data="5p+c6Zeo5bey5byA77yM6K+35bC95b+r5Y+W5Ye6fvCfpbM=" status-code=200
 # > 奈雪点单
 ^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/index\/activeConfig\/v2 data-type=text data="{}" status-code=200
 ^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/resource\/config\/homeBannerNodes data-type=text data="{}" status-code=200
