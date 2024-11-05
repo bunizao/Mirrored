@@ -158,7 +158,7 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/3pp\.starbucks\.com\.cn\/wxmem\/index\/global data-type=text data="{}" status-code=200
 # > 丰巢
 ^https:\/\/webchatapp\.fcbox\.com\/fcboxactivityweb\/api\/v2\/clientPage data-type=text data="{}" status-code=200
-^https:\/\/dsp\.fcbox\.com data-type=text data="{}" status-code=200
+^https:\/\/dsp\.fcbox\.com data-type=base64 data="5p+c6Zeo5bey5byA77yM6K+35bC95b+r5Y+W5Ye6fvCfpbM=" status-code=200
 # > 奈雪点单
 ^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/index\/activeConfig\/v2 data-type=text data="{}" status-code=200
 ^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/resource\/config\/homeBannerNodes data-type=text data="{}" status-code=200
@@ -304,7 +304,7 @@ body_rewrite_27 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/
 精简我的页面 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_remove_ads.js, requires-body=true
 
 # ------------ 12306 -------------
-12306 = type=http-request, pattern=^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/12306.js, requires-body=true, max-size=-1, timeout=60
+12306 = type=http-request, pattern=^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList, script-path=https://github.com/ddgksf2013/Scripts/raw/master/12306.js, requires-body=true, max-size=-1, timeout=60
 
 # ----------- Pixiv -----------
 
