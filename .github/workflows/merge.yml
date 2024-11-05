@@ -2,9 +2,9 @@ name: Merge sgmodule files with merged sections
 
 on:
   push:
-    branches:
-      - main 
-  workflow_dispatch:  
+    branches: [ main ]
+  schedule:
+    - cron: '7,32,57 * * * *' 
 
 jobs:
   merge_files:
