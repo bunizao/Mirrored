@@ -1,7 +1,7 @@
 /*
 引用地址 https://raw.githubusercontent.com/RuCu6/Loon/main/Scripts/xiaohongshu.js
 */
-// 2024-11-07 14:00
+// 2024-11-07 14:55:22
 
 const url = $request.url;
 if (!$response.body) $done({});
@@ -217,10 +217,10 @@ if (url.includes("/v1/note/imagefeed") || url.includes("/v2/note/feed")) {
       // let attach = { openUrl: +obj.data.download_url, clipboard: obj.data.download_url };
       // 弃用上面的写法 使用快捷指令 自动保存至相册
       $notification.post(
-        " 🎉🎉🎉 ",
-        "小红书无水印地址捕获成功 ",
-        "点此通知即可自动保存至相册 ",
-        "shortcuts://run-shortcut?name=小红书下载&input=text&text=" + obj.data.download_url
+        "解析成功",
+        "",
+        "无水印下载地址解析成功，点此通知跳转至快捷指令下载该媒体。",
+        "shortcuts://run-shortcut?name=下载媒体&input=text&text=" + obj.data.download_url
       );
     }
   }
