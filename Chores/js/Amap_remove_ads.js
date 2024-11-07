@@ -1,7 +1,7 @@
 /*
 引用地址 https://raw.githubusercontent.com/RuCu6/Loon/refs/heads/main/Scripts/amap.js
 */
-// 2024-11-03 11:40
+// 2024-11-07 02:35
 
 const url = $request.url;
 if (!$response.body) $done({});
@@ -11,6 +11,10 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
   if (obj?.data?.common_data?.bus_plan_bottom_event?.data?.length > 0) {
     // 公交出行 底部卡路里数值
     obj.data.common_data.bus_plan_bottom_event.data = [];
+  }
+  // 公交出行 底部营商推广
+  if (obj?.data?.common_data?.bus_plan_bottom_tips?.data?.length > 0) {
+    obj.data.common_data.bus_plan_bottom_tips.data = [];
   }
   if (obj?.data?.common_data?.bus_plan_segment_event?.data?.length > 0) {
     // 公交出行 中转站 卡路里数值
