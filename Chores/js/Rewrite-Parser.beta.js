@@ -1141,7 +1141,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       !isStashiOS
     ) {
       rulevalue = /,/.test(rulevalue) && !/[()]/.test(rulevalue) ? '"' + rulevalue + '"' : rulevalue
-      if (/^(url-regex|user-agent)$/i.test(ruletype) && !/^['"].*['"]$/.test(rulevalue)) {
+      if (!isLooniOS && /^(url-regex|user-agent)$/i.test(ruletype) && !/^['"].*['"]$/.test(rulevalue)) {
         rulevalue = `"${rulevalue}"`
       }
       rules.push(mark + noteK + ruletype + ',' + rulevalue + ',' + rulepolicy + rulenore + rulesni + rulepm)
