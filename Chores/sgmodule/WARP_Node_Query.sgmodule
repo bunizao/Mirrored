@@ -1,7 +1,15 @@
-WARP_Node_Query%0A：ReferenceError: Cannot access 'BodyRewrite' before initialization
+#!name=WARP节点查询
+#!desc=显示WARP节点的详细信息，请在所有节点页面选择一个节点长按，出现菜单后进行测试。
+#!author=VirgilClyne[https://github.com/VirgilClyne], I-am-R-E[https://github.com/I-am-R-E]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/1.1.1.1.png
+#!category=🚫 AD Block
 
+#!openUrl=https://itunes.apple.com/app/id1423538627
+#!tag=节点检测
+#!loon_version=3.2.1(749)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2024-03-04 12:01:01
 
+[MITM]
+hostname = %APPEND% api.cloudflareclient.com, zero-trust-client.cloudflareclient.com
 
-
-
-Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈

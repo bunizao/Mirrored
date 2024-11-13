@@ -1,7 +1,38 @@
-CatEarFM_remove_ads%0A：ReferenceError: Cannot access 'BodyRewrite' before initialization
+#!name=猫耳FM去广告
+#!desc=移除开屏广告、横幅推广、移除青少年模式弹窗，精简首页顶部入口和发现页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/CatEarFM.png
+#!category=🚫 AD Block
 
+#!openUrl=https://apps.apple.com/app/id1148465254
+#!tag=去广告
+#!loon_version=3.2.1(749)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2024-08-13 19:45:41
 
+[Script]
+body_rewrite_13 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/launch\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info%22%5D%5D%5D
 
+body_rewrite_15 = type=http-response, pattern=^https:\/\/fm\.missevan\.com\/api\/v2\/meta\/banner$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info%22%5D%5D%5D
 
+body_rewrite_17 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/get-top$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.extra_banners%22%5D%5D%5D
 
-Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
+body_rewrite_19 = type=http-response, pattern=^https:\/\/fm\.missevan\.com\/api\/v2\/recommended\/top$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info%22%5D%5D%5D
+
+body_rewrite_21 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/drama\/catalog-homepage\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.extra_banners%22%5D%5D%5D
+
+body_rewrite_23 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/catalog\/sound-homepage\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.extra_banners%22%5D%5D%5D
+
+body_rewrite_25 = type=http-response, pattern=^https:\/\/fm\.missevan\.com\/api\/v2\/chatroom\/sound\/recommend\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info%22%5D%5D%5D
+
+body_rewrite_27 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/config$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.teenager_popup_mode%22%5D%5D%5D
+
+# 首页顶部入口
+精简首页顶部入口 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/icons\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CatEarFM_remove_ads.js, requires-body=true
+
+# 发现页面 - 直播间、广播剧、免流服务
+精简发现页面 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/discovery\/list$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CatEarFM_remove_ads.js, requires-body=true
+
+[MITM]
+hostname = %APPEND% app.missevan.com, fm.missevan.com
+
