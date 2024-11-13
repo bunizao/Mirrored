@@ -1,69 +1,7 @@
-#!name=喜马拉雅去广告
-#!desc=过滤喜马拉雅广告
-#!author=佚名
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Himalaya.png
-#!category=🚫 AD Block
+Himalaya_remove_ads%0A：ReferenceError: Cannot access 'BodyRewrite' before initialization
 
-#!openUrl=https://apps.apple.com/app/id876336838
-#!tag=去广告
-#!loon_version=3.2.1(749)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2023-10-29 13:48:55
 
-[URL Rewrite]
-# 修复轮播广告失效
-^https?:\/\/.*\.xima.*\.com\/discovery-feed\/focus\/queryF - reject
-# 播放页直播
-^https?:\/\/.*\.xima.*\.com\/mobile-playpage\/view\/ - reject
-# 我的页面红点提醒
-^https?:\/\/.*\.xima.*\.com\/chaos-notice-web\/v1\/message\/preview\/list - reject
-# 屏蔽大红包提示
-^https?:\/\/.*\.xima.*\.com\/social-web\/bottomTabs\/dynamicEntrance\/status - reject
-# 屏蔽动图弹窗广告
-^https?:\/\/.*\.xmcdn\.com\/\w{8}\/\w{4}-\w{16}\/.+gif$ - reject
-# gslb
-^https?:\/\/gslb.*\.xima.*\.com\/ - reject
-# 屏蔽Aged请求
-^https?:\/\/.*\.xima.*\.com\/(dog-portal\/checkOld|(child-mobile\/child|aged-mobile\/aged)\/mode\/query) - reject
-# 部分标签弹窗
-^https?:\/\/.*\.xima.*\.com\/discovery-feed\/isShowUserGiftPendant - reject
-# 屏蔽红点提示
-^https?:\/\/.*\.xima.*\.com\/mobile-user\/unread - reject
-# 屏蔽minor请求
-^https?:\/\/.*\.xima.*\.com/mobile-user/minorProtection/pop - reject
-# 屏蔽隐私搜集
-^https?:\/\/.*\.xima.*\.com\/collector\/xl\/v\d - reject
-# 屏蔽版本更新
-^https?:\/\/.*\.xima.*\.com\/butler-portal\/versionCheck - reject
-# 屏蔽开屏广告
-^https?:\/\/(adse\.wsa|adse|adbehavior|xdcs-collector)\.xima.*\.com\/.* - reject
-# 屏蔽位置请求
-^https?:\/\/.*\.xima.*\.com\/mobile\/discovery\/v\d\/location - reject
-# 屏蔽热搜词
-^https?:\/\/.*\.xima.*\.com\/hotWord - reject
-# 屏蔽搜索框定时广告
-^https?:\/\/.*\.xima.*\.com\/(hub)?guideWord - reject
-# 屏蔽实时广告请求
-^https?:\/\/.*\.xima.*\.com\/api\/v\d\/adRealTime - reject
-# 屏蔽ting广告
-^https?:\/\/.*\.xima.*\.com\/ting\/(loading|feed|home)? - reject
 
-[Script]
-# 首页顶部去除直播
-移除首页直播推广 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-category\/customCategories, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
 
-# 屏蔽首页横幅广告
-移除首页横幅广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/focus-mobile\/focusPic, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
 
-# 屏蔽首页动态广告
-移除首页动态广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-feed\/v\d\/mix, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
-
-# 屏蔽标签页滚动广告
-移除标签页滚动广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-category\/v\d/category, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
-
-# 去除我的页面广告标签
-移除我的页面广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/mobile-user\/v\d\/homePage, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
-
-[MITM]
-hostname = %APPEND% *.xima*.*, *.xmcdn.*
-
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈

@@ -1,25 +1,7 @@
-#!name=微信公众号去广告
-#!desc=过滤微信公众号广告
-#!author=RuCu6[https://github.com/RuCu6]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Weixin.png
-#!category=🚫 AD Block
+Weixin_Official_Accounts_remove_ads%0A：ReferenceError: Cannot access 'BodyRewrite' before initialization
 
-#!openUrl=https://apps.apple.com/app/id414478124
-#!tag=功能增强
-#!loon_version=3.2.1(749)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-09-05 23:53:41
 
-[Rule]
-DOMAIN-SUFFIX,wxs.qq.com,REJECT
 
-[Map Local]
-# 移除公众号中的推广内容 //mp.weixin.qq.com
-#^http:\/\/\w+\.wxs\.qq\.com\/\d+\/\d+\/(snscosdownload|snssvpdownload)\/(SH|SZ)\/reserved\/\w+ data-type=text data="{}" status-code=200
 
-# ^http:\/\/\w+\.wxs\.qq\.com\/\d+\/\d+\/(snscosdownload|snssvpdownload)\/(SH|SZ)\/reserved\/\w+ reject-dict
-^https:\/\/mp\.weixin\.qq\.com\/mp\/(cps_product_info|getappmsgad|jsmonitor|masonryfeed|relatedarticle)\? data-type=text data="{}" status-code=200
 
-[MITM]
-hostname = %APPEND% mp.weixin.qq.com
-
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
