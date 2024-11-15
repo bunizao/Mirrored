@@ -1,5 +1,5 @@
 #!name=广告平台拦截器
-#!desc=此插件是所有去广告插件的基础，只针对广告平台处理。你依然需要安装其他去广告插件来搭配使用，并确保此插件始终排序在顶部。\n支持拦截腾讯、字节跳动、快手、百度、邑盟、倍孜、艾狄墨搏、袤博、极光、个推、友盟、阿里、优比客思、秒针、网易、美团、小米、京东、天目、讯飞、泛连、锐讯灵通、聚次方、美数、嗨量、钧云、变现猫、章鱼、分秒、泰之菩、翼信、快易、数萤技术、方麟、益起、上量优选、新义互联、腾云天下、布里奇、塔酷、丽声、SupersonicAds、APPSAD等广告平台的广告请求，更适合iOS平台的应用。
+#!desc=此插件是所有去广告插件的基础，只针对广告平台处理。你依然需要安装其他去广告插件来搭配使用，并确保此插件始终排序在顶部。\n支持拦截腾讯、字节跳动、快手、百度、邑盟、倍孜、艾狄墨搏、袤博、极光、个推、友盟、阿里、优比客思、秒针、网易、美团、小米、京东、天目、讯飞、泛连、锐讯灵通、聚次方、美数、嗨量、钧云、变现猫、章鱼、分秒、泰之菩、翼信、快易、数萤技术、方麟、益起、上量优选、新义互联、腾云天下、布里奇、塔酷、丽声、推啊、SupersonicAds、APPSAD等广告平台的广告请求，更适合iOS平台的应用。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Website_icon/120px/TencentAd.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.1(749)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-02 15:19:31
+#!date=2024-11-15 16:13:22
 
 [Rule]
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com)),REJECT
@@ -196,6 +196,7 @@ DOMAIN,dnms.getui.com,REJECT
 DOMAIN,ido.getui.net,REJECT
 DOMAIN,sdk-conf.getui.com,REJECT
 DOMAIN,sdk-open-phone.getui.com,REJECT
+DOMAIN,ido.gepush.com,REJECT
 DOMAIN-SUFFIX,mobileservice.cn,REJECT
 DOMAIN-SUFFIX,getui.com,REJECT
 DOMAIN-SUFFIX,igexin.com,REJECT
@@ -303,6 +304,8 @@ DOMAIN,adx-sg-req.bridgeoos.com,REJECT
 DOMAIN-SUFFIX,bridgeoos.com,REJECT
 # 海南丽声影视文化传播有限公司
 DOMAIN,ad-evods.tianya.tv,REJECT
+# 杭州推啊网络科技有限公司
+DOMAIN,adx.tuia.cn,REJECT
 
 [URL Rewrite]
 # 拼多多广告平台
