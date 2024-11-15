@@ -141,8 +141,6 @@ URL-REGEX,"^http:\/\/180\.76\.76\.112\/v\d\/",REJECT
 URL-REGEX,"^http:\/\/180\.76\.76\.112\/v\d\/resolve",REJECT
 URL-REGEX,"^http:\/\/180\.76\.76\.220\/v\d\/resolve",REJECT
 IP-CIDR,186.76.76.200/32,REJECT,no-resolve
-# 华为
-DOMAIN,httpdns.c.cdnhwc2.com,REJECT
 # 欢太
 DOMAIN,httpdns.ocloud.heytapmobi.com,REJECT
 DOMAIN,httpdns.push.heytapmobi.com,REJECT
@@ -172,6 +170,7 @@ DOMAIN,httpdns.ocloud.oppomobile.com,REJECT
 DOMAIN,kuaishou.httpdns.pro,REJECT
 DOMAIN,httpdns.kwd.inkuai.com,REJECT
 DOMAIN,apidns.kwd.inkuai.com,REJECT
+DOMAIN,apidns-js.kwd.inkuai.com,REJECT
 # 美团
 DOMAIN,httpdns.meituan.com,REJECT
 URL-REGEX,"^http:\/\/103\.37\.155\.60\/fetch",REJECT
