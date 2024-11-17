@@ -11,7 +11,7 @@
 #!date=2024-04-23 08:28:27
 
 [Script]
-# http-request ^https?:\/\/(.+\.)?boxjs\.(com|net) script-path = https://github.com/bunizao/Mirrored/raw/main/Chores/js/BoxJs.js, requires-body =  true, tag = BoxJS, timeout = 120
+# http-request ^https?:\/\/(.+\.)?boxjs\.(com|net) script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BoxJs.js, requires-body= true, tag=BoxJS, timeout=120
 BoxJS = type=http-request, pattern=^https?:\/\/(.+\.)?boxjs\.(com|net), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/chavy.boxjs.js, requires-body=true, timeout=120
 
 [MITM]

@@ -12,7 +12,7 @@
 
 [Rule]
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com)),REJECT
-#AND, ((DOMAIN-KEYWORD, -sign-), (DOMAIN-SUFFIX, tiktokcdn.com)), REJECT
+#AND,((DOMAIN-KEYWORD,-sign-),(DOMAIN-SUFFIX,tiktokcdn.com)),REJECT
 AND,((DOMAIN-KEYWORD,-ttam-),(DOMAIN-SUFFIX,ibyteimg.com)),REJECT
 AND,((DOMAIN-KEYWORD,ssdk-),(DOMAIN-SUFFIX,pangle.io)),REJECT
 AND,((DOMAIN-KEYWORD,pangolin),(DOMAIN-SUFFIX,sgsnssdk.com)),REJECT
@@ -66,11 +66,11 @@ DOMAIN,config.inmobi.cn,REJECT
 DOMAIN-SUFFIX,jiguang.cn,REJECT
 DOMAIN-SUFFIX,jpush.cn,REJECT
 #DOMAIN,ce3e75d5.jpush.cn,REJECT
-# DOMAIN, ce3e75d5.jpush.cn, REJECT
+# DOMAIN,ce3e75d5.jpush.cn,REJECT
 #DOMAIN,config.jpush.cn,REJECT
-# DOMAIN, config.jpush.cn, REJECT
+# DOMAIN,config.jpush.cn,REJECT
 #DOMAIN,status-ipv6.jpush.cn,REJECT
-# DOMAIN, status-ipv6.jpush.cn, REJECT
+# DOMAIN,status-ipv6.jpush.cn,REJECT
 #DOMAIN,tsis.jpush.cn,REJECT
 # DOMAIN, tsis.jpush.cn, REJECT
 #DOMAIN,ali-stats.jpush.cn,REJECT

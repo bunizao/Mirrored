@@ -13,7 +13,7 @@
 [Rule]
 AND,((DOMAIN-KEYWORD,tnc),(AND,((OR,((DOMAIN-KEYWORD,-bjlgy),(DOMAIN-KEYWORD,-alisc),(DOMAIN-KEYWORD,-aliec),(DOMAIN-KEYWORD,-alisg))),(OR,((DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,isnssdk.com),(DOMAIN-SUFFIX,toutiaoapi.com),(DOMAIN-SUFFIX,bytedance.com),(DOMAIN-SUFFIX,zijieapi.com)))))),REJECT
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com)),REJECT
-#AND, ((DOMAIN-KEYWORD, -sign-), (DOMAIN-SUFFIX, tiktokcdn.com)), REJECT
+#AND,((DOMAIN-KEYWORD,-sign-),(DOMAIN-SUFFIX,tiktokcdn.com)),REJECT
 AND,((DOMAIN-KEYWORD,-ttam-),(DOMAIN-SUFFIX,ibyteimg.com)),REJECT
 AND,((DOMAIN-KEYWORD,ssdk-),(DOMAIN-SUFFIX,pangle.io)),REJECT
 AND,((DOMAIN-KEYWORD,pangolin),(DOMAIN-SUFFIX,sgsnssdk.com)),REJECT
@@ -63,23 +63,23 @@ DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT
 DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 # 腾讯
 #DOMAIN,adsmind.ugdtimg.com,REJECT
-# DOMAIN, adsmind.ugdtimg.com, REJECT
+# DOMAIN,adsmind.ugdtimg.com,REJECT
 #DOMAIN,c2.gdt.qq.com,REJECT
-# DOMAIN, c2.gdt.qq.com, REJECT
+# DOMAIN,c2.gdt.qq.com,REJECT
 #DOMAIN,mi.gdt.qq.com,REJECT
-# DOMAIN, mi.gdt.qq.com, REJECT
+# DOMAIN,mi.gdt.qq.com,REJECT
 #DOMAIN,pgdt.ugdtimg.com,REJECT
-# DOMAIN, pgdt.ugdtimg.com, REJECT
+# DOMAIN,pgdt.ugdtimg.com,REJECT
 #DOMAIN,qzs.gdtimg.com,REJECT
-# DOMAIN, qzs.gdtimg.com, REJECT
+# DOMAIN,qzs.gdtimg.com,REJECT
 #DOMAIN,t.gdt.qq.com,REJECT
-# DOMAIN, t.gdt.qq.com, REJECT
+# DOMAIN,t.gdt.qq.com,REJECT
 #DOMAIN,v.gdt.qq.com,REJECT
-# DOMAIN, v.gdt.qq.com, REJECT
+# DOMAIN,v.gdt.qq.com,REJECT
 #DOMAIN,v2.gdt.qq.com,REJECT
-# DOMAIN, v2.gdt.qq.com, REJECT
+# DOMAIN,v2.gdt.qq.com,REJECT
 #DOMAIN,win.gdt.qq.com,REJECT
-# DOMAIN, win.gdt.qq.com, REJECT
+# DOMAIN,win.gdt.qq.com,REJECT
 DOMAIN,adsmind.gdtimg.com,REJECT
 DOMAIN,info4.video.qq.com,REJECT
 DOMAIN,info6.video.qq.com,REJECT
@@ -87,7 +87,7 @@ DOMAIN,ios.bugly.qq.com,REJECT
 DOMAIN,ios.video.mpush.qq.com,REJECT
 DOMAIN,otheve.beacon.qq.com,REJECT
 DOMAIN,pgdt.gtimg.cn,REJECT
-# DOMAIN, qzonestyle.gtimg.cn, REJECT // 误杀
+# DOMAIN,qzonestyle.gtimg.cn,REJECT // 误杀
 DOMAIN,sdk.e.qq.com,REJECT
 DOMAIN,tmead.y.qq.com,REJECT
 DOMAIN,tmeadbak.y.qq.com,REJECT
