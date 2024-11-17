@@ -20,7 +20,7 @@ DOMAIN,huichuan-mc.sm.cn,REJECT
 DOMAIN,huichuan.sm.cn,REJECT
 DOMAIN,iyes.youku.com,REJECT
 #DOMAIN,m-vali.cp31.ott.cibntv.net,REJECT
-# DOMAIN, m-vali.cp31.ott.cibntv.net, REJECT
+# DOMAIN,m-vali.cp31.ott.cibntv.net,REJECT
 DOMAIN,mc.atm.youku.com,REJECT
 DOMAIN,vali-g1.cp31.ott.cibntv.net,REJECT
 DOMAIN,vali-ugc.cp31.ott.cibntv.net,REJECT

@@ -22,18 +22,18 @@ DOMAIN,sdk.e.qq.com,REJECT
 DOMAIN,us.l.qq.com,REJECT
 DOMAIN-SUFFIX,ugdtimg.com,REJECT
 #DOMAIN,adsmind.ugdtimg.com,REJECT
-# DOMAIN, adsmind.ugdtimg.com, REJECT
+# DOMAIN,adsmind.ugdtimg.com,REJECT
 #DOMAIN,pgdt.ugdtimg.com,REJECT
-# DOMAIN, pgdt.ugdtimg.com, REJECT
+# DOMAIN,pgdt.ugdtimg.com,REJECT
 #DOMAIN,qzs.gdtimg.com,REJECT
-# DOMAIN, qzs.gdtimg.com, REJECT
+# DOMAIN,qzs.gdtimg.com,REJECT
 DOMAIN-SUFFIX,gdt.qq.com,REJECT
 #DOMAIN,mi.gdt.qq.com,REJECT
-# DOMAIN, mi.gdt.qq.com, REJECT
+# DOMAIN,mi.gdt.qq.com,REJECT
 #DOMAIN,win.gdt.qq.com,REJECT
-# DOMAIN, win.gdt.qq.com, REJECT
+# DOMAIN,win.gdt.qq.com,REJECT
 #DOMAIN,v2.gdt.qq.com,REJECT
-# c2.gdt.qq.com, REJECT
+# c2.gdt.qq.com,REJECT
 DOMAIN,tmeadcomm.y.qq.com,REJECT
 DOMAIN,mobilead.kuwo.cn,REJECT
 DOMAIN,adstats.tencentmusic.com,REJECT
@@ -57,12 +57,12 @@ URL-REGEX,"^http:\/\/vip\d\.kuwo\.cn\/vip\/v\d\/sysinfo\?op=getRePayAndDoPayBox"
 URL-REGEX,"^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/album\/adBar\/",REJECT-TINYGIF
 
 [URL Rewrite]
-# DOMAIN, v2.gdt.qq.com, REJECT
-#v.gdt.qq.com, - reject
-# v.gdt.qq.com, REJECT
-#t.gdt.qq.com, - reject
-# t.gdt.qq.com, REJECT
-#c2.gdt.qq.com, - reject
+# DOMAIN,v2.gdt.qq.com,REJECT
+#v.gdt.qq.com,REJECT - reject
+# v.gdt.qq.com,REJECT
+#t.gdt.qq.com,REJECT - reject
+# t.gdt.qq.com,REJECT
+#c2.gdt.qq.com,REJECT - reject
 
 [Map Local]
 # 首页 - 推广语

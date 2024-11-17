@@ -1,6 +1,6 @@
 #!name=京东比价
 #!desc=在京东应用内嵌入比价信息，点击商品标题即可查看。仅支持京东的标准模式，且需要应用版本不高于12.4.3。
-#!author=苍井灰灰[https://github.com/wf021325], githubdulong[https://github.com/githubdulong]
+#!author=苍井灰灰[https://github.com/wf021325],githubdulong[https://github.com/githubdulong]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/JD.png
 #!category=🚫 AD Block
 

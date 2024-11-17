@@ -15,7 +15,7 @@ DOMAIN,ad.v3mh.com,REJECT
 DOMAIN,ipv6.kkmh.com,REJECT
 DOMAIN,ipv4.kkmh.com,REJECT
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com)),REJECT
-#AND, ((DOMAIN-KEYWORD, -sign-), (DOMAIN-SUFFIX, tiktokcdn.com)), REJECT
+#AND,((DOMAIN-KEYWORD,-sign-),(DOMAIN-SUFFIX,tiktokcdn.com)),REJECT
 AND,((DOMAIN-KEYWORD,-ttam-),(DOMAIN-SUFFIX,ibyteimg.com)),REJECT
 AND,((DOMAIN-KEYWORD,ssdk-),(DOMAIN-SUFFIX,pangle.io)),REJECT
 AND,((DOMAIN-KEYWORD,pangolin),(DOMAIN-SUFFIX,sgsnssdk.com)),REJECT
@@ -80,18 +80,18 @@ DOMAIN,sdk.e.qq.com,REJECT
 DOMAIN,us.l.qq.com,REJECT
 DOMAIN-SUFFIX,ugdtimg.com,REJECT
 #DOMAIN,adsmind.ugdtimg.com,REJECT
-# DOMAIN, adsmind.ugdtimg.com, REJECT
+# DOMAIN,adsmind.ugdtimg.com,REJECT
 #DOMAIN,pgdt.ugdtimg.com,REJECT
-# DOMAIN, pgdt.ugdtimg.com, REJECT
+# DOMAIN,pgdt.ugdtimg.com,REJECT
 #DOMAIN,qzs.gdtimg.com,REJECT
-# DOMAIN, qzs.gdtimg.com, REJECT
+# DOMAIN,qzs.gdtimg.com,REJECT
 DOMAIN-SUFFIX,gdt.qq.com,REJECT
 #DOMAIN,mi.gdt.qq.com,REJECT
-# DOMAIN, mi.gdt.qq.com, REJECT
+# DOMAIN,mi.gdt.qq.com,REJECT
 #DOMAIN,win.gdt.qq.com,REJECT
-# DOMAIN, win.gdt.qq.com, REJECT
+# DOMAIN,win.gdt.qq.com,REJECT
 #DOMAIN,v2.gdt.qq.com,REJECT
-# c2.gdt.qq.com, REJECT
+# c2.gdt.qq.com,REJECT
 DOMAIN,tmeadcomm.y.qq.com,REJECT
 # 个推
 DOMAIN-SUFFIX,mobileservice.cn,REJECT
@@ -113,32 +113,32 @@ DOMAIN-SUFFIX,jiguang.cn,REJECT
 DOMAIN-SUFFIX,jpush.cn,REJECT
 DOMAIN-SUFFIX,jpush.io,REJECT
 #DOMAIN,ce3e75d5.jpush.cn,REJECT
-# DOMAIN, ce3e75d5.jpush.cn, REJECT
+# DOMAIN,ce3e75d5.jpush.cn,REJECT
 #DOMAIN,config.jpush.cn,REJECT
-# DOMAIN, config.jpush.cn, REJECT
+# DOMAIN,config.jpush.cn,REJECT
 #DOMAIN,status-ipv6.jpush.cn,REJECT
-# DOMAIN, status-ipv6.jpush.cn, REJECT
+# DOMAIN,status-ipv6.jpush.cn,REJECT
 #DOMAIN,tsis.jpush.cn,REJECT
-# DOMAIN, tsis.jpush.cn, REJECT
+# DOMAIN,tsis.jpush.cn,REJECT
 #DOMAIN,ali-stats.jpush.cn,REJECT
-# DOMAIN, ali-stats.jpush.cn, REJECT
+# DOMAIN,ali-stats.jpush.cn,REJECT
 #DOMAIN,sis-ipv6.jpush.cn,REJECT
-# DOMAIN, sis-ipv6.jpush.cn, REJECT
+# DOMAIN,sis-ipv6.jpush.cn,REJECT
 #DOMAIN,s.jpush.cn,REJECT
-# DOMAIN, s.jpush.cn, REJECT
+# DOMAIN,s.jpush.cn,REJECT
 #DOMAIN,gd-stats.jpush.cn,REJECT
-# DOMAIN, gd-stats.jpush.cn, REJECT
+# DOMAIN,gd-stats.jpush.cn,REJECT
 #DOMAIN,smartop-sdkapi.jiguang.cn,REJECT
-# DOMAIN, smartop-sdkapi.jiguang.cn, REJECT
+# DOMAIN,smartop-sdkapi.jiguang.cn,REJECT
 #DOMAIN,sdk.verification.jiguang.cn,REJECT
 
 [URL Rewrite]
-# DOMAIN, v2.gdt.qq.com, REJECT
-#v.gdt.qq.com, - reject
-# v.gdt.qq.com, REJECT
-#t.gdt.qq.com, - reject
-# t.gdt.qq.com, REJECT
-#c2.gdt.qq.com, - reject
+# DOMAIN,v2.gdt.qq.com,REJECT
+#v.gdt.qq.com,REJECT - reject
+# v.gdt.qq.com,REJECT
+#t.gdt.qq.com,REJECT - reject
+# t.gdt.qq.com,REJECT
+#c2.gdt.qq.com,REJECT - reject
 
 [Map Local]
 # 广告配置

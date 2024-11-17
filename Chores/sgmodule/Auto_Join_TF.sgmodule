@@ -1,6 +1,6 @@
 #!name=自动加入TestFlight
 #!desc=自动监控TestFlight名额，一旦有新的名额即刻加入。
-#!author=DecoAri[https://github.com/DecoAri], xream[https://github.com/xream]
+#!author=DecoAri[https://github.com/DecoAri],xream[https://github.com/xream]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/TestFlight.png
 #!category=🚫 AD Block
 
