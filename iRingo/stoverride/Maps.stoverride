@@ -1,15 +1,16 @@
 name: " iRingo: 🗺️ Maps"
 desc: |-
-  全面自定义「地图」的功能。
-  注：该覆写包含代理规则。
+  自定义 Maps app
+  添加国际版功能
+  自定义服务版本
 openUrl: "http://boxjs.com/#/app/iRingo.Maps"
-author: "VirgilClyne"
-homepage: "https://github.com/NSRingo"
-manual: "https://github.com/NSRingo/GeoServices/wiki/🗺-地图"
+author: |-
+  VirgilClyne[https://github.com/VirgilClyne]
+homepage: "https://NSRingo.github.io/guide/GeoServices/maps"
 icon: "https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png"
 category: " iRingo"
-date: "2024-10-12 08:57:03"
-version: "4.0.9"
+date: "2024-11-18 14:00:51"
+version: "4.1.0"
 
 rules:
   # 🗺️ Tiles
@@ -56,8 +57,8 @@ http:
 
 script-providers:
   GeoServices.request:
-    url: https://github.com/NSRingo/GeoServices/releases/download/v4.0.9/request.js
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.1.0/request.bundle.js
     interval: 86400
   GeoServices.response:
-    url: https://github.com/NSRingo/GeoServices/releases/download/v4.0.9/response.js
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.1.0/response.bundle.js
     interval: 86400
