@@ -1,7 +1,12 @@
-NodeLinkCheck.Plugin%0A：Error: Response code 522 (undefined)
+#!name=代理链路检测
+#!desc=查看目标节点的代理走向，点击下方链接查看使用方法。
+#!author=I-am-R-E[https://github.com/I-am-R-E]
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Stack.png
+#!category=🚫 AD Block
 
+#!openUrl=https://github.com/luestr/ProxyResource/blob/main/Resource/Markdown/NodeLinkCheck/README.md
+#!tag=节点检测
+#!loon_version=3.2.1(749)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2023-09-08 13:48:55
 
-
-
-
-Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈

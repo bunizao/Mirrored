@@ -1,7 +1,11 @@
-Node_detection_tool%0A：Error: Response code 522 (undefined)
+#!name=节点检测工具
+#!desc=适用于Loon的节点检测工具，可进行地理位置、节点解锁、节点网速等查询。请在所有节点页面选择一个节点长按，出现菜单后进行测试。
+#!author=KOP-XIAO[https://github.com/KOP-XIAO],xream[https://github.com/xream],Keywos[https://github.com/Keywos]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/Node_detection_tool.png
+#!category=🚫 AD Block
 
+#!tag=节点检测
+#!loon_version=3.2.1(749)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2024-08-24 04:06:23
 
-
-
-
-Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
