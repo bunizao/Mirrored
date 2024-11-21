@@ -1,20 +1,7 @@
-#!name=Google搜索重定向
-#!desc=将Google搜索重定向至.com域名，如遇频繁跳转请禁用本插件。
-#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Google.png
-#!category=🚫 AD Block
+Google%0A：Error: Response code 522 (undefined)
 
-#!tag=去广告
-#!loon_version=3.2.1(749)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2023-11-14 14:41:32
 
-[URL Rewrite]
-#^https?:\/\/(www.)?(g|google)\.(cn|com\.hk) https://www.google.com 302
-# ^https?:\/\/(www.)?(g|google)\.(cn|com\.hk) 302 https://www.google.com
-^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
-^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
 
-[MITM]
-hostname = %APPEND% www.google.cn
 
+
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈

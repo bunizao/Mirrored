@@ -1,18 +1,7 @@
-#!name=推栏去广告
-#!desc=过滤推栏广告
-#!author=Keywos[https://github.com/Keywos],可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Daily.png
-#!category=🚫 AD Block
+Daily_remove_ads%0A：Error: Response code 522 (undefined)
 
-#!openUrl=https://apps.apple.com/app/id1352849256
-#!tag=去广告
-#!loon_version=3.2.1(749)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2023-09-08 13:48:55
 
-[Script]
-移除开屏广告 = type=http-response, pattern=^https?:\/\/m\.pvp\.xoyo\.com\/conf\/server-mapping, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Daily_remove_ads.js, requires-body=true
 
-[MITM]
-hostname = %APPEND% m.pvp.xoyo.com
 
+
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
