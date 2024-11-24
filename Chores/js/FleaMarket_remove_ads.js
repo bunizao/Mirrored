@@ -1,5 +1,5 @@
 // 脚本引用 https://raw.githubusercontent.com/RuCu6/Loon/main/Scripts/xianyu.js
-// 2024-10-18 12:50
+// 2024-11-22 17:05
 
 const url = $request.url;
 if (!$response) $done({});
@@ -13,7 +13,9 @@ if (url.includes("/mtop.idle.user.page.my.adapter/")) {
     for (let items of obj.data.container.sections) {
       if (items?.template?.name === "my_fy25_user_info") {
         // 专属等级横幅
-        delete items.item.level;
+        if (items?.item?.level) {
+          delete items.item.level;
+        }
       } else if (items?.template?.name === "my_fy25_slider") {
         // 滚动小提示
         continue;
@@ -36,17 +38,13 @@ if (url.includes("/mtop.idle.user.page.my.adapter/")) {
     obj.data.container.sections = newSections;
   }
 } else if (url.includes("/mtop.taobao.idlehome.home.nextfresh/")) {
-  delete obj.data.bannerReturnDO; // 首页横幅
+  if (obj?.data?.bannerReturnDO) {
+    delete obj.data.bannerReturnDO; // 首页横幅
+  }
   // 首页信息流
   if (obj?.data?.sections?.length > 0) {
-    obj.data.sections = obj.data.sections.filter(
-      (i) =>
-        ![
-          "fish_home_advertise_card_d4",
-          "fish_home_content_card",
-          "fish_home_feeds_commodity_card_2",
-          "fish_home_feeds_pager_banner"
-        ]?.includes(i?.template?.name)
+    obj.data.sections = obj.data.sections.filter((i) =>
+      ["fish_home_feeds_commodity_card_2", "fish_home_tags_item_card_d5"]?.includes(i?.template?.name)
     );
   }
   if (obj?.data?.widgetReturnDO?.widgets?.length > 0) {
@@ -65,7 +63,9 @@ if (url.includes("/mtop.idle.user.page.my.adapter/")) {
       if (list?.showType) {
         list.showType = "text"; // 将首页顶部标签模式修改为文本
       }
-      delete list.showInfo.titleImage; // 删除将首页顶部图片标签的资源
+      if (list?.showInfo?.titleImage) {
+        delete list.showInfo.titleImage; // 删除将首页顶部图片标签的资源
+      }
       newLists.push(list);
     }
     obj.data.circleList = newLists;
