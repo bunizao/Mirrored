@@ -9,19 +9,18 @@
 #!system_version=15
 #!loon_version=3.2.1(749)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-16 21:55:06
+#!date=2024-11-24 22:25:16
 
 [Rule]
 AND,((DOMAIN-SUFFIX,googlevideo.com),(PROTOCOL,QUIC)),REJECT
 AND,((DOMAIN-SUFFIX,youtubei.googleapis.com),(PROTOCOL,QUIC)),REJECT
 
 [Map Local]
-# 使用reject-dict方法以减少开销
-^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="{}" status-code=200
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=file data="https://kelee.one/Resource/Script/YouTube/YouTube_remove_ads/YouTube_502Bad.mock" status-code=502 header="Content-Type:text/plain"
 
 [Script]
-# http-request ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch) script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_request.js,requires-body=true,binary-body-mode=true,tag=YouTube请求
-YouTube响应 = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true, argument="[{blockUpload},{blockImmersive},{captionLang},{lyricLang},{debug}]"
+# YouTube去广告
+YouTube去广告 = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true, argument="[{blockUpload},{blockImmersive},{captionLang},{lyricLang},{debug}]"
 
 [MITM]
 hostname = %APPEND% *.googlevideo.com, youtubei.googleapis.com
