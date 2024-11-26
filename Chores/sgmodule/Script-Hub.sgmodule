@@ -10,9 +10,6 @@
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!date=2024-10-22 22:52:14
 
-[General]
-force-http-engine-hosts = %APPEND% script.hub, *.script.hub
-
 [Script]
 前端界面 = type=http-request, pattern=^https?:\/\/script\.hub\/($|edit\/|reload), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/script-hub.beta.js, timeout=120
 
