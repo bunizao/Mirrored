@@ -6,9 +6,9 @@
 
 #!openUrl=https://🎈.com
 #!tag=插件管理
-#!loon_version=3.2.1(749)
+#!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2023-09-08 13:48:55
+#!date=2024-11-28 00:00:00
 
 [Script]
 Loon插件仓库 = type=http-request, pattern=^https?:\/\/xn--ck8h\.com, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/gallery.js, requires-body=true, timeout=120

@@ -6,9 +6,9 @@
 
 #!openUrl=https://follow.is
 #!tag=签到
-#!loon_version=3.2.1(749)
+#!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/Resource/Markdown/FollowRSS/README.md
-#!date=2024-10-17 22:58:30
+#!date=2024-11-28 00:00:00
 
 [Script]
 # 定时签到

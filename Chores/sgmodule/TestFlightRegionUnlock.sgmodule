@@ -8,7 +8,7 @@
 #!tag=功能增强
 #!loon_version=3.2.1(749)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-17 23:47:13
+#!date=2024-11-28 00:00:00
 
 [Script]
 body_rewrite_14 = type=http-request, pattern=^https?:\/\/testflight\.apple\.com\/v\d\/accounts\/.+?\/install$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22replace-regex%22%2C%5B%5B%22%5C%22storefrontId%5C%22%20%3A%20%5C%22%5C%5Cd%7B6%7D-%5C%5Cd%7B2%7D%2C%5C%5Cd%7B2%7D%5C%22%2C%22%2C%22%5C%22storefrontId%5C%22%3A%5C%22143441-19%2C29%5C%22%2C%22%5D%5D%5D%5D

@@ -6,9 +6,9 @@
 
 #!openUrl=https://apps.apple.com/app/id863882795
 #!tag=去广告
-#!loon_version=3.2.1(749)
+#!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-10-27 21:09:24
+#!date=2024-11-28 00:00:00
 
 [Rule]
 # 拦截HTTPDNS
@@ -23,7 +23,7 @@ DOMAIN,stun1.qvb.qcloud.com,REJECT
 
 [URL Rewrite]
 # 请求重定向
-^(http:\/\/)((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/(hlsh5p1\.douyucdn2\.cn)(.*) $1$5$6 302
+^(http:\/\/)((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/(hlsh5p1\.douyucdn2\.cn)(.*) $1$5$6 307
 
 [Map Local]
 # 开屏广告

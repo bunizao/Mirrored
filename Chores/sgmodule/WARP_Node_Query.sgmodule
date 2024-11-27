@@ -6,9 +6,9 @@
 
 #!openUrl=https://itunes.apple.com/app/id1423538627
 #!tag=节点检测
-#!loon_version=3.2.1(749)
+#!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-03-04 12:01:01
+#!date=2024-11-28 00:00:00
 
 [MITM]
 hostname = %APPEND% api.cloudflareclient.com, zero-trust-client.cloudflareclient.com
