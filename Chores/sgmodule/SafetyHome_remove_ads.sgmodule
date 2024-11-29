@@ -14,7 +14,6 @@
 DOMAIN,ad.iot.360.cn,REJECT
 
 [Map Local]
-# 商城入口
 ^https:\/\/app\.home\.360\.cn\/v1\/config\/custom_config data-type=text data="{}" status-code=200
 
 [MITM]

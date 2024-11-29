@@ -12,11 +12,9 @@
 #!date=2024-11-28 00:00:00
 
 [Map Local]
-# 广告配置
 ^https:\/\/app-v1\.ecoliving168\.com\/api\/v1\/advert\/config data-type=text data="{}" status-code=200
 
 [Script]
-# 移除横幅广告
 移除横幅广告 = type=http-response, pattern=^https:\/\/app-v1\.ecoliving168\.com\/api\/v1\/movie\/index_recommend\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/555DY_remove_ads.js, requires-body=true
 
 [MITM]
