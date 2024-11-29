@@ -1,6 +1,6 @@
 #!name=喜马拉雅去广告
-#!desc=过滤喜马拉雅广告
-#!author=佚名
+#!desc=移除开屏广告、播放器广告，精简频道和我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Himalaya.png
 #!category=🚫 AD Block
 
@@ -8,62 +8,30 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-28 00:00:00
+#!date=2024-11-29 10:53:45
 
-[URL Rewrite]
-# 修复轮播广告失效
-^https?:\/\/.*\.xima.*\.com\/discovery-feed\/focus\/queryF - reject
-# 播放页直播
-^https?:\/\/.*\.xima.*\.com\/mobile-playpage\/view\/ - reject
-# 我的页面红点提醒
-^https?:\/\/.*\.xima.*\.com\/chaos-notice-web\/v1\/message\/preview\/list - reject
-# 屏蔽大红包提示
-^https?:\/\/.*\.xima.*\.com\/social-web\/bottomTabs\/dynamicEntrance\/status - reject
-# 屏蔽动图弹窗广告
-^https?:\/\/.*\.xmcdn\.com\/\w{8}\/\w{4}-\w{16}\/.+gif$ - reject
-# gslb
-^https?:\/\/gslb.*\.xima.*\.com\/ - reject
-# 屏蔽Aged请求
-^https?:\/\/.*\.xima.*\.com\/(dog-portal\/checkOld|(child-mobile\/child|aged-mobile\/aged)\/mode\/query) - reject
-# 部分标签弹窗
-^https?:\/\/.*\.xima.*\.com\/discovery-feed\/isShowUserGiftPendant - reject
-# 屏蔽红点提示
-^https?:\/\/.*\.xima.*\.com\/mobile-user\/unread - reject
-# 屏蔽minor请求
-^https?:\/\/.*\.xima.*\.com/mobile-user/minorProtection/pop - reject
-# 屏蔽隐私搜集
-^https?:\/\/.*\.xima.*\.com\/collector\/xl\/v\d - reject
-# 屏蔽版本更新
-^https?:\/\/.*\.xima.*\.com\/butler-portal\/versionCheck - reject
-# 屏蔽开屏广告
-^https?:\/\/(adse\.wsa|adse|adbehavior|xdcs-collector)\.xima.*\.com\/.* - reject
-# 屏蔽位置请求
-^https?:\/\/.*\.xima.*\.com\/mobile\/discovery\/v\d\/location - reject
-# 屏蔽热搜词
-^https?:\/\/.*\.xima.*\.com\/hotWord - reject
-# 屏蔽搜索框定时广告
-^https?:\/\/.*\.xima.*\.com\/(hub)?guideWord - reject
-# 屏蔽实时广告请求
-^https?:\/\/.*\.xima.*\.com\/api\/v\d\/adRealTime - reject
-# 屏蔽ting广告
-^https?:\/\/.*\.xima.*\.com\/ting\/(loading|feed|home)? - reject
+[Rule]
+# 广告下发
+DOMAIN,adse.ximalaya.com,REJECT
+
+[Map Local]
+# 拦截HTTPDNS
+^https:\/\/gslbali\.ximalaya\.com\/linkeye-cloud\/httpdns\/ data-type=text data="{}" status-code=200
+
+# 搜索词
+^https:\/\/(search|searchwsa)\.ximalaya\.com\/hub\/guideWordV\d\/ data-type=text data="{}" status-code=200
+
+^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/discovery-feed\/v\d\/scene\/listen\/refresh\? data-type=text data="{}" status-code=200
+
+# 订阅 - 订阅推荐
+^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/subscribe\/v\d\/subscribe\/tagAlbumList$ data-type=text data="{}" status-code=200
+
+# 播放器 - 推广
+^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/mobile-playpage\/playpage\/recommend\/resource\/allocation\/ data-type=text data="{}" status-code=200
 
 [Script]
-# 首页顶部去除直播
-移除首页直播推广 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-category\/customCategories, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
-
-# 屏蔽首页横幅广告
-移除首页横幅广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/focus-mobile\/focusPic, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
-
-# 屏蔽首页动态广告
-移除首页动态广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-feed\/v\d\/mix, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
-
-# 屏蔽标签页滚动广告
-移除标签页滚动广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/discovery-category\/v\d/category, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
-
-# 去除我的页面广告标签
-移除我的页面广告 = type=http-response, pattern=^https?:\/\/.*\.xima.*\.com\/mobile-user\/v\d\/homePage, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Himalaya_remove_ads.js, requires-body=true
+body_rewrite_27 = type=http-response, pattern=^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/football-portal\/diff2\/batch\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22json.ad%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% *.xima*.*, *.xmcdn.*
+hostname = %APPEND% gslbali.ximalaya.com, search.ximalaya.com, searchwsa.ximalaya.com, mobile.ximalaya.com, mobilehera.ximalaya.com
 
