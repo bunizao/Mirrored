@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-29 13:29:25
+#!date=2024-11-29 13:42:49
 
 [Rule]
 # 广告下发
@@ -55,10 +55,11 @@ URL-REGEX,"^http:\/\/xmc\.ximalaya\.com\/xmlymain-login-web\/login\/",REJECT
 # 我的页面 - 已购 - 为你推荐
 ^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/mobile-user\/v\d\/purchased\/recommend\/ data-type=text data="{}" status-code=200
 
+# 订阅 - 圈子 - 圈子推荐
+^https:\/\/(m|mwsa)\.ximalaya\.com\/community\/square\/v\d\/stream\? data-type=text data="{"data":{"cards":[{"content":{},"type":"RECOMMENDS"}]},"ret":0}" status-code=200 header="Content-Type:text/json"
+
 [Script]
 body_rewrite_31 = type=http-response, pattern=^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/football-portal\/diff2\/batch\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22json.ad%22%2C%22json.toc%22%5D%5D%5D
-
-body_rewrite_39 = type=http-response, pattern=#^https:\/\/(m|mwsa)\.ximalaya\.com\/community\/square\/v\d\/stream\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.cards%22%5D%5D%5D
 
 body_rewrite_49 = type=http-response, pattern=^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/mobile-user\/v\d\/homePage\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.freeListenV2%22%5D%5D%5D
 
