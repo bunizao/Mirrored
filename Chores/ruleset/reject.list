@@ -1,4 +1,3 @@
-# 知乎
 DOMAIN,appcloud.zhihu.com
 DOMAIN,appcloud2.in.zhihu.com
 DOMAIN,crash2.zhihu.com
@@ -13,11 +12,8 @@ DOMAIN,amap-aos-info-nogw.amap.com
 DOMAIN,free-aos-cdn-image.amap.com
 DOMAIN-SUFFIX,v.smtcdns.com
 AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com))
-# 请求放行
 DOMAIN,wbapp.uve.weibo.com
-# 微博开屏广告
 DOMAIN-SUFFIX,biz.weibo.com
-# 拦截HTTPDNS
 DOMAIN,dns.weibo.cn
 IP-CIDR,39.97.130.51/32,no-resolve
 IP-CIDR,39.97.128.148/32,no-resolve
@@ -35,8 +31,6 @@ DOMAIN,httpdns.alicdn.com
 DOMAIN,huichuan-mc.sm.cn
 DOMAIN,huichuan.sm.cn
 DOMAIN,iyes.youku.com
-#DOMAIN,m-vali.cp31.ott.cibntv.net
-# DOMAIN,m-vali.cp31.ott.cibntv.net
 DOMAIN,mc.atm.youku.com
 DOMAIN,vali-g1.cp31.ott.cibntv.net
 DOMAIN,vali-ugc.cp31.ott.cibntv.net
@@ -54,7 +48,6 @@ DOMAIN,dns.jd.com
 URL-REGEX,"^http:\/\/\w{32}\.jddebug\.com\/diagnose\?"
 IP-CIDR,101.124.19.122/32,no-resolve
 IP-CIDR6,2402:db40:5100:1011::5/128,no-resolve
-# 开屏广告
 URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH"-TINYGIF
 URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH"-TINYGIF
 DOMAIN,ad.12306.cn
