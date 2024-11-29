@@ -8,11 +8,12 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-29 10:53:45
+#!date=2024-11-29 11:14:29
 
 [Rule]
 # 广告下发
 DOMAIN,adse.ximalaya.com,REJECT
+DOMAIN,adse.wsa.ximalaya.com,REJECT
 
 [Map Local]
 # 拦截HTTPDNS
@@ -29,8 +30,11 @@ DOMAIN,adse.ximalaya.com,REJECT
 # 播放器 - 推广
 ^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/mobile-playpage\/playpage\/recommend\/resource\/allocation\/ data-type=text data="{}" status-code=200
 
+# 弹窗
+^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/firework-portal\/v\d+\/sync\? data-type=text data="{}" status-code=200
+
 [Script]
-body_rewrite_27 = type=http-response, pattern=^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/football-portal\/diff2\/batch\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22json.ad%22%5D%5D%5D
+body_rewrite_28 = type=http-response, pattern=^https:\/\/(mobile|mobilehera)\.ximalaya\.com\/football-portal\/diff2\/batch\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22json.ad%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% gslbali.ximalaya.com, search.ximalaya.com, searchwsa.ximalaya.com, mobile.ximalaya.com, mobilehera.ximalaya.com
