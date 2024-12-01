@@ -1,6 +1,6 @@
 #!name=哔哩哔哩去广告
 #!desc=过滤哔哩哔哩广告、移除青少年模式弹窗和交互式弹幕、移除无用功能和链接跟踪参数。此插件仅建议iOS 15以上设备使用，且必须启用MitM-over-HTTP/2功能。
-#!author=Maasea[https://github.com/Maasea],RuCu6[https://github.com/RuCu6],kokoryh[https://github.com/kokoryh],可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!author=Maasea[https://github.com/Maasea],kokoryh[https://github.com/kokoryh],RuCu6[https://github.com/RuCu6],可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Bilibili.png
 #!category=🚫 AD Block
 
@@ -10,7 +10,7 @@
 #!system_version=15
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-28 16:07:19
+#!date=2024-12-02 00:25:37
 
 [Rule]
 URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH",REJECT-TINYGIF
@@ -40,9 +40,9 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-TINYGIF
 ^https:\/\/app\.bilibili\.com\/x\/resource\/top\/activity\? data-type=text data="{"code":-404,"message":"啥都木有","ttl":1,"data":null}" status-code=200 header="Content-Type:text/json"
 
 [Script]
-body_rewrite_19 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.common_equip%22%5D%5D%5D
+body_rewrite_21 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.common_equip%22%5D%5D%5D
 
-移除动态页面广告 = type=http-response, pattern=^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.dynamic\.v2\.Dynamic\/DynAll$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_proto_kokoryh.js, requires-body=true, binary-body-mode=true
+移除动态页面广告 = type=http-response, pattern=^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.dynamic\.v2\.Dynamic\/DynAll$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_proto_kokoryh.js, requires-body=true, argument=[{showUpList}]
 
 移除青少年模式弹窗 = type=http-response, pattern=^https:\/\/(?:app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_proto_kokoryh.js, requires-body=true, binary-body-mode=true
 
