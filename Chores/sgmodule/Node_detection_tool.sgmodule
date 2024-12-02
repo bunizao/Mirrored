@@ -7,10 +7,5 @@
 #!tag=节点检测
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-12-02 14:46:18
-
-[Rule]
-DOMAIN-SUFFIX,speedtest.cn,DIRECT
-DOMAIN-SUFFIX,ip.im,DIRECT
-DOMAIN-SUFFIX,ip.plus,DIRECT
+#!date=2024-12-02 15:25:28
 
