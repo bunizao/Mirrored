@@ -6,31 +6,31 @@ desc: |-
 openUrl: "http://boxjs.com/#/app/iRingo.TestFlight"
 author: |-
   VirgilClyne[https://github.com/VirgilClyne]
-homepage: "https://github.com/NSRingo/TestFlight/wiki"
+homepage: "https://NSRingo.github.io/guide/test-flight"
 icon: "https://developer.apple.com/assets/elements/icons/testflight/testflight-128x128.png"
 category: " iRingo"
-date: "2024-10-13 07:35:04"
-version: "3.2.4"
+date: "2024-12-03 09:09:35"
+version: "3.2.5"
 
 http:
   mitm:
     - "testflight.apple.com"
   script:
     - match: ^https?:\/\/testflight\.apple\.com\/
-      name: TestFlight.request
+      name: ✈ TestFlight.request
       type: request
       require-body: true
       argument:
     - match: ^https?:\/\/testflight\.apple\.com\/
-      name: TestFlight.response
+      name: ✈ TestFlight.response
       type: response
       require-body: true
       argument:
 
 script-providers:
-  TestFlight.request:
-    url: https://github.com/NSRingo/TestFlight/releases/download/v3.2.4/request.js
+  ✈ TestFlight.request:
+    url: https://github.com/NSRingo/TestFlight/releases/download/v3.2.5/request.bundle.js
     interval: 86400
-  TestFlight.response:
-    url: https://github.com/NSRingo/TestFlight/releases/download/v3.2.4/response.js
+  ✈ TestFlight.response:
+    url: https://github.com/NSRingo/TestFlight/releases/download/v3.2.5/response.bundle.js
     interval: 86400
