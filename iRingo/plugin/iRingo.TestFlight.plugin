@@ -6,8 +6,8 @@
 #!icon = https://developer.apple.com/assets/elements/icons/testflight/testflight-128x128.png
 #!tag =  iRingo
 #!system = iOS,iPadOS,tvOS,macOS,watchOS
-#!date = 2024-12-04 06:52:28
-#!version = 3.2.6
+#!date = 2024-12-04 08:27:11
+#!version = 3.3.0
 
 [Argument]
 CountryCode = select,"US","AUTO","CN","HK","TW","SG","JP","AU","GB","KR","CA","IE",tag=国家或地区代码,desc=不同国家或地区提供的内容或有差别。
@@ -18,8 +18,8 @@ Universal = switch,false,tag=启用通用应用支持,desc=是否启用通用应
 skip-proxy = iosapps.itunes.apple.com
 
 [Script]
-http-request ^https?:\/\/testflight\.apple\.com\/ script-path=https://github.com/NSRingo/TestFlight/releases/download/v3.2.6/request.bundle.js, requires-body=true, tag=✈ TestFlight.request, argument=[{CountryCode},{MultiAccount},{Universal}]
-http-response ^https?:\/\/testflight\.apple\.com\/ script-path=https://github.com/NSRingo/TestFlight/releases/download/v3.2.6/response.bundle.js, requires-body=true, tag=✈ TestFlight.response, argument=[{CountryCode},{MultiAccount},{Universal}]
+http-request ^https?:\/\/testflight\.apple\.com\/ script-path=https://github.com/NSRingo/TestFlight/releases/download/v3.3.0/request.bundle.js, requires-body=true, tag=✈ TestFlight.request, argument=[{CountryCode},{MultiAccount},{Universal}]
+http-response ^https?:\/\/testflight\.apple\.com\/ script-path=https://github.com/NSRingo/TestFlight/releases/download/v3.3.0/response.bundle.js, requires-body=true, tag=✈ TestFlight.response, argument=[{CountryCode},{MultiAccount},{Universal}]
 
 [MITM]
 hostname = testflight.apple.com
