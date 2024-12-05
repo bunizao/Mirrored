@@ -9,8 +9,8 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/test-flight"
 icon: "https://developer.apple.com/assets/elements/icons/testflight/testflight-128x128.png"
 category: " iRingo"
-date: "2024-12-04 08:27:11"
-version: "3.3.0"
+date: "2024-12-05 08:26:56"
+version: "3.3.1"
 
 http:
   mitm:
@@ -29,8 +29,8 @@ http:
 
 script-providers:
   ✈ TestFlight.request:
-    url: https://github.com/NSRingo/TestFlight/releases/download/v3.3.0/request.bundle.js
+    url: https://github.com/NSRingo/TestFlight/releases/download/v3.3.1/request.bundle.js
     interval: 86400
   ✈ TestFlight.response:
-    url: https://github.com/NSRingo/TestFlight/releases/download/v3.3.0/response.bundle.js
+    url: https://github.com/NSRingo/TestFlight/releases/download/v3.3.1/response.bundle.js
     interval: 86400

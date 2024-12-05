@@ -7,8 +7,8 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/apple-tv"
 icon: "https://developer.apple.com/assets/elements/icons/apple-tv/apple-tv-128x128.png"
 category: " iRingo"
-date: "2024-12-04 07:55:41"
-version: "3.4.0"
+date: "2024-12-05 08:30:09"
+version: "3.4.1"
 
 http:
   mitm:
@@ -36,8 +36,8 @@ http:
 
 script-providers:
   TV.request:
-    url: https://github.com/NSRingo/TV/releases/download/v3.4.0/request.bundle.js
+    url: https://github.com/NSRingo/TV/releases/download/v3.4.1/request.bundle.js
     interval: 86400
   TV.response:
-    url: https://github.com/NSRingo/TV/releases/download/v3.4.0/response.bundle.js
+    url: https://github.com/NSRingo/TV/releases/download/v3.4.1/response.bundle.js
     interval: 86400
