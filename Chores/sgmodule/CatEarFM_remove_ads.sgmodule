@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-12-08 00:15:57
+#!date=2024-12-08 00:43:13
 
 [Map Local]
 ^https:\/\/fm\.missevan\.com\/api\/v\d\/chatroom\/open\/search-recommend-list$ data-type=text data="{}" status-code=200
@@ -17,8 +17,6 @@
 
 ^https:\/\/app\.missevan\.com\/drama\/get-recommend-by-id\? data-type=text data="{}" status-code=200
 
-^https:\/\/fm\.missevan\.com\/api\/v\d\/chatroom\/open\/recommend-list\? data-type=text data="{}" status-code=200
-
 ^https:\/\/fm\.missevan\.com\/api\/v\d\/meta\/banner$ data-type=text data="{}" status-code=200
 
 [Script]
@@ -26,7 +24,7 @@ body_rewrite_12 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/sit
 
 body_rewrite_13 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/config$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.homepage_top_task_button%22%2C%22info.teenager_popup_mode%22%5D%5D%5D
 
-body_rewrite_14 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/get-top$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22search_words%22%2C%22info.extra_banners%22%5D%5D%5D
+body_rewrite_14 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/get-top$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.search_words%22%2C%22info.extra_banners%22%5D%5D%5D
 
 body_rewrite_15 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/you-might-like\/my-favors\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.video_card%22%5D%5D%5D
 
