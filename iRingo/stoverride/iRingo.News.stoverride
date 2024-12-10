@@ -9,8 +9,8 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/apple-news"
 icon: "https://developer.apple.com/assets/elements/icons/news/news-128x128.png"
 category: " iRingo"
-date: "2024-12-06 07:47:30"
-version: "3.2.0"
+date: "2024-12-10 04:32:39"
+version: "3.2.1"
 
 rules:
   - DOMAIN,gateway.icloud.com,PROXY
@@ -42,5 +42,5 @@ http:
 
 script-providers:
   News.request:
-    url: https://github.com/NSRingo/News/releases/download/v3.2.0/request.bundle.js
+    url: https://github.com/NSRingo/News/releases/download/v3.2.1/request.bundle.js
     interval: 86400
