@@ -6,8 +6,8 @@
 #!icon = https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png
 #!tag =  iRingo
 #!system = iOS,iPadOS,macOS
-#!date = 2024-12-10 04:32:55
-#!version = 4.2.1
+#!date = 2024-12-10 16:10:46
+#!version = 4.2.2
 #!system_version = 15
 
 [Argument]
@@ -31,14 +31,14 @@ DOMAIN,direction2.is.autonavi.com,DIRECT
 
 [Script]
 # 🗺️ Network Defaults
-http-request ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.1/request.bundle.js, tag=🗺️ Maps.config.defaults.request, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
-http-response ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.1/response.bundle.js, requires-body=1, tag=🗺️ Maps.config.defaults.response, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
+http-request ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.2/request.bundle.js, tag=🗺️ Maps.config.defaults.request, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
+http-response ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.2/response.bundle.js, requires-body=1, tag=🗺️ Maps.config.defaults.response, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
 # 🗺️ Announcements
-http-request ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.1/request.bundle.js, tag=🗺️ Maps.config.announcements.request, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
-http-response ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.1/response.bundle.js, requires-body=1, binary-body-mode=1, tag=🗺️ Maps.config.announcements.response, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
+http-request ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.2/request.bundle.js, tag=🗺️ Maps.config.announcements.request, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
+http-response ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.2/response.bundle.js, requires-body=1, binary-body-mode=1, tag=🗺️ Maps.config.announcements.response, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
 # 🗺️ Resource Manifest
-http-request ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.1/request.bundle.js, tag=🗺️ Maps.config.announcements.request, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
-http-response ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.1/response.bundle.js, requires-body=1, binary-body-mode=1, tag=🗺️ Maps.geo_manifest.dynamic.config.response, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
+http-request ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.2/request.bundle.js, tag=🗺️ Maps.config.announcements.request, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
+http-response ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config script-path=https://github.com/NSRingo/GeoServices/releases/download/v4.2.2/response.bundle.js, requires-body=1, binary-body-mode=1, tag=🗺️ Maps.geo_manifest.dynamic.config.response, argument=[{GeoManifest.Dynamic.Config.CountryCode},{UrlInfoSet.Dispatcher},{UrlInfoSet.Directions},{UrlInfoSet.RAP},{UrlInfoSet.LocationShift},{TileSet.Satellite},{TileSet.Flyover},{TileSet.Munin},{LogLevel}]
 
 [MITM]
 hostname = configuration.ls.apple.com, gspe35-ssl.ls.apple.com
