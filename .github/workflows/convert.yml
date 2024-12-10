@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl jq netcat
+          sudo apt-get install -y curl jq netcat-openbsd
 
       - name: Wait for Docker service to be ready
         run: |
