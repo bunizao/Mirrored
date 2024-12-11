@@ -13,6 +13,7 @@ DOMAIN,free-aos-cdn-image.amap.com
 DOMAIN-SUFFIX,v.smtcdns.com
 AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com))
 DOMAIN,wbapp.uve.weibo.com
+DOMAIN,huodong.weibo.cn
 DOMAIN-SUFFIX,biz.weibo.com
 DOMAIN,dns.weibo.cn
 IP-CIDR,39.97.130.51/32,no-resolve
