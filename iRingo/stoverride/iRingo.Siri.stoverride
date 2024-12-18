@@ -9,8 +9,8 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/Siri/siri
 icon: "https://developer.apple.com/assets/elements/icons/siri/siri-128x128.png"
 category: " iRingo"
-date: "2024-12-18 14:07:19"
-version: "4.2.4"
+date: "2024-12-18 16:18:17"
+version: "4.2.5"
 
 http:
   mitm:
@@ -61,10 +61,5 @@ http:
 
 script-providers:
   "Siri.request":
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.4/response.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.5/request.bundle.js
     interval: 86400
-  "Siri.response":
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.4/request.bundle.js
-    interval: 86400
-
-
