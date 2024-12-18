@@ -1,16 +1,16 @@
 name: " iRingo: ⭕ Siri"
 desc: |-
   iOS 18⬆️ & macOS 15⬆️
-  全面自定义「Apple智能与 Siri」中的「Siri 请求」功能。
+  全面自定义「Siri 请求」功能。
   ⚠️ 不含自定义「Siri 建议」功能。
 openUrl: "http://boxjs.com/#/app/iRingo.Siri"
 author: |-
   VirgilClyne[https://github.com/VirgilClyne]
-homepage: "https://NSRingo.github.io/guide/Siri/apple-intelligence-and-siri"
+homepage: "https://NSRingo.github.io/guide/Siri/siri
 icon: "https://developer.apple.com/assets/elements/icons/siri/siri-128x128.png"
 category: " iRingo"
-date: "2024-12-18 03:43:36"
-version: "4.2.0"
+date: "2024-12-18 07:32:01"
+version: "4.2.1"
 
 http:
   mitm:
@@ -61,10 +61,10 @@ http:
 
 script-providers:
   "Siri.request":
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.0/response.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.1/response.bundle.js
     interval: 86400
   "Siri.response":
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.0/request.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.1/request.bundle.js
     interval: 86400
 
 

@@ -1,16 +1,16 @@
 name: " iRingo: 🔍 Search"
 desc: |-
   iOS 17.6⬇️
-  全面自定义「Siri 与搜索」中的「Siri 建议」功能。
+  全面自定义「Siri 建议」功能。
   ⚠️ 不含自定义「询问 Siri」功能。
 openUrl: "http://boxjs.com/#/app/iRingo.Spotlight"
 author: |-
   VirgilClyne[https://github.com/VirgilClyne]
-homepage: "https://NSRingo.github.io/guide/Siri/siri-and-search"
+homepage: "https://NSRingo.github.io/guide/Siri/spotlight"
 icon: "https://developer.apple.com/assets/elements/icons/spotlight/spotlight-128x128.png"
 category: " iRingo"
-date: "2024-12-18 03:43:39"
-version: "4.2.0"
+date: "2024-12-18 07:32:05"
+version: "4.2.1"
 
 http:
   mitm:
@@ -41,8 +41,8 @@ http:
 
 script-providers:
   Siri.request:
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.0/request.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.1/request.bundle.js
     interval: 86400
   Siri.response:
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.0/response.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.1/response.bundle.js
     interval: 86400

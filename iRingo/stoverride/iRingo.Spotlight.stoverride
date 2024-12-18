@@ -7,11 +7,11 @@ desc: |-
 openUrl: "http://boxjs.com/#/app/iRingo.Spotlight"
 author: |-
   VirgilClyne[https://github.com/VirgilClyne]
-homepage: "https://NSRingo.github.io/guide/Siri/siri-and-search"
+homepage: "https://NSRingo.github.io/guide/Siri/spotlight"
 icon: "https://developer.apple.com/assets/elements/icons/spotlight/spotlight-128x128.png"
 category: " iRingo"
-date: "2024-12-18 03:43:43"
-version: "4.2.0"
+date: "2024-12-18 07:32:09"
+version: "4.2.1"
 
 rules:
   - DOMAIN,lookup-api.apple.com,PROXY
@@ -47,8 +47,8 @@ http:
 
 script-providers:
   Siri.request:
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.0/request.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.1/request.bundle.js
     interval: 86400
   Siri.response:
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.0/response.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.1/response.bundle.js
     interval: 86400
