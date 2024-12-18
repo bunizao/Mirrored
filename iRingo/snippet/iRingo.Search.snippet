@@ -5,19 +5,19 @@
 #!homepage = https://NSRingo.github.io/guide/Siri/spotlight
 #!icon = https://developer.apple.com/assets/elements/icons/spotlight/spotlight-128x128.png
 #!category =  iRingo
-#!date = 2024-12-18 09:34:22
-#!version = 4.2.2
+#!date = 2024-12-18 14:07:24
+#!version = 4.2.4
 
 #[rewrite_local]
 # 🔍 Search Bag (iOS/macOS)
-^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag url script-request-header https://github.com/NSRingo/Siri/releases/download/v4.2.2/request.bundle.js
-^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag url script-response-body https://github.com/NSRingo/Siri/releases/download/v4.2.2/response.bundle.js
+^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag url script-request-header https://github.com/NSRingo/Siri/releases/download/v4.2.4/request.bundle.js
+^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag url script-response-body https://github.com/NSRingo/Siri/releases/download/v4.2.4/response.bundle.js
 # 🔍 Siri Suggestions & Look Up Search (iOS/macOS)
-^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/search url script-request-header https://github.com/NSRingo/Siri/releases/download/v4.2.2/request.bundle.js
+^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/search url script-request-header https://github.com/NSRingo/Siri/releases/download/v4.2.4/request.bundle.js
 # 🔍 Search Infomation Card (macOS)
-^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/card url script-request-header https://github.com/NSRingo/Siri/releases/download/v4.2.2/request.bundle.js
+^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/card url script-request-header https://github.com/NSRingo/Siri/releases/download/v4.2.4/request.bundle.js
 # 🔍 Search Flight Search (iOS/macOS)
-^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/flight url script-request-header https://github.com/NSRingo/Siri/releases/download/v4.2.2/request.bundle.js
+^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/flight url script-request-header https://github.com/NSRingo/Siri/releases/download/v4.2.4/request.bundle.js
 
 #[mitm]
 hostname = api*.smoot.apple.com, api.smoot.apple.cn

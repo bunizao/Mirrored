@@ -9,8 +9,8 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/Siri/spotlight"
 icon: "https://developer.apple.com/assets/elements/icons/spotlight/spotlight-128x128.png"
 category: " iRingo"
-date: "2024-12-18 09:34:22"
-version: "4.2.2"
+date: "2024-12-18 14:07:24"
+version: "4.2.4"
 
 http:
   mitm:
@@ -41,8 +41,8 @@ http:
 
 script-providers:
   Siri.request:
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.2/request.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.4/request.bundle.js
     interval: 86400
   Siri.response:
-    url: https://github.com/NSRingo/Siri/releases/download/v4.2.2/response.bundle.js
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.4/response.bundle.js
     interval: 86400
