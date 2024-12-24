@@ -151,7 +151,7 @@ jobs:
           # Find all sgmodule files and apply modifications
           find ./iRingo/sgmodule -type f -name "*.sgmodule" | while read -r FILE; do
             echo "Modifying $FILE"
-            sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1🇺🇸United States/ }' "$FILE"
+            sed -i '/^#!arguments=/ { s/\(Proxy:\)[^,]*/\1United States/ }' "$FILE"
             MODIFICATIONS_MADE=true
           done
 
