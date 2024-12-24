@@ -5,13 +5,13 @@
 #!homepage = https://NSRingo.github.io/guide/test-flight
 #!icon = https://developer.apple.com/assets/elements/icons/testflight/testflight-128x128.png
 #!category =  iRingo
-#!date = 2024-12-10 04:31:53
-#!version = 3.3.2
+#!date = 2024-12-24 08:53:51
+#!version = 3.4.0
 
 #[rewrite_local]
 # ✈ TestFlight
-^https?:\/\/testflight\.apple\.com\/ url script-request-body https://github.com/NSRingo/TestFlight/releases/download/v3.3.2/request.bundle.js
-^https?:\/\/testflight\.apple\.com\/ url script-response-body https://github.com/NSRingo/TestFlight/releases/download/v3.3.2/response.bundle.js
+^https?:\/\/testflight\.apple\.com\/ url script-request-body https://github.com/NSRingo/TestFlight/releases/download/v3.4.0/request.bundle.js
+^https?:\/\/testflight\.apple\.com\/ url script-response-body https://github.com/NSRingo/TestFlight/releases/download/v3.4.0/response.bundle.js
 
 #[mitm]
 hostname = testflight.apple.com
