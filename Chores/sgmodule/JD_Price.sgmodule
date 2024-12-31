@@ -1,18 +1,7 @@
-#!name=京东比价
-#!desc=点击商品详情后以通知的形式推送比价内容
-#!author=githubdulong[https://github.com/githubdulong]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/JD.png
-#!category=🚫 AD Block
+JD_Price%0A：Error: Response code 404 (Not Found)
 
-#!openUrl=https://apps.apple.com/app/id414245413
-#!tag=功能增强
-#!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-12-29 00:51:00
 
-[Script]
-京东比价 = type=http-response, pattern=^https:\/\/in\.m\.jd\.com\/product\/graphext\/\d+\.html, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true
 
-[MITM]
-hostname = %APPEND% in.m.jd.com
 
+
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
