@@ -1,3 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Error><Code>AuthenticationFailed</Code><Message>Server failed to authenticate the request. Make sure the value of Authorization header is formed correctly including the signature.
-RequestId:a655dfed-701e-006d-0b06-7c551e000000
-Time:2025-02-10T21:55:45.9978112Z</Message><AuthenticationErrorDetail>Signature not valid in the specified time frame: Start [Mon, 10 Feb 2025 21:55:46 GMT] - Expiry [Mon, 10 Feb 2025 22:25:46 GMT] - Current [Mon, 10 Feb 2025 21:55:45 GMT]</AuthenticationErrorDetail></Error>
+#!name =  iRingo: 📺 TV app
+#!desc = 全面自定义「TV app」功能
+#!openUrl = http://boxjs.com/#/app/iRingo.TV
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/apple-tv
+#!icon = https://developer.apple.com/assets/elements/icons/apple-tv/apple-tv-128x128.png
+#!category =  iRingo
+#!date = 2024-12-27 08:11:56
+#!version = 3.4.3
+
+#[rewrite_local]
+# 📺 TV UTS
+^https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/ url script-request-body https://github.com/NSRingo/TV/releases/download/v3.4.3/request.bundle.js
+^https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/ url script-response-body https://github.com/NSRingo/TV/releases/download/v3.4.3/response.bundle.js
+# 📺 TV UMC
+^https?:\/\/umc-tempo-api\.apple\.com\/(v1|v2|v3)\/ url script-request-body https://github.com/NSRingo/TV/releases/download/v3.4.3/request.bundle.js
+# 📺 TV.hls
+^https?:\/\/play(-edge)?\.itunes\.apple\.com\/WebObjects\/MZPlay(Local)?\.woa\/hls(\/(subscription|workout))?\/playlist\.m3u8 url script-request-header https://github.com/NSRingo/TV/releases/download/v3.4.3/request.bundle.js
+# 📺 TV.wa
+^https?:\/\/play(-edge)?\.itunes\.apple\.com\/WebObjects\/MZPlay(Local)?\.woa\/wa\/(fpsRequest|checkInNonceRequest) url script-request-header https://github.com/NSRingo/TV/releases/download/v3.4.3/request.bundle.js
+
+#[mitm]
+hostname = uts-api.itunes.apple.com, umc-tempo-api.apple.com
