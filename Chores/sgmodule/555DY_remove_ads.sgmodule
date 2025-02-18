@@ -1,19 +1,7 @@
-#!name=555电影去广告
-#!desc=移除开屏广告和各类横幅广告，支持iPadOS。
-#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/555DY.png
-#!category=🚫 AD Block
+555DY_remove_ads%0A：Error: 请求超时(20 秒)
 
-#!openUrl=https://5wuv.com/
-#!tag=去广告
-#!system=ios
-#!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-12-05 15:34:08
 
-[Map Local]
-^https:\/\/app-v1\.ecoliving168\.com\/api\/v1\/advert\/config data-type=text data="{}" status-code=200
 
-[MITM]
-hostname = %APPEND% app-v1.ecoliving168.com
 
+
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
