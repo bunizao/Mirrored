@@ -19,6 +19,7 @@ AND,((DOMAIN-SUFFIX,youtubei.googleapis.com),(PROTOCOL,QUIC)),REJECT
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=502 header="Content-Type:text/plain"
 
 [Script]
+# YouTube去广告
 YouTube去广告 = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true, argument="[{blockUpload},{blockImmersive},{captionLang},{lyricLang},{debug}]"
 
 [MITM]

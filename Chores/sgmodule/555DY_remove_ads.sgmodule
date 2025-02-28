@@ -12,6 +12,7 @@
 #!date=2024-12-05 15:34:08
 
 [Map Local]
+# 广告配置
 ^https:\/\/app-v1\.ecoliving168\.com\/api\/v1\/advert\/config data-type=text data="{}" status-code=200
 
 [MITM]

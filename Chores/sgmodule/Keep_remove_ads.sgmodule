@@ -11,22 +11,28 @@
 #!date=2024-11-28 00:00:00
 
 [Rule]
+# 拦截HTTPDNS
 DOMAIN,httpdns.n.netease.com,REJECT
 DOMAIN,httpdns.calorietech.com,REJECT
+# 拦截广告下发
 DOMAIN,hc-ssp.sm.cn,REJECT
 
 [Map Local]
+# 搜索填充词
 ^https:\/\/api\.gotokeep\.com\/search\/v6\/default\/keyword\/list data-type=text data="{}" status-code=200
 
+# 信息流推广
 ^https:\/\/kad\.gotokeep\.com\/op-engine-webapp\/v1\/ad data-type=text data="{}" status-code=200
 
+# 弹窗
 ^https:\/\/api\.gotokeep\.com\/guide-webapp\/v1\/popup\/getPopUp data-type=text data="{}" status-code=200
 
 [Script]
-body_rewrite_17 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/followPage, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
+body_rewrite_21 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/followPage, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
 
-body_rewrite_19 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/entryDetail, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
+body_rewrite_25 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/entryDetail, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
 
+# 首页 - 活动标签
 移除首页活动标签 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/config\/v3\/basic, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Keep_remove_ads.js, requires-body=true
 
 [MITM]
