@@ -19,5 +19,5 @@
 ^https:\/\/api2\.zongheng\.com\/api\/giftBag\/bindingBag$ data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% api?.zongheng.com
+ = %APPEND% api?.zongheng.com
 

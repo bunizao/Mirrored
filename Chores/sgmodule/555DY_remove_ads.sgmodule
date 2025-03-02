@@ -16,5 +16,5 @@
 ^https:\/\/app-v1\.ecoliving168\.com\/api\/v1\/advert\/config data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% app-v1.ecoliving168.com
+ = %APPEND% app-v1.ecoliving168.com
 

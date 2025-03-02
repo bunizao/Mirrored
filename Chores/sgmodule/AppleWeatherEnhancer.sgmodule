@@ -22,5 +22,5 @@ Availability响应处理 = type=http-response, pattern=^https?:\/\/weatherkit\.a
 Weather响应处理 = type=http-response, pattern=^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/response.bundle.js, requires-body=true, binary-body-mode=true, argument="[{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token}]"
 
 [MITM]
-hostname = %APPEND% weatherkit.apple.com
+ = %APPEND% weatherkit.apple.com
 

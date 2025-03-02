@@ -11,5 +11,5 @@
 #!date=2024-11-28 00:00:00
 
 [MITM]
-hostname = %APPEND% api.cloudflareclient.com, zero-trust-client.cloudflareclient.com
+ = %APPEND% api.cloudflareclient.com, zero-trust-client.cloudflareclient.com
 

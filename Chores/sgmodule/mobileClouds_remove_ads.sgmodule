@@ -16,5 +16,5 @@
 移除应用内广告 = type=http-response, pattern=^https:\/\/ad\.mcloud\.139\.com\/advertapi\/adv-filter\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/mobileClouds_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% jzts.cmpassport.com, ad.mcloud.139.com
+ = %APPEND% jzts.cmpassport.com, ad.mcloud.139.com
 

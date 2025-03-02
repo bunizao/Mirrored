@@ -165,5 +165,5 @@ DOMAIN,yumao.puata.info,REJECT
 ^https:\/\/api\.xiachufang\.com\/v2\/mark_mission\/get_sticker_info\.json data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% api.xiachufang.com
+ = %APPEND% api.xiachufang.com
 

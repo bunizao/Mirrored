@@ -25,5 +25,5 @@ http-request ^https:\/\/gw\.xiaocantech\.com\/rpc header-replace-regex 'methodna
 ^https:\/\/gw\.xiaocantech\.com\/g\/pa data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% gw.xiaocantech.com, web2.realtech-inc.com, sdk.1rtb.net
+ = %APPEND% gw.xiaocantech.com, web2.realtech-inc.com, sdk.1rtb.net
 

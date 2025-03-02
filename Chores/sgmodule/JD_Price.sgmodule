@@ -14,5 +14,5 @@
 京东比价 = type=http-response, pattern=^https:\/\/in\.m\.jd\.com\/product\/graphext\/\d+\.html, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% in.m.jd.com
+ = %APPEND% in.m.jd.com
 

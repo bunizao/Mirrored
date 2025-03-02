@@ -53,5 +53,5 @@ DOMAIN,ipv6.music.163.com,REJECT
 显示未关注你的人 = type=http-response, pattern=^https?:\/\/interface\d?\.music\.163\.com\/eapi\/user\/follow\/users\/mixed\/get, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/NeteaseCloudMusic_remove_ads.js, requires-body=true, binary-body-mode=true, timeout=20
 
 [MITM]
-hostname = %APPEND% interface*.music.163.com
+ = %APPEND% interface*.music.163.com
 

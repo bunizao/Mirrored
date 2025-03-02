@@ -36,5 +36,5 @@ body_rewrite_25 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twi
 移除首页活动标签 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/config\/v3\/basic, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Keep_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% api.gotokeep.com, kad.gotokeep.com
+ = %APPEND% api.gotokeep.com, kad.gotokeep.com
 

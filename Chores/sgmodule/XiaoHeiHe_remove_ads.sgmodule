@@ -19,5 +19,5 @@
 移除热点板块信息流广告 = type=http-response, pattern=^https:\/\/api\.xiaoheihe\.cn\/bbs\/app\/feeds\/news, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/XiaoHeiHe_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% api.xiaoheihe.cn
+ = %APPEND% api.xiaoheihe.cn
 

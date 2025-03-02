@@ -102,5 +102,5 @@ DOMAIN-SUFFIX,biz.weibo.com,REJECT
 会员图标 = type=http-response, pattern=^https:\/\/new\.vip\.weibo\.cn\/aj\/appicon\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% *.weibo.cn, *.weibo.com, weibo.com
+ = %APPEND% *.weibo.cn, *.weibo.com, weibo.com
 

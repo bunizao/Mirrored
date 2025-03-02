@@ -101,5 +101,5 @@ body_rewrite_90 = type=http-response, pattern=^https:\/\/beta-luna\.douyin\.com\
 body_rewrite_92 = type=http-response, pattern=^https:\/\/beta-luna\.douyin\.com\/luna\/more-panel\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22blocks%5B1%5D%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% webcast-open.douyin.com, beta-luna.douyin.com
+ = %APPEND% webcast-open.douyin.com, beta-luna.douyin.com
 

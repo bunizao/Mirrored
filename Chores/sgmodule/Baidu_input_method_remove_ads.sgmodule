@@ -31,5 +31,5 @@
 百度输入法去广告 = type=http-response, pattern=^https?:\/\/mime\.baidu\.com\/(imrobot\/v1\/pub\/relation\/get_robot_list|v5\/custom_page\/(layout|getdata)), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Baidu_input_method_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% imeres.baidu.com, mbd.baidu.com, mime.baidu.com
+ = %APPEND% imeres.baidu.com, mbd.baidu.com, mime.baidu.com
 

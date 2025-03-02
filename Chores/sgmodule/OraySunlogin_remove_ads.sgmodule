@@ -81,5 +81,5 @@ DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 ^https:\/\/client-api-v2\.oray\.com\/materials\/SLCC_iOS_DEVICE_FREE\? - reject
 
 [MITM]
-hostname = %APPEND% client-api-v2.oray.com
+ = %APPEND% client-api-v2.oray.com
 

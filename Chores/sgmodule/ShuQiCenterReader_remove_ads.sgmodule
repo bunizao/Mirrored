@@ -32,5 +32,5 @@ DOMAIN,render-web.11222.cn,REJECT
 移除书城横幅和阅读广告 = type=http-response, pattern=^https:\/\/ocean\.shuqireader\.com\/sqios\/render\/render\/page\/bookstore$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/ShuQiCenterReader_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% ocean.shuqireader.com, huichuan.sm.cn
+ = %APPEND% ocean.shuqireader.com, huichuan.sm.cn
 

@@ -29,5 +29,5 @@
 移除我的页面推广 = type=http-response, pattern=^https:\/\/zgrb\.epicc\.com\.cn\/G-HAPP\/mpageconfig\/myPageConfigList\/v3, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/PICC_Insurance_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% zgrb.epicc.com.cn
+ = %APPEND% zgrb.epicc.com.cn
 

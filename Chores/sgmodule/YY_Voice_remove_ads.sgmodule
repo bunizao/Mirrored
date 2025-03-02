@@ -88,5 +88,5 @@ body_rewrite_81 = type=http-response, pattern=^https:\/\/tab\.yy\.com\/tabs\?, s
 精简我的页面 = type=http-response, pattern=^https:\/\/personal-center\.yy\.com\/personalCenter\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YY_Voice_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% yyapp-act-entrance.yy.com, yyapp-fastnet.yy.com, personal-center.yy.com, tab.yy.com
+ = %APPEND% yyapp-act-entrance.yy.com, yyapp-fastnet.yy.com, personal-center.yy.com, tab.yy.com
 

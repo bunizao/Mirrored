@@ -43,5 +43,5 @@
 ^https:\/\/appc-v6\.qixin\.com\/v4\/general\/getAppBottomBanners$ data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% appc.qixin.com, appc-v6.qixin.com, qxb-minicode-pic-osscache.qixin.com
+ = %APPEND% appc.qixin.com, appc-v6.qixin.com, qxb-minicode-pic-osscache.qixin.com
 

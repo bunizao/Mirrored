@@ -18,5 +18,5 @@
 自动加入TF = type=cron, cronexp="null", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Auto_join_TF.js, timeout=180
 
 [MITM]
-hostname = %APPEND% testflight.apple.com
+ = %APPEND% testflight.apple.com
 

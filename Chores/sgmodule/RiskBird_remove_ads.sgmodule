@@ -22,5 +22,5 @@
 移除推荐老板 = type=http-response, pattern=^https:\/\/m\.riskbird\.com\/prod-qbb-api\/query\/person\/personRecommend, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RiskBird_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% m.riskbird.com
+ = %APPEND% m.riskbird.com
 

@@ -22,5 +22,5 @@ WARP Teams Request = type=http-request, pattern=^https?:\/\/(api|zero-trust-clie
 WARP Teams Response = type=http-response, pattern=^https?:\/\/(api|zero-trust-client)\.cloudflareclient\.com\/(.*)\/reg\/t\.[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/1.1.1.1.response.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% api.cloudflareclient.com, zero-trust-client.cloudflareclient.com
+ = %APPEND% api.cloudflareclient.com, zero-trust-client.cloudflareclient.com
 

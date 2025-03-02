@@ -20,5 +20,5 @@ Rule转换 = type=http-request, pattern=^https?:\/\/script\.hub\/file\/_start_\/
 JavaScript转换 = type=http-request, pattern=^https?:\/\/script\.hub\/convert\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/script-converter.beta.js, timeout=120
 
 [MITM]
-hostname = %APPEND% script.hub, *.script.hub
+ = %APPEND% script.hub, *.script.hub
 

@@ -30,5 +30,5 @@
 #^https:\/\/keapi\.fenbi\.com\/app\/iphone\/\w+\/small_banner data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% keapi.fenbi.com, market-api.fenbi.com, tiku.fenbi.com
+ = %APPEND% keapi.fenbi.com, market-api.fenbi.com, tiku.fenbi.com
 

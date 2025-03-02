@@ -39,5 +39,5 @@ body_rewrite_20 = type=http-response, pattern=^https:\/\/zone\.guiderank-app\.co
 body_rewrite_23 = type=http-response, pattern=^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/common\/getInitData\.do, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.SpecialSalePageMidTabConfig%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% zone.guiderank-app.com
+ = %APPEND% zone.guiderank-app.com
 

@@ -36,5 +36,5 @@ DOMAIN,log.umsns.com,REJECT
 ^https:\/\/pan-api\.bitqiu\.com\/activity\/guides$ data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% pan-api.bitqiu.com
+ = %APPEND% pan-api.bitqiu.com
 

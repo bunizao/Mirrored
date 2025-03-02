@@ -23,5 +23,5 @@ AND,((GEOIP,CN),(DOMAIN,pitaya.bytedance.com)),DIRECT
 TikTok解锁 = type=http-request, pattern=https?:\/\/.+.(tiktokv|tiktokcdn).com\/.+(region\d?=CN|&mcc_mnc=\d+), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TikTok_redirect.js
 
 [MITM]
-hostname = %APPEND% *.byteoversea.com, *.tik-tokapi.com, *.tiktokv.com, *.tiktokcdn.com
+ = %APPEND% *.byteoversea.com, *.tik-tokapi.com, *.tiktokv.com, *.tiktokcdn.com
 

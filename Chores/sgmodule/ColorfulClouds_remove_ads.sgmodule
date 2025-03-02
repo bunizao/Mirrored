@@ -24,5 +24,5 @@ DOMAIN,gather.colorfulclouds.net,REJECT
 彩云天气去广告 = type=http-response, pattern=^https:\/\/(wrapper\.cyapi\.cn|api\.caiyunapp\.com|cdn-w\.caiyunapp\.com)\/v1\/activity\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/ColorfulClouds_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% biz.cyapi.cn, starplucker.cyapi.cn, api.caiyunapp.com, cdn-w.caiyunapp.com
+ = %APPEND% biz.cyapi.cn, starplucker.cyapi.cn, api.caiyunapp.com, cdn-w.caiyunapp.com
 

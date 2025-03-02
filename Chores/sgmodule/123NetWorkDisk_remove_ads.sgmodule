@@ -101,5 +101,5 @@ DOMAIN,v.adx.hubcloud.com.cn,REJECT
 ^https:\/\/www\.123pan\.com\/api\/config\/get data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% www.123pan.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com
+ = %APPEND% www.123pan.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com
 

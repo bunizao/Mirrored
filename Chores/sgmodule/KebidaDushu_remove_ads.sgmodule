@@ -42,5 +42,5 @@
 帆书去广告 = type=http-response, pattern=^https?:\/\/g[a-z0-9-]+\.dushu365\.com\/user-orchestration\/user\/api\/v101\/ceiltip, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/KebidaDushu_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% g*.dushu365.com
+ = %APPEND% g*.dushu365.com
 

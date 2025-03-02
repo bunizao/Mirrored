@@ -88,5 +88,5 @@ DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 body_rewrite_85 = type=http-response, pattern=^https:\/\/mbd\.baidu\.com\/ccs\/v1\/start\/confsync\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.service.config.advertisement%22%2C%22data.service.config.youa.pm_config_ad%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% pan.baidu.com, mbd.baidu.com
+ = %APPEND% pan.baidu.com, mbd.baidu.com
 

@@ -51,5 +51,5 @@ URL-REGEX,"^http:\/\/180\.76\.76\.112\/v\d\/",REJECT
 #^https:\/\/b2baifanfan\.baidu\.com\/crm\/web\/b2b\/im\/common\/getConfigByDeviceNum data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% aiqicha.baidu.com
+ = %APPEND% aiqicha.baidu.com
 

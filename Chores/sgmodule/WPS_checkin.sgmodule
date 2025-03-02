@@ -18,5 +18,5 @@
 WPS每日签到 = type=cron, cronexp="null", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/WPS_checkin.js, timeout=120, argument="[{AK},{SK},{MAX_RETRIES}]"
 
 [MITM]
-hostname = %APPEND% moapi.wps.cn
+ = %APPEND% moapi.wps.cn
 

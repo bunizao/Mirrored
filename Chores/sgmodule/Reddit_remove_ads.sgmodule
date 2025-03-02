@@ -11,5 +11,5 @@
 #!date=2024-12-02 10:28:36
 
 [MITM]
-hostname = %APPEND% gql.reddit.com, gql-fed.reddit.com
+ = %APPEND% gql.reddit.com, gql-fed.reddit.com
 

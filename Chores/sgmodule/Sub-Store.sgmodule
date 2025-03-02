@@ -18,5 +18,5 @@ Sub-Store Simple = type=http-request, pattern=^https?:\/\/sub\.store, script-pat
 Sub-Store Sync = type=cron, cronexp="0 0 1 ? * ?", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/cron-sync-artifacts.min.js
 
 [MITM]
-hostname = %APPEND% sub.store
+ = %APPEND% sub.store
 

@@ -21,5 +21,5 @@
 ^https:\/\/www\.gaoding\.com\/api\/v\d\/cp\/search-words\/v2\/placeholder data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% www.gaoding.com
+ = %APPEND% www.gaoding.com
 

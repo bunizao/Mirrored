@@ -146,5 +146,5 @@ body_rewrite_132 = type=http-response, pattern=^https:\/\/api\.meiyan\.com\/oper
 精简首页功能栏目并移除美颜推荐 = type=http-response, pattern=^https:\/\/api\.meiyan\.com\/operation\/home\.json\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/MeituMYXJ_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% api.meiyan.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com
+ = %APPEND% api.meiyan.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com
 

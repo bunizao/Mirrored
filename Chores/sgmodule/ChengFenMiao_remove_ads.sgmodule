@@ -45,5 +45,5 @@ DOMAIN-SUFFIX,union.baidu.com,REJECT
 ^https:\/\/app\.chengfenmiao\.com\/item\/closet\? data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% app.chengfenmiao.com
+ = %APPEND% app.chengfenmiao.com
 

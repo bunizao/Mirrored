@@ -28,5 +28,5 @@
 ^https:\/\/capi\.lkcoffee\.com\/resource\/m\/sys\/app\/adposNew - reject
 
 [MITM]
-hostname = %APPEND% capi.lkcoffee.com
+ = %APPEND% capi.lkcoffee.com
 

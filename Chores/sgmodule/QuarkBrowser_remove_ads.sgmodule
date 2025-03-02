@@ -22,5 +22,5 @@
 精简我的页面 = type=http-response, pattern=^https:\/\/open-cms-api\.quark\.cn\/open-cms, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/QuarkBrowser_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% huichuan.sm.cn, stars.shuqireader.com, open-cms-api.quark.cn
+ = %APPEND% huichuan.sm.cn, stars.shuqireader.com, open-cms-api.quark.cn
 

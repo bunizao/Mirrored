@@ -14,5 +14,5 @@
 微信外部链接解锁 = type=http-response, pattern=^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weixin_external_links_unlock.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% weixin110.qq.com, security.wechat.com
+ = %APPEND% weixin110.qq.com, security.wechat.com
 

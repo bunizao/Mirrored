@@ -113,5 +113,5 @@ DOMAIN,et.tanx.com,REJECT
 精简我的页面 = type=http-response, pattern=^https:\/\/conf-m-ssl\.xunlei\.com\/external\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/XunLei_remove_ads.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% api-shoulei-ssl.xunlei.com, conf-m-ssl.xunlei.com
+ = %APPEND% api-shoulei-ssl.xunlei.com, conf-m-ssl.xunlei.com
 

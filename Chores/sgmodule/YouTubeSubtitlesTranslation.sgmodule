@@ -39,5 +39,5 @@ JSON·YouTube Music翻译歌词响应 = type=http-response, pattern=^https?:\/\/
 Proto·YouTube Music翻译歌词响应 = type=http-response, pattern=^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/browse\?(.*)subtype=Translate, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_Subtitles_Translate_response.js, requires-body=true, binary-body-mode=true
 
 [MITM]
-hostname = %APPEND% www.youtube.com, m.youtube.com, tv.youtube.com, music.youtube.com, youtubei.googleapis.com
+ = %APPEND% www.youtube.com, m.youtube.com, tv.youtube.com, music.youtube.com, youtubei.googleapis.com
 

@@ -135,5 +135,5 @@ DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 ^https:\/\/frodo\.douban\.com\/api\/v\d\/search\/found_words data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% api.douban.com, frodo.douban.com, m.douban.com
+ = %APPEND% api.douban.com, frodo.douban.com, m.douban.com
 

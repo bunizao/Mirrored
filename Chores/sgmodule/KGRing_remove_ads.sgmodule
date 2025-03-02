@@ -120,5 +120,5 @@ DOMAIN-SUFFIX,adukwai.com,REJECT
 ^http:\/\/api\.ring\.kugou\.com\/user\/notice\/recommend$ data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% api.ring.kugou.com
+ = %APPEND% api.ring.kugou.com
 
