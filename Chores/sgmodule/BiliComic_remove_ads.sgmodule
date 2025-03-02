@@ -53,5 +53,5 @@ URL-REGEX,"^http:\/\/119\.29\.29\.29\/d",REJECT
 精简我的页面 = type=http-response, pattern=^https:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.User\/UCenterConf, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliComic_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% manga.bilibili.com
+hostname = %APPEND% manga.bilibili.com
 

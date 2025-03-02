@@ -76,5 +76,5 @@ DOMAIN-SUFFIX,jpush.io,REJECT
 ^https:\/\/ucmp\.sf-express\.com\/proxy\/esgcempcore\/memberGoods\/pointMallService\/goodsList$ data-type=text data="{}" status-code=200
 
 [MITM]
- = %APPEND% ccsp-egmas.sf-express.com, ucmp.sf-express.com
+hostname = %APPEND% ccsp-egmas.sf-express.com, ucmp.sf-express.com
 

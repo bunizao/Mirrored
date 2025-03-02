@@ -95,5 +95,5 @@ URL-REGEX,"^http:\/\/log\.stat\.kugou\.com\/mobile\/ad\.html",REJECT
 精简顶部标签 = type=http-response, pattern=^https:\/\/gateway(retry)?\.kugou\.com\/ocean\/v\d\/tab\/list_v\d, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/KuGou_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% gateway.kugou.com, fx.service.kugou.com, hwstore.kugou.com, ep.kugou.com, gatewayretry.kugou.com, gzacshow.kugou.com, m1fxgroup.kugou.com
+hostname = %APPEND% gateway.kugou.com, fx.service.kugou.com, hwstore.kugou.com, ep.kugou.com, gatewayretry.kugou.com, gzacshow.kugou.com, m1fxgroup.kugou.com
 

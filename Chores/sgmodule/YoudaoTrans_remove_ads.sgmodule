@@ -81,5 +81,5 @@ DOMAIN,aaid.umeng.com,REJECT
 ^https:\/\/gorgon\.youdao\.com\/gorgon\/request\.s data-type=text data="{}" status-code=200
 
 [MITM]
- = %APPEND% gorgon.youdao.com
+hostname = %APPEND% gorgon.youdao.com
 

@@ -55,5 +55,5 @@ body_rewrite_35 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/se
 精简首页 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/PinDuoDuo_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% api.pinduoduo.com, api.yangkeduo.com
+hostname = %APPEND% api.pinduoduo.com, api.yangkeduo.com
 

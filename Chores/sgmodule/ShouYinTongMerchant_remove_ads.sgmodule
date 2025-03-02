@@ -26,5 +26,5 @@
 ^https:\/\/syt\.leshuazf\.com\/merchant\/popup\/getPopupInfo$ data-type=text data="{}" status-code=200
 
 [MITM]
- = %APPEND% syt.leshuazf.com, m.fqfin.cn
+hostname = %APPEND% syt.leshuazf.com, m.fqfin.cn
 

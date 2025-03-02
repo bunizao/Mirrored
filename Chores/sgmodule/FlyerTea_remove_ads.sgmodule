@@ -32,5 +32,5 @@
 移除签到弹窗广告 = type=http-response, pattern=^https:\/\/www\.flyert\.com\.cn\/api\/mobile\/index\.php\?module=plugin&id=k_misign:sign, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/FlyerTea_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% www.flyert.com.cn, ptf.flyertrip.com
+hostname = %APPEND% www.flyert.com.cn, ptf.flyertrip.com
 

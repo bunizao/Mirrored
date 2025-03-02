@@ -121,5 +121,5 @@ DOMAIN-SUFFIX,igexin.com,REJECT
 body_rewrite_114 = type=http-response, pattern=^https:\/\/soapi\.91160\.com\/homepage-recommendation\/recommendation\/medical\/complex\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.checkupList%22%5D%5D%5D
 
 [MITM]
- = %APPEND% patientgate.91160.com, soapi.91160.com, msglb.91160.com, patientappapi.91160.com
+hostname = %APPEND% patientgate.91160.com, soapi.91160.com, msglb.91160.com, patientappapi.91160.com
 

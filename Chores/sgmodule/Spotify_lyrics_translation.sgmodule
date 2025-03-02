@@ -26,5 +26,5 @@
 外部歌词响应·Proto = type=http-response, pattern=^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/\w+\?(.*)subtype=External, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/External_Lyrics_response.js, requires-body=true, binary-body-mode=true
 
 [MITM]
- = %APPEND% api.spotify.com, spclient.wg.spotify.com
+hostname = %APPEND% api.spotify.com, spclient.wg.spotify.com
 

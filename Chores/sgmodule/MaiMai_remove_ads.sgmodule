@@ -27,5 +27,5 @@ body_rewrite_19 = type=http-response, pattern=^https:\/\/(h3\.)?open\.taou\.com\
 移除信息流和评论区大块广告 = type=http-response, pattern=^https:\/\/(h3\.)?open\.taou\.com\/maimai\/(feed|gossip)\/v\d\/(focus_feed|gossip_detail_comment|feed_detail_comment?)\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/MaiMai_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% open.taou.com, h3.open.taou.com
+hostname = %APPEND% open.taou.com, h3.open.taou.com
 

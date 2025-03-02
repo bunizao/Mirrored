@@ -18,5 +18,5 @@
 IT之家去广告 = type=http-response, pattern=^https:\/\/napi\.ithome\.com\/api\/(?:news\/index|topmenu\/getfeeds\?|api\/douyin\/GetLiveInfo), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/IThome_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% napi.ithome.com, api.zuihuimai.com, dat.ruanmei.com
+hostname = %APPEND% napi.ithome.com, api.zuihuimai.com, dat.ruanmei.com
 

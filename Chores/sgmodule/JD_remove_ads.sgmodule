@@ -23,5 +23,5 @@ IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
 移除京东广告 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% api.m.jd.com
+hostname = %APPEND% api.m.jd.com
 

@@ -37,5 +37,5 @@ body_rewrite_21 = type=http-response, pattern=^https:\/\/cupid\.51job(app)?\.com
 body_rewrite_27 = type=http-response, pattern=^https:\/\/cupid\.51job(app)?\.com\/open\/tab\/good-job\/modules, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22resultbody.bannerList%22%5D%5D%5D
 
 [MITM]
- = %APPEND% appapi.51job.com, cupid.51job.com, cupid.51jobapp.com
+hostname = %APPEND% appapi.51job.com, cupid.51job.com, cupid.51jobapp.com
 

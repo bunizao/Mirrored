@@ -16,5 +16,5 @@ JSON处理 = type=http-request, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(
 Proto处理 = type=http-response, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_proto.js, requires-body=true, binary-body-mode=true, timeout=10
 
 [MITM]
- = %APPEND% spclient.wg.spotify.com
+hostname = %APPEND% spclient.wg.spotify.com
 

@@ -118,5 +118,5 @@ DOMAIN-SUFFIX,union.baidu.com,REJECT
 ^https:\/\/pan\.baidu\.com\/rest\/\d\.\d\/pcs\/adv data-type=text data="{}" status-code=200
 
 [MITM]
- = %APPEND% pan.baidu.com, 180.76.76.200, 180.76.76.112
+hostname = %APPEND% pan.baidu.com, 180.76.76.200, 180.76.76.112
 

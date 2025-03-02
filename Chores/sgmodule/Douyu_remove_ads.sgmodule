@@ -38,5 +38,5 @@ body_rewrite_30 = type=http-response, pattern=^https:\/\/venus\.douyucdn\.cn\/ve
 移除首页轮播图和视频流广告 = type=http-response, pattern=^https:\/\/apiv2\.douyucdn\.cn\/mgapi\/livenc\/home\/getRecV3, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Douyu_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% rtbapi.douyucdn.cn, apiv2.douyucdn.cn, venus.douyucdn.cn
+hostname = %APPEND% rtbapi.douyucdn.cn, apiv2.douyucdn.cn, venus.douyucdn.cn
 

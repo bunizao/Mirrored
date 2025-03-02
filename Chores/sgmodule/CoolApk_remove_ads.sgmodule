@@ -17,5 +17,5 @@
 移除酷安广告 = type=http-response, pattern=^https:\/\/api\.coolapk\.com\/v6\/(?:feed\/detail|feed\/replyList|page\/dataList|main\/dataList|main\/indexV8|main\/init), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CoolApk_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% api.coolapk.com
+hostname = %APPEND% api.coolapk.com
 

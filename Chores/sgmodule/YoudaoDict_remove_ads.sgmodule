@@ -50,5 +50,5 @@ body_rewrite_43 = type=http-response, pattern=^https:\/\/dict\.youdao\.com\/cour
 body_rewrite_45 = type=http-response, pattern=^https:\/\/dict\.youdao\.com\/course\/tab\/home\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.popup%22%2C%22data.tab%22%2C%22data.searchSuggestList%22%2C%22data.newBanner%22%2C%22data.icon.promotionList%22%2C%22data.icon.iconList%5B1%5D.bubble%22%2C%22data.icon.iconList%5B2%5D.bubble%22%2C%22data.icon.iconList%5B8%5D.bubble%22%5D%5D%5D
 
 [MITM]
- = %APPEND% gorgon.youdao.com, dict.youdao.com
+hostname = %APPEND% gorgon.youdao.com, dict.youdao.com
 

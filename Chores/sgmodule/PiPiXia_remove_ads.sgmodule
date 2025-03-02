@@ -79,5 +79,5 @@ DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 精简我的页面 = type=http-response, pattern=^https:\/\/api(5-lq)?\.pipix\.com\/bds\/user\/check_in\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/PiPiXia_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% api.pipix.com, api5-lq.pipix.com
+hostname = %APPEND% api.pipix.com, api5-lq.pipix.com
 

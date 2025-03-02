@@ -216,5 +216,5 @@ DOMAIN-SUFFIX,bridgeoos.com,REJECT
 body_rewrite_201 = type=http-response, pattern=^https:\/\/appconf\.mail\.163\.com\/mailmaster\/api\/page\/v2\/conf\.do$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.functionOperatorInfoList%22%2C%22data.memberOperator%22%2C%22data.activityTabInfoList%22%5D%5D%5D
 
 [MITM]
- = %APPEND% appconf.mail.163.com, dashi.163.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com
+hostname = %APPEND% appconf.mail.163.com, dashi.163.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com
 

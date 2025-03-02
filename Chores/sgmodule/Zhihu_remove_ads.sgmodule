@@ -105,5 +105,5 @@ body_rewrite_38 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/search
 拦截服务器推送配置 config all = type=http-response, pattern=^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/zhihu\/config\/all\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Zhihu_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% *.zhihu.com
+hostname = %APPEND% *.zhihu.com
 

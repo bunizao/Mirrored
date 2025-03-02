@@ -24,5 +24,5 @@ DOMAIN-SUFFIX,adcanvas.com,REJECT
 ^https:\/\/.*\.i18n-pglstatp\.com\/obj\/ad-pattern-sg - reject
 
 [MITM]
- = %APPEND% *.i18n-pglstatp.com
+hostname = %APPEND% *.i18n-pglstatp.com
 

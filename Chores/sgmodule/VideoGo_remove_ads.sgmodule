@@ -116,5 +116,5 @@ DOMAIN-SUFFIX,pos.baidu.com,REJECT
 ^https:\/\/api\.ys7\.com\/v3\/videoclips\/square\/video\/query data-type=text data="{}" status-code=200
 
 [MITM]
- = %APPEND% api.ys7.com, i.ys7.com
+hostname = %APPEND% api.ys7.com, i.ys7.com
 

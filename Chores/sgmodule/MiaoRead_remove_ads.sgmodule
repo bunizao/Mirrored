@@ -88,5 +88,5 @@ DOMAIN,utoken.umeng.com,REJECT
 ^https:\/\/api\.miaomiaoyd\.com\/book\/config\/getAdsSettings$ - reject
 
 [MITM]
- = %APPEND% api.miaomiaoyd.com
+hostname = %APPEND% api.miaomiaoyd.com
 

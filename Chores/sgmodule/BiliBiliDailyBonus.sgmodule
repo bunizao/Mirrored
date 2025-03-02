@@ -15,5 +15,5 @@ B站Cookie(APP) = type=http-request, pattern=^https?:\/\/app\.bilibili\.com\/x\/
 B站Cookie(网页) = type=http-request, pattern=^https?:\/\/m.bilibili.com/$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js
 
 [MITM]
- = %APPEND% app.bilibili.com, m.bilibili.com
+hostname = %APPEND% app.bilibili.com, m.bilibili.com
 

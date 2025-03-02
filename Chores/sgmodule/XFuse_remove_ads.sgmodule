@@ -120,5 +120,5 @@ DOMAIN,log.umtrack.com,REJECT
 #^https:\/\/img\.mofyi\.com\/Ayto - reject
 
 [MITM]
- = %APPEND% cili.xfuse.fun, i.micecube.com, img.mofyi.com
+hostname = %APPEND% cili.xfuse.fun, i.micecube.com, img.mofyi.com
 

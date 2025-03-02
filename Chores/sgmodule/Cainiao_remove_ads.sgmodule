@@ -70,5 +70,5 @@ DOMAIN,ykad-data.youku.com,REJECT
 移除菜鸟小程序推广 = type=http-response, pattern=^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.mshow, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Cainiao_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% cn-acs.m.cainiao.com, guide-acs.m.taobao.com
+hostname = %APPEND% cn-acs.m.cainiao.com, guide-acs.m.taobao.com
 

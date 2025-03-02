@@ -58,5 +58,5 @@ AND,((URL-REGEX,"^http:\/\/.+\/amdc\/mobileDispatch"),(USER-AGENT,"%E9%97%B2%E9%
 移除搜索结果广告 = type=http-response, pattern=^https:\/\/g-(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.search\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/FleaMarket_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% acs.m.goofish.com, g-acs.m.goofish.com
+hostname = %APPEND% acs.m.goofish.com, g-acs.m.goofish.com
 

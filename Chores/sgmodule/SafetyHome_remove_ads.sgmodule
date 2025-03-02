@@ -18,5 +18,5 @@ DOMAIN,ad.iot.360.cn,REJECT
 ^https:\/\/app\.home\.360\.cn\/v1\/config\/custom_config data-type=text data="{}" status-code=200
 
 [MITM]
- = %APPEND% app.home.360.cn
+hostname = %APPEND% app.home.360.cn
 

@@ -126,5 +126,5 @@ DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT
 DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 
 [MITM]
- = %APPEND% newapi.meishi.cc
+hostname = %APPEND% newapi.meishi.cc
 

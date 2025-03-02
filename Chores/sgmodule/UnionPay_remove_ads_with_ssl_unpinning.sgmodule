@@ -27,5 +27,5 @@ DOMAIN,tysdk.95516.com,REJECT
 移除云闪付推广 = type=http-response, pattern=^https:\/\/content\.95516\.com\/koala-pre\/koala\/(recommend\/hotList|right\/queryAllRights), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
 
 [MITM]
- = %APPEND% account.95516.com, base.95516.com, content.95516.com
+hostname = %APPEND% account.95516.com, base.95516.com, content.95516.com
 

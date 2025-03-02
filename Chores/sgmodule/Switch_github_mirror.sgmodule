@@ -19,5 +19,5 @@ DOMAIN,raw.kkgithub.com,DIRECT
 GitHub加速 = type=http-request, pattern=^https:\/\/raw\.githubusercontent\.com\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Switch_github_mirror.js
 
 [MITM]
- = %APPEND% raw.githubusercontent.com
+hostname = %APPEND% raw.githubusercontent.com
 

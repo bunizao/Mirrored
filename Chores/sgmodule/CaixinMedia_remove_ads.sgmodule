@@ -44,5 +44,5 @@
 移除正文广告 = type=http-response, pattern=^https:\/\/mapps?v5\.caixin\.com\/(channelv5\/list|\/?index_page_v5\/)\w+, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CaixinMedia_remove_ads.js, requires-body=true
 
 [MITM]
- = %APPEND% e*.caixin.com, g*.caixin.com, m*.caixin.com
+hostname = %APPEND% e*.caixin.com, g*.caixin.com, m*.caixin.com
 
