@@ -9,6 +9,7 @@
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!date=2024-11-28 00:00:00
+#!arguments=http-response ^https:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\? script-path:requires-body=true
 
 [Rule]
 # 放行地址

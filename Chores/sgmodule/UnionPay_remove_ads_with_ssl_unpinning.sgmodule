@@ -1,31 +1,7 @@
-#!name=云闪付去广告
-#!desc=过滤银联云闪付广告，需要IPA签名注入方可使用，仅支持云闪付10.1.2版。App Store用户请勿使用此插件，务必点击下方主页链接查看详细教程。
-#!author=RuCu6[https://github.com/RuCu6]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/UnionPay.png
-#!category=🚫 AD Block
+UnionPay_remove_ads_with_ssl_unpinning%0A：TypeError: Cannot read properties of null (reading '1')
 
-#!openUrl=https://apps.apple.com/app/id600273928
-#!tag=去广告
-#!loon_version=3.2.4(787)
-#!homepage=https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c
-#!date=2024-11-28 00:00:00
 
-[Rule]
-# 开屏广告
-DOMAIN,ads.95516.com,REJECT
-DOMAIN,switch.cup.com.cn,REJECT
-DOMAIN,tysdk.95516.com,REJECT
 
-[URL Rewrite]
-^https:\/\/wallet\.95516\.com(:10533)?\/s\/wl\/icon\/large\/1 - reject
 
-[Script]
-移除云闪付推广 = type=http-response, pattern=^https:\/\/base\.95516\.com\/app\/inApp\/sys\/appShowGroup\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
 
-移除云闪付推广 = type=http-response, pattern=^https:\/\/account\.95516\.com\/fortune\/inApp\/common\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
-
-移除云闪付推广 = type=http-response, pattern=^https:\/\/content\.95516\.com\/koala-pre\/koala\/(recommend\/hotList|right\/queryAllRights), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnionPay_remove_ads_with_ssl_unpinning.js, requires-body=true
-
-[MITM]
-hostname = %APPEND% account.95516.com, base.95516.com, content.95516.com
-
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
