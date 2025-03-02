@@ -8,9 +8,8 @@
 #!openUrl=http://www.txtnovel.vip/
 #!date=2024-10-25 15:16:38
 #!tag=签到
-#!arguments=account:"",password:"",CRONEXP:"0 0 * * *"
 
 [Script]
 # 定时签到
-书香门第每日签到 = type=cron, cronexp="{{{CRONEXP}}}", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/sxmd.js, timeout=120, argument="[{{{account}}},{{{password}}}]"
+书香门第每日签到 = type=cron, cronexp={CRONEXP}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/sxmd.js, timeout=120, argument="[{account},{password}]"
 
