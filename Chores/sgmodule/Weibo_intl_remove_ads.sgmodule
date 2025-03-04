@@ -1,6 +1,6 @@
 #!name=微博轻享版去广告
 #!desc=过滤轻享国际版广告及去除各部分推广模块
-#!author=Keywos[https://github.com/Keywos],kokoryh[https://github.com/kokoryh]
+#!author=kokoryh[https://github.com/kokoryh]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Weibo_intl.png
 #!category=🚫 AD Block
 
@@ -8,22 +8,15 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-28 00:00:00
+#!date=2025-03-05 00:56:01
 
 [Map Local]
-# 热门视频、热推荐
-^https?:\/\/api\.weibo\.cn\/\d\/(cardlist\?v_f=\d|ad\/weibointl\?) data-type=text data="{}" status-code=200
+^https?:\/\/api\.weibo\.cn\/2\/ad\/weibointl\? data-type=text data="{}" status-code=200
 
-^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=hot_search_users data-type=text data="{}" status-code=200
+^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=get_searching_info& data-type=text data="{"retcode":0,"info":"","data":{"expiration_time":"86400","cards":[{"tip":"搜索微博","word":""}]}}" header="Content-Type:text/plain"
 
-[Script]
-# 趋势页、开屏广告、用户中心、热搜置顶、我的页面、尊享专属、信息流
-微博轻享版去广告 = type=http-response, pattern=^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?(ct=(feed&a=trends|user&a=get_searching_info)|a=(get_coopen_ads|user_center|search_topic|open_app&auth|icon_center)), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_intl_remove_ads.js, requires-body=true
-
-微博轻享版去广告 = type=http-response, pattern=^https?:\/\/api\.weibo\.cn\/\d\/statuses\/.*timeline, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_intl_remove_ads.js, requires-body=true
-
-微博轻享版去广告 = type=http-response, pattern=^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkad\.php, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_intl_remove_ads.js, requires-body=true
+^https?:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?ct=feed&a=search_topic& data-type=text data="{"retcode":0,"info":"","data":[],"ext":{}}" header="Content-Type:text/plain"
 
 [MITM]
-hostname = %APPEND% *api.weibo.cn, sdkapp.uve.weibo.com
+hostname = %APPEND% api.weibo.cn, weibointl.api.weibo.cn
 
