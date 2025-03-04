@@ -1,27 +1,3 @@
-# 知乎
-DOMAIN,appcloud.zhihu.com
-DOMAIN,appcloud2.in.zhihu.com
-DOMAIN,crash2.zhihu.com
-DOMAIN,mqtt.zhihu.com
-DOMAIN,sugar.zhihu.com
-DOMAIN,zxid-m.mobileservice.cn
-IP-CIDR,103.41.167.237/32,no-resolve
-IP-CIDR,118.89.204.198/32,no-resolve
-IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,no-resolve
-AND,((URL-REGEX,"^http:\/\/.+\/amdc\/mobileDispatch"),(USER-AGENT,"AMapiPhone*"))
-DOMAIN,amap-aos-info-nogw.amap.com
-DOMAIN,free-aos-cdn-image.amap.com
-DOMAIN-SUFFIX,v.smtcdns.com
-AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com))
-# 请求放行
-DOMAIN-SUFFIX,uve.weibo.com
-# 微博开屏广告
-DOMAIN,huodong.weibo.cn
-DOMAIN-SUFFIX,biz.weibo.com
-DOMAIN,afd.baidu.com
-DOMAIN,mobads.baidu.com
-DOMAIN,180.76.76.200
-IP-CIDR,180.76.76.200/32,no-resolve
 AND,((URL-REGEX,"^http:\/\/.+\/amdc\/mobileDispatch"),(USER-AGENT,"Cainiao4iPhone*"))
 DOMAIN,adsmind.ugdtimg.com
 DOMAIN,amdc.m.youku.com
@@ -55,13 +31,3 @@ DOMAIN,dns.jd.com
 URL-REGEX,"^http:\/\/\w{32}\.jddebug\.com\/diagnose\?"
 IP-CIDR,101.124.19.122/32,no-resolve
 IP-CIDR6,2402:db40:5100:1011::5/128,no-resolve
-# 备用域名
-DOMAIN,api.biliapi.com
-DOMAIN,api.biliapi.net
-DOMAIN,app.biliapi.com
-DOMAIN,app.biliapi.net
-# 开屏广告
-URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH"-TINYGIF
-URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH"-TINYGIF
-# 放行规则
-DOMAIN,ad.12306.cn
