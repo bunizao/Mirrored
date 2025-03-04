@@ -1,7 +1,92 @@
-YY_Voice_remove_ads%0A：Error: 请求超时(20 秒)
+#!name=YY去广告
+#!desc=移除开屏广告、应用内弹窗，精简底栏和我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/YY_Voice.png
+#!category=🚫 AD Block
 
+#!openUrl=https://apps.apple.com/app/id427941017
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2024-11-28 00:00:00
 
+[Rule]
+# 拦截HTTPDNS
+DOMAIN,yyapp-httpdns.gslb.yy.com,REJECT
+DOMAIN,union-httpdns.gslb.yy.com,REJECT
+DOMAIN,httpdns-v6.gslb.yy.com,REJECT
+# 开屏广告
+DOMAIN,splash.yy.com,REJECT
+# 广告下发
+DOMAIN,dsp-ad.yy.com,REJECT
+# 腾讯
+DOMAIN,adsmind.gdtimg.com,REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
+DOMAIN,c2.gdt.qq.com,REJECT
+DOMAIN,huatuocode.huatuo.qq.com,REJECT
+DOMAIN,info4.video.qq.com,REJECT
+DOMAIN,info6.video.qq.com,REJECT
+DOMAIN,ios.bugly.qq.com,REJECT
+DOMAIN,ios.video.mpush.qq.com,REJECT
+# DOMAIN,mazu.m.qq.com,REJECT // 误杀
+DOMAIN,mi.gdt.qq.com,REJECT
+DOMAIN,otheve.beacon.qq.com,REJECT
+DOMAIN,pgdt.gtimg.cn,REJECT
+DOMAIN,pgdt.ugdtimg.com,REJECT
+# DOMAIN,qzonestyle.gtimg.cn,REJECT // 误杀
+DOMAIN,qzs.gdtimg.com,REJECT
+DOMAIN,qzs.qq.com,REJECT
+DOMAIN,rmonitor.qq.com,REJECT
+DOMAIN,sdk.e.qq.com,REJECT
+DOMAIN,sdkconfig.video.qq.com,REJECT
+DOMAIN,t.gdt.qq.com,REJECT
+DOMAIN,tmead.y.qq.com,REJECT
+DOMAIN,tmeadbak.y.qq.com,REJECT
+DOMAIN,tmeadcomm.y.qq.com,REJECT
+DOMAIN,tpns.qq.com,REJECT
+DOMAIN,v.gdt.qq.com,REJECT
+DOMAIN,v2.gdt.qq.com,REJECT
+DOMAIN,win.gdt.qq.com,REJECT
+DOMAIN,wup.imtt.qq.com,REJECT
+DOMAIN,tpstelemetry.tencent.com,REJECT
+DOMAIN-KEYWORD,trace.qq.com,REJECT
+DOMAIN-KEYWORD,trace.video.qq.com,REJECT
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+DOMAIN-SUFFIX,l.qq.com,REJECT
+DOMAIN-SUFFIX,ugdtimg.com,REJECT
+IP-CIDR,47.110.187.87/32,REJECT,no-resolve
+# 袤博 - 广告服务商
+DOMAIN,api-c.dutils.com,REJECT
+DOMAIN,api-d.dutils.com,REJECT
+DOMAIN,api-p0.yksdks.com,REJECT
+DOMAIN,cache-verify.dutils.com,REJECT
+DOMAIN,cdn-api-verify.dutils.com,REJECT
+DOMAIN,devs-data.dutils.com,REJECT
+DOMAIN,log-verify.dutils.com,REJECT
+DOMAIN,m.mpl.dutils.com,REJECT
+DOMAIN,api.share.mob.com,REJECT
+DOMAIN,api.verify.mob.com,REJECT
+DOMAIN,log-verify.mob.com,REJECT
+DOMAIN,sdk.push.mob.com,REJECT
+# 京东
+DOMAIN,dsp-x.jd.com,REJECT
+DOMAIN,xlog.jd.com,REJECT
+DOMAIN,janapi.jd.com,REJECT
+# 天目 - 广告服务商
+DOMAIN,sdk.tianmu.mobi,REJECT
+# 上海倍孜
+DOMAIN,sdk.beizi.biz,REJECT
 
+[Map Local]
+# 首页 - 弹窗
+^https:\/\/yyapp-act-entrance\.yy\.com\/entrance\/list\? data-type=text data="{}" status-code=200
 
+[Script]
+body_rewrite_81 = type=http-response, pattern=^https:\/\/tab\.yy\.com\/tabs\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tabs%5B0%5D%22%5D%5D%5D
 
-Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
+# 我的页面
+精简我的页面 = type=http-response, pattern=^https:\/\/personal-center\.yy\.com\/personalCenter\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YY_Voice_remove_ads.js, requires-body=true
+
+[MITM]
+hostname = %APPEND% yyapp-act-entrance.yy.com, yyapp-fastnet.yy.com, personal-center.yy.com, tab.yy.com
+
