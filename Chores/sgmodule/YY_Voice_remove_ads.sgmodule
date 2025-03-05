@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-03-05 12:42:28
+#!date=2025-03-05 13:52:17
 
 [Rule]
 # 拦截HTTPDNS
@@ -80,6 +80,9 @@ DOMAIN,sdk.beizi.biz,REJECT
 [Map Local]
 # 首页 - 弹窗
 ^https:\/\/yyapp-act-entrance\.yy\.com\/entrance\/list\? data-type=text data="{}" status-code=200
+
+[Script]
+body_rewrite_81 = type=http-response, pattern=^https:\/\/tab\.yy\.com\/tabs\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tabsForSelect%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% yyapp-act-entrance.yy.com, yyapp-fastnet.yy.com, personal-center.yy.com, tab.yy.com
