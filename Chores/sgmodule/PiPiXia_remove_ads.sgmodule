@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-28 00:00:00
+#!date=2025-03-06 16:25:27
 
 [Rule]
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com)),REJECT
@@ -70,13 +70,6 @@ DOMAIN-KEYWORD,asiad.byteactivity,REJECT
 
 # 关注 - 近期热门皮友
 ^https:\/\/api(5-lq)?\.pipix\.com\/bds\/feed\/follow_feed\/ data-type=text data="{}" status-code=200
-
-[Script]
-# 视频流广告
-移除视频流广告 = type=http-response, pattern=^https:\/\/api(5-lq)?\.pipix\.com\/bds\/feed\/stream\/v2\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/PiPiXia_remove_ads.js, requires-body=true
-
-# 我的页面
-精简我的页面 = type=http-response, pattern=^https:\/\/api(5-lq)?\.pipix\.com\/bds\/user\/check_in\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/PiPiXia_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% api.pipix.com, api5-lq.pipix.com
