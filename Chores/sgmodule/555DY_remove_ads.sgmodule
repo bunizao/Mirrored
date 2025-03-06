@@ -9,12 +9,12 @@
 #!system=ios
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-03-06 20:59:51
+#!date=2025-03-06 22:10:44
 
 [Map Local]
 # 广告配置
-^https:\/\/852b95d36\.xwlpk\.cn\/api\/v1\/advert\/config data-type=text data="{}" status-code=200
+^https:\/\/(app-v1\.ecoliving168\.com|852b95d36\.xwlpk\.cn)\/api\/v1\/advert\/config data-type=text data="{}" status-code=200
 
 [MITM]
-hostname = %APPEND% 852b95d36.xwlpk.cn
+hostname = %APPEND% app-v1.ecoliving168.com, 852b95d36.xwlpk.cn
 
