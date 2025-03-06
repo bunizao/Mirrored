@@ -1,5 +1,5 @@
 #!name=皮皮虾去广告
-#!desc=移除开屏广告、评论区广告、视频流广告，精简我的页面。已知问题，评论区无内容。
+#!desc=移除开屏广告、评论区广告、视频流广告，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/PiPiXia.png
 #!category=🚫 AD Block
@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-03-06 16:25:27
+#!date=2025-03-06 16:30:23
 
 [Rule]
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com)),REJECT
