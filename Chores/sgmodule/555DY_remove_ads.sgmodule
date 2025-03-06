@@ -4,16 +4,16 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/555DY.png
 #!category=🚫 AD Block
 
-#!openUrl=https://5wuv.com/
+#!openUrl=https://5wuv.com
 #!tag=去广告
 #!system=ios
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-03-06 22:10:44
+#!date=2025-03-06 22:30:00
 
 [Map Local]
 # 广告配置
-^https:\/\/(app-v1\.ecoliving168\.com|852b95d36\.xwlpk\.cn)\/api\/v1\/advert\/config data-type=text data="{}" status-code=200
+#^https:\/\/(app-v1\.ecoliving168\.com|852b95d36\.xwlpk\.cn)\/api\/v1\/advert\/config data-type=text data="{}" status-code=200
 
 [MITM]
 hostname = %APPEND% app-v1.ecoliving168.com, 852b95d36.xwlpk.cn
