@@ -309,7 +309,6 @@ body_rewrite_44 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/
 移除开屏广告 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/(?:brand\/list|event\/list2|list|show), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_remove_ads.js, requires-body=true
 精简首页顶部标签 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/show\/tab\/v2\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_remove_ads.js, requires-body=true
 精简我的页面 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_remove_ads.js, requires-body=true
-移除首页推荐广告 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/feed\/index, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_remove_ads.js, requires-body=true
 
 # ------------ 12306 -------------
 移除12306开屏广告 = type=http-request, pattern=^https:\/\/ad\.12306\.cn\/ad\/ser\/getAdList$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/12306_remove_splashscreen_ads.js, requires-body=true
