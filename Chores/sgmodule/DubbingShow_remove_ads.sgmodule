@@ -1,56 +1,7 @@
-#!name=配音秀去广告
-#!desc=移除开屏广告、弹窗、横幅、各类关注推荐。
-#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DubbingShow.png
-#!category=🚫 AD Block
+DubbingShow_remove_ads%0A：Error: 请求超时(20 秒)
 
-#!openUrl=https://apps.apple.com/app/id746925035
-#!tag=去广告
-#!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-28 00:00:00
 
-[Rule]
-# 腾讯优量汇 - 广告服务商
-DOMAIN,ios.bugly.qq.com,REJECT
-DOMAIN,sdk.e.qq.com,REJECT
-DOMAIN,us.l.qq.com,REJECT
-DOMAIN-SUFFIX,ugdtimg.com,REJECT
-#DOMAIN,adsmind.ugdtimg.com,REJECT
-# DOMAIN,adsmind.ugdtimg.com,REJECT
-#DOMAIN,pgdt.ugdtimg.com,REJECT
-# DOMAIN,pgdt.ugdtimg.com,REJECT
-#DOMAIN,qzs.gdtimg.com,REJECT
-# DOMAIN,qzs.gdtimg.com,REJECT
-DOMAIN-SUFFIX,gdt.qq.com,REJECT
-#DOMAIN,mi.gdt.qq.com,REJECT
-# DOMAIN,mi.gdt.qq.com,REJECT
-#DOMAIN,win.gdt.qq.com,REJECT
-# DOMAIN,win.gdt.qq.com,REJECT
-#DOMAIN,v2.gdt.qq.com,REJECT
-# c2.gdt.qq.com,REJECT
-DOMAIN,tmeadcomm.y.qq.com,REJECT
 
-[URL Rewrite]
-# DOMAIN,v2.gdt.qq.com,REJECT
-#v.gdt.qq.com,REJECT - reject
-# v.gdt.qq.com,REJECT
-#t.gdt.qq.com,REJECT - reject
-# t.gdt.qq.com,REJECT
-#c2.gdt.qq.com,REJECT - reject
 
-[Script]
-body_rewrite_30 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/live\/LiveList, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banners%22%5D%5D%5D
 
-body_rewrite_32 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/api\/live\/FollowList, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
-
-body_rewrite_34 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/Friend\/GetRecommendUsers, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
-
-body_rewrite_36 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/api\/Union\/HomeData, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
-
-# 首页 - 底部弹窗
-移除首页底部弹窗 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/Film\/GetConfigValue, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/DubbingShow_remove_ads.js, requires-body=true
-
-[MITM]
-hostname = %APPEND% iosapi.peiyinxiu.com
-
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
