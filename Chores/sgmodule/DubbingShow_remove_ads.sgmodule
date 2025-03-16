@@ -11,44 +11,22 @@
 #!date=2024-11-28 00:00:00
 
 [Rule]
-# 腾讯优量汇 - 广告服务商
 DOMAIN,ios.bugly.qq.com,REJECT
 DOMAIN,sdk.e.qq.com,REJECT
 DOMAIN,us.l.qq.com,REJECT
 DOMAIN-SUFFIX,ugdtimg.com,REJECT
-#DOMAIN,adsmind.ugdtimg.com,REJECT
-# DOMAIN,adsmind.ugdtimg.com,REJECT
-#DOMAIN,pgdt.ugdtimg.com,REJECT
-# DOMAIN,pgdt.ugdtimg.com,REJECT
-#DOMAIN,qzs.gdtimg.com,REJECT
-# DOMAIN,qzs.gdtimg.com,REJECT
 DOMAIN-SUFFIX,gdt.qq.com,REJECT
-#DOMAIN,mi.gdt.qq.com,REJECT
-# DOMAIN,mi.gdt.qq.com,REJECT
-#DOMAIN,win.gdt.qq.com,REJECT
-# DOMAIN,win.gdt.qq.com,REJECT
-#DOMAIN,v2.gdt.qq.com,REJECT
-# c2.gdt.qq.com,REJECT
 DOMAIN,tmeadcomm.y.qq.com,REJECT
 
-[URL Rewrite]
-# DOMAIN,v2.gdt.qq.com,REJECT
-#v.gdt.qq.com,REJECT - reject
-# v.gdt.qq.com,REJECT
-#t.gdt.qq.com,REJECT - reject
-# t.gdt.qq.com,REJECT
-#c2.gdt.qq.com,REJECT - reject
-
 [Script]
-body_rewrite_30 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/live\/LiveList, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banners%22%5D%5D%5D
+body_rewrite_20 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/live\/LiveList, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banners%22%5D%5D%5D
 
-body_rewrite_32 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/api\/live\/FollowList, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
+body_rewrite_21 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/api\/live\/FollowList, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
 
-body_rewrite_34 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/Friend\/GetRecommendUsers, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
+body_rewrite_22 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/Friend\/GetRecommendUsers, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
 
-body_rewrite_36 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/api\/Union\/HomeData, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
+body_rewrite_23 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/api\/Union\/HomeData, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22obj.data%22%5D%5D%5D
 
-# 首页 - 底部弹窗
 移除首页底部弹窗 = type=http-response, pattern=^https:\/\/iosapi\.peiyinxiu\.com\/Api\/Film\/GetConfigValue, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/DubbingShow_remove_ads.js, requires-body=true
 
 [MITM]

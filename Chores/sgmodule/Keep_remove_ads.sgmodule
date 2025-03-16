@@ -11,12 +11,9 @@
 #!date=2025-03-05 08:57:39
 
 [Rule]
-# 拦截HTTPDNS
 DOMAIN,httpdns.n.netease.com,REJECT
 DOMAIN,httpdns.calorietech.com,REJECT
-# 拦截广告下发
 DOMAIN,hc-ssp.sm.cn,REJECT
-# 腾讯
 DOMAIN,adsmind.gdtimg.com,REJECT
 DOMAIN,adsmind.ugdtimg.com,REJECT
 DOMAIN,c2.gdt.qq.com,REJECT
@@ -26,13 +23,11 @@ DOMAIN,info6.video.qq.com,REJECT
 DOMAIN,ios.bugly.qq.com,REJECT
 DOMAIN,pro.bugly.qq.com,REJECT
 DOMAIN,ios.video.mpush.qq.com,REJECT
-# DOMAIN,mazu.m.qq.com,REJECT // 误杀
 DOMAIN,us.l.qq.com,REJECT
 DOMAIN,mi.gdt.qq.com,REJECT
 DOMAIN,otheve.beacon.qq.com,REJECT
 DOMAIN,pgdt.gtimg.cn,REJECT
 DOMAIN,pgdt.ugdtimg.com,REJECT
-# DOMAIN,qzonestyle.gtimg.cn,REJECT // 误杀
 DOMAIN,qzs.gdtimg.com,REJECT
 DOMAIN,qzs.qq.com,REJECT
 DOMAIN,rmonitor.qq.com,REJECT
@@ -57,19 +52,16 @@ DOMAIN-SUFFIX,ugdtimg.com,REJECT
 IP-CIDR,47.110.187.87/32,REJECT,no-resolve
 
 [Map Local]
-# 搜索填充词
 ^https:\/\/api\.gotokeep\.com\/search\/v6\/default\/keyword\/list data-type=text data="{}" status-code=200
 
-# 信息流推广
 ^https:\/\/kad\.gotokeep\.com\/op-engine-webapp\/v1\/ad data-type=text data="{}" status-code=200
 
-# 弹窗
 ^https:\/\/api\.gotokeep\.com\/guide-webapp\/v1\/popup\/getPopUp data-type=text data="{}" status-code=200
 
 [Script]
-body_rewrite_60 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/followPage, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
+body_rewrite_53 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/followPage, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
 
-body_rewrite_64 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/entryDetail, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
+body_rewrite_55 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/entryDetail, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% api.gotokeep.com, kad.gotokeep.com
