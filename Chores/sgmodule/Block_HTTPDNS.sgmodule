@@ -14,6 +14,8 @@
 DOMAIN,yyapp-httpdns.gslb.yy.com,REJECT
 DOMAIN,union-httpdns.gslb.yy.com,REJECT
 DOMAIN,httpdns-v6.gslb.yy.com,REJECT
+# 爱奇艺
+URL-REGEX,"^http:\/\/103\.44\.58\.64\/md\?",REJECT
 # 虎牙
 URL-REGEX,"^http:\/\/cdn\.wup\.huya\.com\/launch\/queryHttpDns",REJECT
 # 喜马拉雅
