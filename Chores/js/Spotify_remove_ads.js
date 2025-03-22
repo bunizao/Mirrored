@@ -1,7 +1,16 @@
-<html>
-<head><title>504 Gateway Time-out</title></head>
-<body>
-<center><h1>504 Gateway Time-out</h1></center>
-<hr><center>cloudflare</center>
-</body>
-</html>
+/*
+脚本引用https://raw.githubusercontent.com/app2smile/rules/master/js/spotify-json.js
+脚本时间23-06-13 14:19
+*/
+console.log(`spotify-json-2023.06.13`);
+let url = $request.url;
+// console.log(`原始url:${url}`);
+if (url.includes('platform=iphone')) {
+    url = url.replace(/platform=iphone/, 'platform=ipad');
+    // console.log(`替换platform:${url}`);
+} else {
+    console.log('无需处理');
+}
+$done({
+    url
+});
