@@ -9,7 +9,7 @@
 #!system_version=15
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-28 00:00:00
+#!date=2025-03-23 22:21:51
 
 [Rule]
 DOMAIN,afd.baidu.com,REJECT
@@ -21,6 +21,8 @@ IP-CIDR,180.76.76.200/32,REJECT,no-resolve
 ^https:\/\/tiebac\.baidu\.com\/c\/f\/search\/discover data-type=text data="{}" status-code=200
 
 ^https:\/\/tiebac\.baidu\.com\/c\/f\/forum\/forumGuide data-type=text data="{}" status-code=200
+
+^https:\/\/tiebac\.baidu\.com\/c\/u\/chat\/getChatSubscriptionList data-type=text data="{}" status-code=200
 
 [Script]
 清理首页 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/livefeed\/feed, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Tieba_remove_ads.js, requires-body=true
