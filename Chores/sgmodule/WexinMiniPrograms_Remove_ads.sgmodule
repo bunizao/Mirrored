@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-03-26 23:21:49
+#!date=2025-03-27 00:08:11
 
 [Rule]
 DOMAIN,wxsnsdy.wxs.qq.com,REJECT
@@ -221,7 +221,7 @@ body_rewrite_125 = type=http-response, pattern=^https:\/\/saas-ad\.cloudpnr\.com
 
 body_rewrite_127 = type=http-response, pattern=^https:\/\/rms\.meituan\.com\/api\/v1\/rmsmina\/c\/queryShopPortalInfo\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.popUpWindows%22%5D%5D%5D
 
-body_rewrite_131 = type=http-response, pattern=^https:\/\/chong\.qq\.com\/tws\/usernumberinfo\/GetUserInfo\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.request.number.navigatorList%22%2C%22data.request.number.cardList%22%2C%22data.request.number.hallFuncList%22%5D%5D%5D
+body_rewrite_130 = type=http-response, pattern=^https:\/\/chong\.qq\.com\/tws\/usernumberinfo\/GetUserInfo\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.request.number.markSeat.servicehallOperList%22%2C%22data.request.number.servicehallOperList%22%2C%22data.request.number.markSeat.servicehallFuncList%22%2C%22data.request.number.servicehallFuncList%22%5D%5D%5D
 
 企迈点单系统去广告 = type=http-response, pattern=^https:\/\/webapi\.qmai\.cn\/web\/catering\/design\/homePage-Config, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/kff.js, requires-body=true
 
