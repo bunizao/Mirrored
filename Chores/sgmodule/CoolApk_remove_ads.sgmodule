@@ -11,7 +11,7 @@
 #!date=2025-03-27 01:02:54
 
 [Map Local]
-^https:\/\/api\.coolapk\.com\/v6\/search\? data-type=text data="{}" status-code=200
+^https:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch data-type=text data="{}" status-code=200
 
 [MITM]
 hostname = %APPEND% api.coolapk.com
