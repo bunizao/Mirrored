@@ -2,6 +2,8 @@
   header: "Zhihu"
 - url: "https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Amap_remove_ads.sgmodule"
   header: "Amap"
+- url: "https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/DiDi_remove_ads.sgmodule"
+  header: "DiDi"
 - url: "https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/RedPaper_remove_ads.sgmodule"
   header: "REDnote"
 - url: "https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Weibo_remove_ads.sgmodule"
