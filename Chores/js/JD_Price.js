@@ -1,7 +1,7 @@
 /*
 脚本引用 https://raw.githubusercontent.com/githubdulong/Script/master/jd_price.js
 */
-// 2025-03-23 22:13:24
+// 2025-04-12 22:50:31
 Promise.withResolvers ||= function () {
   let resolve, reject;
   const promise = new this((res, rej) => {
