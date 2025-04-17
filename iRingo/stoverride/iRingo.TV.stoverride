@@ -7,13 +7,21 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/apple-tv"
 icon: "https://developer.apple.com/assets/elements/icons/apple-tv/apple-tv-128x128.png"
 category: " iRingo"
-date: "2024-12-27 08:11:56"
-version: "3.4.3"
+date: "2025-04-17 03:19:05"
+version: "3.4.4"
+
+rules:
+  - DOMAIN,known-issues.apple.com,REJECT-DROP
 
 http:
   mitm:
     - "uts-api.itunes.apple.com"
     - "umc-tempo-api.apple.com"
+    - "play-cdn.itunes.apple.com"
+    - "play-edge-cdn.itunes.apple.com"
+  url-rewrite:
+    - ^https?:\/\/play-cdn\.itunes\.apple\.com https://play.itunes.apple.com header
+    - ^https?:\/\/play-edge-cdn\.itunes\.apple\.com https://play-edge.itunes.apple.com header
   script:
     - match: https?:\/\/uts-api\.itunes\.apple\.com\/uts\/(v1|v2|v3)\/
       name: TV.request
@@ -27,17 +35,11 @@ http:
       name: TV.request
       type: request
       require-body: true
-    - match: ^https?:\/\/play(-edge)?\.itunes\.apple\.com\/WebObjects\/MZPlay(Local)?\.woa\/hls(\/(subscription|workout))?\/playlist\.m3u8
-      name: TV.request
-      type: request
-    - match: ^https?:\/\/play(-edge)?\.itunes\.apple\.com\/WebObjects\/MZPlay(Local)?\.woa\/wa\/(fpsRequest|checkInNonceRequest)
-      name: TV.request
-      type: request
 
 script-providers:
   TV.request:
-    url: https://github.com/NSRingo/TV/releases/download/v3.4.3/request.bundle.js
+    url: https://github.com/NSRingo/TV/releases/download/v3.4.4/request.bundle.js
     interval: 86400
   TV.response:
-    url: https://github.com/NSRingo/TV/releases/download/v3.4.3/response.bundle.js
+    url: https://github.com/NSRingo/TV/releases/download/v3.4.4/response.bundle.js
     interval: 86400
