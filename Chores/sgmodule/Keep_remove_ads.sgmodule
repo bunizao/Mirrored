@@ -1,68 +1,7 @@
-#!name=Keep去广告
-#!desc=移除开屏广告、应用内广告和弹窗广告。移除首页活动标签、关注推荐、文章相关推荐。修改首页默认标签为推荐页面。
-#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Keep.png
-#!category=🚫 AD Block
+Keep_remove_ads%0A：Error: 请求超时(20 秒)
 
-#!openUrl=https://apps.apple.com/app/id952694580
-#!tag=去广告
-#!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-03-05 08:57:39
 
-[Rule]
-DOMAIN,httpdns.n.netease.com,REJECT
-DOMAIN,httpdns.calorietech.com,REJECT
-DOMAIN,hc-ssp.sm.cn,REJECT
-DOMAIN,adsmind.gdtimg.com,REJECT
-DOMAIN,adsmind.ugdtimg.com,REJECT
-DOMAIN,c2.gdt.qq.com,REJECT
-DOMAIN,huatuocode.huatuo.qq.com,REJECT
-DOMAIN,info4.video.qq.com,REJECT
-DOMAIN,info6.video.qq.com,REJECT
-DOMAIN,ios.bugly.qq.com,REJECT
-DOMAIN,pro.bugly.qq.com,REJECT
-DOMAIN,ios.video.mpush.qq.com,REJECT
-DOMAIN,us.l.qq.com,REJECT
-DOMAIN,mi.gdt.qq.com,REJECT
-DOMAIN,otheve.beacon.qq.com,REJECT
-DOMAIN,pgdt.gtimg.cn,REJECT
-DOMAIN,pgdt.ugdtimg.com,REJECT
-DOMAIN,qzs.gdtimg.com,REJECT
-DOMAIN,qzs.qq.com,REJECT
-DOMAIN,rmonitor.qq.com,REJECT
-DOMAIN,sdk.e.qq.com,REJECT
-DOMAIN,sdkconfig.video.qq.com,REJECT
-DOMAIN,t.gdt.qq.com,REJECT
-DOMAIN,tmead.y.qq.com,REJECT
-DOMAIN,tmeadbak.y.qq.com,REJECT
-DOMAIN,tmeadcomm.y.qq.com,REJECT
-DOMAIN,tpns.qq.com,REJECT
-DOMAIN,v.gdt.qq.com,REJECT
-DOMAIN,v2.gdt.qq.com,REJECT
-DOMAIN,win.gdt.qq.com,REJECT
-DOMAIN,wup.imtt.qq.com,REJECT
-DOMAIN,tpstelemetry.tencent.com,REJECT
-DOMAIN,ii.gdt.qq.com,REJECT
-DOMAIN-KEYWORD,trace.qq.com,REJECT
-DOMAIN-KEYWORD,trace.video.qq.com,REJECT
-DOMAIN-SUFFIX,gdt.qq.com,REJECT
-DOMAIN-SUFFIX,l.qq.com,REJECT
-DOMAIN-SUFFIX,ugdtimg.com,REJECT
-IP-CIDR,47.110.187.87/32,REJECT,no-resolve
 
-[Map Local]
-^https:\/\/api\.gotokeep\.com\/search\/v6\/default\/keyword\/list data-type=text data="{}" status-code=200
 
-^https:\/\/kad\.gotokeep\.com\/op-engine-webapp\/v1\/ad data-type=text data="{}" status-code=200
 
-^https:\/\/api\.gotokeep\.com\/guide-webapp\/v1\/popup\/getPopUp data-type=text data="{}" status-code=200
-
-[Script]
-body_rewrite_53 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/followPage, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
-
-body_rewrite_55 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/entryDetail, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
-
-[MITM]
-hostname = %APPEND% api.gotokeep.com, kad.gotokeep.com
-
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
