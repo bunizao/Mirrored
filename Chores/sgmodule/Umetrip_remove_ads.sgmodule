@@ -1,7 +1,21 @@
-Umetrip_remove_ads%0A：Error: 请求超时(20 秒)
+#!name=航旅纵横去广告
+#!desc=过滤航旅纵横广告
+#!author=佚名
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Umetrip.png
+#!category=🚫 AD Block
 
+#!openUrl=https://apps.apple.com/app/id480161784
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2024-11-28 00:00:00
 
+[Rule]
+URL-REGEX,"^http?:\/\/(discardrp|startup)\.umetrip\.com\/gateway\/api\/umetrip\/native",REJECT
 
+[Script]
+移除首页广告 = type=http-response, pattern=^http?:\/\/(114\.115\.217\.129)|(home\.umetrip\.com)\/gateway\/api\/umetrip\/native$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Umetrip_remove_ads.js
 
+[MITM]
+hostname = %APPEND% 114.115.217.129, home.umetrip.com
 
-Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
