@@ -40,7 +40,7 @@ for info in sgmodule_info:
         for section, text in matches:
             if section in sections and section != "MITM":
                 if section == "Rule":
-                    cleaned_text = re.sub(r"(?:,\s*|-\s*)(REJECT|DIRECT|REJECT-DROP|REJECT-TINYGIF)\s*$")", "", text).strip()
+                    cleaned_text = re.sub(r"(?:,\s*|-\s*)(REJECT|DIRECT|REJECT-DROP|REJECT-TINYGIF)\s*$", "", text, flags=re.I).strip()
                     sections["Rule"].append(cleaned_text)
                     print(f"[Debug] Added cleaned Rule content from {info['header']}: {cleaned_text}")
                 else:
