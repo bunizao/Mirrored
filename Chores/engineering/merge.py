@@ -19,7 +19,7 @@ section_pattern = re.compile(r'\[(.*?)\]\s*\n(.*?)(?=\n\[|$)', re.DOTALL)
 hostname_pattern = re.compile(r'hostname\s*=\s*(.*)', re.IGNORECASE)
 headers = []
 
-max_divider_length = 30  # 最大分隔符长度（不包括header的长度）
+max_divider_length = 30
 
 for info in sgmodule_info:
     try:
@@ -40,7 +40,7 @@ for info in sgmodule_info:
         for section, text in matches:
             if section in sections and section != "MITM":
                 if section == "Rule":
-                    cleaned_text = re.sub(r",\s*(REJECT|DIRECT)", "", text).strip()
+                    cleaned_text = re.sub(r",\s*(REJECT|DIRECT|REJECT-DROP|REJECT-TINYGIF)", "", text).strip()
                     sections["Rule"].append(cleaned_text)
                     print(f"[Debug] Added cleaned Rule content from {info['header']}: {cleaned_text}")
                 else:
