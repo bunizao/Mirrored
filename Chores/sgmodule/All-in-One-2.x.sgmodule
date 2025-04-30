@@ -178,15 +178,6 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/api\.hellobike\.com\/api\?adx data-type=text data="{}" status-code=200
 # > 顺丰速运
 ^https?:\/\/ucmp\.sf-express\.com\/proxy\/operation-platform\/info-flow-adver\/query$ data="" status-code=200
-# > 猫眼
-^https:\/\/vod-movie\.maoyan\.com\/vod\/video\/onlineMovies\.json data-type=text data="{}" status-code=200
-^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/movie\/wonderShow data-type=text data="{}" status-code=200
-^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/performances\/calendar\/0 data-type=text data="{}" status-code=200
-^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/performances\/rob\/main data-type=text data="{}" status-code=200
-^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/celebrityBasicList\/query data-type=text data="{}" status-code=200
-^https:\/\/wx\.maoyan\.com\/maoyansh\/myshow\/ajax\/recommend\/performances data-type=text data="{}" status-code=200
-^https:\/\/api\.maoyan\.com\/sns\/common\/feed\/channel\/v2\/list\.json data-type=text data="{}" status-code=200
-^https:\/\/ad\.maoyan\.com\/api\/position\/detail data-type=text data="{}" status-code=200
 
 # ----------- Meituan -----------
 
