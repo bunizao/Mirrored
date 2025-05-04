@@ -13,3 +13,6 @@
 [Script]
 Follow每日签到 = type=cron, cronexp={cron}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/FollowRSS_checkin.js, timeout=120, argument="[{token},{cookie}]"
 
+[MITM]
+hostname = %APPEND% api.follow.is
+

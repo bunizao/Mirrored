@@ -24,3 +24,6 @@ URL-REGEX,"^http:\/\/plough\.babytree\.com\/plough\.do",REJECT-TINYGIF
 
 移除搜索列表推广 = type=http-response, pattern=^http:\/\/go\.babytree\.com\/go_search\/api\/mobile_search_new\/search_index, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BabyTree_remove_ads.js, requires-body=true
 
+[MITM]
+hostname = %APPEND% api.babytree.com, go.babytree.com
+
