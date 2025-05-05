@@ -11,7 +11,7 @@
 #!date=2025-04-22 00:22:22
 
 [Script]
-捕获令牌 = type=http-response, pattern=^https?:\/\/apapia-sqk-weblogic\.manmanbuy\.com\/baoliao\/center\/menu$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true, timeout=10
+捕获令牌 = type=http-request, pattern=^https?:\/\/apapia-sqk-weblogic\.manmanbuy\.com\/baoliao\/center\/menu$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true, timeout=10
 
 京东比价 = type=http-response, pattern=^https?:\/\/in\.m\.jd\.com\/product\/graphext\/\d+\.html, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true, timeout=10
 
