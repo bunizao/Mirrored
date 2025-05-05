@@ -7,7 +7,7 @@
 #!tag=DNS
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-04-22 14:25:47
+#!date=2025-05-06 02:31:58
 
 [Rule]
 DOMAIN,yyapp-httpdns.gslb.yy.com,REJECT
@@ -133,6 +133,7 @@ DOMAIN,httpdns.kwd.inkuai.com,REJECT
 DOMAIN,apidns.kwd.inkuai.com,REJECT
 DOMAIN,apidns-js.kwd.inkuai.com,REJECT
 DOMAIN,httpdns.meituan.com,REJECT
+DOMAIN,httpdnsmultiapi.meituan.com,REJECT
 DOMAIN,httpdnsmultiapivip.meituan.com,REJECT
 URL-REGEX,"^http:\/\/103\.37\.155\.60\/fetch",REJECT
 URL-REGEX,"^http:\/\/81\.69\.130\.131\/d",REJECT
