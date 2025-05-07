@@ -17,11 +17,11 @@ DOMAIN,render-web.11222.cn,REJECT
 ^https:\/\/ocean\.shuqireader\.com\/api\/render\/load\/resource - reject
 
 [Map Local]
-^https:\/\/huichuan\.sm\.cn\/nativead data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/huichuan\.sm\.cn\/nativead data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/ocean\.shuqireader\.com\/api\/route\/iosReadPage\/adV2 data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/ocean\.shuqireader\.com\/api\/route\/iosReadPage\/adV2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/ocean\.shuqireader\.com\/api\/route\/ios\/readPage$ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/ocean\.shuqireader\.com\/api\/route\/ios\/readPage$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 移除书城横幅和阅读广告 = type=http-response, pattern=^https:\/\/ocean\.shuqireader\.com\/sqios\/render\/render\/page\/bookstore$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/ShuQiCenterReader_remove_ads.js, requires-body=true

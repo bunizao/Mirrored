@@ -14,7 +14,7 @@
 DOMAIN,ad.iot.360.cn,REJECT
 
 [Map Local]
-^https:\/\/app\.home\.360\.cn\/v1\/config\/custom_config data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/app\.home\.360\.cn\/v1\/config\/custom_config data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% app.home.360.cn

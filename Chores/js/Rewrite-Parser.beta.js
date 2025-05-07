@@ -1274,7 +1274,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
           URLRewrite.push(mark + noteK + rwptn + ' ' + rwvalue + ' ' + rwtype)
         if (/reject-dict/.test(rwtype))
           MapLocal.push(
-            mark + noteK + rwptn + ' data-type=text data="{}" status-code=200  header="Content-Type:application/json"'
+            mark + noteK + rwptn + ' data-type=text data="{}" status-code=200 header="Content-Type:application/json"'
           )
         if (/reject-array/.test(rwtype))
           MapLocal.push(mark + noteK + rwptn + ' data-type=text data="[]" status-code=200')

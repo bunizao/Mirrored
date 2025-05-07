@@ -98,19 +98,19 @@ DOMAIN-SUFFIX,igexin.com,REJECT
 ^https:\/\/patientappapi\.91160\.com\/cus_index\.php\?c=adver - reject
 
 [Map Local]
-^https:\/\/msglb\.91160\.com\/msg\/outer\/broker\/get$ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/msglb\.91160\.com\/msg\/outer\/broker\/get$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/patientgate\.91160\.com\/advert-api\/ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/patientgate\.91160\.com\/advert-api\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/snsapi\.91160\.com\/vipmemberapi\/mbCombo\/mbComboWords\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/snsapi\.91160\.com\/vipmemberapi\/mbCombo\/mbComboWords\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/patientgate\.91160\.com\/rec\/homepage\/open\/getUserGoodsList\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/patientgate\.91160\.com\/rec\/homepage\/open\/getUserGoodsList\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/snsapi\.91160\.com\/hotword\/open\/v1\/getSearchExplore\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/snsapi\.91160\.com\/hotword\/open\/v1\/getSearchExplore\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/snsapi\.91160\.com\/hotword\/open\/v1\/getHotWordPlate\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/snsapi\.91160\.com\/hotword\/open\/v1\/getHotWordPlate\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/snsapi\.91160\.com\/engine\/backgroundWord\/queryForFrontend\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/snsapi\.91160\.com\/engine\/backgroundWord\/queryForFrontend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 body_rewrite_97 = type=http-response, pattern=^https:\/\/soapi\.91160\.com\/homepage-recommendation\/recommendation\/medical\/complex\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.checkupList%22%5D%5D%5D

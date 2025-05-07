@@ -124,9 +124,9 @@ DOMAIN,da.mosspf.com,REJECT
 ^https:\/\/images\.pinduoduo\.com\/marketing_api\/ - reject
 
 [Map Local]
-^https:\/\/api\.meiyan\.com\/operation\/home_banner\.json\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/api\.meiyan\.com\/operation\/home_banner\.json\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.meiyan\.com\/vip\/permission_update_popup\.json\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/api\.meiyan\.com\/vip\/permission_update_popup\.json\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 body_rewrite_120 = type=http-response, pattern=^https:\/\/api\.meiyan\.com\/operation\/get_config\.json\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22response.time_limit%22%2C%22response.bubble%22%2C%22response.person_center%22%5D%5D%2C%5B%22json-replace%22%2C%5B%5B%22response.function_pop.meiyan_style.is_pop%22%2Cfalse%5D%2C%5B%22response.onoff.vip_half_window_exit_remain_popup.open%22%2C0%5D%2C%5B%22response.onoff.vip_home_exit_remain_popup%22%2C0%5D%5D%5D%5D

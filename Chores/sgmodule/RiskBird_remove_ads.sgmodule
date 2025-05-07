@@ -11,9 +11,9 @@
 #!date=2024-11-28 00:00:00
 
 [Map Local]
-^https:\/\/m\.riskbird\.com\/prod-qbb-api\/user\/getBannerList data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/m\.riskbird\.com\/prod-qbb-api\/user\/getBannerList data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/m\.riskbird\.com\/prod-qbb-api\/searchHotEnt data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/m\.riskbird\.com\/prod-qbb-api\/searchHotEnt data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 移除推荐老板 = type=http-response, pattern=^https:\/\/m\.riskbird\.com\/prod-qbb-api\/query\/person\/personRecommend, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RiskBird_remove_ads.js, requires-body=true

@@ -11,11 +11,11 @@
 #!date=2024-11-29 07:57:17
 
 [Map Local]
-^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/v\d\/delivery-pits\/ios-splash\/modules$ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/v\d\/delivery-pits\/ios-splash\/modules$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/delivery-pits\/(template|mine|home)-page-dialog\/modules$ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/delivery-pits\/(template|mine|home)-page-dialog\/modules$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/www\.gaoding\.com\/api\/v\d\/cp\/search-words\/v2\/placeholder data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/www\.gaoding\.com\/api\/v\d\/cp\/search-words\/v2\/placeholder data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% www.gaoding.com

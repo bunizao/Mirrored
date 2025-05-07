@@ -35,7 +35,7 @@ DOMAIN,ykad-data.youku.com,REJECT
 DOMAIN,youku-acs.m.taobao.com,REJECT
 
 [Map Local]
-^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.(pisp\.scripts\.get|xspace\.play\.position\.preload\.query|xspace\.poplayer\.position\.query) data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.(pisp\.scripts\.get|xspace\.play\.position\.preload\.query|xspace\.poplayer\.position\.query) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 移除首页广告 = type=http-response, pattern=^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.columbus\.(gateway\.new\.execute|home\.feed|home\.query|uc\.query|ycp\.query), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouKu_Video_remove_ads.js, requires-body=true

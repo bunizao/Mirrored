@@ -11,7 +11,7 @@
 #!date=2025-03-05 01:08:08
 
 [Map Local]
-^https:\/\/api\.xiaoheihe\.cn\/account\/get_ads_info_v2 data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/api\.xiaoheihe\.cn\/account\/get_ads_info_v2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% api.xiaoheihe.cn

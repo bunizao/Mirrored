@@ -11,13 +11,13 @@
 #!date=2024-12-08 00:49:15
 
 [Map Local]
-^https:\/\/fm\.missevan\.com\/api\/v\d\/chatroom\/open\/search-recommend-list$ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/fm\.missevan\.com\/api\/v\d\/chatroom\/open\/search-recommend-list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.missevan\.com\/sound\/recommend\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/app\.missevan\.com\/sound\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.missevan\.com\/drama\/get-recommend-by-id\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/app\.missevan\.com\/drama\/get-recommend-by-id\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/fm\.missevan\.com\/api\/v\d\/meta\/banner$ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
+^https:\/\/fm\.missevan\.com\/api\/v\d\/meta\/banner$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 body_rewrite_12 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/launch\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info%22%5D%5D%5D
