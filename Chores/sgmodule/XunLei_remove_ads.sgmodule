@@ -86,7 +86,7 @@ DOMAIN,janapi.jd.com,REJECT
 DOMAIN,et.tanx.com,REJECT
 
 [Map Local]
-^https:\/\/api-shoulei-ssl\.xunlei\.com\/flowhub\/v1\/slots:batchGet$ data-type=text data="{}" status-code=200
+^https:\/\/api-shoulei-ssl\.xunlei\.com\/flowhub\/v1\/slots:batchGet$ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
 [Script]
 精简我的页面 = type=http-response, pattern=^https:\/\/conf-m-ssl\.xunlei\.com\/external\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/XunLei_remove_ads.js, requires-body=true

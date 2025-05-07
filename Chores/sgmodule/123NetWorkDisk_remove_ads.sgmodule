@@ -89,7 +89,7 @@ DOMAIN,v.adx.hubcloud.com.cn,REJECT
 ^https:\/\/images\.pinduoduo\.com\/marketing_api\/ - reject
 
 [Map Local]
-^https:\/\/www\.123pan\.com\/api\/config\/get data-type=text data="{}" status-code=200
+^https:\/\/www\.123pan\.com\/api\/config\/get data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% www.123pan.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com

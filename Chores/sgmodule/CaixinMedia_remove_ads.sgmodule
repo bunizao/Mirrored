@@ -11,15 +11,15 @@
 #!date=2024-11-28 00:00:00
 
 [Map Local]
-^https:\/\/entities\.caixin\.com\/api\/(dataplus\/promotionHints|public\/push\/appIndex|public\/recommendNews) data-type=text data="{}" status-code=200
+^https:\/\/entities\.caixin\.com\/api\/(dataplus\/promotionHints|public\/push\/appIndex|public\/recommendNews) data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
-^https:\/\/gateway\.caixin\.com\/api\/app-api\/cxAdInfo\/selectIndexAdInfo data-type=text data="{}" status-code=200
+^https:\/\/gateway\.caixin\.com\/api\/app-api\/cxAdInfo\/selectIndexAdInfo data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
-^https:\/\/mappsv5\.caixin\.com\/channelv5\/article_ad_ios_info\.json data-type=text data="{}" status-code=200
+^https:\/\/mappsv5\.caixin\.com\/channelv5\/article_ad_ios_info\.json data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
-^https:\/\/gg\.caixin\.com\/s\?z=caixin&slot=\d+ data-type=text data="{}" status-code=200
+^https:\/\/gg\.caixin\.com\/s\?z=caixin&slot=\d+ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
-^https:\/\/msgapi\.caixin\.com\/msg_api\/annmsg\/annlist data-type=text data="{}" status-code=200
+^https:\/\/msgapi\.caixin\.com\/msg_api\/annmsg\/annlist data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
 [Script]
 移除财新数据通广告 = type=http-response, pattern=^https:\/\/entities\.caixin\.com\/api\/dataplus\/columns, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CaixinMedia_remove_ads.js, requires-body=true

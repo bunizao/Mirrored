@@ -27,7 +27,7 @@ IP-CIDR,120.27.235.201/32,REJECT,no-resolve
 IP-CIDR,121.196.197.147/32,REJECT,no-resolve
 
 [Map Local]
-^https:\/\/ssp\.soulapp\.cn\/api\/q data-type=text data="{}" status-code=200
+^https:\/\/ssp\.soulapp\.cn\/api\/q data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
 ^https:\/\/chat-live\.soulapp\.cn\/live\/planet\/recListV2 data-type=text data=" " status-code=200
 

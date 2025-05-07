@@ -34,9 +34,9 @@ DOMAIN,log.umtrack.com,REJECT
 DOMAIN,aaid.umeng.com,REJECT
 
 [Map Local]
-^https:\/\/gorgon\.youdao\.com\/gorgon\/brand\/prefetch\.s\? data-type=text data="{}" status-code=200
+^https:\/\/gorgon\.youdao\.com\/gorgon\/brand\/prefetch\.s\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
-^https:\/\/gorgon\.youdao\.com\/gorgon\/request\.s\? data-type=text data="{}" status-code=200
+^https:\/\/gorgon\.youdao\.com\/gorgon\/request\.s\? data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
 [Script]
 body_rewrite_35 = type=http-response, pattern=^https:\/\/dict\.youdao\.com\/homepage\/toolbar\/get\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.vipTag%22%5D%5D%5D

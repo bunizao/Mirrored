@@ -14,7 +14,7 @@
 ^https:\/\/api1\.zongheng\.com\/iosapi\/system\/startup$ - reject
 
 [Map Local]
-^https:\/\/api2\.zongheng\.com\/api\/giftBag\/bindingBag$ data-type=text data="{}" status-code=200
+^https:\/\/api2\.zongheng\.com\/api\/giftBag\/bindingBag$ data-type=text data="{}" status-code=200  header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% api?.zongheng.com
