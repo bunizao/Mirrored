@@ -9,7 +9,7 @@
 #!system_version=15
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-05 01:21:15
+#!date=2025-05-10 03:19:10
 
 [Rule]
 DOMAIN,afd.baidu.com,REJECT
