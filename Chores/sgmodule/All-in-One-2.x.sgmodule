@@ -125,6 +125,7 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbmensa\.research\.researchservice\.(?:acquire|event|close)\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/(?:cn-acs\.m|netflow-mtop)\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.(?:batch\.show\.v2|click\.reply|expose\.m?reply|index)\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/(?:cn-acs\.m|mtop-bff-mtop)\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.(?:homepage\.merge|tabbar\.marketing)\.get\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbcps\.presentation\.fetch\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.cnactivitycenter data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.cncreditmarket\.hit\.getactivityhit\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.longquan\.place\.getpageresourcecontent\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
