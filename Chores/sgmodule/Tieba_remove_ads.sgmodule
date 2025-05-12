@@ -140,5 +140,5 @@ body_rewrite_132 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\
 Proto处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized)\?cmd, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/tieba-proto.js, requires-body=true, binary-body-mode=true, timeout=10
 
 [MITM]
-hostname = %APPEND% tiebac.baidu.com, tieba.baidu.com
+hostname = %APPEND% tiebac.baidu.com, tieba.baidu.com, -180.76.76.200
 
