@@ -113,9 +113,8 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/weibo\.com\/ttarticle\/x\/m\/aj\/(?:reward|uvead) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # ------------ Tieba -------------
-^https:\/\/tiebac\.baidu\.com\/c\/f\/search\/discover data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/tiebac\.baidu\.com\/c\/f\/forum\/forumGuide data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/tiebac\.baidu\.com\/c\/u\/chat\/getChatSubscriptionList data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/tieba\.baidu\.com\/c\/f\/member\/getMemberPopups$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/tiebac\.baidu\.com\/c\/f\/search\/discover$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # ----------- Cainiao ------------
 ^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.app\.home\.tabbar\.marketing\.get\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -265,11 +264,9 @@ body_rewrite_22 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com
 会员图标 = type=http-response, pattern=^https:\/\/new\.vip\.weibo\.cn\/aj\/appicon\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
 
 # ------------ Tieba -------------
-清理首页 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/livefeed\/feed, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Tieba_remove_ads.js, requires-body=true
-清理侧拉抽屉 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/f\/sidebar\/home, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Tieba_remove_ads.js, requires-body=true
-清理我的页面 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/u\/user\/profile, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Tieba_remove_ads.js, requires-body=true
-清理首页 = type=http-response, pattern=^https:\/\/tieba\.baidu\.com\/c\/f\/frs\/frsBottom, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Tieba_remove_ads.js, requires-body=true
-JSON处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/(c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized)$|tiebaads\/commonbatch|c\/s\/sync$), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/tieba-json.js, requires-body=true, timeout=10
+body_rewrite_126 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/u\/user\/profile$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22recom_naws_list%22%2C%22namoaixud_entry%22%2C%22custom_grid%22%2C%22duxiaoman_entry%22%2C%22finance_tab%22%5D%5D%2C%5B%22json-replace%22%2C%5B%5B%22user.shake_ad_switch.is_show%22%2C0%5D%5D%5D%5D
+body_rewrite_129 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/f\/sidebar\/home$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22task_list%22%2C%22game_center%22%2C%22tools%22%2C%22tools.yunying_tools_list%22%2C%22tools.show_tools_list%22%5D%5D%5D
+body_rewrite_132 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/f\/frs\/frsBottom$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22card_activity%22%5D%5D%5D
 Proto处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized)\?cmd, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/tieba-proto.js, requires-body=true, binary-body-mode=true, timeout=10
 
 # ----------- Cainiao ------------
