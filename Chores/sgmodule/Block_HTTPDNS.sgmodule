@@ -177,8 +177,6 @@ DOMAIN,httpdns.zybang.com,REJECT
 ^https?:\/\/203\.107\.1\.97/\d+/ss - reject
 ^https?:\/\/2401:b180:2000:30::1c\/\d+\/d - reject
 ^https?:\/\/2401:b180:2000:20::10\/\d+\/d - reject
-^https?:\/\/180\.76\.76\.200\/v\d\/resolve - reject
-^https?:\/\/180\.76\.76\.112\/v\d\/resolve - reject
 ^https?:\/\/cdn\.wup\.huya\.com\/monitor\/monitor\.jsp - reject
 
 [Map Local]
@@ -189,5 +187,5 @@ DOMAIN,httpdns.zybang.com,REJECT
 ^https:\/\/msglb\.91160\.com\/msg\/outer\/broker\/get$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
-hostname = %APPEND% 119.29.29.*, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, 2401:b180:2000:30::1c, 2401:b180:2000:20::10, amdc.alipay.com, 180.76.76.200, 180.76.76.112, appconf.mail.163.com, msglb.91160.com
+hostname = %APPEND% 119.29.29.*, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, 2401:b180:2000:30::1c, 2401:b180:2000:20::10, amdc.alipay.com, appconf.mail.163.com, msglb.91160.com
 
