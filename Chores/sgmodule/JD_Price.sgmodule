@@ -8,7 +8,7 @@
 #!tag=功能增强
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-04-22 00:22:22
+#!date=2025-05-13 15:17:08
 
 [Script]
 捕获令牌 = type=http-request, pattern=^https?:\/\/apapia-sqk-weblogic\.manmanbuy\.com\/baoliao\/center\/menu$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true, timeout=10

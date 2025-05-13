@@ -8,7 +8,7 @@
 #!tag=资源转换
 #!loon_version=3.2.1(749)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2024-11-28 00:00:00
+#!date=2025-05-13 15:17:08
 
 [Script]
 前端界面 = type=http-request, pattern=^https?:\/\/script\.hub\/($|edit\/|reload), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/script-hub.beta.js, timeout=120
