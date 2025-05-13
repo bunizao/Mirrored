@@ -9,6 +9,7 @@ IP-CIDR,8.134.241.67/32,no-resolve
 DOMAIN,httpdns.volcengineapi.com
 DOMAIN,dig.bdurl.net
 DOMAIN,dig.zjurl.cn
+AND,((DOMAIN-KEYWORD,tnc),(AND,((OR,((DOMAIN-KEYWORD,-bjlgy),(DOMAIN-KEYWORD,-alisc),(DOMAIN-KEYWORD,-aliec),(DOMAIN-KEYWORD,-alisg))),(OR,((DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,isnssdk.com),(DOMAIN-SUFFIX,toutiaoapi.com),(DOMAIN-SUFFIX,bytedance.com),(DOMAIN-SUFFIX,zijieapi.com))))))
 DOMAIN,dns.weixin.qq.com
 DOMAIN,dns.weixin.qq.com.cn
 DOMAIN,aedns.weixin.qq.com
