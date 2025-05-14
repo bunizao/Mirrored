@@ -1,0 +1,29 @@
+#!name=Wind金融终端去广告
+#!desc=移除开屏广告和各类横幅广告，移除文章末尾相关推荐。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/WindInfo.png
+#!category=🚫 AD Block
+
+#!openUrl=https://apps.apple.com/app/id834146449
+#!tag=去广告
+#!system=ios
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2025-05-14 23:22:03
+
+[Rule]
+URL-REGEX,"^http:\/\/114\.80\.154\.45\/smartad\/",REJECT-TINYGIF
+URL-REGEX,"^http:\/\/\[240e:978:3002:0100::11:1a\]\/smartad\/",REJECT-TINYGIF
+URL-REGEX,"^http:\/\/\[240e:96c:200:2f00::11:1a\]\/smartad\/",REJECT-TINYGIF
+URL-REGEX,"^http:\/\/114\.80\.154\.45\/RTCWeb\/live\/queryWFTLive$",REJECT-TINYGIF
+URL-REGEX,"^http:\/\/\[240e:978:3002:0100::11:1a\]\/RTCWeb\/live\/queryWFTLive$",REJECT-TINYGIF
+URL-REGEX,"^http:\/\/\[240e:96c:200:2f00::11:1a\]\/RTCWeb\/live\/queryWFTLive$",REJECT-TINYGIF
+
+[Map Local]
+^https:\/\/t\.wind\.com\.cn\/smartad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/m\.wind\.com\.cn\/smartad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% t.wind.com.cn, m.wind.com.cn
+
