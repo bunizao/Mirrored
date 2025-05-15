@@ -273,10 +273,9 @@ body_rewrite_22 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com
 移除消息页提醒 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/messageflow\/notice\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
 移除热门微博信息流广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/search\/(?:container_timeline|finder), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
 移除发现页搜索结果广告 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/searchall\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
-移除开屏广告 = type=http-response, pattern=^https:\/\/bootpreload\.uve\.weibo\.com\/v[12]\/ad\/preload, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
-移除开屏广告 = type=http-response, pattern=^https:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkad\.php, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
-移除开屏广告 = type=http-response, pattern=^https:\/\/wbapp\.uve\.weibo\.com\/(?:preload\/get_ad|wbapplua\/wbpullad\.lua), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
-会员图标 = type=http-response, pattern=^https:\/\/new\.vip\.weibo\.cn\/aj\/appicon\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
+移除开屏广告 preload = type=http-response, pattern=^https:\/\/bootpreload\.uve\.weibo\.com\/v[12]\/ad\/preload, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
+移除开屏广告 sdkad = type=http-response, pattern=^https:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkad\.php, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
+移除开屏广告 wbapplua = type=http-response, pattern=^https:\/\/wbapp\.uve\.weibo\.com\/(?:preload\/get_ad|wbapplua\/wbpullad\.lua), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
 
 # ------------ Tieba -------------
 body_rewrite_16 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/u\/user\/profile$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22recom_naws_list%22%2C%22namoaixud_entry%22%2C%22custom_grid%22%2C%22duxiaoman_entry%22%2C%22finance_tab%22%5D%5D%2C%5B%22json-replace%22%2C%5B%5B%22user.shake_ad_switch.is_show%22%2C0%5D%5D%5D%5D
