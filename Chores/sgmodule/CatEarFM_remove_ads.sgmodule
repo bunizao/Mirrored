@@ -1,5 +1,5 @@
 #!name=猫耳FM去广告
-#!desc=移除开屏广告、横幅推广、移除青少年模式弹窗，精简首页顶部入口和发现页面。
+#!desc=移除开屏广告、移除青少年模式弹窗，精简首页顶部入口。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/CatEarFM.png
 #!category=🚫 AD Block
@@ -8,34 +8,22 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-13 15:17:08
+#!date=2025-05-17 04:51:20
 
 [Map Local]
-^https:\/\/fm\.missevan\.com\/api\/v\d\/chatroom\/open\/search-recommend-list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/app\.missevan\.com\/site\/launch\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.missevan\.com\/sound\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/data\.missevan\.com\/site\/ad-track$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.missevan\.com\/drama\/get-recommend-by-id\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/app\.missevan\.com\/x\/recommend\/get-popup$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/fm\.missevan\.com\/api\/v\d\/meta\/banner$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/fm\.missevan\.com\/api\/v2\/recommended\/top\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/fm\.missevan\.com\/api\/v2\/chatroom\/sound\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_12 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/launch\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info%22%5D%5D%5D
-
-body_rewrite_13 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/config$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.homepage_top_task_button%22%2C%22info.teenager_popup_mode%22%5D%5D%5D
-
-body_rewrite_14 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/get-top$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.search_words%22%2C%22info.extra_banners%22%5D%5D%5D
-
-body_rewrite_15 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/you-might-like\/my-favors\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.video_card%22%5D%5D%5D
-
-body_rewrite_17 = type=http-response, pattern=^https:\/\/fm\.missevan\.com\/api\/v2\/recommended\/top\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info%22%5D%5D%5D
-
-body_rewrite_18 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/drama\/catalog-homepage\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.extra_banners%22%5D%5D%5D
-
-body_rewrite_20 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/catalog\/sound-homepage\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.extra_banners%22%5D%5D%5D
-
-body_rewrite_21 = type=http-response, pattern=^https:\/\/fm\.missevan\.com\/api\/v\d\/chatroom\/sound\/recommend\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info%22%5D%5D%5D
+body_rewrite_14 = type=http-response, pattern=^https:\/\/app\.missevan\.com\/site\/config$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22info.tab_bar_live%22%2C%220%22%2C%22info.enable_tab_bar_live_notice%22%2C%22false%22%2C%22info.teenager_popup_mode%22%2C%220%22%5D%5D%2C%5B%22json-del%22%2C%5B%22info.httpdns%22%2C%22info.homepage_top_task_button%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% app.missevan.com, fm.missevan.com
+hostname = %APPEND% app.missevan.com, data.missevan.com, fm.missevan.com
 
