@@ -1,36 +1,40 @@
-// 2025-05-18 00:47:57
+/*
+2025-05-18 01:29:34
+by 可莉
+*/
 
 (() => {
-    const urlObj = new URL($context.url);
-    const path = urlObj.pathname;
-
-    const body = $response.body;
-    if (!body) return $done({});
-
-    let data;
+    if (typeof $response === 'undefined' || !$response?.body) {
+        console.log('无响应体或$response未定义');
+        return $done({});
+    }
+    
+    let modified = false;
+    let body;
+    
     try {
-        data = JSON.parse(body);
+        body = JSON.parse($response.body);
     } catch (e) {
-        console.error("JSON 解析失败:", e.message);
+        console.log(`JSON解析失败: ${e.message}`);
         return $done({});
     }
 
-    const { media, items } = data;
-
-    if (path === '/luna/me/recently-played-media') {
-        if (Array.isArray(media)) {
-            data.media = media.filter(item => item.type !== 'video');
+    if (Array.isArray(body?.media)) {
+        const originalLength = body.media.length;
+        body.media = body.media.filter(item => {
+            if (item && typeof item === 'object' && 'type' in item) {
+                return item.type !== 'video';
+            }
+            return true;
+        });
+        modified = originalLength !== body.media.length;
+        
+        if (modified) {
+            console.log(`移除了 ${originalLength - body.media.length} 条视频内容`);
         }
-    } else if (path === '/luna/feed/song-tab') {
-        if (Array.isArray(items)) {
-            data.items = items.filter(item => item.type !== 'video_track_mix');
-        }
-    } else {
-        return $done({});
     }
 
-    $done({
-        body: JSON.stringify(data),
-        headers: $response.headers
-    });
+    $done(modified ? {
+        body: JSON.stringify(body),
+    } : {});
 })();
