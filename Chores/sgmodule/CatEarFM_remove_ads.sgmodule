@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-17 04:51:20
+#!date=2025-05-17 13:22:26
 
 [Map Local]
 ^https:\/\/app\.missevan\.com\/site\/launch\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -16,8 +16,6 @@
 ^https:\/\/data\.missevan\.com\/site\/ad-track$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/app\.missevan\.com\/x\/recommend\/get-popup$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/fm\.missevan\.com\/api\/v2\/recommended\/top\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/fm\.missevan\.com\/api\/v2\/chatroom\/sound\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
