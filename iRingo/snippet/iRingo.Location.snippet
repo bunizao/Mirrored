@@ -1,14 +1,3 @@
-#!name =  iRingo: 📍 Location
-#!desc = 自定义「定位服务」\n通过「基于网络的地区检测」结果始终为用户设置的地区。
-#!openUrl = http://boxjs.com/#/app/iRingo.Location
-#!author = VirgilClyne[https://github.com/VirgilClyne]
-#!homepage = https://NSRingo.github.io/guide/GeoServices/location
-#!icon = https://images.macrumors.com/article-new/2019/07/ios_location_services-250x250.jpg
-#!category =  iRingo
-
-#[rewrite_local]
-# 📍 Country Code
-^https?:\/\/gspe1-ssl\.ls\.apple\.com\/pep\/gcc url script-response-body https://github.com/NSRingo/GeoServices/releases/latest/download/response.bundle.js
-
-#[mitm]
-hostname = gspe1-ssl.ls.apple.com
+﻿<?xml version="1.0" encoding="utf-8"?><Error><Code>AuthenticationFailed</Code><Message>Server failed to authenticate the request. Make sure the value of Authorization header is formed correctly including the signature.
+RequestId:d1240e19-f01e-0001-4eee-c8be89000000
+Time:2025-05-19T18:47:21.9966336Z</Message><AuthenticationErrorDetail>Signature not valid in the specified time frame: Start [Mon, 19 May 2025 18:47:22 GMT] - Expiry [Mon, 19 May 2025 19:17:22 GMT] - Current [Mon, 19 May 2025 18:47:21 GMT]</AuthenticationErrorDetail></Error>
