@@ -218,4 +218,11 @@ DOMAIN,ta.pinduoduo.com
 DOMAIN,th-a.pinduoduo.com
 DOMAIN,th-b.pinduoduo.com
 DOMAIN,th.pinduoduo.com
+URL-REGEX,"^http:\/\/\w{32}\.jddebug\.com\/diagnose\?"
+DOMAIN,api.biliapi.com
+DOMAIN,api.biliapi.net
+DOMAIN,app.biliapi.com
+DOMAIN,app.biliapi.net
+URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH"
+URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH"
 DOMAIN,ad.12306.cn
