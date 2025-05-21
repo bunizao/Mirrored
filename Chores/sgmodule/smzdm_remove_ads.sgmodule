@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-17 13:41:25
+#!date=2025-05-21 14:54:15
 
 [Rule]
 DOMAIN,adx-api.zdmimg.com,REJECT
@@ -30,9 +30,11 @@ body_rewrite_15 = type=http-response, pattern=^https:\/\/app-api\.smzdm\.com\/ut
 
 body_rewrite_21 = type=http-response, pattern=^https:\/\/haojia\.m\.smzdm\.com\/detail_modul\/user_related_modul\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.super_coupon%22%5D%5D%5D
 
-body_rewrite_22 = type=http-response, pattern=^https:\/\/user-api\.smzdm\.com\/vip$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.big_banner%22%5D%5D%5D
+body_rewrite_22 = type=http-response, pattern=^https:\/\/haojia\.m\.smzdm\.com\/detail_modul\/other_modul\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banner%22%5D%5D%5D
 
-body_rewrite_26 = type=http-response, pattern=^https:\/\/s-api\.smzdm\.com\/sou\/filter\/tags\/hot_tags\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.search_faxian%22%2C%22data.tonglan%22%2C%22data.hongbao%22%5D%5D%5D
+body_rewrite_23 = type=http-response, pattern=^https:\/\/user-api\.smzdm\.com\/vip$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.big_banner%22%5D%5D%5D
+
+body_rewrite_27 = type=http-response, pattern=^https:\/\/s-api\.smzdm\.com\/sou\/filter\/tags\/hot_tags\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.search_faxian%22%2C%22data.tonglan%22%2C%22data.hongbao%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% app-api.smzdm.com, homepage-api.smzdm.com, h5.smzdm.com, haojia-api.smzdm.com, haojia.m.smzdm.com, user-api.smzdm.com, article-api.smzdm.com, s-api.smzdm.com
