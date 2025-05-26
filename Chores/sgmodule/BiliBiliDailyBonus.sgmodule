@@ -1,7 +1,19 @@
-BiliBiliDailyBonus%0A：Error: 请求超时(20 秒)
+#!name=BiliBili每日等级任务
+#!desc=定时任务及Cookie获取
+#!author=MartinsKing（@ClydeTime）
+#!icon=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/database/icon_Avatar.png
+#!category=🚫 AD Block
 
+#!homepage=https://github.com/ClydeTime/BiliBili/tree/master
 
+[Script]
+# BiliBili每日等级任务
+B站每日等级任务 = type=cron, cronexp=30 7 * * *, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js, timeout=15
 
+B站Cookie(扫码) = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/fingerprint\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js, timeout=30
 
+B站Cookie(APP) = type=http-request, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/fingerprint\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js
 
-Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
+[MITM]
+hostname = %APPEND% app.bilibili.com
+
