@@ -79,10 +79,6 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 
 {Script}
 
-# ----------- Pixiv -----------
-
-pixivAd = type=http-response,pattern=^https?:\/\/oauth\.secure\.pixiv\.net\/(auth\/token),requires-body=1,max-size=3145728,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/pixivAds.js,script-update-interval=0
-
 ########################################################################################
 
 [MITM]
