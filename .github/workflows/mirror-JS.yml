@@ -65,16 +65,23 @@ jobs:
             sed -i "s|$url|$MIRROR_BASE_URL/$filename|g" Chores/sgmodule/*.sgmodule
           done < external-js-urls.txt
 
-      - name: Commit and push changes
-        # 提交改动（如无变化则跳过提交），并在提交信息中加入 [skip ci] 防止循环触发
+      - name: Commit & push (if changed)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
+          set -e
+          git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          # 检查是否有变更，若无则退出步骤不提交
-          if git diff --cached --quiet; then
+
+          # 把新增/修改文件全部加入暂存区
+          git add Chores/js Chores/sgmodule/*.sgmodule
+
+          # 如果工作区 + 暂存区都没有任何变化，则跳过提交
+          if [ -z "$(git status --porcelain)" ]; then
             echo "No changes to commit."
             exit 0
           fi
+
           git commit -m "Update mirrored JS resources [skip ci]"
           git push
