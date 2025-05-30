@@ -11,9 +11,9 @@
 #!date=2025-05-13 15:17:08
 
 [Script]
-JSON处理 = type=http-request, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_remove_ads.js, timeout=10
+JSON处理 = type=http-request, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/, script-path=https://kelee.one/Resource/Script/Spotify/Spotify_remove_ads.js, timeout=10
 
-Proto处理 = type=http-response, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_proto.js, requires-body=true, binary-body-mode=true, timeout=10
+Proto处理 = type=http-response, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$, script-path=https://kelee.one/Resource/Script/Spotify/Spotify_proto.js, requires-body=true, binary-body-mode=true, timeout=10
 
 [MITM]
 hostname = %APPEND% spclient.wg.spotify.com

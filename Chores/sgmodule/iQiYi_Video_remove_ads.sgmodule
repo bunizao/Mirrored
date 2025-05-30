@@ -30,17 +30,17 @@ DOMAIN,access.if.iqiyi.com,REJECT
 ^https?:\/\/iface2\.iqiyi\.com\/views_pop\/3\.0\/pop_control\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_19 = type=http-response, pattern=^https:\/\/cards\.iqiyi\.com\/views_home\/3\.0\/qy_home\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22base.statistics%22%5D%5D%5D
+body_rewrite_19 = type=http-response, pattern=^https:\/\/cards\.iqiyi\.com\/views_home\/3\.0\/qy_home\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22base.statistics%22%5D%5D%5D
 
-body_rewrite_23 = type=http-response, pattern=^https:\/\/cards\.iqiyi\.com\/views_plt\/3\.0\/player_tabs_v2\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22kv_pair.activity_tab%22%5D%5D%5D
+body_rewrite_23 = type=http-response, pattern=^https:\/\/cards\.iqiyi\.com\/views_plt\/3\.0\/player_tabs_v2\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22kv_pair.activity_tab%22%5D%5D%5D
 
-body_rewrite_33 = type=http-response, pattern=^https?:\/\/iface2\.iqiyi\.com\/views_menus\/3\.0\/bottom_theme\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22theme_list%22%5D%5D%5D
+body_rewrite_33 = type=http-response, pattern=^https?:\/\/iface2\.iqiyi\.com\/views_menus\/3\.0\/bottom_theme\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22theme_list%22%5D%5D%5D
 
-body_rewrite_36 = type=http-response, pattern=^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22content.resource.cast_device_ad%22%5D%5D%2C%5B%22json-replace%22%2C%5B%5B%22content.switchs.app_ad.app_ad_enable%22%2C0%5D%2C%5B%22content.switchs.app_ad.app_ad_duration%22%2C0%5D%2C%5B%22content.switchs.ios_tech.kPreadAdHintSwitch%22%2C0%5D%2C%5B%22content.switchs.ios_tech.ad_download%22%2C0%5D%2C%5B%22content.switchs.m_qiyi_ios_tech.KFocusAdVideoPlayTimesIn4G%22%2C0%5D%5D%5D%5D
+body_rewrite_36 = type=http-response, pattern=^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22content.resource.cast_device_ad%22%5D%5D%2C%5B%22json-replace%22%2C%5B%5B%22content.switchs.app_ad.app_ad_enable%22%2C0%5D%2C%5B%22content.switchs.app_ad.app_ad_duration%22%2C0%5D%2C%5B%22content.switchs.ios_tech.kPreadAdHintSwitch%22%2C0%5D%2C%5B%22content.switchs.ios_tech.ad_download%22%2C0%5D%2C%5B%22content.switchs.m_qiyi_ios_tech.KFocusAdVideoPlayTimesIn4G%22%2C0%5D%5D%5D%5D
 
-body_rewrite_38 = type=http-response, pattern=^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22adSlots%22%5D%5D%5D
+body_rewrite_38 = type=http-response, pattern=^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22adSlots%22%5D%5D%5D
 
-body_rewrite_39 = type=http-response, pattern=^https?:\/\/search\.video\.iqiyi\.com\/q\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data%22%5D%5D%5D
+body_rewrite_39 = type=http-response, pattern=^https?:\/\/search\.video\.iqiyi\.com\/q\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% -i.vip.iqiyi.com, *.iqiyi.com

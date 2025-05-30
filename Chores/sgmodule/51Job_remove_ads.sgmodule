@@ -24,11 +24,11 @@
 ^https:\/\/cupid\.51job(app)?\.com\/open\/operation\/get\/banner-list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_14 = type=http-response, pattern=^https:\/\/cupid\.51job(app)?\.com\/open\/noauth\/recommend\/job-tab-dynamic\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22resultbody.adsTabFeeds%22%5D%5D%5D
+body_rewrite_14 = type=http-response, pattern=^https:\/\/cupid\.51job(app)?\.com\/open\/noauth\/recommend\/job-tab-dynamic\?, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22resultbody.adsTabFeeds%22%5D%5D%5D
 
-body_rewrite_16 = type=http-response, pattern=^https:\/\/cupid\.51job(app)?\.com\/open\/user-task\/user\/task\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22resultbody.availableTaskList%22%5D%5D%5D
+body_rewrite_16 = type=http-response, pattern=^https:\/\/cupid\.51job(app)?\.com\/open\/user-task\/user\/task\/, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22resultbody.availableTaskList%22%5D%5D%5D
 
-body_rewrite_19 = type=http-response, pattern=^https:\/\/cupid\.51job(app)?\.com\/open\/tab\/good-job\/modules, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22resultbody.bannerList%22%5D%5D%5D
+body_rewrite_19 = type=http-response, pattern=^https:\/\/cupid\.51job(app)?\.com\/open\/tab\/good-job\/modules, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22resultbody.bannerList%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% appapi.51job.com, cupid.51job.com, cupid.51jobapp.com

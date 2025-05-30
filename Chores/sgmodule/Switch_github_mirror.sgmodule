@@ -16,7 +16,7 @@ DOMAIN,hub.incept.pw,DIRECT
 DOMAIN,raw.kkgithub.com,DIRECT
 
 [Script]
-GitHub加速 = type=http-request, pattern=^https:\/\/raw\.githubusercontent\.com\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Switch_github_mirror.js
+GitHub加速 = type=http-request, pattern=^https:\/\/raw\.githubusercontent\.com\/, script-path=https://kelee.one/Resource/Script/GitHub/Switch_github_mirror.js
 
 [MITM]
 hostname = %APPEND% raw.githubusercontent.com
