@@ -1,0 +1,78 @@
+name: Mirror External JS Resources
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Chores/sgmodule/**'  # 仅当 sgmodule 文件有改动时触发
+
+jobs:
+  # （可选）主任务：假定现有的其他处理步骤在此 Job 中
+  main:
+    name: Update sgmodule files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Perform original tasks
+        run: echo "Updating sgmodule files..."
+      # （假设此 Job 中对 sgmodule 的修改未推送，在随后镜像JS任务中统一提交）
+
+  # 独立的 JS 下载与替换 Job
+  mirror-js:
+    name: Mirror External JS Resources
+    runs-on: ubuntu-latest
+    needs: [main]  # 等待主任务完成后再运行
+    env:
+      # 定义 Mirrored 仓库信息，供脚本中使用
+      MIRROR_REPO: bunizao/Mirrored
+      MIRROR_BASE_URL: https://github.com/bunizao/Mirrored/raw/main/Chores/js
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Find external JS links
+        # 查找 sgmodule 文件中所有外部 JS 链接，并排除 Mirrored 仓库链接
+        run: |
+          # 查找所有 .js 结尾的 URL 链接
+          urls=$(grep -RohE "https?://[^ '\"\t]+\.js" Chores/sgmodule)
+          # 过滤掉已指向 Mirrored 仓库的链接，避免重复处理
+          external_urls=$(echo "$urls" | grep -v "$MIRROR_REPO" || true)
+          # 保存唯一的外部 JS 链接列表
+          echo "$external_urls" | sort -u > external-js-urls.txt
+          echo "External JS URLs to mirror:"
+          cat external-js-urls.txt
+
+      - name: Download JS files
+        # 下载每个外部 JS 文件到 Chores/js 目录
+        run: |
+          mkdir -p Chores/js
+          while read -r url; do
+            # 跳过空行（无链接时）
+            [ -z "$url" ] && continue
+            filename=$(basename "$url")
+            echo "Downloading $url -> Chores/js/$filename"
+            curl -L "$url" -o "Chores/js/$filename"
+          done < external-js-urls.txt
+
+      - name: Replace links in sgmodule files
+        # 将 sgmodule 文件中的外部链接替换为 Mirrored 仓库的 Raw 链接
+        run: |
+          while read -r url; do
+            [ -z "$url" ] && continue
+            filename=$(basename "$url")
+            sed -i "s|$url|$MIRROR_BASE_URL/$filename|g" Chores/sgmodule/*.sgmodule
+          done < external-js-urls.txt
+
+      - name: Commit and push changes
+        # 提交改动（如无变化则跳过提交），并在提交信息中加入 [skip ci] 防止循环触发
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          # 检查是否有变更，若无则退出步骤不提交
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Update mirrored JS resources [skip ci]"
+          git push
