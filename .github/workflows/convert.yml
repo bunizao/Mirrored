@@ -62,30 +62,39 @@ jobs:
           done < plugin_urls.txt
 
       - name: Find and replace external JS resources
-        continue-on-error: true  # 确保步骤在部分失败时继续执行
+        continue-on-error: true
         run: |
+          set -e
           base_js_url="https://github.com/bunizao/Mirrored/raw/main/Chores/js"
           mkdir -p Chores/js
-          for sgmodule_file in Chores/sgmodule/*.sgmodule; do
-            echo "Processing $sgmodule_file"
-            # 查找 .js 文件的外部链接
-            js_links=$(grep -oP 'https?://[^ ]+\.js' "$sgmodule_file" || echo "")
-            for js_link in $js_links; do
-              js_filename=$(basename "$js_link")
-              local_js_path="Chores/js/$js_filename"
-              # 使用指定的 User-Agent 下载 .js 文件
-              echo "Downloading $js_link to $local_js_path"
-              if curl -A "Surge Mac/3272" -L -o "$local_js_path" "$js_link"; then
-                echo "Download successful for $js_link"
-                # 替换 sgmodule 文件中的链接为 GitHub 仓库的路径
-                github_js_url="$base_js_url/$js_filename"
-                sed -i "s|$js_link|$github_js_url|g" "$sgmodule_file"
-              else
-                echo "Failed to download $js_link, skipping..."
-              fi
-            done
-          done
 
+          # 1️⃣ 收集所有 sgmodule 中的 .js 外链，排除已是 Mirrored 链接的
+          grep -RohE 'https?://[^ '"'"']+\.js' Chores/sgmodule/*.sgmodule \
+            | grep -v "github.com/bunizao/Mirrored" \
+            | sort -u > external_js_urls.txt
+
+          if [ ! -s external_js_urls.txt ]; then
+            echo "No external JS links to mirror."
+            exit 0
+          fi
+
+          # 2️⃣ 下载并替换
+          while read -r js_link; do
+            [ -z "$js_link" ] && continue
+            js_filename=$(basename "$js_link")
+            local_js_path="Chores/js/$js_filename"
+
+            echo "Downloading $js_link -> $local_js_path"
+            if curl -L -A "Surge Mac/3272" -o "$local_js_path" "$js_link"; then
+              echo "  OK"
+              github_js_url="$base_js_url/$js_filename"
+              # sed 替换所有 sgmodule 中的该链接
+              sed -i "s|$js_link|$github_js_url|g" Chores/sgmodule/*.sgmodule
+            else
+              echo "  Failed, skip"
+            fi
+          done < external_js_urls.txt
+          
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
