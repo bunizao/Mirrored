@@ -6,7 +6,9 @@ on:
       - main
     paths:
       - 'Chores/sgmodule/**'  # 仅当 sgmodule 文件有改动时触发
-
+  schedule:
+    - cron: '25 * * * *'
+    
 jobs:
   # （可选）主任务：假定现有的其他处理步骤在此 Job 中
   main:
