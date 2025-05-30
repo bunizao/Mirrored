@@ -75,7 +75,7 @@ jobs:
               local_js_path="Chores/js/$js_filename"
               # 使用指定的 User-Agent 下载 .js 文件
               echo "Downloading $js_link to $local_js_path"
-              if curl -A "Surge Mac/2985" -L -o "$local_js_path" "$js_link"; then
+              if curl -A "Surge Mac/3272" -L -o "$local_js_path" "$js_link"; then
                 echo "Download successful for $js_link"
                 # 替换 sgmodule 文件中的链接为 GitHub 仓库的路径
                 github_js_url="$base_js_url/$js_filename"
@@ -94,7 +94,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git stash
+            git stash -u
             git pull --rebase  # 同步远程仓库的最新更改以避免冲突
             git stash pop  # 恢复之前的更改
             git add Chores/sgmodule/*.sgmodule Chores/js/*.js  # 再次添加文件
