@@ -37,7 +37,7 @@ jobs:
         # 查找 sgmodule 文件中所有外部 JS 链接，并排除 Mirrored 仓库链接
         run: |
           # 查找所有 .js 结尾的 URL 链接
-          urls=$(grep -RohE "https?://[^ '\"\t]+\.js" Chores/sgmodule)
+          urls=$(grep -RohE 'https?://[^"'\'' \t]\+\.js' Chores/sgmodule || true)
           # 过滤掉已指向 Mirrored 仓库的链接，避免重复处理
           external_urls=$(echo "$urls" | grep -v "$MIRROR_REPO" || true)
           # 保存唯一的外部 JS 链接列表
