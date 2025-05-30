@@ -1,4 +1,4 @@
-name: Extract plugin URLs and download sgmodule files
+name: Extract plugin URLs & build sgmodule
 
 on:
   push:
@@ -14,65 +14,109 @@ jobs:
     services:
       docker:
         image: xream/script-hub:latest
-        ports:
-          - 9100:9100
-          - 9101:9101
+        ports: [9100:9100, 9101:9101]
+
+    env:
+      MIRROR_RAW: https://github.com/bunizao/Mirrored/raw/main/Chores/js
+      MIRROR_KEY: github.com/bunizao/Mirrored     # 用于 grep 排除
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Set up Git
         run: |
-          git config --global user.name "github-actions[bot]"
+          git config --global user.name  "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Install dependencies
+      - name: Install apt deps
         run: |
-          sudo apt-get update
+          sudo apt-get update -qq
           sudo apt-get install -y curl jq netcat-openbsd
 
-      - name: Wait for Docker service to be ready
+      - name: Wait for Script-Hub container
         run: |
-          echo "Waiting for Docker service to be ready..."
-          for i in {1..10}; do
-            nc -z localhost 9101 && break
-            sleep 10
+          echo "Waiting for :9101 ..."
+          for i in {1..20}; do
+            nc -z localhost 9101 && exit 0
+            sleep 5
           done
+          echo "::error ::Script-Hub container not ready"; exit 1
 
-      - name: Download README.md
+      - name: Download ProxyResource README
         run: |
           curl -s -o README.md https://raw.githubusercontent.com/luestr/ProxyResource/main/README.md
 
       - name: Extract .plugin URLs
         run: |
           grep -oP 'https?://[^ )"]+\?plugin=[^ )"]+' README.md > plugin_urls_raw.txt
-          grep -oP '(?<=\?plugin=)[^ )"]+' plugin_urls_raw.txt > plugin_urls.txt
+          grep -oP '(?<=\?plugin=)[^ )"]+'           plugin_urls_raw.txt > plugin_urls.txt
 
-      - name: Process and download sgmodule files
+      - name: Generate sgmodule files
         run: |
           mkdir -p Chores/sgmodule
           category="🚫 AD Block"
-          encoded_category=$(echo "$category" | jq -sRr @uri)
+          encoded_cat=$(echo "$category" | jq -sRr @uri)
           while read -r plugin_url; do
-          plugin_name=$(basename "$plugin_url" .plugin)
-          encoded_plugin_name=$(echo "$plugin_name" | jq -sRr @uri)
-          download_url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${encoded_plugin_name}.sgmodule?type=loon-plugin&target=surge-module&category=${encoded_category}"
-          echo "Downloading from $download_url"
-          curl -A "Surge Mac/2985" -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url" || echo "Failed to download ${plugin_name}.sgmodule"
+            [ -z "$plugin_url" ] && continue
+            name=$(basename "$plugin_url" .plugin)
+            enc_name=$(echo "$name" | jq -sRr @uri)
+            url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${enc_name}.sgmodule?type=loon-plugin&target=surge-module&category=${encoded_cat}"
+            echo "↓  $url"
+            curl -A "Surge Mac/2985" -Ls "$url" -o "Chores/sgmodule/${name}.sgmodule" \
+              || echo "::warning ::Failed to download ${name}.sgmodule"
           done < plugin_urls.txt
 
-      - name: Commit and push changes
+      # ----------  新增：镜像外部 JS 并替换链接  ----------
+      - name: Mirror external JS & rewrite links
+        shell: bash
+        run: |
+          set -e
+          mkdir -p Chores/js
+
+          # 收集所有 .js 外链，排除已是 Mirrored 的
+          grep -RohE 'https?://[^"'\'' \t]+\.js' Chores/sgmodule \
+            | grep -v "$MIRROR_KEY" \
+            | grep -v "$MIRROR_RAW" \
+            | sort -u > external-js.txt || true
+
+          if [ ! -s external-js.txt ]; then
+            echo "No external JS links found."
+            rm -f external-js.txt
+            exit 0
+          fi
+
+          echo "Links to mirror:" && cat external-js.txt
+
+          while read -r url; do
+            [ -z "$url" ] && continue
+            file=$(basename "$url")
+            echo "Mirroring $url → Chores/js/$file"
+            curl -Ls "$url" -o "Chores/js/$file"
+            sed -i "s|$url|$MIRROR_RAW/$file|g" Chores/sgmodule/*.sgmodule
+          done < external-js.txt
+
+          rm -f external-js.txt
+
+      # ---------- 提交 ----------
+      - name: Commit & push (if changed)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
         run: |
-          git add Chores/sgmodule/*.sgmodule Chores/js/*.js
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git stash -u
-            git pull --rebase  # 同步远程仓库的最新更改以避免冲突
-            git stash pop  # 恢复之前的更改
-            git add Chores/sgmodule/*.sgmodule Chores/js/*.js  # 再次添加文件
-            git commit -m "Update sgmodule files with GitHub-hosted JS resources"
-            git push
+          set -e
+          git add Chores/sgmodule Chores/js
+
+          # 工作区+暂存区完全干净则跳过
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit."
+            exit 0
           fi
+
+          git stash -u          # 保存改动
+          git pull --rebase     # 同步远端
+          git stash pop         # 取回改动
+
+          git add Chores/sgmodule Chores/js
+          git commit -m "Update sgmodule & mirror JS [skip ci]"
+          git push
