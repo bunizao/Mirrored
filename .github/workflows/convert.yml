@@ -61,40 +61,6 @@ jobs:
           curl -A "Surge Mac/2985" -L -o "Chores/sgmodule/${plugin_name}.sgmodule" "$download_url" || echo "Failed to download ${plugin_name}.sgmodule"
           done < plugin_urls.txt
 
-      - name: Find and replace external JS resources
-        continue-on-error: true
-        run: |
-          set -e
-          base_js_url="https://github.com/bunizao/Mirrored/raw/main/Chores/js"
-          mkdir -p Chores/js
-
-          # 1️⃣ 收集所有 sgmodule 中的 .js 外链，排除已是 Mirrored 链接的
-          grep -RohE 'https?://[^ '"'"']+\.js' Chores/sgmodule/*.sgmodule \
-            | grep -v "github.com/bunizao/Mirrored" \
-            | sort -u > external_js_urls.txt
-
-          if [ ! -s external_js_urls.txt ]; then
-            echo "No external JS links to mirror."
-            exit 0
-          fi
-
-          # 2️⃣ 下载并替换
-          while read -r js_link; do
-            [ -z "$js_link" ] && continue
-            js_filename=$(basename "$js_link")
-            local_js_path="Chores/js/$js_filename"
-
-            echo "Downloading $js_link -> $local_js_path"
-            if curl -L -A "Surge Mac/3272" -o "$local_js_path" "$js_link"; then
-              echo "  OK"
-              github_js_url="$base_js_url/$js_filename"
-              # sed 替换所有 sgmodule 中的该链接
-              sed -i "s|$js_link|$github_js_url|g" Chores/sgmodule/*.sgmodule
-            else
-              echo "  Failed, skip"
-            fi
-          done < external_js_urls.txt
-          
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
