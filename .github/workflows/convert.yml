@@ -73,30 +73,78 @@ jobs:
         run: |
           set -e
           mkdir -p Chores/js
-          # 收集外链 .js，排除已经指向 Mirrored 的
-          grep -RohE 'https?://[^"'\'' \t]+\.js' Chores/sgmodule \
-            | grep -v "$MIRROR_KEY" \
-            | grep -v "$MIRROR_RAW" \
-            | sort -u > external-js.txt || true
+          
+          # 添加调试信息：列出生成的 sgmodule 文件
+          echo "Generated sgmodule files:"
+          ls -la Chores/sgmodule/ || echo "No sgmodule directory found"
+          
+          # 显示一个示例文件的内容（用于调试）
+          if ls Chores/sgmodule/*.sgmodule >/dev/null 2>&1; then
+            echo "Sample sgmodule content:"
+            head -20 Chores/sgmodule/*.sgmodule | head -20
+            echo "---"
+          fi
+          
+          # 改进的正则表达式，匹配更多可能的 JS URL 格式
+          echo "Searching for JS URLs..."
+          
+          # 尝试多种 grep 模式
+          {
+            # 匹配 script-path = https://...js
+            grep -RohE 'script-path\s*=\s*https?://[^[:space:],"'\'']+\.js' Chores/sgmodule/ 2>/dev/null || true
+            # 匹配 http-response 中的 script-path
+            grep -RohE 'http-response.*script-path=https?://[^[:space:],"'\'']+\.js' Chores/sgmodule/ 2>/dev/null || true
+            # 匹配 http-request 中的 script-path  
+            grep -RohE 'http-request.*script-path=https?://[^[:space:],"'\'']+\.js' Chores/sgmodule/ 2>/dev/null || true
+            # 通用匹配，任何 https:// 开头以 .js 结尾的 URL
+            grep -RohE 'https?://[^[:space:],"'\'']*\.js[^[:space:],"'\'']*' Chores/sgmodule/ 2>/dev/null || true
+          } | sort -u > all_js_urls.txt
+          
+          # 从完整 URL 中提取纯 URL（去掉参数中的 script-path= 等前缀）
+          sed -E 's/.*script-path\s*=\s*//' all_js_urls.txt | \
+          grep -E '^https?://' | \
+          sort -u > external-js-raw.txt
+          
+          # 排除已经指向 Mirrored 的链接
+          grep -v "$MIRROR_KEY" external-js-raw.txt | \
+          grep -v "$MIRROR_RAW" > external-js.txt || true
+          
+          echo "All JS URLs found:"
+          cat all_js_urls.txt || echo "No URLs in all_js_urls.txt"
+          echo "---"
+          echo "Raw external JS URLs:"
+          cat external-js-raw.txt || echo "No URLs in external-js-raw.txt" 
+          echo "---"
+          echo "Filtered external JS URLs:"
+          cat external-js.txt || echo "No URLs in external-js.txt"
+          echo "---"
 
           if [ ! -s external-js.txt ]; then
             echo "No external JS links found."
-            rm -f external-js.txt
+            rm -f external-js.txt all_js_urls.txt external-js-raw.txt
             exit 0
           fi
 
-          cat external-js.txt
+          echo "Processing external JS files:"
           while read -r url; do
             [ -z "$url" ] && continue
             file=$(basename "$url")
             echo "Mirroring $url  →  Chores/js/$file"
-            curl -Ls "$url" -o "Chores/js/$file"
-            sed -i "s|$url|$MIRROR_RAW/$file|g" Chores/sgmodule/*.sgmodule
+            if curl -Ls "$url" -o "Chores/js/$file"; then
+              echo "Successfully downloaded $file"
+              # 替换所有 sgmodule 文件中的链接
+              find Chores/sgmodule -name "*.sgmodule" -exec sed -i "s|$url|$MIRROR_RAW/$file|g" {} \;
+              echo "Updated links in sgmodule files"
+            else
+              echo "::warning ::Failed to download $url"
+            fi
           done < external-js.txt
-          rm -f external-js.txt
+          
+          # 清理临时文件
+          rm -f external-js.txt all_js_urls.txt external-js-raw.txt
 
       - name: Commit & push (if changed)
-        shell: bash           # ← shell / env 要与 run 同级
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
