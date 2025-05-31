@@ -1,6 +1,6 @@
 #!name=Spotify去广告
-#!desc=过滤Spotify播放广告，移除随机播放，恢复歌手和专辑列表的正常展示。建议重新登录并清除缓存，且音质不能设置为超高，仅建议iOS 15及以上设备使用。
-#!author=app2smile[https://github.com/app2smile]
+#!desc=移除播放广告，恢复歌手和专辑列表的正常展示。
+#!author=001ProMax[https://github.com/001ProMax]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Spotify.png
 #!category=🚫 AD Block
 
@@ -8,15 +8,19 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-31 23:08:12
+#!date=2025-05-31 23:45:13
 
 [Rule]
 AND,((DOMAIN,spclient.wg.spotify.com),(PROTOCOL,QUIC)),REJECT
 
-[Script]
-JSON处理 = type=http-request, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_remove_ads.js, timeout=10
+[URL Rewrite]
+^https:\/\/spclient\.wg\.spotify\.com\/(artistview\/v1\/artist|album-entity-view\/v2\/album)\/(.*)platform=iphone https://spclient.wg.spotify.com/$1/$2platform=ipad header
 
-Proto处理 = type=http-response, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize)$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_proto.js, requires-body=true, binary-body-mode=true, timeout=10
+[Map Local]
+^https:\/\/spclient\.wg\.spotify\.com\/pendragon\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+Protobuf处理 = type=http-response, pattern=^https:\/\/spclient\.wg\.spotify\.com\/(?:bootstrap|user-customization-service), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_remove_ads.js, requires-body=true, binary-body-mode=true, timeout=10, argument="[{tab},{useractivity}]"
 
 [MITM]
 hostname = %APPEND% spclient.wg.spotify.com
