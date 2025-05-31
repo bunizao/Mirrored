@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import yaml
 
-with open('Chores/engineering/data/sgmodules.yaml', 'r') as f:
+with open('Chores/engineering/data/adb-sgmodules.yaml', 'r') as f:
     sgmodule_info = yaml.safe_load(f)
 
 sections = {
