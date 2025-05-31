@@ -74,6 +74,7 @@ DOMAIN,aaid.uyunad.com,REJECT
 DOMAIN,yumao.puata.info,REJECT
 DOMAIN,gdfp.gifshow.com,REJECT
 DOMAIN,open.e.kuaishou.com,REJECT
+DOMAIN,open.e.kuaishou.cn,REJECT
 DOMAIN,adtrack.e.kuaishou.com,REJECT
 DOMAIN-SUFFIX,adukwai.com,REJECT
 DOMAIN,init.supersonicads.com,REJECT
@@ -272,7 +273,7 @@ DOMAIN-SUFFIX,googlesyndication-cn.com,REJECT
 
 [URL Rewrite]
 ^https:\/\/video-dsp\.pddpic\.com\/market-dsp-video\/ - reject
-^https:\/\/t-dsp\.pinduoduo\.com\/dspcb\/i\/mrk_union - reject
+^https:\/\/t-dsp\.pinduoduo\.com\/dspcb\/i\/mrk_ - reject
 ^https:\/\/images\.pinduoduo\.com\/mrk\/ - reject
 ^https:\/\/images\.pinduoduo\.com\/marketing_api\/ - reject
 
