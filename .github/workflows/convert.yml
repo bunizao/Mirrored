@@ -83,25 +83,28 @@ jobs:
           echo "Generated sgmodule files:"
           ls -la Chores/sgmodule/
           
-          # 显示一个示例文件的内容（用于调试）
-          echo "Sample sgmodule content:"
-          head -20 Chores/sgmodule/*.sgmodule | head -20
+-         # 显示一个示例文件的内容（用于调试）
+-         echo "Sample sgmodule content:"
+-         head -20 Chores/sgmodule/*.sgmodule | head -20
++         # （调试用的 head 打印已删，如果想保留请务必加 “|| true”）
           
           # 提取所有 JavaScript URL
           echo "Searching for JS URLs..."
           
           # 使用更精确的正则表达式匹配 script-path 后的 URL
-          find Chores/sgmodule -name "*.sgmodule" -exec grep -hoE 'script-path\s*=\s*https?://[^[:space:],]+\.js[^[:space:],]*' {} \; 2>/dev/null | \
-          sed -E 's/^script-path\s*=\s*//' | \
-          sort -u > external-js-raw.txt || touch external-js-raw.txt
+          find Chores/sgmodule -name "*.sgmodule" \
+            -exec grep -hoE 'script-path\s*=\s*https?://[^[:space:],"]+\.js[^[:space:],"]*' {} \; 2>/dev/null \
+            | sed -E 's/^script-path\s*=\s*//' \
+            | sort -u > external-js-raw.txt || touch external-js-raw.txt
           
           echo "Found JavaScript URLs:"
           cat external-js-raw.txt || echo "No JS URLs found"
           
           # 过滤掉已经指向镜像的 URL
           if [ -s external-js-raw.txt ]; then
-            grep -v "$MIRROR_KEY" external-js-raw.txt | \
-            grep -v "$MIRROR_RAW" > external-js.txt || touch external-js.txt
+            grep -v "$MIRROR_KEY" external-js-raw.txt \
+              | grep -v "$MIRROR_RAW" > external-js.txt \
+              || touch external-js.txt
           else
             touch external-js.txt
           fi
@@ -123,7 +126,7 @@ jobs:
             [ -z "$url" ] && continue
             
             # 提取文件名，处理可能的查询参数
-            filename=$(basename "$url" | sed 's/[?#].*//')
+            filename=$(basename "${url%%[\?#]*}")
             
             # 确保文件名以 .js 结尾
             if [[ ! "$filename" =~ \.js$ ]]; then
@@ -134,16 +137,15 @@ jobs:
             
             if curl -Ls --connect-timeout 30 --max-time 60 "$url" -o "Chores/js/$filename"; then
               # 检查下载的文件是否为空或过小
-              if [ -s "Chores/js/$filename" ] && [ $(stat -f%z "Chores/js/$filename" 2>/dev/null || stat -c%s "Chores/js/$filename" 2>/dev/null || echo 0) -gt 10 ]; then
+              if [ -s "Chores/js/$filename" ] && [ "$(stat -c%s "Chores/js/$filename")" -gt 10 ]; then
                 echo "✓ Successfully downloaded $filename"
                 
                 # 在所有 sgmodule 文件中替换链接
                 mirror_url="$MIRROR_RAW/$filename"
-                find Chores/sgmodule -name "*.sgmodule" -type f -exec sed -i.bak "s|$url|$mirror_url|g" {} \;
-                # 删除备份文件
-                find Chores/sgmodule -name "*.sgmodule.bak" -delete
+                find Chores/sgmodule -name "*.sgmodule" -type f \
+                  -exec perl -pi -e "s,\Q${url}\E,${mirror_url},g" {} \;
                 
-                echo "✓ Updated links in sgmodule files: $url → $mirror_url"
+                echo "✓ Updated links: $url → $mirror_url"
               else
                 echo "✗ Downloaded file is empty or too small: $filename"
                 rm -f "Chores/js/$filename"
