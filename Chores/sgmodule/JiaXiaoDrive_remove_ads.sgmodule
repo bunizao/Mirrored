@@ -22,7 +22,7 @@
 ^https:\/\/richmanrules\.ksedt\.com\/intellectWaterfall\/find$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_17 = type=http-response, pattern=http-response ^https:\/\/api\.ksedt\.com\/api\/config\/, script-path=https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/scripts/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.homead%22%2C%22result.h5_promotion_page%22%2C%22result.advert_interval%22%2C%22result.abtest_h5url%22%2C%22result.launchApp%22%2C%22result.goucheConfig%22%2C%22result.gouche%22%2C%22result.mainLiveConfig%22%2C%22result.discover%22%2C%22result.adSdkSwitch4testPointVideo%22%2C%22result.adSdkSwitch4simulationExam%22%2C%22result.examPageLoadADSwitch%22%5D%5D%5D
+body_rewrite_17 = type=http-response, pattern=http-response ^https:\/\/api\.ksedt\.com\/api\/config\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.homead%22%2C%22result.h5_promotion_page%22%2C%22result.advert_interval%22%2C%22result.abtest_h5url%22%2C%22result.launchApp%22%2C%22result.goucheConfig%22%2C%22result.gouche%22%2C%22result.mainLiveConfig%22%2C%22result.discover%22%2C%22result.adSdkSwitch4testPointVideo%22%2C%22result.adSdkSwitch4simulationExam%22%2C%22result.examPageLoadADSwitch%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% richmanrules.ksedt.com, gouche.ksedt.com, muses.ksedt.com, op.ksedt.com, api.ksedt.com

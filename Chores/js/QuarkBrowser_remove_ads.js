@@ -1,55 +1,90 @@
-// 2024-07-14 22:55:24
-var json = JSON.parse($response.body);
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head>
+<title>Attention Required! | Cloudflare</title>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/cf.errors.css" />
+<!--[if lt IE 9]><link rel="stylesheet" id='cf_styles-ie-css' href="/cdn-cgi/styles/cf.errors.ie.css" /><![endif]-->
+<style>body{margin:0;padding:0}</style>
 
-// 删除指定的路径
-var pathsToDelete = [
-    "result.cms_user_center_bussiness_banner_config", // 用户中心 - 横幅广告
-    "result.cms_user_center_welfare_farm_entry_config", // 用户中心 - 芭芭农场、福利中心
-    "result.cms_cloud_drive_transport_header_banner", // 云盘 - 传输页面横幅广告
-    "result.qk_novel_noah_sdk_slot_bottom_banner", // 小说 - 底部横幅广告
-    "result.cms_novel_bookshelf_banner", // 小说 - 书架横幅
-    "result.cms_bookmarkAndHistory_banner_ad", // 书签和历史 - 横幅广告
-    "result.paisou_benefit_banner", // 拍搜 - 横幅广告
-    "result.novel_ad_flbanner_close", // 小说广告横幅关闭
-    "result.noah_content_embed_ad_hc_vertical_scale_style", // 诺亚内容嵌入广告HC垂直扩展样式
-    "result.minipg_ads_switch_quark", // 迷你PG广告开关夸克
-    "result.noah_search_mid_page_ad_list", // 包含广告内容配置
-    "result.noah_search_mid_ad_enable",// 诺亚搜索中广告启用
-    "result.cms_web_ad_local_block_js", // CMS网站广告本地块JS
-    "result.novel_paid_book_ad_density_newuser", // 小说付费书籍广告密度对新用户的影响
-    "result.novel_ad_flbanner_cdtime", // 小说广告横幅CD时间
-    "result.cms_sm_ad_request_handle_enable", // 启用CMS SM广告请求处理
-    "result.novel_ad_space_count", // 小说广告空间计数
-    "result.cms_sc_ad_request_handle_enable", // 启用CMS SC广告请求处理
-    "result.noah_content_embed_ad_vertical_scale_style", // 诺亚内容嵌入广告垂直扩展风格
-    "result.enable_miniframe_prefetch_ad", // 启用迷你框架预取广告
-    "result.cms_camera_asset_activity_banner_list", // 广告促销横幅
-    "result.idfa_auth_config", // 包含IDFA（设备标识符）相关广告内容说明
-    "result.cms_cloud_drive_user_banner", // 多个横幅广告配置，如限时福利、SVIP年卡等
-    "result.cms_quark_pan_scene.res_data.data[0].items[39]", // 扩容广告横幅
-    "result.cms_quark_pan_scene.res_data.data[0].items[40]", // 扩容广告横幅
-    "result.cms_quark_pan_scene.res_data.data[0].items[41]", // 免费投屏增强次数已用完
-    "result.cms_quark_pan_scene.res_data.data[0].items[4]", // 免费投屏增强次数已用完
-    "result.cms_quark_pan_scene.res_data.data[0].items[6]", // 免费投屏增强次数已用完
-    "result.cms_cloud_backup_free_benefit_config", // 备用福利广告配置
-    "result.camera_universal_word_result_page", // 页面广告配置
-    "result.cms_quark_pan_scene.res_data.data[0].items[5]", // 视频原画备份广告横幅
-    "result.cms_quark_pan_scene.res_data.data[0].items[52]", // 视频原画备份广告横幅
-    "result.cms_quark_pan_scene.res_data.data[0].items[185]", // 开通SVIP一键极速上传原画视频
-    "result.cms_quark_pan_scene.res_data.data[0].items[186]" // 开通网盘SVIP享无限次导出权益
-];
 
-pathsToDelete.forEach(function(path) {
-    var parts = path.split('.');
-    var current = json;
-    for (var i = 0; i < parts.length; i++) {
-        if (i === parts.length - 1) {
-            delete current[parts[i]];
-        } else {
-            current = current[parts[i]];
-            if (!current) break;
-        }
-    }
-});
+<!--[if gte IE 10]><!-->
+<script>
+  if (!navigator.cookieEnabled) {
+    window.addEventListener('DOMContentLoaded', function () {
+      var cookieEl = document.getElementById('cookie-alert');
+      cookieEl.style.display = 'block';
+    })
+  }
+</script>
+<!--<![endif]-->
 
-$done({ body: JSON.stringify(json) });
+</head>
+<body>
+  <div id="cf-wrapper">
+    <div class="cf-alert cf-alert-error cf-cookie-error" id="cookie-alert" data-translate="enable_cookies">Please enable cookies.</div>
+    <div id="cf-error-details" class="cf-error-details-wrapper">
+      <div class="cf-wrapper cf-header cf-error-overview">
+        <h1 data-translate="block_headline">Sorry, you have been blocked</h1>
+        <h2 class="cf-subheadline"><span data-translate="unable_to_access">You are unable to access</span> kelee.one</h2>
+      </div><!-- /.header -->
+
+      <div class="cf-section cf-highlight">
+        <div class="cf-wrapper">
+          <div class="cf-screenshot-container cf-screenshot-full">
+            
+              <span class="cf-no-screenshot error"></span>
+            
+          </div>
+        </div>
+      </div><!-- /.captcha-container -->
+
+      <div class="cf-section cf-wrapper">
+        <div class="cf-columns two">
+          <div class="cf-column">
+            <h2 data-translate="blocked_why_headline">Why have I been blocked?</h2>
+
+            <p data-translate="blocked_why_detail">This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.</p>
+          </div>
+
+          <div class="cf-column">
+            <h2 data-translate="blocked_resolve_headline">What can I do to resolve this?</h2>
+
+            <p data-translate="blocked_resolve_detail">You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page.</p>
+          </div>
+        </div>
+      </div><!-- /.section -->
+
+      <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
+    <p class="text-13">
+      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold">948544d6fce0e611</strong></span>
+      <span class="cf-footer-separator sm:hidden">&bull;</span>
+      <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
+        Your IP:
+        <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
+        <span class="hidden" id="cf-footer-ip">52.224.217.246</span>
+        <span class="cf-footer-separator sm:hidden">&bull;</span>
+      </span>
+      <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing" id="brand_link" target="_blank">Cloudflare</a></span>
+      
+    </p>
+    <script>(function(){function d(){var b=a.getElementById("cf-footer-item-ip"),c=a.getElementById("cf-footer-ip-reveal");b&&"classList"in b&&(b.classList.remove("hidden"),c.addEventListener("click",function(){c.classList.add("hidden");a.getElementById("cf-footer-ip").classList.remove("hidden")}))}var a=document;document.addEventListener&&a.addEventListener("DOMContentLoaded",d)})();</script>
+  </div><!-- /.error-footer -->
+
+    </div><!-- /#cf-error-details -->
+  </div><!-- /#cf-wrapper -->
+
+  <script>
+    window._cf_translation = {};
+    
+    
+  </script>
+</body>
+</html>

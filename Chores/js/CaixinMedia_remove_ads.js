@@ -1,78 +1,90 @@
-/*
-脚本引用 https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/break/caixin.js
-*/
-// 2024-07-16 20:00
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head>
+<title>Attention Required! | Cloudflare</title>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/cf.errors.css" />
+<!--[if lt IE 9]><link rel="stylesheet" id='cf_styles-ie-css' href="/cdn-cgi/styles/cf.errors.ie.css" /><![endif]-->
+<style>body{margin:0;padding:0}</style>
 
-var url = $request.url;
-const isQuanX = typeof $task !== "undefined";
 
-if (url.includes("/gg.caixin.com/s")) {
-  // 开屏广告
-  let body = $response.body;
-  if (body === undefined) {
-    $done({});
-  } else {
-    body = body
-      .replace(/"showfrequency":\d+/g, '"showfrequency":0')
-      .replace(/"showintval":\d+/g, '"showintval":0')
-      .replace(/"showcycle":\d+/g, '"showcycle":604800')
-      .replace(/"intval":\d+/g, '"intval":0')
-      .replace(/"sday":"[^"]*"/g, '"sday":"2090-12-31 00:00:00"')
-      .replace(/"eday":"[^"]*"/g, '"eday":"2090-12-31 23:59:59"')
-      .replace(/"banner":/g, "ban0:");
-    $done({ body });
+<!--[if gte IE 10]><!-->
+<script>
+  if (!navigator.cookieEnabled) {
+    window.addEventListener('DOMContentLoaded', function () {
+      var cookieEl = document.getElementById('cookie-alert');
+      cookieEl.style.display = 'block';
+    })
   }
-} else {
-  if (!$response) $done({});
-  if (!$response.body) $done({});
-  let obj = JSON.parse($response.body);
-  if (url.includes("/api/dataplus/columns")) {
-    // 首页-数据通
-    const items = ["buttonColor", "buttonText", "buyUrl", "descText"];
-    if (obj?.data?.length > 0) {
-      for (let item of obj.data) {
-        for (let i of items) {
-          delete item[i];
-        }
-      }
-    }
-  } else if (url.includes("/articlev5/")) {
-    // 文章底部-相关阅读
-    if (obj?.data?.relatarticle?.length > 0) {
-      obj.data.relatarticle = [];
-    }
-  } else if (url.includes("/caixinapp/appinfo")) {
-    // 文章详情页
-    if (obj?.data?.articlePromotionList?.length > 0) {
-      // 文章底部推广图
-      obj.data.articlePromotionList = [];
-    }
-  } else if (url.includes("/channelv5/list")) {
-    // 首页-顶部分类列表
-    delete obj.data.ios_ad_513;
-    delete obj.data.android_ad_513;
-  } else if (url.includes("/fm/index/list")) {
-    // 首页-财新fm
-    const items = ["androidAdList", "headlines", "iosAdList"];
-    if (obj?.data) {
-      for (let i of items) {
-        if (obj?.data?.[i]?.length > 0) {
-          obj.data[i] = [];
-        }
-      }
-    }
-  } else if (url.includes("/index_page_v5")) {
-    // 首页-信息流
-    delete obj.data.ios_ad_513;
-    delete obj.data.android_ad_513;
-    if (obj?.data?.list?.length > 0) {
-      obj.data.list = obj.data.list.filter((i) => !["金融我闻", "财新数据通"]?.includes(i?.channel_name));
-    }
-  } else if (url.includes("/search/getkeyword")) {
-    // 搜索框填充词
-    if (obj?.data?.keys?.length > 0) {
-      obj.data.keys = [];
-    }
-  }
-  $done({ body: JSON.stringify(obj) });
-}
+</script>
+<!--<![endif]-->
+
+</head>
+<body>
+  <div id="cf-wrapper">
+    <div class="cf-alert cf-alert-error cf-cookie-error" id="cookie-alert" data-translate="enable_cookies">Please enable cookies.</div>
+    <div id="cf-error-details" class="cf-error-details-wrapper">
+      <div class="cf-wrapper cf-header cf-error-overview">
+        <h1 data-translate="block_headline">Sorry, you have been blocked</h1>
+        <h2 class="cf-subheadline"><span data-translate="unable_to_access">You are unable to access</span> kelee.one</h2>
+      </div><!-- /.header -->
+
+      <div class="cf-section cf-highlight">
+        <div class="cf-wrapper">
+          <div class="cf-screenshot-container cf-screenshot-full">
+            
+              <span class="cf-no-screenshot error"></span>
+            
+          </div>
+        </div>
+      </div><!-- /.captcha-container -->
+
+      <div class="cf-section cf-wrapper">
+        <div class="cf-columns two">
+          <div class="cf-column">
+            <h2 data-translate="blocked_why_headline">Why have I been blocked?</h2>
+
+            <p data-translate="blocked_why_detail">This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.</p>
+          </div>
+
+          <div class="cf-column">
+            <h2 data-translate="blocked_resolve_headline">What can I do to resolve this?</h2>
+
+            <p data-translate="blocked_resolve_detail">You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page.</p>
+          </div>
+        </div>
+      </div><!-- /.section -->
+
+      <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
+    <p class="text-13">
+      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold">9485449f7bbfd6e1</strong></span>
+      <span class="cf-footer-separator sm:hidden">&bull;</span>
+      <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
+        Your IP:
+        <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
+        <span class="hidden" id="cf-footer-ip">52.224.217.246</span>
+        <span class="cf-footer-separator sm:hidden">&bull;</span>
+      </span>
+      <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing" id="brand_link" target="_blank">Cloudflare</a></span>
+      
+    </p>
+    <script>(function(){function d(){var b=a.getElementById("cf-footer-item-ip"),c=a.getElementById("cf-footer-ip-reveal");b&&"classList"in b&&(b.classList.remove("hidden"),c.addEventListener("click",function(){c.classList.add("hidden");a.getElementById("cf-footer-ip").classList.remove("hidden")}))}var a=document;document.addEventListener&&a.addEventListener("DOMContentLoaded",d)})();</script>
+  </div><!-- /.error-footer -->
+
+    </div><!-- /#cf-error-details -->
+  </div><!-- /#cf-wrapper -->
+
+  <script>
+    window._cf_translation = {};
+    
+    
+  </script>
+</body>
+</html>

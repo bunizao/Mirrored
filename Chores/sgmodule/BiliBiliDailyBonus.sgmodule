@@ -8,11 +8,11 @@
 
 [Script]
 # BiliBili每日等级任务
-B站每日等级任务 = type=cron, cronexp=30 7 * * *, script-path=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/js/BiliBiliDailyBonus.js, timeout=15
+B站每日等级任务 = type=cron, cronexp=30 7 * * *, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js, timeout=15
 
-B站Cookie(扫码) = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/fingerprint\?, script-path=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/js/BiliBiliDailyBonus.js, timeout=30
+B站Cookie(扫码) = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/fingerprint\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js, timeout=30
 
-B站Cookie(APP) = type=http-request, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/fingerprint\?, script-path=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/js/BiliBiliDailyBonus.js
+B站Cookie(APP) = type=http-request, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/fingerprint\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js
 
 [MITM]
 hostname = %APPEND% app.bilibili.com

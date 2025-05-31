@@ -1,67 +1,90 @@
-/*
-脚本引用 https://raw.githubusercontent.com/kelv1n1n/script/main/js/pp.js
-*/
-let url = $request.url;
-let body = $response.body;
-let obj = JSON.parse(body);
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head>
+<title>Attention Required! | Cloudflare</title>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/cf.errors.css" />
+<!--[if lt IE 9]><link rel="stylesheet" id='cf_styles-ie-css' href="/cdn-cgi/styles/cf.errors.ie.css" /><![endif]-->
+<style>body{margin:0;padding:0}</style>
 
-const search = "/banner/search_component_banner";
-const mine = "position_types=60%2C560%2C850%2C860%2C890%2C2400";
-const search_hot = "/search/hot_keywords";
-const recommend = "/resource_preload/list_h5_resource";
-const recommendPro = "/recommendation/interests/products";
-const adv = "/advertisement/v1";
 
-if (url.indexOf(mine) != -1) {
-  obj.data = [];
-  body = JSON.stringify(obj);
-  $done({body});
-}
+<!--[if gte IE 10]><!-->
+<script>
+  if (!navigator.cookieEnabled) {
+    window.addEventListener('DOMContentLoaded', function () {
+      var cookieEl = document.getElementById('cookie-alert');
+      cookieEl.style.display = 'block';
+    })
+  }
+</script>
+<!--<![endif]-->
 
-if (url.indexOf(search) != -1) {
-  obj.data = [];
-  body = JSON.stringify(obj);
-  $done({body});
-}
+</head>
+<body>
+  <div id="cf-wrapper">
+    <div class="cf-alert cf-alert-error cf-cookie-error" id="cookie-alert" data-translate="enable_cookies">Please enable cookies.</div>
+    <div id="cf-error-details" class="cf-error-details-wrapper">
+      <div class="cf-wrapper cf-header cf-error-overview">
+        <h1 data-translate="block_headline">Sorry, you have been blocked</h1>
+        <h2 class="cf-subheadline"><span data-translate="unable_to_access">You are unable to access</span> kelee.one</h2>
+      </div><!-- /.header -->
 
-if (url.indexOf(search_hot) != -1) {
-  obj.data = [];
-  body = JSON.stringify(obj);
-  $done({body});
-}
+      <div class="cf-section cf-highlight">
+        <div class="cf-wrapper">
+          <div class="cf-screenshot-container cf-screenshot-full">
+            
+              <span class="cf-no-screenshot error"></span>
+            
+          </div>
+        </div>
+      </div><!-- /.captcha-container -->
 
-if (url.indexOf(recommend) != -1) {
-  obj.data = obj.data.filter(item => item.filename !== "RecommendProduct.29e31893.js");
-  body = JSON.stringify(obj);
-  $done({body});
-}
+      <div class="cf-section cf-wrapper">
+        <div class="cf-columns two">
+          <div class="cf-column">
+            <h2 data-translate="blocked_why_headline">Why have I been blocked?</h2>
 
-if (url.indexOf(recommendPro) != -1) {
-  //obj.data = {};
-  obj.data.activities = [];
-  obj.data.products = [];
-  body = JSON.stringify(obj);
-  $done({body});
-}
+            <p data-translate="blocked_why_detail">This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.</p>
+          </div>
 
-if (url.indexOf(adv) != -1) {
-  obj.data = obj.data.filter(item => ![30,50,90,320,100].includes(item.region_code)); 
+          <div class="cf-column">
+            <h2 data-translate="blocked_resolve_headline">What can I do to resolve this?</h2>
 
-  obj.data = obj.data.map(item => {  
-  if (item.region_code === 2) {  
-    // 过滤掉positions数组中component_code等于890和60的元素  
-    item.positions = item.positions.filter(position => ![890, 60].includes(position.component_code));  
-  }  
-    // 返回最终的元素
-    return item;  
-  });
-  
-  body = JSON.stringify(obj);
-  $done({body});
-}
+            <p data-translate="blocked_resolve_detail">You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page.</p>
+          </div>
+        </div>
+      </div><!-- /.section -->
 
-const typeArr = [50, 2, 90, 770, 80, 320];
-obj.data = obj.data.filter(item => !typeArr.includes(item.position_type));
+      <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
+    <p class="text-13">
+      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold">948544d4acadc938</strong></span>
+      <span class="cf-footer-separator sm:hidden">&bull;</span>
+      <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
+        Your IP:
+        <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
+        <span class="hidden" id="cf-footer-ip">52.224.217.246</span>
+        <span class="cf-footer-separator sm:hidden">&bull;</span>
+      </span>
+      <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing" id="brand_link" target="_blank">Cloudflare</a></span>
+      
+    </p>
+    <script>(function(){function d(){var b=a.getElementById("cf-footer-item-ip"),c=a.getElementById("cf-footer-ip-reveal");b&&"classList"in b&&(b.classList.remove("hidden"),c.addEventListener("click",function(){c.classList.add("hidden");a.getElementById("cf-footer-ip").classList.remove("hidden")}))}var a=document;document.addEventListener&&a.addEventListener("DOMContentLoaded",d)})();</script>
+  </div><!-- /.error-footer -->
 
-body = JSON.stringify(obj);
-$done({body});
+    </div><!-- /#cf-error-details -->
+  </div><!-- /#cf-wrapper -->
+
+  <script>
+    window._cf_translation = {};
+    
+    
+  </script>
+</body>
+</html>
