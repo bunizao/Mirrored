@@ -95,26 +95,34 @@ jobs:
           done < external-js.txt
           rm -f external-js.txt
 
-      # ---------- 4. 提交 ----------
       - name: Commit & push (if changed)
+        shell: bash           # ← shell / env 要与 run 同级
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
         run: |
           set -e
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 暂存需要管控的文件
           git add Chores/sgmodule Chores/js
-          # 工作区干净 → 直接跳过
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "No changes to commit."
+
+          # 若暂存区为空 → 正常退出
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
             exit 0
           fi
 
-          git stash -u
-          git pull --rebase
-          git stash pop
+          git stash -u                 # 保存工作区未跟踪文件
+          git pull --rebase            # 同步远端
+          git stash pop || true        # 冲突时不让脚本失败
           git add Chores/sgmodule Chores/js
-          git commit -m "Update sgmodule & mirror JS [skip ci]"
-          git push
-          git add Chores/sgmodule Chores/js
+
+          # rebase 后再次检查
+          if git diff --cached --quiet; then
+            echo "Nothing to commit after rebase."
+            exit 0
+          fi
+
           git commit -m "Update sgmodule & mirror JS [skip ci]"
           git push
