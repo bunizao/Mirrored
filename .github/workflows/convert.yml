@@ -74,74 +74,91 @@ jobs:
           set -e
           mkdir -p Chores/js
           
-          # 添加调试信息：列出生成的 sgmodule 文件
-          echo "Generated sgmodule files:"
-          ls -la Chores/sgmodule/ || echo "No sgmodule directory found"
-          
-          # 显示一个示例文件的内容（用于调试）
-          if ls Chores/sgmodule/*.sgmodule >/dev/null 2>&1; then
-            echo "Sample sgmodule content:"
-            head -20 Chores/sgmodule/*.sgmodule | head -20
-            echo "---"
+          # 检查是否有生成的 sgmodule 文件
+          if [ ! -d "Chores/sgmodule" ] || [ -z "$(ls -A Chores/sgmodule 2>/dev/null)" ]; then
+            echo "No sgmodule files found to process"
+            exit 0
           fi
           
-          # 改进的正则表达式，匹配更多可能的 JS URL 格式
+          echo "Generated sgmodule files:"
+          ls -la Chores/sgmodule/
+          
+          # 显示一个示例文件的内容（用于调试）
+          echo "Sample sgmodule content:"
+          head -20 Chores/sgmodule/*.sgmodule | head -20
+          
+          # 提取所有 JavaScript URL
           echo "Searching for JS URLs..."
           
-          # 尝试多种 grep 模式
-          {
-            # 匹配 script-path = https://...js
-            grep -RohE 'script-path\s*=\s*https?://[^[:space:],"'\'']+\.js' Chores/sgmodule/ 2>/dev/null || true
-            # 匹配 http-response 中的 script-path
-            grep -RohE 'http-response.*script-path=https?://[^[:space:],"'\'']+\.js' Chores/sgmodule/ 2>/dev/null || true
-            # 匹配 http-request 中的 script-path  
-            grep -RohE 'http-request.*script-path=https?://[^[:space:],"'\'']+\.js' Chores/sgmodule/ 2>/dev/null || true
-            # 通用匹配，任何 https:// 开头以 .js 结尾的 URL
-            grep -RohE 'https?://[^[:space:],"'\'']*\.js[^[:space:],"'\'']*' Chores/sgmodule/ 2>/dev/null || true
-          } | sort -u > all_js_urls.txt
+          # 使用更精确的正则表达式匹配 script-path 后的 URL
+          find Chores/sgmodule -name "*.sgmodule" -exec grep -hoE 'script-path\s*=\s*https?://[^[:space:],]+\.js[^[:space:],]*' {} \; 2>/dev/null | \
+          sed -E 's/^script-path\s*=\s*//' | \
+          sort -u > external-js-raw.txt || touch external-js-raw.txt
           
-          # 从完整 URL 中提取纯 URL（去掉参数中的 script-path= 等前缀）
-          sed -E 's/.*script-path\s*=\s*//' all_js_urls.txt | \
-          grep -E '^https?://' | \
-          sort -u > external-js-raw.txt
+          echo "Found JavaScript URLs:"
+          cat external-js-raw.txt || echo "No JS URLs found"
           
-          # 排除已经指向 Mirrored 的链接
-          grep -v "$MIRROR_KEY" external-js-raw.txt | \
-          grep -v "$MIRROR_RAW" > external-js.txt || true
+          # 过滤掉已经指向镜像的 URL
+          if [ -s external-js-raw.txt ]; then
+            grep -v "$MIRROR_KEY" external-js-raw.txt | \
+            grep -v "$MIRROR_RAW" > external-js.txt || touch external-js.txt
+          else
+            touch external-js.txt
+          fi
           
-          echo "All JS URLs found:"
-          cat all_js_urls.txt || echo "No URLs in all_js_urls.txt"
-          echo "---"
-          echo "Raw external JS URLs:"
-          cat external-js-raw.txt || echo "No URLs in external-js-raw.txt" 
-          echo "---"
-          echo "Filtered external JS URLs:"
-          cat external-js.txt || echo "No URLs in external-js.txt"
-          echo "---"
+          echo "External JS URLs to mirror:"
+          cat external-js.txt || echo "No external JS URLs to mirror"
 
+          # 如果没有需要镜像的 JS 文件，直接退出
           if [ ! -s external-js.txt ]; then
-            echo "No external JS links found."
-            rm -f external-js.txt all_js_urls.txt external-js-raw.txt
+            echo "No external JS links found to mirror."
+            rm -f external-js.txt external-js-raw.txt
             exit 0
           fi
 
+          # 下载并镜像 JS 文件
           echo "Processing external JS files:"
-          while read -r url; do
+          failed_downloads=0
+          while IFS= read -r url; do
             [ -z "$url" ] && continue
-            file=$(basename "$url")
-            echo "Mirroring $url  →  Chores/js/$file"
-            if curl -Ls "$url" -o "Chores/js/$file"; then
-              echo "Successfully downloaded $file"
-              # 替换所有 sgmodule 文件中的链接
-              find Chores/sgmodule -name "*.sgmodule" -exec sed -i "s|$url|$MIRROR_RAW/$file|g" {} \;
-              echo "Updated links in sgmodule files"
+            
+            # 提取文件名，处理可能的查询参数
+            filename=$(basename "$url" | sed 's/[?#].*//')
+            
+            # 确保文件名以 .js 结尾
+            if [[ ! "$filename" =~ \.js$ ]]; then
+              filename="${filename}.js"
+            fi
+            
+            echo "Mirroring: $url → Chores/js/$filename"
+            
+            if curl -Ls --connect-timeout 30 --max-time 60 "$url" -o "Chores/js/$filename"; then
+              # 检查下载的文件是否为空或过小
+              if [ -s "Chores/js/$filename" ] && [ $(stat -f%z "Chores/js/$filename" 2>/dev/null || stat -c%s "Chores/js/$filename" 2>/dev/null || echo 0) -gt 10 ]; then
+                echo "✓ Successfully downloaded $filename"
+                
+                # 在所有 sgmodule 文件中替换链接
+                mirror_url="$MIRROR_RAW/$filename"
+                find Chores/sgmodule -name "*.sgmodule" -type f -exec sed -i.bak "s|$url|$mirror_url|g" {} \;
+                # 删除备份文件
+                find Chores/sgmodule -name "*.sgmodule.bak" -delete
+                
+                echo "✓ Updated links in sgmodule files: $url → $mirror_url"
+              else
+                echo "✗ Downloaded file is empty or too small: $filename"
+                rm -f "Chores/js/$filename"
+                ((failed_downloads++))
+              fi
             else
-              echo "::warning ::Failed to download $url"
+              echo "✗ Failed to download: $url"
+              ((failed_downloads++))
             fi
           done < external-js.txt
           
+          echo "Processing complete. Failed downloads: $failed_downloads"
+          
           # 清理临时文件
-          rm -f external-js.txt all_js_urls.txt external-js-raw.txt
+          rm -f external-js.txt external-js-raw.txt
 
       - name: Commit & push (if changed)
         shell: bash
@@ -152,25 +169,48 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 暂存需要管控的文件
-          git add Chores/sgmodule Chores/js
+          # 检查是否有文件变化
+          if [ ! -d "Chores/sgmodule" ] && [ ! -d "Chores/js" ]; then
+            echo "No files to commit."
+            exit 0
+          fi
 
-          # 若暂存区为空 → 正常退出
+          # 暂存需要管控的文件
+          git add Chores/sgmodule Chores/js 2>/dev/null || true
+
+          # 检查暂存区是否为空
           if git diff --cached --quiet; then
             echo "Nothing to commit."
             exit 0
           fi
 
-          git stash -u                 # 保存工作区未跟踪文件
-          git pull --rebase            # 同步远端
-          git stash pop || true        # 冲突时不让脚本失败
-          git add Chores/sgmodule Chores/js
+          # 显示将要提交的变化
+          echo "Changes to be committed:"
+          git diff --cached --name-status
 
-          # rebase 后再次检查
-          if git diff --cached --quiet; then
-            echo "Nothing to commit after rebase."
-            exit 0
+          # 同步远端变化
+          git fetch origin
+          if git diff --quiet HEAD origin/main; then
+            echo "Local branch is up to date with origin/main"
+          else
+            echo "Pulling latest changes from origin..."
+            git pull --rebase origin main
+            
+            # rebase 后重新添加文件
+            git add Chores/sgmodule Chores/js 2>/dev/null || true
+            
+            # rebase 后再次检查
+            if git diff --cached --quiet; then
+              echo "Nothing to commit after rebase."
+              exit 0
+            fi
           fi
 
-          git commit -m "Update sgmodule & mirror JS [skip ci]"
-          git push
+          # 提交变化
+          commit_msg="Update sgmodule & mirror JS files - $(date '+%Y-%m-%d %H:%M:%S UTC')"
+          git commit -m "$commit_msg"
+          
+          echo "Pushing changes..."
+          git push origin main
+          
+          echo "✓ Successfully committed and pushed changes"
