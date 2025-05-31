@@ -2,34 +2,15 @@
 #!desc=Crack & Enhance
 #!author=@hututu0 & @bunizao
 #!category=Enhancements
-
-# > 🚨 注意：为了方便各大懒人使用，本模块是一个集合模块。请避免与以下模块同时使用，因为本模块已包含他们的基本功能。
- // - https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/sgmodule/General.sgmodule
- // - https://github.com/DivineEngine/Profiles/blob/master/Surge/Module/General.sgmodule?raw=True
- // - https://raw.githubusercontent.com/ddgksf2013/Rewrite/master/UnlockVip/Spotify.conf
- // - https://gist.githubusercontent.com/ddgksf2013/dbb1695cd96743eef18f3fac5c6fe227/raw/revenuecat.js
- // - https://raw.githubusercontent.com/zZPiglet/Task/master/UnblockURLinWeChat.sgmodule
- // - https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/Surge/module/QX-Surge.sgmodule
- // - https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/Surge/module/FunScript.sgmodule
- // - https://raw.githubusercontent.com/Orz-3/QuantumultX/master/Netflix_ratings.conf
-
-# > 🚨 声明：本模块仅供学习交流使用。
-
-# > ⛴️ 功能介绍：
-  // URL Rewrite:
-     // - 高级设置及通用的 URL 重定向优化
-     // - Google 搜索纠正
-     // - Redirect HTTP to HTTPS
-     // - AbeamTV 区域限制
-  // Script:
-     // - Crack: (xCurrency, Quark Scanner, Mate Translator, Revenuecat, VSCO, 西窗烛, Picsart, Notability, XMind, Nicegram, 扫描全能王, 酷我音乐, Flightradar24, Fantastical)
-     // - Enhance: (Google自动翻页, 解除微信链接限制, Netflix Ranking, Bstar login & play)
+#!arguments=README:"❗️下滑查看配置指南",R_REVENUECAT:"",H_REVENUECAT:"",R_CARROTWEATHER:"",H_CARROTWEATHER:"",S_FLIGHTRADAR24:"",H_FLIGHTRADAR24:"",S_ENDEL:"",H_ENDEL:"",S_NOTABILITY:"",H_NOTABILITY:"",S_DAILYART:"",H_DAILYART:"",S_XCURRENCY:"",H_XCURRENCY:"",S_CAMSCANNER:"",H_CAMSCANNER:"",S_RM_WECHAT_LINK_RESTRICTIONS:"",H_RM_WECHAT_LINK_RESTRICTIONS:"",S_BILIBILICC:"",H_BILIBILICC:""
+#!arguments-desc=True Surge PRO 支持自定义功能，请遵循以下说明进行设置。\n所有参数留空为启用✅（默认全启用）。\n ├ R/S 参数：填 “#” 以禁用；\n ├ H 参数：填 “-” 以禁用。\n⚠️ 若要彻底关闭某功能，请同时关闭其所有关联参数（例如关闭 Revenuecat，需在 R_REVENUECAT 填 #，H_REVENUECAT 填 -）。
 
 # > ⚓️ 推荐引用：
- // - 去广告1.x: https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/Surge/module/All-in-One.sgmodule //使用更小的资源去除广告。
- // - 去广告2.x: https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/Surge/module/All-in-One-2.x.sgmodule // 去广告plus, 与1.0互补且不冲突。
 
- 
+// {{{README}}}
+// - 去广告1.x: https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/Surge/module/All-in-One.sgmodule // 使用更小的资源去除广告。
+// - 去广告2.x: https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/Surge/module/All-in-One-2.x.sgmodule // 去广告 plus，与 1.x 互补且不冲突。
+
 ###################################### General ######################################
 
 [General]
@@ -40,141 +21,60 @@
 
 [URL Rewrite]
 
-# 高级设置及通用的 URL 重定向优化（如 Google 搜索及地图、AbeamTV 区域限制等）
 # Redirect Google Search Service
 ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
 
-# Redirect Google Maps Service
-^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
-
-# Redirect HTTP to HTTPS
-^https?:\/\/(www.)?taobao\.com\/ https://taobao.com/ 302
-^https?:\/\/(www.)?mi\.com\/ https://www.mi.com/ 302
-^https?:\/\/you\.163\.com\/ https://you.163.com/ 302
-^https?:\/\/(www.)?suning\.com\/ https://suning.com/ 302
-^https?:\/\/(www.)?yhd\.com\/ https://yhd.com/ 302
-
-# Redirect False to True
-# > Firefox - www.firefox.com.cn
-^https?:\/\/(www.)?firefox\.com\.cn\/(download\/)?$ https://www.mozilla.org/zh-CN/firefox/new/ 302
-# > IGN China to IGN Global
-^https?:\/\/(www.)?ign\.xn--fiqs8s\/ http://cn.ign.com/ccpref/us 302
-# > Fake Website Made By C&J Marketing
-^https?:\/\/(www.)?abbyychina\.com\/ https://www.abbyy.cn/ 302
-^https?:\/\/(www.)?alienskins\.cn\/ https://exposure.software/ 302
-^https?:\/\/(www.)?anydeskchina\.cn\/ https://anydesk.com/zhs 302
-^https?:\/\/(www.)?bartender\.cc\/ https://www.macbartender.com/ 302
-^https?:\/\/(www.)?(betterzipcn|betterzip)\.(com|net)\/ https://macitbetter.com/ 302
-^https?:\/\/(www.)?beyondcompare\.cc\/ https://www.scootersoftware.com/ 302
-^https?:\/\/(www.)?bingdianhuanyuan\.cn\/ https://www.faronics.com/zh-hans/products/deep-freeze 302
-^https?:\/\/(www.)?chemdraw\.com\.cn\/ https://www.perkinelmer.com.cn/ 302
-^https?:\/\/(www.)?codesoftchina\.com\/ https://www.teklynx.com/ 302
-^https?:\/\/(www.)?coreldrawchina\.com\/ https://www.coreldraw.com/cn/ 302
-^https?:\/\/(www.)?crossoverchina\.com\/ https://www.codeweavers.com/ 302
-^https?:\/\/(www.)?dongmansoft\.com\/ https://www.udongman.cn/ 302
-^https?:\/\/(www.)?earmasterchina\.cn\/ https://www.earmaster.com/ 302
-^https?:\/\/(www.)?easyrecoverychina\.com\/ https://www.ontrack.com/ 302
-^https?:\/\/(www.)?ediuschina\.com\/ https://www.grassvalley.com/ 302
-^https?:\/\/(www.)?flstudiochina\.com\/ https://www.image-line.com/ 302
-^https?:\/\/(www.)?folxchina\.cn\/ https://mac.eltima.com/cn/download-manager.html 302
-^https?:\/\/(www.)?formysql\.com\/ https://www.navicat.com.cn/ 302
-^https?:\/\/(www.)?guitarpro\.cc\/ https://www.guitar-pro.com/ 302
-^https?:\/\/(www.)?huishenghuiying\.com\.cn\/ https://www.coreldraw.com/cn/ 302
-^https?:\/\/(www.)?hypeapp\.cn\/ https://tumult.com/hype/ 302
-^https?:\/\/hypersnap\.mairuan\.com\/ https://www.hyperionics.com/ 302
-^https?:\/\/(www.)?iconworkshop\.cn\/ https://www.axialis.com/ 302
-^https?:\/\/(www.)?idmchina\.net\/ https://www.internetdownloadmanager.com/ 302
-^https?:\/\/(www.)?imazingchina\.com\/ https://imazing.com/zh 302
-^https?:\/\/(www.)?imindmap\.cc\/ https://www.ayoa.com/previously-imindmap/ 302
-^https?:\/\/(www.)?jihehuaban\.com\.cn\/ https://www.chartwellyorke.com/sketchpad/x24795.html 302
-^https?:\/\/hypersnap\.mairuan\.com\/ https://www.keyshot.com/ 302
-^https?:\/\/(www.)?kingdeecn\.cn\/ http://www.kingdee.com/ 302
-^https?:\/\/(www.)?logoshejishi\.com https://www.sothink.com/product/logo-design-software/ 302
-^https?:\/\/logoshejishi\.mairuan\.com\/ https://www.sothink.com/product/logo-design-software/ 302
-^https?:\/\/(www.)?luping\.net\.cn\/ https://www.techsmith.com/ 302
-^https?:\/\/(www.)?mathtype\.cn\/ https://www.dessci.com/ 302
-^https?:\/\/(www.)?mindmanager\.(cc|cn)\/ https://www.mindjet.com/cn/ 302
-^https?:\/\/(www.)?mindmapper\.cc\/ https://www.mindmapper.com/ 302
-^https?:\/\/(www.)?(mycleanmymac|xitongqingli)\.com\/ https://macpaw.com/ 302
-^https?:\/\/(www.)?nicelabel\.cc\/ https://www.nicelabel.com/zh/ 302
-^https?:\/\/(www.)?ntfsformac\.cc\/ https://www.tuxera.com/products/tuxera-ntfs-for-mac-cn/ 302
-^https?:\/\/(www.)?ntfsformac\.cn\/ https://china.paragon-software.com/home-mac/ntfs-for-mac/ 302
-^https?:\/\/(www.)?officesoftcn\.com\/ https://www.microsoft.com/zh-cn/microsoft-365 302
-^https?:\/\/(www.)?overturechina\.com\/ https://sonicscores.com/ 302
-^https?:\/\/(www.)?passwordrecovery\.cn\/ https://cn.elcomsoft.com/aopr.html 302
-^https?:\/\/(www.)?pdfexpert\.cc\/ https://pdfexpert.com/zh 302
-^https?:\/\/(www.)?photozoomchina\.com\/ https://www.benvista.com/ 302
-^https?:\/\/(www.)?shankejingling\.com\/ https://www.sothink.com/product/flashdecompiler/ 302
-^https?:\/\/cn\.ultraiso\.net\/ https://cn.ezbsystems.com/ultraiso/ 302
-^https?:\/\/(www.)?vegaschina\.cn\/ https://www.vegascreativesoftware.com/ 302
-^https?:\/\/(www.)?xshellcn\.com\/ https://www.netsarang.com/zh/xshell/ 302
-^https?:\/\/(www.)?yuanchengxiezuo\.com\/ https://www.teamviewer.com/ 302
-^https?:\/\/(www.)?zbrushcn\.com\/ https://pixologic.com/ 302
-
-# AbeamTV - api.*.abema-tv.com
-^https?:\/\/api\.[\w-]+\.abema-tv\.com\/v\d\/ip\/check - reject
-
-# bstar intl
-(^https?:\/\/app\.biliintl\.com\/(x\/)?(intl|dm|reply|history|v\d\/(fav|msgfeed)).+?)(&s_locale=zh-Hans_[A-Z]{2})(.+?)(&sim_code=\d+)(.+) $1&s_locale=zh-Hans_PH$6&sim_code=51503$8 header
-(^https?:\/\/passport\.biliintl\.com\/x\/intl\/passport-login\/.+)(&s_locale=zh-Hans_[A-Z]{2})(.+)(&sim_code=\d+)(.+) $1&s_locale=zh-Hans_PH$35&sim_code=51503$5 header
-
-# AICoin
-^http:\/\/(www.)?aicoin\.cn\/$ https://www.aicoin.com/ 302
-
 # > Revenuecat Universal
-^https:\/\/(api\.revenuecat\.com|api\.rc-backup\.com)\/.+\/(receipts$|subscribers\/[^/]+$) https://rc-backup.lovebabyforever.workers.dev header
-^https:\/\/(api\.revenuecat\.com|api\.rc-backup\.com)\/.+\/(receipts$|subscribers\/[^/]+$) https://reven.lovebabyforever.workers.dev header
 
-# > Carrot
-^https:\/\/carrotweather\.herokuapp\.com\/parse\/functions\/findSubscriptionsForUserId$ https://carrot.lovebabyforever.workers.dev header
+{{{R_REVENUECAT}}}^https://(api.revenuecat.com|api.rc-backup.com)/.+/(receipts$|subscribers/[^/]+$) https://rc-backup.lovebabyforever.workers.dev header
+{{{R_REVENUECAT}}}^https://(api.revenuecat.com|api.rc-backup.com)/.+/(receipts$|subscribers/[^/]+$) https://reven.lovebabyforever.workers.dev header
+{{{R_REVENUECAT}}}^https://rc.visionarytech.ltd/.+/(receipts$|subscribers/[^/]+$) https://rc.lovebabyforever.workers.dev header
+
+# > Carrot Weather
+
+{{{R_CARROTWEATHER}}}^https://carrotweather.herokuapp.com/parse/functions/findSubscriptionsForUserId$ https://carrot.lovebabyforever.workers.dev header
 
 ###################################### Script ######################################
 
 [Script]
 
-# ------------------------------------- Crack ---------------------------------------
+———————————–– Crack —————————————
 
-# > flighttradar 24
-flightradar24 = type=http-request, pattern=^https?:\/\/mobile\.flightradar24\.com\/mobile\/(user-session|\w{9}), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/flightradar24.js, timeout=60
+# > Flighttradar 24
+
+{{{S_FLIGHTRADAR24}}} = type=http-request, pattern=^https?://mobile.flightradar24.com/mobile/(user-session|\w{9}), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/flightradar24.js, timeout=60
 
 # > Endel
-Endel = type=http-response,pattern=^https?:\/\/api-production\.endel\.io\/v\d\/call,requires-body=1,max-size=0,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Endel.js
+
+{{{S_ENDEL}}} = type=http-response, pattern=^https?://api-production.endel.io/v\d/call, requires-body=1, max-size=0, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Endel.js
 
 # > Notability
-Notability = type=http-response,pattern=^https?:\/\/notability\.com\/(global|subscriptions),requires-body=1,max-size=0,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Notability.js
 
-# > Nicegram
-Nicegram = type=http-request,pattern=^https?:\/\/restore-access\.indream\.app\/restoreAccess\?id=\w+$,requires-body=0,max-size=0,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Nicegram.js,script-update-interval=0
-
-# > XMind
-Xmind = type=http-response,pattern=https?:\/\/www\.xmind\.(cn|net)\/\_res\/devices,requires-body=1,max-size=0,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Xmind.js,script-update-interval=0
+{{{S_NOTABILITY}}} = type=http-response, pattern=^https?://notability.com/(global|subscriptions), requires-body=1, max-size=0, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Notability.js
 
 # > DailyArt
-DailyArt = type=http-response, pattern=^https?:\/\/api\.getdailyart\.com\/api\/(subscription\/verified|auth\/login|check-logged), requires-body=true, max-size=3145728, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/DailyArt.js, timeout=60, script-update-interval=0
 
-# > Quark Scanner
-Quark Scanner = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.sm\.order\.service\.member\.getmemberinfo,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/kuakesaomiaowang.js
+{{{S_DAILYART}}} = type=http-response, pattern=^https?://api.getdailyart.com/api/(subscription/verified|auth/login|check-logged), requires-body=true, max-size=3145728, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/DailyArt.js, timeout=60, script-update-interval=0
 
 # > xCurrency
-xCurrency = type=http-response, pattern=^https?:\/\/(xremit\.xcurrency|explorer.tratao)\.com\/api\/client\/xtool\/vip, requires-body=true, max-size=3145728, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/jijianhuilv.js, timeout=60, script-update-interval=0
+
+{{{S_XCURRENCY}}} = type=http-response, pattern=^https?://(xremit.xcurrency|explorer.tratao).com/api/client/xtool/vip, requires-body=true, max-size=3145728, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/jijianhuilv.js, timeout=60, script-update-interval=0
 
 # > CamScanner
-CamScanner = type=http-response, pattern=^https:\/\/.*\.(intsig\.net|camscanner\.com), requires-body=true, max-size=3145728, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CamScanner.js, timeout=60, script-update-interval=0
 
-# ------------------------------------- Enhance ---------------------------------------
+{{{S_CAMSCANNER}}} = type=http-response, pattern=^https://.*.(intsig.net|camscanner.com), requires-body=true, max-size=3145728, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CamScanner.js, timeout=60, script-update-interval=0
+
+———————————–– Enhance —————————————
 
 # > 解除微信链接限制
-解除微信链接限制 = type=http-response,pattern=^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?,requires-body=1,max-size=0,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnblockURLinWeChat.js
+
+{{{S_RM_WECHAT_LINK_RESTRICTIONS}}} = type=http-response, pattern=^https://(weixin110.qq|security.wechat).com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi?, requires-body=1, max-size=0, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/UnblockURLinWeChat.js
 
 # > B站字幕繁转中
-bilibili_cc = type=http-response,pattern=^https?:\/\/i.\.hdslb\.com\/bfs\/subtitle\/.+\.json$,requires-body=1,max-size=3145728,script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/bilibili_cc.js,script-update-interval=0
 
+{{{S_BILIBILICC}}} = type=http-response, pattern=^https?://i..hdslb.com/bfs/subtitle/.+.json$, requires-body=1, max-size=3145728, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/bilibili_cc.js, script-update-interval=0
 
 [MITM]
-#skip-server-cert-verify = true
 tcp-connection = true
 h2 = true
-hostname = %APPEND% boxjs.com, carrotweather.herokuapp.com, api-production.endel.io, mobile.flightradar24.com, ap*.intsig.net, www.xmind.cn, www.xmind.net, restore-access.indream.app, *.baidu.com, api.meiease.cn, lchttpapi.xczim.com, security.wechat.com, weixin110.qq.com, www.firefox.com.cn, api.*.abema-tv.com, app.biliintl.com, passport.biliintl.com, api.revenuecat.com, api.rc-backup.com, *.hdslb.com, xremit.xcurrency.com, explorer.tratao.com, drive*.quark.cn, notability.com, api.getdailyart.com, www.google.cn, *.camscanner.com, *.intsig.net, api.flexibits.com
-
-
-	
+hostname = %APPEND% {{{H_CARROTWEATHER}}}carrotweather.herokuapp.com, {{{H_ENDEL}}}api-production.endel.io, {{{H_FLIGHTRADAR24}}}mobile.flightradar24.com, {{{H_RM_WECHAT_LINK_RESTRICTIONS}}}security.wechat.com, {{{H_RM_WECHAT_LINK_RESTRICTIONS}}}weixin110.qq.com, {{{H_REVENUECAT}}}api.revenuecat.com, {{{H_REVENUECAT}}}api.rc-backup.com, {{{H_REVENUECAT}}}rc.visionarytech.ltd, {{{H_BILIBILICC}}}.hdslb.com, {{{H_XCURRENCY}}}xremit.xcurrency.com, {{{H_NOTABILITY}}}notability.com, {{{H_DAILYART}}}api.getdailyart.com, www.google.cn, {{{H_CAMSCANNER}}}.camscanner.com
