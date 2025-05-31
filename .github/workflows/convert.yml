@@ -82,11 +82,7 @@ jobs:
           
           echo "Generated sgmodule files:"
           ls -la Chores/sgmodule/
-          
--         # 显示一个示例文件的内容（用于调试）
--         echo "Sample sgmodule content:"
--         head -20 Chores/sgmodule/*.sgmodule | head -20
-+         # （调试用的 head 打印已删，如果想保留请务必加 “|| true”）
+        
           
           # 提取所有 JavaScript URL
           echo "Searching for JS URLs..."
