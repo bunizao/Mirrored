@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-06-02 00:35:23
+#!date=2025-06-02 01:02:42
 
 [Rule]
 DOMAIN,splash.yy.com,REJECT
