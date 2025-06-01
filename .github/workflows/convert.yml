@@ -131,7 +131,7 @@ jobs:
             
             echo "Mirroring: $url → Chores/js/$filename"
             
-            if curl -Ls -A "Surge Mac/2985" --connect-timeout 30 --max-time 60 "$url" -o "Chores/js/$filename"; then
+            if curl -Ls -A "Surge Mac/3272" --connect-timeout 30 --max-time 60 "$url" -o "Chores/js/$filename"; then
               # 检查下载的文件是否为空或过小
               if [ -s "Chores/js/$filename" ] && [ "$(stat -c%s "Chores/js/$filename")" -gt 10 ]; then
                 echo "✓ Successfully downloaded $filename"
