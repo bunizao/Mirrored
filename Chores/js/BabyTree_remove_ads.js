@@ -1,90 +1,78 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
-<head>
-<title>Attention Required! | Cloudflare</title>
-<meta charset="UTF-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="robots" content="noindex, nofollow" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/cf.errors.css" />
-<!--[if lt IE 9]><link rel="stylesheet" id='cf_styles-ie-css' href="/cdn-cgi/styles/cf.errors.ie.css" /><![endif]-->
-<style>body{margin:0;padding:0}</style>
+/*
+脚本引用https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/babytree.js
+*/
+// 2023-11-22 19:25
 
+const url = $request.url;
+if (!$response.body) $done({});
+let obj = JSON.parse($response.body);
 
-<!--[if gte IE 10]><!-->
-<script>
-  if (!navigator.cookieEnabled) {
-    window.addEventListener('DOMContentLoaded', function () {
-      var cookieEl = document.getElementById('cookie-alert');
-      cookieEl.style.display = 'block';
-    })
+if (url.includes("/app_index/get_app_tab")) {
+  // 底部tab
+  if (obj?.data?.selected_list?.length > 0) {
+    obj.data.selected_list = obj.data.selected_list.filter((i) => !["购物", "商城"]?.includes(i?.name));
   }
-</script>
-<!--<![endif]-->
+} else if (url.includes("/bafconfigcenter_intf/config/get")) {
+  // 整体配置
+  const items = [
+    "pregnancy__find_group_guide_image_url", // 加入的圈子
+    "pregnancy__home_left_icon", // 直播图标
+    "pregnancy__home_left_icon_new", // 直播图标
+    "pregnancy__home_left_icon_static", // 直播图标
+    "pregnancy__video_white_list" // 宝宝视频
+  ];
+  if (obj?.data) {
+    for (let i of items) {
+      if (obj?.data?.[i]) {
+        obj.data[i] = "";
+      }
+    }
+  }
+} else if (url.includes("/cms_column/get_column_list")) {
+  // tab配置
+  if (obj?.data?.list?.length > 0) {
+    let newLists = [];
+    for (let item of obj.data.list) {
+      if (item?.data_source_list?.length > 0) {
+        let newDatas = [];
+        for (let i of item.data_source_list) {
+          // 首页顶部tab
+          if (i?.tab_name?.includes("精品秒杀")) {
+            continue;
+          } else {
+            newDatas.push(i);
+          }
+        }
+        item.data_source_list = newDatas;
+      }
+      if (["225", "226", "238", "239"]?.includes(item?.id)) {
+        // 我的页面模块
+        // 225我的福利 226banner轮播图 238美囤商城 239会员进群
+        continue;
+      }
+      newLists.push(item);
+    }
+    obj.data.list = newLists;
+  }
+} else if (url.includes("/feeds/get_index_feeds_list")) {
+  // 首页信息流
+  if (obj?.data?.list?.length > 0) {
+    obj.data.list = obj.data.list.filter(
+      (i) => ["发表了", "提问了"]?.includes(i?.action_desc) && !i?.hasOwnProperty("seeding_goods_info")
+    );
+  }
+} else if (url.includes("/mobile_search_new/search_index")) {
+  // 搜索列表
+  if (obj?.data?.find_search) {
+    // 搜索发现
+    delete obj.data.find_search;
+  }
+} else if (url.includes("/user/get_user_info")) {
+  // 我的页面
+  if (obj?.data?.video_show) {
+    // 顶部婴儿视频
+    delete obj.data.video_show;
+  }
+}
 
-</head>
-<body>
-  <div id="cf-wrapper">
-    <div class="cf-alert cf-alert-error cf-cookie-error" id="cookie-alert" data-translate="enable_cookies">Please enable cookies.</div>
-    <div id="cf-error-details" class="cf-error-details-wrapper">
-      <div class="cf-wrapper cf-header cf-error-overview">
-        <h1 data-translate="block_headline">Sorry, you have been blocked</h1>
-        <h2 class="cf-subheadline"><span data-translate="unable_to_access">You are unable to access</span> kelee.one</h2>
-      </div><!-- /.header -->
-
-      <div class="cf-section cf-highlight">
-        <div class="cf-wrapper">
-          <div class="cf-screenshot-container cf-screenshot-full">
-            
-              <span class="cf-no-screenshot error"></span>
-            
-          </div>
-        </div>
-      </div><!-- /.captcha-container -->
-
-      <div class="cf-section cf-wrapper">
-        <div class="cf-columns two">
-          <div class="cf-column">
-            <h2 data-translate="blocked_why_headline">Why have I been blocked?</h2>
-
-            <p data-translate="blocked_why_detail">This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.</p>
-          </div>
-
-          <div class="cf-column">
-            <h2 data-translate="blocked_resolve_headline">What can I do to resolve this?</h2>
-
-            <p data-translate="blocked_resolve_detail">You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page.</p>
-          </div>
-        </div>
-      </div><!-- /.section -->
-
-      <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
-    <p class="text-13">
-      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold">948e8a6a79f5eabf</strong></span>
-      <span class="cf-footer-separator sm:hidden">&bull;</span>
-      <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
-        Your IP:
-        <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
-        <span class="hidden" id="cf-footer-ip">20.125.217.190</span>
-        <span class="cf-footer-separator sm:hidden">&bull;</span>
-      </span>
-      <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing" id="brand_link" target="_blank">Cloudflare</a></span>
-      
-    </p>
-    <script>(function(){function d(){var b=a.getElementById("cf-footer-item-ip"),c=a.getElementById("cf-footer-ip-reveal");b&&"classList"in b&&(b.classList.remove("hidden"),c.addEventListener("click",function(){c.classList.add("hidden");a.getElementById("cf-footer-ip").classList.remove("hidden")}))}var a=document;document.addEventListener&&a.addEventListener("DOMContentLoaded",d)})();</script>
-  </div><!-- /.error-footer -->
-
-    </div><!-- /#cf-error-details -->
-  </div><!-- /#cf-wrapper -->
-
-  <script>
-    window._cf_translation = {};
-    
-    
-  </script>
-</body>
-</html>
+$done({ body: JSON.stringify(obj) });

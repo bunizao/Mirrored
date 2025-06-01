@@ -1,90 +1,75 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
-<head>
-<title>Attention Required! | Cloudflare</title>
-<meta charset="UTF-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="robots" content="noindex, nofollow" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="stylesheet" id="cf_styles-css" href="/cdn-cgi/styles/cf.errors.css" />
-<!--[if lt IE 9]><link rel="stylesheet" id='cf_styles-ie-css' href="/cdn-cgi/styles/cf.errors.ie.css" /><![endif]-->
-<style>body{margin:0;padding:0}</style>
-
-
-<!--[if gte IE 10]><!-->
-<script>
-  if (!navigator.cookieEnabled) {
-    window.addEventListener('DOMContentLoaded', function () {
-      var cookieEl = document.getElementById('cookie-alert');
-      cookieEl.style.display = 'block';
-    })
+/*
+脚本作者：DecoAri
+修复作者: xream
+引用地址：https://raw.githubusercontent.com/DecoAri/JavaScript/main/Surge/Auto_join_TF.js
+感谢某位大佬将改写为Loon版脚本！
+*/
+!(async () => {
+  ids = $persistentStore.read('APP_ID')
+  if (ids == null) {
+    $notification.post('未添加 TestFlight APP_ID', '请手动添加或使用 TestFlight 链接自动获取', '')
+  } else if (ids == '') {
+    $notification.post('所有 TestFlight 已加入完毕', '请手动禁用该插件', '')
+  } else {
+    ids = ids.split(',')
+    for await (const ID of ids) {
+      await autoPost(ID)
+    }
   }
-</script>
-<!--<![endif]-->
+  $done()
+})()
 
-</head>
-<body>
-  <div id="cf-wrapper">
-    <div class="cf-alert cf-alert-error cf-cookie-error" id="cookie-alert" data-translate="enable_cookies">Please enable cookies.</div>
-    <div id="cf-error-details" class="cf-error-details-wrapper">
-      <div class="cf-wrapper cf-header cf-error-overview">
-        <h1 data-translate="block_headline">Sorry, you have been blocked</h1>
-        <h2 class="cf-subheadline"><span data-translate="unable_to_access">You are unable to access</span> kelee.one</h2>
-      </div><!-- /.header -->
-
-      <div class="cf-section cf-highlight">
-        <div class="cf-wrapper">
-          <div class="cf-screenshot-container cf-screenshot-full">
-            
-              <span class="cf-no-screenshot error"></span>
-            
-          </div>
-        </div>
-      </div><!-- /.captcha-container -->
-
-      <div class="cf-section cf-wrapper">
-        <div class="cf-columns two">
-          <div class="cf-column">
-            <h2 data-translate="blocked_why_headline">Why have I been blocked?</h2>
-
-            <p data-translate="blocked_why_detail">This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.</p>
-          </div>
-
-          <div class="cf-column">
-            <h2 data-translate="blocked_resolve_headline">What can I do to resolve this?</h2>
-
-            <p data-translate="blocked_resolve_detail">You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page.</p>
-          </div>
-        </div>
-      </div><!-- /.section -->
-
-      <div class="cf-error-footer cf-wrapper w-240 lg:w-full py-10 sm:py-4 sm:px-8 mx-auto text-center sm:text-left border-solid border-0 border-t border-gray-300">
-    <p class="text-13">
-      <span class="cf-footer-item sm:block sm:mb-1">Cloudflare Ray ID: <strong class="font-semibold">948e8ad5e9676189</strong></span>
-      <span class="cf-footer-separator sm:hidden">&bull;</span>
-      <span id="cf-footer-item-ip" class="cf-footer-item hidden sm:block sm:mb-1">
-        Your IP:
-        <button type="button" id="cf-footer-ip-reveal" class="cf-footer-ip-reveal-btn">Click to reveal</button>
-        <span class="hidden" id="cf-footer-ip">20.125.217.190</span>
-        <span class="cf-footer-separator sm:hidden">&bull;</span>
-      </span>
-      <span class="cf-footer-item sm:block sm:mb-1"><span>Performance &amp; security by</span> <a rel="noopener noreferrer" href="https://www.cloudflare.com/5xx-error-landing" id="brand_link" target="_blank">Cloudflare</a></span>
-      
-    </p>
-    <script>(function(){function d(){var b=a.getElementById("cf-footer-item-ip"),c=a.getElementById("cf-footer-ip-reveal");b&&"classList"in b&&(b.classList.remove("hidden"),c.addEventListener("click",function(){c.classList.add("hidden");a.getElementById("cf-footer-ip").classList.remove("hidden")}))}var a=document;document.addEventListener&&a.addEventListener("DOMContentLoaded",d)})();</script>
-  </div><!-- /.error-footer -->
-
-    </div><!-- /#cf-error-details -->
-  </div><!-- /#cf-wrapper -->
-
-  <script>
-    window._cf_translation = {};
-    
-    
-  </script>
-</body>
-</html>
+function autoPost(ID) {
+  let Key = $persistentStore.read('key')
+  let testurl = 'https://testflight.apple.com/v3/accounts/' + Key + '/ru/'
+  let header = {
+    'X-Session-Id': `${$persistentStore.read('session_id')}`,
+    'X-Session-Digest': `${$persistentStore.read('session_digest')}`,
+    'X-Request-Id': `${$persistentStore.read('request_id')}`,
+    'User-Agent': `${$persistentStore.read('tf_ua')}`,
+  }
+  return new Promise(function (resolve) {
+    $httpClient.get({ url: testurl + ID, headers: header }, function (error, resp, data) {
+      if (error == null) {
+        if (resp.status == 404) {
+          ids = $persistentStore.read('APP_ID').split(',')
+          ids = ids.filter(ids => ids !== ID)
+          $persistentStore.write(ids.toString(), 'APP_ID')
+          console.log(ID + ' ' + '不存在该 TestFlight，已自动删除该 APP_ID')
+          $notification.post(ID, '不存在该 TestFlight', '已自动删除该 APP_ID')
+          resolve()
+        } else if (resp.status == 401) {
+          console.log(ID + ' ' + '请求异常，尝试重新加入')
+          resolve()
+        } else {
+          let jsonData = JSON.parse(data)
+          if (jsonData.data == null) {
+            console.log(ID + ' ' + jsonData.messages[0].message)
+            resolve()
+          } else if (jsonData.data.status == 'FULL') {
+            console.log(jsonData.data.app.name + ' ' + ID + ' ' + jsonData.data.message)
+            resolve()
+          } else {
+            $httpClient.post({ url: testurl + ID + '/accept', headers: header }, function (error, resp, body) {
+              let jsonBody = JSON.parse(body)
+              $notification.post(jsonBody.data.name, 'TestFlight 加入成功', '')
+              console.log(jsonBody.data.name + ' TestFlight 加入成功')
+              ids = $persistentStore.read('APP_ID').split(',')
+              ids = ids.filter(ids => ids !== ID)
+              $persistentStore.write(ids.toString(), 'APP_ID')
+              resolve()
+            })
+          }
+        }
+      } else {
+        if (error == 'The request timed out.') {
+          resolve()
+        } else {
+          $notification.post('自动加入 TestFlight', error, '')
+          console.log(ID + ' ' + error)
+          resolve()
+        }
+      }
+    })
+  })
+}
