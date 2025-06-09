@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-06-04 04:07:26
+#!date=2025-06-10 00:02:18
 
 [Rule]
 DOMAIN,adx-api.zdmimg.com,REJECT
