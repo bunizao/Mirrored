@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-06-14 03:28:27
+#!date=2025-06-14 03:41:00
 
 [Rule]
 DOMAIN,adx-api.zdmimg.com,REJECT
@@ -28,7 +28,7 @@ DOMAIN,adx-api.zdmimg.com,REJECT
 ^https:\/\/s-api\.smzdm\.com\/sou\/search_default_keyword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_15 = type=http-response, pattern=^https:\/\/app-api\.smzdm\.com\/util\/update$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.silence_local_push%22%2C0%5D%2C%5B%22data.baichuan_redirect_switch%22%2C0%5D%5D%5D%2C%5B%22json-del%22%2C%5B%22data.silence_local_push_msg%22%2C%22data.video_cache_num_configs%22%2C%22data.haojia_widget%22%2C%22data.widget%22%5D%5D%5D
+body_rewrite_15 = type=http-response, pattern=^https:\/\/app-api\.smzdm\.com\/util\/update$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.silence_local_push%22%2C0%5D%2C%5B%22data.baichuan_redirect_switch%22%2C0%5D%5D%5D%2C%5B%22json-del%22%2C%5B%22data.silence_local_push_msg%22%2C%22data.video_cache_num_configs%22%2C%22data.haojia_widget%22%2C%22data.widget%22%2C%22data.operation_float%22%5D%5D%5D
 
 body_rewrite_22 = type=http-response, pattern=^https:\/\/haojia\.m\.smzdm\.com\/detail_modul\/user_related_modul\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.super_coupon%22%5D%5D%5D
 
