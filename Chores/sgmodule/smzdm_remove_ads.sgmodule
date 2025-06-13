@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-06-14 03:17:05
+#!date=2025-06-14 03:28:27
 
 [Rule]
 DOMAIN,adx-api.zdmimg.com,REJECT
@@ -38,7 +38,9 @@ body_rewrite_24 = type=http-response, pattern=^https:\/\/user-api\.smzdm\.com\/v
 
 body_rewrite_29 = type=http-response, pattern=^https:\/\/s-api\.smzdm\.com\/sou\/filter\/tags\/hot_tags\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.search_faxian%22%2C%22data.tonglan%22%2C%22data.hongbao%22%5D%5D%5D
 
-body_rewrite_31 = type=http-response, pattern=^https:\/\/haojia-cdn\.smzdm\.com\/preload\/\d+\/fiphone\/v\d+_\d+_\d+\/wx\d+\/im\d+\/[a-z0-9]+\/h5(?:c[0-9a-f]+)?\.json$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.quan_log%22%5D%5D%5D
+body_rewrite_31 = type=http-response, pattern=^https:\/\/haojia-api\.smzdm\.com\/detail\/\d+\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.quan_log%22%5D%5D%5D
+
+body_rewrite_32 = type=http-response, pattern=^https:\/\/haojia-cdn\.smzdm\.com\/preload\/\d+\/fiphone\/v\d+_\d+_\d+\/wx\d+\/im\d+\/[a-z0-9]+\/h5(?:c[0-9a-f]+)?\.json$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.quan_log%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% app-api.smzdm.com, homepage-api.smzdm.com, h5.smzdm.com, haojia-api.smzdm.com, haojia.m.smzdm.com, user-api.smzdm.com, article-api.smzdm.com, s-api.smzdm.com, haojia-cdn.smzdm.com
