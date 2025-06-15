@@ -1,0 +1,54 @@
+name: " iRingo: 🔍 Spotlight"
+desc: |-
+  macOS 14.5⬇️
+  全面自定义「Siri 与聚焦」中的「Siri 建议」功能。
+  ⚠️ 不含自定义「询问 Siri」功能。
+  注：该覆写包含代理规则。"
+openUrl: "http://boxjs.com/#/app/iRingo.Spotlight"
+author: |-
+  VirgilClyne[https://github.com/VirgilClyne]
+homepage: "https://NSRingo.github.io/guide/Siri/spotlight"
+icon: "https://developer.apple.com/assets/elements/icons/spotlight/spotlight-128x128.png"
+category: " iRingo"
+date: "2024-12-24 04:25:13"
+version: "4.2.7"
+
+rules:
+  - DOMAIN,lookup-api.apple.com,PROXY
+  - DOMAIN,lookup-api.apple.com.edgekey.net,PROXY
+  - DOMAIN,e16991.b.akamaiedge.net,PROXY
+
+http:
+  mitm:
+    - "api*.smoot.apple.com"
+    - "api.smoot.apple.cn"
+  script:
+    - match: ^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag
+      name: Siri.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api2?\.smoot\.apple\.(com|cn)\/bag
+      name: Siri.response
+      type: response
+      require-body: true
+      argument:
+    - match: ^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/search
+      name: Siri.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/card
+      name: Siri.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api(2|-.+)\.smoot\.apple\.com\/flight
+      name: Siri.request
+      type: request
+      argument:
+
+script-providers:
+  Siri.request:
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.7/request.bundle.js
+    interval: 86400
+  Siri.response:
+    url: https://github.com/NSRingo/Siri/releases/download/v4.2.7/response.bundle.js
+    interval: 86400
