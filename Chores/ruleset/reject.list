@@ -13,7 +13,6 @@ AND,((DOMAIN-KEYWORD,tnc),(AND,((OR,((DOMAIN-KEYWORD,-bjlgy),(DOMAIN-KEYWORD,-al
 DOMAIN,dns.weixin.qq.com
 DOMAIN,dns.weixin.qq.com.cn
 DOMAIN,aedns.weixin.qq.com
-DOMAIN,paydns.wechatpay.cn
 IP-CIDR,39.156.140.30/32,no-resolve
 IP-CIDR,39.156.140.47/32,no-resolve
 IP-CIDR,39.156.140.245/32,no-resolve
