@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-13 15:17:08
+#!date=2025-06-29 18:20:40
 
 [Rule]
 DOMAIN,acdn.adnxs.com,REJECT
@@ -68,8 +68,6 @@ DOMAIN,open-pixon.ads-pixiv.net,REJECT
 ^https:\/\/app\.10099\.com\.cn\/contact-web\/api\/version\/getFlashScreenPage - reject
 
 [Map Local]
-^https:\/\/home\.mi\.com\/cgi-op\/api\/v1\/recommendation\/(banner|carousel\/banners|myTab|openingBanner) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
 ^https?:\/\/api\.m\.mi\.com\/v\d\/app\/start data-type=text data=" " status-code=200
 
 ^https?:\/\/api\.jr\.mi\.com\/v\d\/adv\/ data-type=text data=" " status-code=200
@@ -177,6 +175,8 @@ DOMAIN,open-pixon.ads-pixiv.net,REJECT
 ^https?:\/\/info\.mina\.xiaoaisound\.com\/(advertise|payGuide)\/ data-type=text data="{"code":0,"message":"Success","data":[]}" header="Content-Type:application/json"
 
 [Script]
+body_rewrite_57 = type=http-response, pattern=^https:\/\/home\.mi\.com\/cgi-op\/api\/v1\/recommendation\/myTab\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banners%22%5D%5D%5D
+
 body_rewrite_121 = type=http-response, pattern=^https?:\/\/cmds\.omesoft\.com\/HypnotistWS\.asmx, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22replace-regex%22%2C%5B%5B%22%3CGetADResult%3E%5C%5C.%5C%5C*%5C%5C%3F%3C%5C%5C%2FGetADResult%3E%22%2C%22%3CGetADResult%3E%7B%5C%22ret%5C%22%3A0%2C%5C%22msg%5C%22%3A%5C%22%E6%AD%A3%E5%B8%B8%5C%22%2C%5C%22err_code%5C%22%3A0%2C%5C%22data%5C%22%3A%7B%5C%22ad%5C%22%3A%5B%5D%7D%7D%3C%2FGetADResult%3E%22%5D%5D%5D%5D
 
 [MITM]
