@@ -1,0 +1,27 @@
+#!name=ZAKER去广告
+#!desc=移除开屏广告、置顶轮播图广告和文末广告。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/ZAKER.png
+#!category=🚫 AD Block
+
+#!openUrl=https://apps.apple.com/app/id462149227
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2025-06-30 23:34:19
+
+[Map Local]
+# 开屏广告
+^https:\/\/iphone\.myzaker\.com\/zaker\/cover\.php\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 热点 - 信息流广告
+^https:\/\/iphone\.myzaker\.com\/zaker\/block_top_ad\.php\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_15 = type=http-response, pattern=^https:\/\/iphone\.myzaker\.com\/zaker\/article_mongo_sec\.php\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.ad_url%22%5D%5D%5D
+
+body_rewrite_16 = type=http-response, pattern=^https:\/\/ggs\.myzaker\.com\/zk_article_ad\.php\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.article_bottom%22%2C%22data.recommend_ad%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% iphone.myzaker.com, ggs.myzaker.com
+
