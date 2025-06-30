@@ -1,0 +1,18 @@
+#!name=BoxJs
+#!desc=JavaScript数据管理器，用于管理脚本储存的数据。使用前请在本插件的详情页面为[PROXY]项分配代理策略。
+#!author=chavyleung[https://github.com/chavyleung]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/BoxJS.png
+#!category=🚫 AD Block
+
+#!openUrl=http://boxjs.com
+#!tag=数据管理
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2025-05-13 15:17:08
+
+[Script]
+BoxJS = type=http-request, pattern=^https?:\/\/(.+\.)?boxjs\.(com|net), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/chavy.boxjs.js, requires-body=true, timeout=120
+
+[MITM]
+hostname = %APPEND% boxjs.com, boxjs.net, *.boxjs.com, *.boxjs.net
+

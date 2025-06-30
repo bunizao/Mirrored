@@ -1,0 +1,86 @@
+#!name=快看漫画去广告
+#!desc=移除开屏广告、悬浮窗、漫画广告、社区广告、各类弹窗，精简顶部标签、我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/KuaiKanComic.png
+#!category=🚫 AD Block
+
+#!openUrl=https://apps.apple.com/app/id906936224
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2025-05-13 15:17:08
+
+[Rule]
+DOMAIN,ad.v3mh.com,REJECT
+DOMAIN,ipv6.kkmh.com,REJECT
+DOMAIN,ipv4.kkmh.com,REJECT
+
+[Map Local]
+# 广告配置
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 首页弹窗
+^https:\/\/(cdn-)?h5\.kuaikanmanhua\.com\/user\/scene\/api\/new_user\/sign_in\/list data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 活动广告
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/activities\/get data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/mine\/business_config data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 游戏 - 活动配置
+^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityModule\/userSignInInfo\?activitySignInConfigId data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityModule\/fetchButtonInfo\?buttonConfigId data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityText\/getUserActivityTextInfo\?activityTextConfigId data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 漫画阅读悬浮按钮广告
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/kb\/comic_page_banner\/detail data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 推广气泡
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/fake_push\/info data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 商城周边 - 弹窗
+^https:\/\/(cdn-)?shop\.kkmh\.com\/mbff\/popup_administration\/page_management_popup_administration$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 我的页面 - 横幅广告图
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/banner_tip_list data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 我的页面 - 横幅广告语
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/charge_tip_list data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# # 我的页面 - 钱包广告语
+^https:\/\/h5\.kuaikanmanhua\.com\/v\d\/kb\/recharge_good\/list_h5 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/kb\/wallet data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 萌新礼
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/checkin\/api\/new_user\/tab_info$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/h5\.kuaikanmanhua\.com\/game-h5\/new-user-welfare\/index\.html data-type=text data=" " status-code=200
+
+# 会员弹窗
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/platform_base\/popups_display$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 社区 - 关注推荐
+#^https:\/\/(cdn-)?social\.kkmh\.com\/v\d\/graph\/home\/recommend_users data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 福利中心、悬浮部件
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/checkin\/task_center\/get_by_task_type data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+# 修改广告参数
+修改广告参数 = type=http-response, pattern=^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/ironman\/comic\/recommend, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/KuaiKanComic_remove_ads.js, requires-body=true
+
+# 首页 - 热门 - 顶部标签
+精简首页热门标签 = type=http-response, pattern=^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/ironman\/discovery_v\d\/tab_list_v\d, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/KuaiKanComic_remove_ads.js, requires-body=true
+
+# 社区 - 发现 - 顶部标签
+精简社区标签 = type=http-response, pattern=^https:\/\/(cdn-)?social\.kkmh\.com\/v\d\/graph\/homepage\/comicVideo\/v\d\/configs, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/KuaiKanComic_remove_ads.js, requires-body=true
+
+# 社区 - 信息流
+精简社区信息流 = type=http-response, pattern=^https:\/\/(cdn-)?social\.kkmh\.com\/v\d\/graph\/unified_feed$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/KuaiKanComic_remove_ads.js, requires-body=true
+
+[MITM]
+hostname = %APPEND% api.kkmh.com, cdn-api.kkmh.com, social.kkmh.com, cdn-social.kkmh.com, h5.kuaikanmanhua.com, cdn-h5.kuaikanmanhua.com, pay.kkmh.com, cdn-pay.kkmh.com, shop.kkmh.com, cdn-shop.kkmh.com, topic.kkmh.com, cdn-topic.kkmh.com
+
