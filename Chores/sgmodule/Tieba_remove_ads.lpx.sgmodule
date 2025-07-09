@@ -27,7 +27,7 @@ body_rewrite_19 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/
 
 body_rewrite_22 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/f\/frs\/frsBottom$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22card_activity%22%5D%5D%5D
 
-Proto处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized)\?cmd, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/tieba-proto.js, requires-body=true, binary-body-mode=true, timeout=10
+ProtoBuf处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized)\?cmd, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/tieba-proto.js, requires-body=true, binary-body-mode=true, timeout=10
 
 [MITM]
 hostname = %APPEND% tiebac.baidu.com, tieba.baidu.com
