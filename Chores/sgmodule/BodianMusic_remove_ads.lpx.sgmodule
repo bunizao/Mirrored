@@ -11,24 +11,20 @@
 #!date=2025-05-23 14:49:53
 
 [Map Local]
-# 广告下发
 ^https:\/\/bd-api\.kuwo\.cn\/api\/play\/advert\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 弹窗
 ^https:\/\/bd-api\.kuwo\.cn\/api\/popup\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 首页和搜索页面 - 横幅推广
 ^https:\/\/bd-api\.kuwo\.cn\/api\/service\/banner\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/bd-api\.kuwo\.cn\/api\/service\/home\/module\?.*&moduleId=6 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 首页 - 低价会员推广文本
 ^https:\/\/bd-api\.kuwo\.cn\/api\/pay\/vip\/lowPriceText\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/bd-api\.kuwo\.cn\/api\/service\/global\/config\/vipEnter\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_23 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/search\/topic\/word\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.hotTopic%22%2C%22data.searchFind%22%2C%22data.globalJumpInfo%22%2C%22data.hotWord%22%5D%5D%5D
+body_rewrite_18 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/search\/topic\/word\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.hotTopic%22%2C%22data.searchFind%22%2C%22data.globalJumpInfo%22%2C%22data.hotWord%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% bd-api.kuwo.cn

@@ -11,23 +11,17 @@
 #!date=2025-05-13 15:17:08
 
 [URL Rewrite]
-# 天气 - 天气横幅
 ^https:\/\/fcard\.api\.moji\.com\/flycard\/flyCard\? - reject
 
 [Map Local]
-# 天气 - 墨迹看点
 ^https:\/\/vdo\.api\.moji\.com\/shortvideo\/card\/subscribe$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 天气 - 墨迹看点 - 生活圈
 ^https:\/\/vdo\.api\.moji\.com\/shortvideo\/video\/index_flow\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 天气 - 墨迹看点 - 达人推荐
 ^https:\/\/vdo\.api\.moji\.com\/shortvideo\/video_user\/hotGuyRcm\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 天气 - 墨迹看点 - 关注
 ^https:\/\/vdo\.api\.moji\.com\/shortvideo\/zone\/follow_src_zone\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 时景 - 关注 - 你可能感兴趣的人
 ^https:\/\/sns\.api\.moji\.com\/user\/dynamic_v9\/json\/someone_interest\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]

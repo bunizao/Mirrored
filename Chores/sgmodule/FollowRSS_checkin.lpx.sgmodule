@@ -11,7 +11,6 @@
 #!date=2025-05-13 15:17:08
 
 [Script]
-# 定时签到
 Follow每日签到 = type=cron, cronexp={cron}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/FollowRSS_checkin.js, timeout=120, argument="[{token},{cookie}]"
 
 [MITM]

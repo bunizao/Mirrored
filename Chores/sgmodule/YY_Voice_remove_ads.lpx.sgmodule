@@ -11,23 +11,19 @@
 #!date=2025-06-02 01:02:42
 
 [Rule]
-# 开屏广告
 DOMAIN,splash.yy.com,REJECT
-# 广告下发
 DOMAIN,dsp-ad.yy.com,REJECT
 DOMAIN,ysad.yy.com,REJECT
 
 [Map Local]
-# 首页 - 下拉进入直播间
 ^https:\/\/yyapp-fastnet\.yy\.com\/dispatch\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 首页 - 弹窗
 ^https:\/\/data\.3g\.yy\.com\/popup\/topLiveCardPopup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/yyapp-act-entrance\.yy\.com\/entrance\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_26 = type=http-response, pattern=^https:\/\/tab\.yy\.com\/tabs\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tabsForSelect%22%5D%5D%5D
+body_rewrite_20 = type=http-response, pattern=^https:\/\/tab\.yy\.com\/tabs\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tabsForSelect%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% yyapp-act-entrance.yy.com, yyapp-fastnet.yy.com, personal-center.yy.com, tab.yy.com, data.3g.yy.com, yyapp-idx.yy.com

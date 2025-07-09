@@ -16,50 +16,38 @@ DOMAIN,ddfs-public.ddimg.mobi,REJECT
 DOMAIN,rttrack.ddxq.mobi,REJECT
 
 [URL Rewrite]
-# 开屏广告
 ^https?:\/\/maicai\.api\.ddxq\.mobi\/advert\/ - reject
-# 弹窗广告
 ^https?:\/\/maicai\.api\.ddxq\.mobi\/homeApi\/getHomeAdPop - reject
 
 [Map Local]
-# 拦截HTTPDNS
 ^https?:\/\/119\.29\.29\.\d+\/d data-type=text data=" " status-code=200
 
-# 底部会员弹窗推广
 ^https:\/\/maicai\.api\.ddxq\.mobi\/vip\/getVipAd\/\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 底部优惠券弹窗
 ^https:\/\/maicai\.api\.ddxq\.mobi\/homeApi\/marketingNotice\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 搜索推荐 - 填充词
 ^https:\/\/maicai\.api\.ddxq\.mobi\/search\/rollHotKeyword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 搜索推荐 - 榜单列表
 ^https:\/\/maicai\.api\.ddxq\.mobi\/search\/rankingList\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 搜索推荐 - 搜索发现
 ^https:\/\/maicai\.api\.ddxq\.mobi\/search\/hotKeyword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 购物车推荐
 ^https:\/\/maicai\.api\.ddxq\.mobi\/order\/getRecommend$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 我的页面推荐
 ^https:\/\/maicai\.api\.ddxq\.mobi\/homeApi\/userLike\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 我的页面服务
 ^https:\/\/user\.api\.ddxq\.mobi\/userportal-service\/api\/v1\/user\/queryMyPage\/\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 商品页面 - 猜你喜欢
 ^https:\/\/maicai\.api\.ddxq\.mobi\/guide-service\/userLike\/flowData$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_39 = type=http-response, pattern=^https:\/\/maicai\.api\.ddxq\.mobi\/homeApi\/categoriesNewDetail\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.ad_info%22%5D%5D%5D
+body_rewrite_27 = type=http-response, pattern=^https:\/\/maicai\.api\.ddxq\.mobi\/homeApi\/categoriesNewDetail\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.ad_info%22%5D%5D%5D
 
-body_rewrite_41 = type=http-response, pattern=^https:\/\/maicai\.api\.ddxq\.mobi\/tool\/getConfig\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.ai_enter_config%22%5D%5D%5D
+body_rewrite_28 = type=http-response, pattern=^https:\/\/maicai\.api\.ddxq\.mobi\/tool\/getConfig\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.ai_enter_config%22%5D%5D%5D
 
-body_rewrite_45 = type=http-response, pattern=^https?:\/\/maicai\.api\.ddxq\.mobi\/homeApi\/newDetails\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.top_advert_data%22%2C%22data.suspension%22%5D%5D%5D
+body_rewrite_30 = type=http-response, pattern=^https?:\/\/maicai\.api\.ddxq\.mobi\/homeApi\/newDetails\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.top_advert_data%22%2C%22data.suspension%22%5D%5D%5D
 
-body_rewrite_49 = type=http-response, pattern=^https:\/\/maicai\.api\.ddxq\.mobi\/guide-service\/productApi\/productDetail\/info\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.detail.chatEntry%22%5D%5D%5D
+body_rewrite_32 = type=http-response, pattern=^https:\/\/maicai\.api\.ddxq\.mobi\/guide-service\/productApi\/productDetail\/info\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.detail.chatEntry%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% 119.29.29.*, maicai.api.ddxq.mobi, user.api.ddxq.mobi

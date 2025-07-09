@@ -11,16 +11,12 @@
 #!date=2025-06-01 19:49:56
 
 [Map Local]
-# 开屏广告
 ^https:\/\/api\.17gwx\.com\/v2\/base\/app\/ad\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 弹窗
 ^https:\/\/api\.17gwx\.com\/v2\/growth\/popup\/remind$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 我的 - 品牌全网好价
 ^https:\/\/api\.17gwx\.com\/v2\/recommend\/feed\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 商品 - 相关推荐
 ^https:\/\/api\.17gwx\.com\/v2\/homepage\/feed\/similarList\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]

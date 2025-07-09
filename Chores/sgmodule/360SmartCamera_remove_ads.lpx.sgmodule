@@ -15,7 +15,7 @@ DOMAIN,ad.jia.360.cn,REJECT
 DOMAIN,ad.iot.360.cn,REJECT
 
 [Script]
-body_rewrite_16 = type=http-response, pattern=^https:\/\/jia\.360\.cn\/conf\/v1\.json, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22tab_conf%22%2C%22ad_conf%22%2C%22activity%22%5D%5D%5D
+body_rewrite_15 = type=http-response, pattern=^https:\/\/jia\.360\.cn\/conf\/v1\.json, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22tab_conf%22%2C%22ad_conf%22%2C%22activity%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% jia.360.cn

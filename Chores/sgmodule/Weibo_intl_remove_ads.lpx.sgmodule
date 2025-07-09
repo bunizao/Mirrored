@@ -8,27 +8,23 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-07-09 12:09:44
+#!date=2025-07-09 14:07:46
 
 [Map Local]
-# 广告投放配置
 ^https:\/\/bootpreload\.uve\.weibo\.com\/v1\/ad\/preload$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 发现页面 - 趋势 - 热门视频信息流
 ^https:\/\/api\.weibo\.cn\/2\/cardlist\?v_f=2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 时间线 - 关注 - 广告
 ^https:\/\/api\.weibo\.cn\/2\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 搜索 - 填充词
 ^https:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=get_searching_info data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_15 = type=http-response, pattern=^https:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=trends, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banner%22%2C%22data.user_footprint%22%2C%22data.profile_accessrecord%22%2C%22data.native_content%22%5D%5D%5D
+body_rewrite_13 = type=http-response, pattern=^https:\/\/weibointl\.api\.weibo\.cn\/portal\.php\?a=trends, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banner%22%2C%22data.user_footprint%22%2C%22data.profile_accessrecord%22%2C%22data.native_content%22%5D%5D%5D
 
-body_rewrite_22 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/statuses\/friends\/timeline$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22advertises%22%2C%22ad%22%2C%22ad_version_2_weibo%22%5D%5D%5D
+body_rewrite_17 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/statuses\/friends\/timeline$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22advertises%22%2C%22ad%22%2C%22ad_version_2_weibo%22%5D%5D%5D
 
-body_rewrite_25 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/statuses\/unread_hot_timeline$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22ad%22%2C%22ad_version_2_weibo%22%5D%5D%5D
+body_rewrite_19 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/statuses\/unread_hot_timeline$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22ad%22%2C%22ad_version_2_weibo%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% bootpreload.uve.weibo.com, weibointl.api.weibo.cn, api.weibo.cn

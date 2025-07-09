@@ -11,13 +11,10 @@
 #!date=2025-07-09 08:04:43
 
 [Map Local]
-# 开屏广告、首页横幅推广、音源弹窗推广
 ^https:\/\/marketing-aibox\.v\.mitvos\.com\/advertise\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 促销弹窗
 ^https:\/\/marketing-aibox\.v\.mitvos\.com\/payGuide\/halfScreenMulti\/(home|cache)\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 音源标签页 - 促销横幅
 ^https:\/\/marketing-aibox\.v\.mitvos\.com\/payGuide\/tabPage\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]

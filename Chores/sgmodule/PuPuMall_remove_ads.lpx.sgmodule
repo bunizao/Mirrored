@@ -13,8 +13,6 @@
 [URL Rewrite]
 ^https:\/\/j1\.pupuapi\.com\/client\/account\/discount\/order - reject
 ^https:\/\/j1\.pupuapi\.com\/client\/marketing\/banner\/v7\?position_types=100 - reject
-# 旧版应用的主页实惠卡
-#^https:\/\/j1\.pupuapi\.com\/client\/member_card\/index\/my - reject
 
 [Script]
 移除朴朴超市广告 = type=http-response, pattern=^https:\/\/j1\.pupuapi\.com\/client\/marketing\/banner\/v7, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/PuPuMall_remove_ads.js, requires-body=true

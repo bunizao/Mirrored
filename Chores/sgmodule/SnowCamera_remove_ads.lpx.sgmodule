@@ -11,9 +11,7 @@
 #!date=2025-07-05 01:31:35
 
 [Rule]
-# 广告下发
 DOMAIN,api-ad.kajicam.com,REJECT
 DOMAIN,zjres-ad.kajicam.com,REJECT
-# 弹窗
 DOMAIN,popup-api.b612kaji.com,REJECT
 

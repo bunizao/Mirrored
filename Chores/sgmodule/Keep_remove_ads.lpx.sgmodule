@@ -11,35 +11,27 @@
 #!date=2025-05-23 13:32:55
 
 [Rule]
-# 信息流广告
 DOMAIN,kad.gotokeep.com,REJECT
 
 [Map Local]
-# 开屏广告
 ^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 搜索填充词
 ^https:\/\/api\.gotokeep\.com\/search\/v6\/default\/keyword\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 关注 - 关注推荐
 ^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/followPage\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 弹窗
 ^https:\/\/api\.gotokeep\.com\/guide-webapp\/v1\/popup\/getPopUp\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 搜索 - 榜单
 ^https:\/\/api\.gotokeep\.com\/search\/v5\/hotCourse\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 搜索 - 热门话题
 ^https:\/\/api\.gotokeep\.com\/search\/v4\/hotHashtag\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 搜索 - 热搜推荐词
 ^https:\/\/api\.gotokeep\.com\/search\/v4\/hotword\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_16 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/configs$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.adTimeoutReport%22%2C%22data.spotShowReport%22%2C%22data.adSupplementIntervalMinutes%22%2C%22data.adSupplementSwitch%22%2C%22data.hotFeedSpotAdRequestMoment%22%2C%22data.activityBrandFeedSpotAdRequestMoment%22%2C%22data.searchFeedSpotAdRequestMoment%22%2C%22data.feedDetailSpotAdRequestMoment%22%2C%22data.homePageFeedSpotAdRequestMoment%22%2C%22data.followFeedSpotAdRequestMoment%22%2C%22data.hotFeedRecommendSpotAdRequestMoment%22%2C%22data.activityFeedSpotAdRequestMoment%22%2C%22data.hotFeedFindSpotAdRequestMoment%22%2C%22data.hotFeedSpotFixedPositionSecond%22%2C%22data.searchFeedSpotFixedPositionSecond%22%2C%22data.followFeedSpotFixedPositionSecond%22%2C%22data.activityFeedSpotFixedPositionSecond%22%2C%22data.searchFeedSpotFixedPositionThird%22%2C%22data.hotFeedFindSpotFixedPositionSecond%22%2C%22data.hotFeedFindSpotFixedPositionThird%22%2C%22data.activityFeedSpotFixedPositionInitial%22%2C%22data.activityFeedSpotFixedPositionThird%22%2C%22data.hotFeedDynamicSpotPosition%22%2C%22data.feedDetailDynamicSpotPosition%22%2C%22data.hotFeedRecommendDynamicSpotPosition%22%2C%22data.hotFeedFindDynamicSpotPosition%22%2C%22data.homePageFeedDynamicSpotPosition%22%2C%22data.followFeedDynamicSpotPosition%22%2C%22data.searchFeedSpotPositionDynamic%22%2C%22data.activityFeedSpotPositionDynamic%22%2C%22data.activityBrandFeedSpotPositionDynamic%22%2C%22data.splashAdLoadTimeLimit%22%2C%22data.courseAdLoadTimeLimit%22%2C%22data.feedAdLoadTimeLimit%22%2C%22data.aliHCSpotConfig%22%2C%22data.gdtSpotConfig%22%2C%22data.pugcThresholdPercent%22%2C%22data.pugcStepMinSeconds%22%2C%22data.pugcStepMaxSeconds%22%2C%22data.pugcPreLoadEarlySeconds%22%2C%22data.pugcLoadPostPreRolls%22%2C%22data.closeConfirmButtonText%22%5D%5D%5D
+body_rewrite_14 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/configs$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.adTimeoutReport%22%2C%22data.spotShowReport%22%2C%22data.adSupplementIntervalMinutes%22%2C%22data.adSupplementSwitch%22%2C%22data.hotFeedSpotAdRequestMoment%22%2C%22data.activityBrandFeedSpotAdRequestMoment%22%2C%22data.searchFeedSpotAdRequestMoment%22%2C%22data.feedDetailSpotAdRequestMoment%22%2C%22data.homePageFeedSpotAdRequestMoment%22%2C%22data.followFeedSpotAdRequestMoment%22%2C%22data.hotFeedRecommendSpotAdRequestMoment%22%2C%22data.activityFeedSpotAdRequestMoment%22%2C%22data.hotFeedFindSpotAdRequestMoment%22%2C%22data.hotFeedSpotFixedPositionSecond%22%2C%22data.searchFeedSpotFixedPositionSecond%22%2C%22data.followFeedSpotFixedPositionSecond%22%2C%22data.activityFeedSpotFixedPositionSecond%22%2C%22data.searchFeedSpotFixedPositionThird%22%2C%22data.hotFeedFindSpotFixedPositionSecond%22%2C%22data.hotFeedFindSpotFixedPositionThird%22%2C%22data.activityFeedSpotFixedPositionInitial%22%2C%22data.activityFeedSpotFixedPositionThird%22%2C%22data.hotFeedDynamicSpotPosition%22%2C%22data.feedDetailDynamicSpotPosition%22%2C%22data.hotFeedRecommendDynamicSpotPosition%22%2C%22data.hotFeedFindDynamicSpotPosition%22%2C%22data.homePageFeedDynamicSpotPosition%22%2C%22data.followFeedDynamicSpotPosition%22%2C%22data.searchFeedSpotPositionDynamic%22%2C%22data.activityFeedSpotPositionDynamic%22%2C%22data.activityBrandFeedSpotPositionDynamic%22%2C%22data.splashAdLoadTimeLimit%22%2C%22data.courseAdLoadTimeLimit%22%2C%22data.feedAdLoadTimeLimit%22%2C%22data.aliHCSpotConfig%22%2C%22data.gdtSpotConfig%22%2C%22data.pugcThresholdPercent%22%2C%22data.pugcStepMinSeconds%22%2C%22data.pugcStepMaxSeconds%22%2C%22data.pugcPreLoadEarlySeconds%22%2C%22data.pugcLoadPostPreRolls%22%2C%22data.closeConfirmButtonText%22%5D%5D%5D
 
-body_rewrite_26 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/entryDetail\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
+body_rewrite_19 = type=http-response, pattern=^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/entryDetail\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% api.gotokeep.com
