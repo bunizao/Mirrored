@@ -8,10 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-07-10 17:40:54
-
-[Map Local]
-^https:\/\/api-shoulei-ssl\.xunlei\.com\/flowhub\/v1\/slots:batchGet$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+#!date=2025-07-10 19:56:47
 
 [MITM]
 hostname = %APPEND% api-shoulei-ssl.xunlei.com
