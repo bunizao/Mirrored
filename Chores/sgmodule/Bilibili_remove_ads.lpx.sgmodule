@@ -14,9 +14,10 @@
 
 [Rule]
 DOMAIN,api.biliapi.com,REJECT
-DOMAIN,api.biliapi.net,REJECT
 DOMAIN,app.biliapi.com,REJECT
+DOMAIN,api.biliapi.net,REJECT
 DOMAIN,app.biliapi.net,REJECT
+DOMAIN,line3-h5-mobile-api.biligame.com,REJECT
 DOMAIN-SUFFIX,chat.bilibili.com,REJECT
 
 [Map Local]
@@ -33,7 +34,7 @@ DOMAIN-SUFFIX,chat.bilibili.com,REJECT
 ^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.view\.v1\.View\/TFInfo$ data-type=base64 data="AAAAAAIIAQ=="
 
 [Script]
-body_rewrite_32 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.common_equip%22%5D%5D%5D
+body_rewrite_33 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.common_equip%22%5D%5D%5D
 
 空降助手 = type=http-request, pattern=^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.community\.service\.dm\.v1\.DM\/DmSegMobile$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Bilibili_airborne_kokoryh.js, requires-body=true, binary-body-mode=true
 
