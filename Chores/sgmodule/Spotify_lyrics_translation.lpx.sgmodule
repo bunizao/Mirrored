@@ -1,30 +1,7 @@
-#!name=Spotify歌词增强
-#!desc=将Spotify的外语歌词翻译为简体中文，并提供双语翻译支持。
-#!author=VirgilClyne[https://github.com/VirgilClyne]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Spotify.png
-#!category=🚫 AD Block
+Spotify_lyrics_translation.lpx%0A：Error: 请求超时(20 秒)
 
-#!openUrl=https://apps.apple.com/app/id324684580
-#!tag=功能增强
-#!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-13 15:17:08
 
-[Script]
-跟踪响应·JSON = type=http-response, pattern=^https?:\/\/api\.spotify\.com\/v1\/tracks\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_response.js, requires-body=true
 
-歌词请求·JSON = type=http-request, pattern=^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/(.+)\?(.*)format=json, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_request.js, requires-body=true
 
-歌词请求·Proto = type=http-request, pattern=^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/\w+\?(.*), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Spotify_request.js, requires-body=true, binary-body-mode=true
 
-翻译歌词响应·JSON = type=http-response, pattern=^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/(.+)\?(.*)format=json(.*)subtype=Translate, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Translate_response.js, requires-body=true
-
-翻译歌词响应·Proto = type=http-response, pattern=^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/\w+\?(.*)subtype=Translate, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Translate_response.js, requires-body=true, binary-body-mode=true
-
-外部歌词响应·JSON = type=http-response, pattern=^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/(.+)\?(.*)format=json(.*)subtype=External, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/External_Lyrics_response.js, requires-body=true
-
-外部歌词响应·Proto = type=http-response, pattern=^https?:\/\/spclient\.wg\.spotify\.com\/color-lyrics\/v2\/track\/\w+\?(.*)subtype=External, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/External_Lyrics_response.js, requires-body=true, binary-body-mode=true
-
-[MITM]
-hostname = %APPEND% api.spotify.com, spclient.wg.spotify.com
-
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
