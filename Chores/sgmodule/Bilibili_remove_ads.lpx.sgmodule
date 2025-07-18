@@ -10,7 +10,7 @@
 #!system_version=15
 #!loon_version=3.2.9(837)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-07-17 01:41:21
+#!date=2025-07-18 22:41:45
 
 [Rule]
 DOMAIN,api.biliapi.com,REJECT
