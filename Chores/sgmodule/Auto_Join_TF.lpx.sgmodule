@@ -1,7 +1,22 @@
-Auto_Join_TF.lpx%0A：Error: 请求超时(20 秒)
+#!name=自动加入TestFlight
+#!desc=自动监控TestFlight名额，一旦有新的名额即刻加入。
+#!author=DecoAri[https://github.com/DecoAri], xream[https://github.com/xream]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/TestFlight.png
+#!category=🚫 AD Block
 
+#!openUrl=https://apps.apple.com/app/id899247664
+#!tag=定时任务
+#!loon_version=3.2.4(787)
+#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!date=2025-05-13 15:17:08
 
+[Script]
+获取账号令牌 = type=http-request, pattern=^https?:\/\/testflight\.apple\.com\/v3\/accounts\/.*\/apps$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TF_keys.js
 
+应用ID捕获 = type=http-request, pattern=^https://testflight.apple.com/join/(.*), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TF_keys.js
 
+自动加入TF = type=cron, cronexp={TimingParameters}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Auto_join_TF.js, timeout=180
 
-Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
+[MITM]
+hostname = %APPEND% testflight.apple.com
+
