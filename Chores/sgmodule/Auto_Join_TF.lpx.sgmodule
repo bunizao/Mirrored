@@ -9,13 +9,14 @@
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!date=2025-05-13 15:17:08
+#!arguments=CaptureAccountToken:false,CaptureAppID:false,TimingParameters:"0 0/2 * * * ?"
 
 [Script]
 获取账号令牌 = type=http-request, pattern=^https?:\/\/testflight\.apple\.com\/v3\/accounts\/.*\/apps$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TF_keys.js
 
 应用ID捕获 = type=http-request, pattern=^https://testflight.apple.com/join/(.*), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TF_keys.js
 
-自动加入TF = type=cron, cronexp={TimingParameters}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Auto_join_TF.js, timeout=180
+自动加入TF = type=cron, cronexp={{{TimingParameters}}}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Auto_join_TF.js, timeout=180
 
 [MITM]
 hostname = %APPEND% testflight.apple.com

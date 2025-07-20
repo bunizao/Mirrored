@@ -5,10 +5,11 @@
 #!category=🚫 AD Block
 
 #!homepage=https://github.com/ClydeTime/BiliBili/tree/master
+#!arguments=扫码Cookie:false,RunTime:"30 7 * * *",APPCookie:true,bigPoint:false
 
 [Script]
 # BiliBili每日等级任务
-B站每日等级任务 = type=cron, cronexp={RunTime}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js, timeout=15
+B站每日等级任务 = type=cron, cronexp={{{RunTime}}}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js, timeout=15
 
 B站Cookie(扫码) = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/fingerprint\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliBiliDailyBonus.js, timeout=30
 

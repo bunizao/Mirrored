@@ -10,6 +10,7 @@
 #!loon_version=3.2.4(787)
 #!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
 #!date=2025-05-13 15:17:08
+#!arguments=blockUpload:false,blockShorts:false,blockImmersive:false,captionLang:"zh-Hans",lyricLang:"zh-Hans",debug:false
 
 [Rule]
 AND,((DOMAIN-SUFFIX,googlevideo.com),(PROTOCOL,QUIC)),REJECT
@@ -19,7 +20,7 @@ AND,((DOMAIN-SUFFIX,youtubei.googleapis.com),(PROTOCOL,QUIC)),REJECT
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data=" " status-code=200
 
 [Script]
-YouTube去广告 = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true, argument="[{blockUpload},{blockShorts},{blockImmersive},{captionLang},{lyricLang},{debug}]"
+YouTube去广告 = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true, argument="[{{{blockUpload}}},{{{blockShorts}}},{{{blockImmersive}}},{{{captionLang}}},{{{lyricLang}}},{{{debug}}}]"
 
 [MITM]
 hostname = %APPEND% *.googlevideo.com, youtubei.googleapis.com
