@@ -41,16 +41,25 @@ jobs:
           done
           echo "::error ::container not ready"; exit 1
 
-      # ---------- 1. 抓 README 解析 .plugin ----------
-      - name: Download ProxyResource README
+      # ---------- 1. 抓取 pluginhub 页面并解析 plugin= 后的 URL ----------
+      - name: Extract plugin URLs from pluginhub
         run: |
-          curl -s -o README.md https://raw.githubusercontent.com/luestr/ProxyResource/main/README.md
+          set -euo pipefail
+          curl -s https://pluginhub.kelee.one > page.html
+          grep -oP 'loon://import\?plugin=\K[^"]+' page.html > plugin_urls_encoded.txt || true
+          python3 - <<'PY'
+      import urllib.parse
 
-      - name: Extract .plugin URLs
-        run: |
-          grep -oP 'https?://[^ )"]+\?plugin=[^ )"]+' README.md > plugin_urls_raw.txt
-          grep -oP '(?<=\?plugin=)[^ )"]+'           plugin_urls_raw.txt > plugin_urls.txt
-
+      seen = set()
+      with open('plugin_urls_encoded.txt','r') as f, open('plugin_urls.txt','w') as out:
+          for line in f:
+              url = urllib.parse.unquote(line.strip())
+              if url and url not in seen:
+                seen.add(url)
+                out.write(url + '\n')
+PY
+          echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
+          cat plugin_urls.txt
       # ---------- 2. 调 Script-Hub 生成 .sgmodule ----------
       - name: Generate sgmodule files
         run: |
