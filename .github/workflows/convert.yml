@@ -52,14 +52,14 @@ jobs:
 
           seen = set()
           with open('plugin_urls_encoded.txt','r') as f, open('plugin_urls.txt','w') as out:
-          for line in f:
-              url = urllib.parse.unquote(line.strip())
-              if url and url not in seen:
-                seen.add(url)
-                out.write(url + '\n')
+              for line in f:
+                  url = urllib.parse.unquote(line.strip())
+                  if url and url not in seen:
+                    seen.add(url)
+                    out.write(url + '\n')
           PY
-          echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
-          cat plugin_urls.txt
+              echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
+              cat plugin_urls.txt
       # ---------- 2. 调 Script-Hub 生成 .sgmodule ----------
       - name: Generate sgmodule files
         run: |
