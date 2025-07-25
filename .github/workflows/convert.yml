@@ -48,8 +48,9 @@ jobs:
 
       - name: Extract .plugin URLs
         run: |
-          grep -oP 'https?://[^ )"]+\?plugin=[^ )"]+' plugin_data.json > plugin_urls_raw.txt
-          grep -oP '(?<=\?plugin=)[^ )"]+'           plugin_urls_raw.txt > plugin_urls.txt
+          grep -oE 'https?://[^"]+\.(plugin|lpx)' plugin_data.json | sort -u > plugin_urls.txt || true
+          echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
+          cat plugin_urls.txt
 
       # ---------- 2. 调 Script-Hub 生成 .sgmodule ----------
       - name: Generate sgmodule files
