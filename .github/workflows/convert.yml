@@ -45,11 +45,10 @@ jobs:
       - name: 
         run: |
           curl -s "https://pluginhub.kelee.one/Lpx_list.json" -o plugin_data.json
-          jq -r '.lists[].url' plugin_data.json > plugin_urls_rawraw.txt
 
       - name: Extract .plugin URLs
         run: |
-          grep -oP 'https?://[^ )"]+\?plugin=[^ )"]+' plugin_urls_rawraw.txt > plugin_urls_raw.txt
+          grep -oP 'https?://[^ )"]+\?plugin=[^ )"]+' plugin_data.json > plugin_urls_raw.txt
           grep -oP '(?<=\?plugin=)[^ )"]+'           plugin_urls_raw.txt > plugin_urls.txt
 
       # ---------- 2. 调 Script-Hub 生成 .sgmodule ----------
