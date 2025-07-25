@@ -42,44 +42,15 @@ jobs:
           echo "::error ::container not ready"; exit 1
 
       # ---------- 1. 抓取 pluginhub 页面并解析 plugin= 后的 URL ----------
-      - name: Extract plugin URLs from pluginhub
+      - name: 
         run: |
-          set -euo pipefail
-          BASE=https://pluginhub.kelee.one
-          curl -s "$BASE" -o page.html
+          curl -s "https://pluginhub.kelee.one/Lpx_list.json" -o plugin_data.json
+          jq -r '.lists[].url' plugin_data.json > plugin_urls_rawraw.txt
 
-          # 把页面里引用的所有 JS 资源路径抓出来
-          grep -oP '<script[^>]+src="\K[^"]+' page.html | sort -u > script_paths.txt || true
-
-          # 下载这些 JS 文件
-          > all_scripts.js
-          while read -r p; do
-            [ -z "$p" ] && continue
-            case "$p" in
-              http* ) full="$p" ;;
-              * ) full="$BASE$p" ;;
-            esac
-            echo "Fetch $full"
-            curl -s "$full" >> all_scripts.js || true
-          done < script_paths.txt
-
-          # 在所有 JS 里提取 loon://import?plugin= 后面的真实链接（可能有百分号编码）
-          grep -oP "loon://import\\?plugin=\\Khttps?[^\"'[:space:]]+" all_scripts.js > plugin_urls_encoded.txt || true
-
-          # 解码去重
-          python3 - <<'PY'
-          import urllib.parse
-          seen=set()
-          with open('plugin_urls_encoded.txt','r') as f, open('plugin_urls.txt','w') as out:
-              for line in f:
-                  url = urllib.parse.unquote(line.strip())
-                  if url and url not in seen:
-                      seen.add(url)
-                      out.write(url+'\n')
-          PY
-
-          echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
-          cat plugin_urls.txt
+      - name: Extract .plugin URLs
+        run: |
+          grep -oP 'https?://[^ )"]+\?plugin=[^ )"]+' plugin_urls_rawraw.txt > plugin_urls_raw.txt
+          grep -oP '(?<=\?plugin=)[^ )"]+'           plugin_urls_raw.txt > plugin_urls.txt
 
       # ---------- 2. 调 Script-Hub 生成 .sgmodule ----------
       - name: Generate sgmodule files
