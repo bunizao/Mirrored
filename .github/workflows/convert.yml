@@ -18,7 +18,7 @@ jobs:
 
     env:
       MIRROR_RAW:  https://github.com/bunizao/Mirrored/raw/main/Chores/js
-      MIRROR_KEY:  github.com/bunizao/Mirrored        # 排除条件
+      MIRROR_KEY:  github.com/bunizao/Mirrored     
 
     steps:
       - uses: actions/checkout@v3
@@ -48,16 +48,16 @@ jobs:
           curl -s https://pluginhub.kelee.one > page.html
           grep -oP 'loon://import\?plugin=\K[^"]+' page.html > plugin_urls_encoded.txt || true
           python3 - <<'PY'
-      import urllib.parse
+          import urllib.parse
 
-      seen = set()
-      with open('plugin_urls_encoded.txt','r') as f, open('plugin_urls.txt','w') as out:
+          seen = set()
+          with open('plugin_urls_encoded.txt','r') as f, open('plugin_urls.txt','w') as out:
           for line in f:
               url = urllib.parse.unquote(line.strip())
               if url and url not in seen:
                 seen.add(url)
                 out.write(url + '\n')
-PY
+          PY
           echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
           cat plugin_urls.txt
       # ---------- 2. 调 Script-Hub 生成 .sgmodule ----------
