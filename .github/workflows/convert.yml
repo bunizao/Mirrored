@@ -17,8 +17,8 @@ jobs:
         ports: [9100:9100, 9101:9101]
 
     env:
-      MIRROR_RAW:  https://github.com/bunizao/Mirrored/raw/main/Chores/js
-      MIRROR_KEY:  github.com/bunizao/Mirrored     
+      MIRROR_RAW: https://github.com/bunizao/Mirrored/raw/main/Chores/js
+      MIRROR_KEY: github.com/bunizao/Mirrored
 
     steps:
       - uses: actions/checkout@v3
@@ -45,21 +45,42 @@ jobs:
       - name: Extract plugin URLs from pluginhub
         run: |
           set -euo pipefail
-          curl -s https://pluginhub.kelee.one > page.html
-          grep -oP 'loon://import\?plugin=\K[^"]+' page.html > plugin_urls_encoded.txt || true
+          BASE=https://pluginhub.kelee.one
+          curl -s "$BASE" -o page.html
+
+          # 把页面里引用的所有 JS 资源路径抓出来
+          grep -oP '<script[^>]+src="\K[^"]+' page.html | sort -u > script_paths.txt || true
+
+          # 下载这些 JS 文件
+          > all_scripts.js
+          while read -r p; do
+            [ -z "$p" ] && continue
+            case "$p" in
+              http* ) full="$p" ;;
+              * ) full="$BASE$p" ;;
+            esac
+            echo "Fetch $full"
+            curl -s "$full" >> all_scripts.js || true
+          done < script_paths.txt
+
+          # 在所有 JS 里提取 loon://import?plugin= 后面的真实链接（可能有百分号编码）
+          grep -oP "loon://import\\?plugin=\\Khttps?[^\"'[:space:]]+" all_scripts.js > plugin_urls_encoded.txt || true
+
+          # 解码去重
           python3 - <<'PY'
           import urllib.parse
-
-          seen = set()
+          seen=set()
           with open('plugin_urls_encoded.txt','r') as f, open('plugin_urls.txt','w') as out:
               for line in f:
                   url = urllib.parse.unquote(line.strip())
                   if url and url not in seen:
-                    seen.add(url)
-                    out.write(url + '\n')
+                      seen.add(url)
+                      out.write(url+'\n')
           PY
-              echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
-              cat plugin_urls.txt
+
+          echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
+          cat plugin_urls.txt
+
       # ---------- 2. 调 Script-Hub 生成 .sgmodule ----------
       - name: Generate sgmodule files
         run: |
@@ -91,7 +112,6 @@ jobs:
           
           echo "Generated sgmodule files:"
           ls -la Chores/sgmodule/
-        
           
           # 提取所有 JavaScript URL
           echo "Searching for JS URLs..."
