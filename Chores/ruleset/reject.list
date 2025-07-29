@@ -176,6 +176,10 @@ DOMAIN,zxid-m.mobileservice.cn
 IP-CIDR,103.41.167.237/32,no-resolve
 IP-CIDR,118.89.204.198/32,no-resolve
 IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,no-resolve
+AND,((URL-REGEX,"^http:\/\/.+\/amdc\/mobileDispatch"),(USER-AGENT,"AMapiPhone*"))
+DOMAIN,amap-aos-info-nogw.amap.com
+DOMAIN,free-aos-cdn-image.amap.com
+DOMAIN-SUFFIX,v.smtcdns.com
 DOMAIN,gwp.xiaojukeji.com
 AND,((IP-ASN,45090,no-resolve),(DEST-PORT,25641),(PROTOCOL,TCP))
 AND,((IP-ASN,63646,no-resolve),(DEST-PORT,25641),(PROTOCOL,TCP))
@@ -218,3 +222,4 @@ DOMAIN,api.biliapi.com
 DOMAIN,api.biliapi.net
 DOMAIN,app.biliapi.com
 DOMAIN,app.biliapi.net
+DOMAIN,ad.12306.cn
