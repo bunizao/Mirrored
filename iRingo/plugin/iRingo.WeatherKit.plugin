@@ -6,12 +6,12 @@
 #!icon = https://developer.apple.com/assets/elements/icons/weatherkit/weatherkit-128x128.png
 #!tag =  iRingo
 #!system = iOS,iPadOS,macOS,watchOS
-#!date = 2025-08-21 02:46:56
-#!version = 1.9.8
+#!date = 2025-08-22 02:57:53
+#!version = 1.9.9
 #!system_version = 18
 
 [Argument]
-DataSets = input,"airQuality,currentWeather,forecastDaily,forecastHourly,forecastNextHour,news,historicalComparisons,weatherAlerts,weatherChanges",tag=[数据集] 需要包含的数据集,desc=选中的数据集会被包含在请求中。
+DataSets = input,"airQuality,currentWeather,forecastDaily,forecastHourly,forecastNextHour,locationInfo,news,historicalComparisons,weatherAlerts,weatherChanges",tag=[数据集],desc=选中的数据集会被包含在请求中。
 CurrentWeather.Provider = select,"WeatherKit","ColorfulClouds","QWeather",tag=[当前天气] 数据源,desc=始终会使用选定的数据源，替换当前天气数据。
 NextHour.Provider = select,"ColorfulClouds","WeatherKit","QWeather",tag=[未来一小时降水强度] 数据源,desc=始终会使用选定的数据源，填补无降水监测地区的数据。
 AQI.Provider = select,"ColorfulClouds","WeatherKit","QWeather","WAQI",tag=[空气质量] 数据源,desc=始终会使用选定的数据源，填补无空气质量监测地区的数据。
@@ -30,9 +30,9 @@ DOMAIN,weather-analytics-events.apple.com,REJECT-DROP
 DOMAIN-SUFFIX,tthr.apple.com,REJECT-DROP
 
 [Script]
-http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/ requires-body=1, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.8/response.bundle.js, tag=🌤 WeatherKit.api.v1.availability.response, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
-http-request ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.8/request.bundle.js, tag=🌤 WeatherKit.api.v1.weather.request, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
-http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ requires-body=1, binary-body-mode=1, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.8/response.bundle.js, tag=🌤 WeatherKit.api.v2.weather.response, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
+http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/ requires-body=1, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.9/response.bundle.js, tag=🌤 WeatherKit.api.v1.availability.response, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
+http-request ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.9/request.bundle.js, tag=🌤 WeatherKit.api.v1.weather.request, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
+http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ requires-body=1, binary-body-mode=1, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.9/response.bundle.js, tag=🌤 WeatherKit.api.v2.weather.response, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
 
 [MITM]
 hostname = weatherkit.apple.com
