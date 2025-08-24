@@ -6,8 +6,8 @@
 #!icon = https://developer.apple.com/assets/elements/icons/weatherkit/weatherkit-128x128.png
 #!tag =  iRingo
 #!system = iOS,iPadOS,macOS,watchOS
-#!date = 2025-08-22 02:57:53
-#!version = 1.9.9
+#!date = 2025-08-24 08:31:43
+#!version = 1.9.10
 #!system_version = 18
 
 [Argument]
@@ -30,9 +30,9 @@ DOMAIN,weather-analytics-events.apple.com,REJECT-DROP
 DOMAIN-SUFFIX,tthr.apple.com,REJECT-DROP
 
 [Script]
-http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/ requires-body=1, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.9/response.bundle.js, tag=🌤 WeatherKit.api.v1.availability.response, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
-http-request ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.9/request.bundle.js, tag=🌤 WeatherKit.api.v1.weather.request, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
-http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ requires-body=1, binary-body-mode=1, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.9/response.bundle.js, tag=🌤 WeatherKit.api.v2.weather.response, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
+http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/ requires-body=1, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.10/response.bundle.js, tag=🌤 WeatherKit.api.v1.availability.response, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
+http-request ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.10/request.bundle.js, tag=🌤 WeatherKit.api.v1.weather.request, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
+http-response ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ requires-body=1, binary-body-mode=1, script-path=https://github.com/NSRingo/WeatherKit/releases/download/v1.9.10/response.bundle.js, tag=🌤 WeatherKit.api.v2.weather.response, argument=[{DataSets},{CurrentWeather.Provider},{NextHour.Provider},{AQI.Provider},{AQI.ReplaceProviders},{AQI.Local.Scale},{AQI.Local.ReplaceScales},{AQI.Local.ConvertUnits},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{LogLevel}]
 
 [MITM]
 hostname = weatherkit.apple.com
