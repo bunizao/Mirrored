@@ -4,6 +4,7 @@ desc: |-
   1.解锁全部天气功能
   2.替换空气质量数据
   3.添加下一小时降水数据
+  4.添加天气数据
 openUrl: "http://boxjs.com/#/app/iRingo.WeatherKit"
 author: |-
   VirgilClyne[https://github.com/VirgilClyne]
@@ -12,8 +13,8 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/Weather/weather-kit"
 icon: "https://developer.apple.com/assets/elements/icons/weatherkit/weatherkit-128x128.png"
 category: " iRingo"
-date: "2025-08-24 08:31:43"
-version: "1.9.10"
+date: "2025-08-27 08:54:13"
+version: "2.0.0"
 
 rules:
   - DOMAIN,weather-analytics-events.apple.com,REJECT-DROP
@@ -41,11 +42,11 @@ http:
 
 script-providers:
   WeatherKit.api.v1.availability.response:
-    url: https://github.com/NSRingo/WeatherKit/releases/download/v1.9.10/response.bundle.js
+    url: https://github.com/NSRingo/WeatherKit/releases/download/v2.0.0/response.bundle.js
     interval: 86400
   WeatherKit.api.v1.weather.request:
-    url: https://github.com/NSRingo/WeatherKit/releases/download/v1.9.10/request.bundle.js
+    url: https://github.com/NSRingo/WeatherKit/releases/download/v2.0.0/request.bundle.js
     interval: 86400
   WeatherKit.api.v2.weather.response:
-    url: https://github.com/NSRingo/WeatherKit/releases/download/v1.9.10/response.bundle.js
+    url: https://github.com/NSRingo/WeatherKit/releases/download/v2.0.0/response.bundle.js
     interval: 86400
