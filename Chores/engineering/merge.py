@@ -93,7 +93,34 @@ template_content = template_content.replace("{headers}", headers_combined)
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
 template_content = template_content.replace("{{currentDate}}", current_date)
 
-with open(output_path, 'w') as output_file:
-    output_file.write(template_content)
+existing_content = None
+existing_date = None
 
-print(f"File successfully merged and saved to: {output_path}")
+if os.path.exists(output_path):
+    with open(output_path, 'r') as output_file:
+        existing_content = output_file.read()
+    date_match = re.search(r'Update:\s*(\d{2}/\d{2}/\d{4})', existing_content)
+    if date_match:
+        existing_date = date_match.group(1)
+
+def strip_update_date(text: str) -> str:
+    return re.sub(r'(Update:\s*)(\d{2}/\d{2}/\d{4})', r'\1', text)
+
+if existing_content is not None:
+    normalized_new = strip_update_date(template_content)
+    normalized_existing = strip_update_date(existing_content)
+
+    if normalized_new == normalized_existing and existing_date:
+        template_content = re.sub(
+            r'(Update:\s*)(\d{2}/\d{2}/\d{4})',
+            lambda match: f"{match.group(1)}{existing_date}",
+            template_content,
+            count=1
+        )
+
+if existing_content == template_content:
+    print("No content changes detected for All-in-One-2.x.sgmodule; keeping existing file.")
+else:
+    with open(output_path, 'w') as output_file:
+        output_file.write(template_content)
+    print(f"File successfully merged and saved to: {output_path}")
