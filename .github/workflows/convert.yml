@@ -69,9 +69,11 @@ jobs:
           done
 
           if [ ! -s plugin_data.json ]; then
-            echo "::error ::Failed to download plugin list from all known endpoints"
+            echo "::error ::Plugin list download produced an empty file"
             exit 1
           fi
+
+          echo "✓ Downloaded plugin catalog from $url"
 
       - name: Extract plugin source URLs
         run: |
