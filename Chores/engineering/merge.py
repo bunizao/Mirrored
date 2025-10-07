@@ -32,7 +32,7 @@ for info in sgmodule_info:
         
         headers.append(info['header'])
         
-        # 计算动态分隔线
+        # Compute a divider that keeps the header centered
         left_dash_count = (max_divider_length - len(info['header'])) // 2
         right_dash_count = max_divider_length - len(info['header']) - left_dash_count
         divider = f"# {'-' * left_dash_count} {info['header']} {'-' * right_dash_count}"
@@ -44,7 +44,7 @@ for info in sgmodule_info:
                     sections["Rule"].append(cleaned_text)
                     print(f"[Debug] Added cleaned Rule content from {info['header']}: {cleaned_text}")
                 else:
-                    # 删除内容中的注释行和空行，但保留 divider
+                    # Drop inline comments and blank lines while preserving the divider
                     cleaned_lines = "\n".join(
                         line for line in text.strip().splitlines() 
                         if line.strip() and not line.strip().startswith("#")
