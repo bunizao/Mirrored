@@ -1,27 +1,7 @@
-#!name=快递100去广告
-#!desc=移除横幅广告、弹窗广告，精简首页。
-#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/KuaiDi100.png
-#!category=🚫 AD Block
+KuaiDi100_remove_ads%0A：Error: Response code 403 (Forbidden)
 
-#!openUrl=https://apps.apple.com/app/id458270120
-#!tag=去广告
-#!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-13 15:17:08
 
-[Map Local]
-^https?:\/\/p\.kuaidi100\.com\/advertisement\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https?:\/\/p\.kuaidi100\.com\/e-commerce\/act\/actInfo\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https?:\/\/p\.kuaidi100\.com\/apicenter\/card\.dox data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-[Script]
-body_rewrite_12 = type=http-response, pattern=^https?:\/\/p\.kuaidi100\.com\/mobile\/mobileapi\.do$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22adsplash%22%2C%22adIsConsumable%22%2C%22adProductId%22%2C%22nologin_tips%22%2C%22index_banner%22%2C%22me_banner%22%2C%22index_banner_shadow%22%2C%22adshongbao%22%2C%22adsapp_homepage_ticket_pop%22%2C%22adsoptimizationsend%22%2C%22adsapp_activity_ad_array%22%2C%22adbanner%22%2C%22adposition%22%2C%22adShowAgainTime%22%5D%5D%5D
-
-body_rewrite_13 = type=http-response, pattern=^https?:\/\/p\.kuaidi100\.com\/apicenter\/xcx\.dox, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.secondMenuList%22%5D%5D%5D
-
-[MITM]
-hostname = %APPEND% p.kuaidi100.com
-
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈

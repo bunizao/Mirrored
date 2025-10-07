@@ -1,20 +1,7 @@
-#!name=京东比价
-#!desc=首次使用需安装慢慢买应用，之后点击进入[我的]页面以捕获Cookie，捕获成功后方可在商品详情页面查看比价内容。
-#!author=wf021325[https://github.com/wf021325], githubdulong[https://github.com/githubdulong], mw418[https://github.com/mw418]
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/JD.png
-#!category=🚫 AD Block
+JD_Price%0A：Error: Response code 403 (Forbidden)
 
-#!openUrl=https://apps.apple.com/app/id414245413
-#!tag=功能增强
-#!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-15 05:41:50
 
-[Script]
-捕获令牌 = type=http-request, pattern=^https?:\/\/apapia-sqk-weblogic\.manmanbuy\.com\/baoliao\/center\/menu$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true, timeout=10
 
-京东比价 = type=http-response, pattern=^https?:\/\/in\.m\.jd\.com\/product\/graphext\/\d+\.html, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_Price.js, requires-body=true, timeout=10
 
-[MITM]
-hostname = %APPEND% in.m.jd.com, apapia-sqk-weblogic.manmanbuy.com
 
+Script Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
