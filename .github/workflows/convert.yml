@@ -48,13 +48,21 @@ jobs:
 
           candidate_urls=(
             "https://hub.kelee.one/list.json"
+            "https://cdn.jsdelivr.net/gh/Script-Hub-Org/Script-Hub@main/list.json"
+            "https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/list.json"
+            "https://ghproxy.com/https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/list.json"
           )
 
           browser_header="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:122.0) Gecko/20100101 Firefox/122.0"
+          accept_header="application/json, text/plain, */*"
 
           for url in "${candidate_urls[@]}"; do
             echo "Trying: $url"
-            if curl -fLsS -H "User-Agent: $browser_header" "$url" -o plugin_data.json && [ -s plugin_data.json ]; then
+            if curl -fLsS \
+              -H "User-Agent: $browser_header" \
+              -H "Accept: $accept_header" \
+              -H "Referer: https://hub.kelee.one/" \
+              "$url" -o plugin_data.json && [ -s plugin_data.json ]; then
               echo "✓ Downloaded plugin catalog from $url"
               break
             fi
