@@ -94,6 +94,8 @@ with open("plugin_data.json", "w", encoding="utf-8") as handle:
 print(f"✓ Downloaded plugin catalog from {url}")
 PY
 
+          echo "✓ Downloaded plugin catalog from $url"
+
       - name: Extract plugin source URLs
         run: |
           set -euo pipefail
