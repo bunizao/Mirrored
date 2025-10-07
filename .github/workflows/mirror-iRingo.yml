@@ -46,17 +46,38 @@ jobs:
           while IFS= read -r REPO; do
             echo "Processing repository: $REPO"
 
-            RELEASE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/latest")
+            API_URL="https://api.github.com/repos/$REPO/releases/latest"
+            RELEASE=$(curl -sSL -H "Authorization: token $GITHUB_TOKEN" "$API_URL")
 
-            # Check if release data was retrieved
-            if [ -z "$RELEASE" ] || [ "$RELEASE" == "null" ] || [ "$(echo "$RELEASE" | jq -r '.message')" = "Not Found" ]; then
-              echo "Release not found for $REPO, skipping."
+            # Check if release data was retrieved successfully
+            if [ -z "$RELEASE" ] || [ "$RELEASE" = "null" ]; then
+              echo "No release response for $REPO, skipping."
+              continue
+            fi
+
+            ERROR_MESSAGE=$(echo "$RELEASE" | jq -r '.message // empty')
+            if [ "$ERROR_MESSAGE" = "Moved Permanently" ]; then
+              REDIRECT_URL=$(echo "$RELEASE" | jq -r '.url // empty')
+              if [ -n "$REDIRECT_URL" ]; then
+                echo "Following redirect for $REPO to $REDIRECT_URL"
+                RELEASE=$(curl -sSL -H "Authorization: token $GITHUB_TOKEN" "$REDIRECT_URL")
+                ERROR_MESSAGE=$(echo "$RELEASE" | jq -r '.message // empty')
+              fi
+            fi
+
+            if [ -n "$ERROR_MESSAGE" ]; then
+              echo "Failed to fetch release for $REPO: $ERROR_MESSAGE"
               continue
             fi
 
             # Log release information
             echo "Release data for $REPO:"
             echo "$RELEASE" | jq '.'
+
+            if ! echo "$RELEASE" | jq -e 'has("assets") and (.assets | type == "array") and (.assets | length > 0)' >/dev/null; then
+              echo "No assets found for $REPO."
+              continue
+            fi
 
             ASSETS=$(echo "$RELEASE" | jq -c '.assets[]')
 

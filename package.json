@@ -4,7 +4,7 @@
   "description": "Mirrored",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No test specified\" && exit 1"
+    "test": "./scripts/validate_workflow.rb"
   },
   "author": "Mirrored",
   "license": "MIT",
