@@ -42,7 +42,7 @@ jobs:
           echo "::error ::container not ready"; exit 1
 
       # ---------- 1. 抓取 pluginhub 页面并解析 plugin= 后的 URL ----------
-      - name: 
+      - name: Download plugin list
         run: |
           curl -s "https://pluginhub.kelee.one/Lpx_list.json" -o plugin_data.json
 
@@ -56,11 +56,23 @@ jobs:
       - name: Generate sgmodule files
         run: |
           mkdir -p Chores/sgmodule
+          find Chores/sgmodule -maxdepth 1 -type f -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
           enc_cat=$(echo "$category" | jq -sRr @uri)
           while read -r plugin_url; do
             [ -z "$plugin_url" ] && continue
-            name=$(basename "$plugin_url" .plugin)
+            url_no_query="${plugin_url%%[\?#]*}"
+            base_name=$(basename "$url_no_query")
+
+            name="$base_name"
+            if [[ "$name" == *.lpx ]]; then
+              name="${name%.lpx}"
+            fi
+            if [[ "$name" == *.plugin ]]; then
+              name="${name%.plugin}"
+            fi
+            [ -z "$name" ] && name="$base_name"
+
             enc=$(echo "$name" | jq -sRr @uri)
             url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${enc}.sgmodule?type=loon-plugin&target=surge-module&category=$enc_cat"
             echo "↓  $url"
