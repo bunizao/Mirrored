@@ -1,8 +1,9 @@
+---
 name: Extract plugin URLs & build sgmodule
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   schedule:
     - cron: '5,30,55 * * * *'
 
@@ -25,13 +26,24 @@ jobs:
 
       - name: Setup git identity
         run: |
-          git config --global user.name  "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email \
+            "github-actions[bot]@users.noreply.github.com"
 
-      - name: Install curl jq netcat
+      - name: Install workflow tooling
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y curl jq netcat-openbsd
+          sudo apt-get install -y \
+            curl \
+            jq \
+            netcat-openbsd \
+            python3-pip \
+            nodejs
+
+          if ! python3 -m pip install --no-cache-dir cloudscraper==1.2.71; then
+            python3 -m pip install --no-cache-dir \
+              --break-system-packages cloudscraper==1.2.71
+          fi
 
       - name: Wait for Script-Hub container (:9101)
         run: |
@@ -46,33 +58,19 @@ jobs:
         run: |
           set -euo pipefail
 
-          candidate_urls=(
-            "https://hub.kelee.one/list.json"
-          )
-
-          browser_header="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:122.0) Gecko/20100101 Firefox/122.0"
-
-          for url in "${candidate_urls[@]}"; do
-            echo "Trying: $url"
-            if curl -fLsS -H "User-Agent: $browser_header" "$url" -o plugin_data.json && [ -s plugin_data.json ]; then
-              echo "✓ Downloaded plugin catalog from $url"
-              break
-            fi
-          done
-
-          if [ ! -s plugin_data.json ]; then
-            echo "::error ::Failed to download plugin list from all known endpoints"
-            exit 1
-          fi
+          python3 scripts/download_plugin_list.py \
+            --url https://hub.kelee.one/list.json \
+            --output plugin_data.json
 
       - name: Extract plugin source URLs
         run: |
           set -euo pipefail
-          grep -oE 'https?://[^"]+\.(plugin|lpx)' plugin_data.json | sort -u > plugin_urls.txt
+          grep -oE 'https?://[^"]+\.(plugin|lpx)' plugin_data.json \
+            | sort -u > plugin_urls.txt
 
           plugin_count=$(wc -l < plugin_urls.txt)
           if [ "$plugin_count" -eq 0 ]; then
-            echo "::error ::Plugin list JSON did not contain any .plugin/.lpx URLs"
+            echo "::error ::Plugin list JSON missing .plugin/.lpx URLs"
             exit 1
           fi
 
@@ -83,9 +81,17 @@ jobs:
       - name: Generate sgmodule files
         run: |
           mkdir -p Chores/sgmodule
-          find Chores/sgmodule -maxdepth 1 -type f -name "*.lpx.sgmodule" -delete
+          find Chores/sgmodule -maxdepth 1 -type f \
+            -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
           enc_cat=$(echo "$category" | jq -sRr @uri)
+          script_hub_host="script.hub"
+          script_hub_port=9101
+          resolve_flags=(
+            --resolve "${script_hub_host}:${script_hub_port}:127.0.0.1"
+            --resolve "${script_hub_host}:80:127.0.0.1"
+          )
+
           while read -r plugin_url; do
             [ -z "$plugin_url" ] && continue
             url_no_query="${plugin_url%%[\?#]*}"
@@ -99,12 +105,26 @@ jobs:
               name="${name%.plugin}"
             fi
             [ -z "$name" ] && name="$base_name"
-
             enc=$(echo "$name" | jq -sRr @uri)
-            url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${enc}.sgmodule?type=loon-plugin&target=surge-module&category=$enc_cat"
+            base_url="http://${script_hub_host}:${script_hub_port}/file/_start_/${plugin_url}/_end_/${enc}.sgmodule"
+            query="type=loon-plugin&target=surge-module&category=$enc_cat"
+            url="${base_url}?${query}"
             echo "↓  $url"
-            curl -Ls -A "Surge Mac/2985" "$url" -o "Chores/sgmodule/$name.sgmodule" \
-              || echo "::warning ::Failed to download $name.sgmodule"
+
+            if curl -fSLo "Chores/sgmodule/$name.sgmodule" \
+              -A "Surge Mac/2985" \
+              --connect-timeout 30 \
+              --max-time 120 \
+              --retry 3 \
+              --retry-delay 5 \
+              --retry-all-errors \
+              "${resolve_flags[@]}" \
+              "$url"; then
+              echo "✓ Downloaded $name.sgmodule"
+            else
+              echo "::warning ::Failed to download $name.sgmodule"
+              rm -f "Chores/sgmodule/$name.sgmodule"
+            fi
           done < plugin_urls.txt
 
       # ---------- 3. Mirror external JS files and rewrite links ----------
@@ -113,28 +133,30 @@ jobs:
         run: |
           set -e
           mkdir -p Chores/js
-          
+
           # Abort early if no sgmodule files were generated
-          if [ ! -d "Chores/sgmodule" ] || [ -z "$(ls -A Chores/sgmodule 2>/dev/null)" ]; then
+          if [ ! -d "Chores/sgmodule" ] \
+            || [ -z "$(ls -A Chores/sgmodule 2>/dev/null)" ]; then
             echo "No sgmodule files found to process"
             exit 0
           fi
-          
+
           echo "Generated sgmodule files:"
           ls -la Chores/sgmodule/
-          
+
           # Extract every JavaScript URL referenced by the sgmodules
           echo "Searching for JS URLs..."
-          
+
           # Use a precise regex to capture URLs that follow script-path
+          script_regex='script-path\s*=\s*https?://[^[:space:],"]+\.js[^[:space:],"]*'
           find Chores/sgmodule -name "*.sgmodule" \
-            -exec grep -hoE 'script-path\s*=\s*https?://[^[:space:],"]+\.js[^[:space:],"]*' {} \; 2>/dev/null \
-            | sed -E 's/^script-path\s*=\s*//' \
+              -exec grep -hoE "$script_regex" {} \; 2>/dev/null \
+              | sed -E 's/^script-path\s*=\s*//' \
             | sort -u > external-js-raw.txt || touch external-js-raw.txt
-          
+
           echo "Found JavaScript URLs:"
           cat external-js-raw.txt || echo "No JS URLs found"
-          
+
           # Filter out URLs that already point at the mirror
           if [ -s external-js-raw.txt ]; then
             grep -v "$MIRROR_KEY" external-js-raw.txt \
@@ -143,7 +165,7 @@ jobs:
           else
             touch external-js.txt
           fi
-          
+
           echo "External JS URLs to mirror:"
           cat external-js.txt || echo "No external JS URLs to mirror"
 
@@ -159,31 +181,45 @@ jobs:
           failed_downloads=0
           while IFS= read -r url; do
             [ -z "$url" ] && continue
-            
+
             # Extract a filename while stripping any query string
             filename=$(basename "${url%%[\?#]*}")
-            
+            file_path="Chores/js/$filename"
+
             # Ensure the filename ends with .js
             if [[ ! "$filename" =~ \.js$ ]]; then
               filename="${filename}.js"
+              file_path="Chores/js/$filename"
             fi
-            
+
             echo "Mirroring: $url → Chores/js/$filename"
-            
-            if curl -Ls -A "Surge Mac/3272" --connect-timeout 30 --max-time 60 "$url" -o "Chores/js/$filename"; then
+
+            if curl -Ls -A "Surge Mac/3272" \
+              --connect-timeout 30 \
+              --max-time 60 \
+              "$url" \
+              -o "$file_path"; then
               # Ensure the mirrored file has meaningful content
-              if [ -s "Chores/js/$filename" ] && [ "$(stat -c%s "Chores/js/$filename")" -gt 10 ]; then
-                echo "✓ Successfully downloaded $filename"
-                
-                # Rewrite every sgmodule reference with the mirrored URL
-                mirror_url="$MIRROR_RAW/$filename"
-                find Chores/sgmodule -name "*.sgmodule" -type f \
-                  -exec perl -pi -e "s,\Q${url}\E,${mirror_url},g" {} \;
-                
-                echo "✓ Updated links: $url → $mirror_url"
+              if [ -s "$file_path" ]; then
+                file_size=$(stat -c%s "$file_path")
+                if [ "$file_size" -gt 10 ]; then
+                  echo "✓ Successfully downloaded $filename"
+
+                  # Rewrite every sgmodule reference with the mirrored URL
+                  mirror_url="$MIRROR_RAW/$filename"
+                  perl_expr="s,\\Q${url}\\E,${mirror_url},g"
+                  find Chores/sgmodule -name "*.sgmodule" -type f \
+                    -exec perl -pi -e "$perl_expr" {} \;
+
+                  echo "✓ Updated links: $url → $mirror_url"
+                else
+                  echo "✗ Downloaded file is empty or too small: $filename"
+                  rm -f "$file_path"
+                  ((failed_downloads++))
+                fi
               else
                 echo "✗ Downloaded file is empty or too small: $filename"
-                rm -f "Chores/js/$filename"
+                rm -f "$file_path"
                 ((failed_downloads++))
               fi
             else
@@ -191,9 +227,9 @@ jobs:
               ((failed_downloads++))
             fi
           done < external-js.txt
-          
+
           echo "Processing complete. Failed downloads: $failed_downloads"
-          
+
           # Remove temporary files
           rm -f external-js.txt external-js-raw.txt
 
@@ -203,8 +239,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "github-actions[bot]@users.noreply.github.com"
 
           # Skip committing when nothing was generated
           if [ ! -d "Chores/sgmodule" ] && [ ! -d "Chores/js" ]; then
@@ -232,10 +269,10 @@ jobs:
           else
             echo "Pulling latest changes from origin..."
             git pull --rebase origin main
-            
+
             # Re-stage files after a successful rebase
             git add Chores/sgmodule Chores/js 2>/dev/null || true
-            
+
             # Abort if nothing remains staged after rebase
             if git diff --cached --quiet; then
               echo "Nothing to commit after rebase."
@@ -244,10 +281,11 @@ jobs:
           fi
 
           # Commit and push the new artifacts
-          commit_msg="Update sgmodule & mirror JS files - $(date '+%Y-%m-%d %H:%M:%S UTC')"
+          timestamp=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          commit_msg="Update sgmodule & mirror JS files - ${timestamp}"
           git commit -m "$commit_msg"
-          
+
           echo "Pushing changes..."
           git push origin main
-          
+
           echo "✓ Successfully committed and pushed changes"
