@@ -46,19 +46,27 @@ jobs:
         run: |
           set -euo pipefail
 
-          url="https://hub.kelee.one/list.json"
-          echo "Downloading: $url"
+          candidate_urls=(
+            "https://hub.kelee.one/list.json"
+            "https://cdn.jsdelivr.net/gh/Script-Hub-Org/Script-Hub@main/list.json"
+            "https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/list.json"
+            "https://ghproxy.com/https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/list.json"
+          )
 
-          # hub.kelee.one blocks the default curl user agent and TLS 1.3 handshakes
-          # with a Cloudflare challenge. Forcing TLS 1.2 and sending a browser-like
-          # user agent matches what succeeds locally.
-          if ! curl -fLsS \
-            --tlsv1.2 \
-            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" \
-            "$url" -o plugin_data.json; then
-            echo "::error ::Failed to download plugin list from $url"
-            exit 1
-          fi
+          browser_header="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:122.0) Gecko/20100101 Firefox/122.0"
+          accept_header="application/json, text/plain, */*"
+
+          for url in "${candidate_urls[@]}"; do
+            echo "Trying: $url"
+            if curl -fLsS \
+              -H "User-Agent: $browser_header" \
+              -H "Accept: $accept_header" \
+              -H "Referer: https://hub.kelee.one/" \
+              "$url" -o plugin_data.json && [ -s plugin_data.json ]; then
+              echo "✓ Downloaded plugin catalog from $url"
+              break
+            fi
+          done
 
           if [ ! -s plugin_data.json ]; then
             echo "::error ::Plugin list download produced an empty file"
