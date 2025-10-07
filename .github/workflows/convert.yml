@@ -41,26 +41,67 @@ jobs:
           done
           echo "::error ::container not ready"; exit 1
 
-      # ---------- 1. 抓取 pluginhub 页面并解析 plugin= 后的 URL ----------
-      - name: 
+      # ---------- 1. Fetch the plugin list and extract source URLs ----------
+      - name: Download plugin list
         run: |
-          curl -s "https://pluginhub.kelee.one/Lpx_list.json" -o plugin_data.json
+          set -euo pipefail
 
-      - name: Extract .plugin URLs
+          candidate_urls=(
+            "https://hub.kelee.one/list.json"
+          )
+
+          browser_header="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:122.0) Gecko/20100101 Firefox/122.0"
+
+          for url in "${candidate_urls[@]}"; do
+            echo "Trying: $url"
+            if curl -fLsS -H "User-Agent: $browser_header" "$url" -o plugin_data.json && [ -s plugin_data.json ]; then
+              echo "✓ Downloaded plugin catalog from $url"
+              break
+            fi
+          done
+
+          if [ ! -s plugin_data.json ]; then
+            echo "::error ::Failed to download plugin list from all known endpoints"
+            exit 1
+          fi
+
+      - name: Extract plugin source URLs
         run: |
-          grep -oE 'https?://[^"]+\.(plugin|lpx)' plugin_data.json | sort -u > plugin_urls.txt || true
-          echo "提取到 $(wc -l < plugin_urls.txt) 个插件链接："
+          set -euo pipefail
+          grep -oE 'https?://[^"]+\.(plugin|lpx)' plugin_data.json | sort -u > plugin_urls.txt
+
+          plugin_count=$(wc -l < plugin_urls.txt)
+          if [ "$plugin_count" -eq 0 ]; then
+            echo "::error ::Plugin list JSON did not contain any .plugin/.lpx URLs"
+            exit 1
+          fi
+
+          echo "Found $plugin_count plugin links:"
           cat plugin_urls.txt
 
-      # ---------- 2. 调 Script-Hub 生成 .sgmodule ----------
+      # ---------- 2. Ask Script-Hub to render .sgmodule files ----------
       - name: Generate sgmodule files
         run: |
           mkdir -p Chores/sgmodule
+          find Chores/sgmodule -maxdepth 1 -type f -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
           enc_cat=$(echo "$category" | jq -sRr @uri)
           while read -r plugin_url; do
             [ -z "$plugin_url" ] && continue
-            name=$(basename "$plugin_url" .plugin)
+            url_no_query="${plugin_url%%[\?#]*}"
+            base_name=$(basename "$url_no_query")
+
+            name="$base_name"
+            while [[ -n "$name" ]]; do
+              lower_name="${name,,}"
+              if [[ "$lower_name" == *.lpx ]] || [[ "$lower_name" == *.plugin ]]; then
+                name="${name%.*}"
+              else
+                break
+              fi
+            done
+            [ -z "$name" ] && name="$base_name"
+
             enc=$(echo "$name" | jq -sRr @uri)
             url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${enc}.sgmodule?type=loon-plugin&target=surge-module&category=$enc_cat"
             echo "↓  $url"
@@ -68,14 +109,14 @@ jobs:
               || echo "::warning ::Failed to download $name.sgmodule"
           done < plugin_urls.txt
 
-      # ---------- 3. 镜像外部 JS 并替换链接 ----------
+      # ---------- 3. Mirror external JS files and rewrite links ----------
       - name: Mirror external JS & rewrite links
         shell: bash
         run: |
           set -e
           mkdir -p Chores/js
           
-          # 检查是否有生成的 sgmodule 文件
+          # Abort early if no sgmodule files were generated
           if [ ! -d "Chores/sgmodule" ] || [ -z "$(ls -A Chores/sgmodule 2>/dev/null)" ]; then
             echo "No sgmodule files found to process"
             exit 0
@@ -84,10 +125,10 @@ jobs:
           echo "Generated sgmodule files:"
           ls -la Chores/sgmodule/
           
-          # 提取所有 JavaScript URL
+          # Extract every JavaScript URL referenced by the sgmodules
           echo "Searching for JS URLs..."
           
-          # 使用更精确的正则表达式匹配 script-path 后的 URL
+          # Use a precise regex to capture URLs that follow script-path
           find Chores/sgmodule -name "*.sgmodule" \
             -exec grep -hoE 'script-path\s*=\s*https?://[^[:space:],"]+\.js[^[:space:],"]*' {} \; 2>/dev/null \
             | sed -E 's/^script-path\s*=\s*//' \
@@ -96,7 +137,7 @@ jobs:
           echo "Found JavaScript URLs:"
           cat external-js-raw.txt || echo "No JS URLs found"
           
-          # 过滤掉已经指向镜像的 URL
+          # Filter out URLs that already point at the mirror
           if [ -s external-js-raw.txt ]; then
             grep -v "$MIRROR_KEY" external-js-raw.txt \
               | grep -v "$MIRROR_RAW" > external-js.txt \
@@ -108,23 +149,23 @@ jobs:
           echo "External JS URLs to mirror:"
           cat external-js.txt || echo "No external JS URLs to mirror"
 
-          # 如果没有需要镜像的 JS 文件，直接退出
+          # Nothing to mirror? Clean up and exit early
           if [ ! -s external-js.txt ]; then
             echo "No external JS links found to mirror."
             rm -f external-js.txt external-js-raw.txt
             exit 0
           fi
 
-          # 下载并镜像 JS 文件
+          # Download and mirror the JS files
           echo "Processing external JS files:"
           failed_downloads=0
           while IFS= read -r url; do
             [ -z "$url" ] && continue
             
-            # 提取文件名，处理可能的查询参数
+            # Extract a filename while stripping any query string
             filename=$(basename "${url%%[\?#]*}")
             
-            # 确保文件名以 .js 结尾
+            # Ensure the filename ends with .js
             if [[ ! "$filename" =~ \.js$ ]]; then
               filename="${filename}.js"
             fi
@@ -132,11 +173,11 @@ jobs:
             echo "Mirroring: $url → Chores/js/$filename"
             
             if curl -Ls -A "Surge Mac/3272" --connect-timeout 30 --max-time 60 "$url" -o "Chores/js/$filename"; then
-              # 检查下载的文件是否为空或过小
+              # Ensure the mirrored file has meaningful content
               if [ -s "Chores/js/$filename" ] && [ "$(stat -c%s "Chores/js/$filename")" -gt 10 ]; then
                 echo "✓ Successfully downloaded $filename"
                 
-                # 在所有 sgmodule 文件中替换链接
+                # Rewrite every sgmodule reference with the mirrored URL
                 mirror_url="$MIRROR_RAW/$filename"
                 find Chores/sgmodule -name "*.sgmodule" -type f \
                   -exec perl -pi -e "s,\Q${url}\E,${mirror_url},g" {} \;
@@ -155,7 +196,7 @@ jobs:
           
           echo "Processing complete. Failed downloads: $failed_downloads"
           
-          # 清理临时文件
+          # Remove temporary files
           rm -f external-js.txt external-js-raw.txt
 
       - name: Commit & push (if changed)
@@ -167,26 +208,26 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # 检查是否有文件变化
+          # Skip committing when nothing was generated
           if [ ! -d "Chores/sgmodule" ] && [ ! -d "Chores/js" ]; then
             echo "No files to commit."
             exit 0
           fi
 
-          # 暂存需要管控的文件
+          # Stage managed artifacts
           git add Chores/sgmodule Chores/js 2>/dev/null || true
 
-          # 检查暂存区是否为空
+          # Bail out if staging area is empty
           if git diff --cached --quiet; then
             echo "Nothing to commit."
             exit 0
           fi
 
-          # 显示将要提交的变化
+          # Show the staged changes
           echo "Changes to be committed:"
           git diff --cached --name-status
 
-          # 同步远端变化
+          # Sync with the latest upstream history
           git fetch origin
           if git diff --quiet HEAD origin/main; then
             echo "Local branch is up to date with origin/main"
@@ -194,17 +235,17 @@ jobs:
             echo "Pulling latest changes from origin..."
             git pull --rebase origin main
             
-            # rebase 后重新添加文件
+            # Re-stage files after a successful rebase
             git add Chores/sgmodule Chores/js 2>/dev/null || true
             
-            # rebase 后再次检查
+            # Abort if nothing remains staged after rebase
             if git diff --cached --quiet; then
               echo "Nothing to commit after rebase."
               exit 0
             fi
           fi
 
-          # 提交变化
+          # Commit and push the new artifacts
           commit_msg="Update sgmodule & mirror JS files - $(date '+%Y-%m-%d %H:%M:%S UTC')"
           git commit -m "$commit_msg"
           

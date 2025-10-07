@@ -32,7 +32,7 @@ for info in sgmodule_info:
         
         headers.append(info['header'])
         
-        # 计算动态分隔线
+        # Compute a divider that keeps the header centered
         left_dash_count = (max_divider_length - len(info['header'])) // 2
         right_dash_count = max_divider_length - len(info['header']) - left_dash_count
         divider = f"# {'-' * left_dash_count} {info['header']} {'-' * right_dash_count}"
@@ -44,7 +44,7 @@ for info in sgmodule_info:
                     sections["Rule"].append(cleaned_text)
                     print(f"[Debug] Added cleaned Rule content from {info['header']}: {cleaned_text}")
                 else:
-                    # 删除内容中的注释行和空行，但保留 divider
+                    # Drop inline comments and blank lines while preserving the divider
                     cleaned_lines = "\n".join(
                         line for line in text.strip().splitlines() 
                         if line.strip() and not line.strip().startswith("#")
@@ -93,7 +93,34 @@ template_content = template_content.replace("{headers}", headers_combined)
 template_content = template_content.replace("{hostname_append}", hostname_append_content)
 template_content = template_content.replace("{{currentDate}}", current_date)
 
-with open(output_path, 'w') as output_file:
-    output_file.write(template_content)
+existing_content = None
+existing_date = None
 
-print(f"File successfully merged and saved to: {output_path}")
+if os.path.exists(output_path):
+    with open(output_path, 'r') as output_file:
+        existing_content = output_file.read()
+    date_match = re.search(r'Update:\s*(\d{2}/\d{2}/\d{4})', existing_content)
+    if date_match:
+        existing_date = date_match.group(1)
+
+def strip_update_date(text: str) -> str:
+    return re.sub(r'(Update:\s*)(\d{2}/\d{2}/\d{4})', r'\1', text)
+
+if existing_content is not None:
+    normalized_new = strip_update_date(template_content)
+    normalized_existing = strip_update_date(existing_content)
+
+    if normalized_new == normalized_existing and existing_date:
+        template_content = re.sub(
+            r'(Update:\s*)(\d{2}/\d{2}/\d{4})',
+            lambda match: f"{match.group(1)}{existing_date}",
+            template_content,
+            count=1
+        )
+
+if existing_content == template_content:
+    print("No content changes detected for All-in-One-2.x.sgmodule; keeping existing file.")
+else:
+    with open(output_path, 'w') as output_file:
+        output_file.write(template_content)
+    print(f"File successfully merged and saved to: {output_path}")
