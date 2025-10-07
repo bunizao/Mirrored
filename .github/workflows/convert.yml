@@ -85,10 +85,24 @@ jobs:
             -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
           enc_cat=$(echo "$category" | jq -sRr @uri)
+          script_hub_host="script.hub"
+          script_hub_port=9101
+          resolve_flags=(
+            --resolve "${script_hub_host}:${script_hub_port}:127.0.0.1"
+            --resolve "${script_hub_host}:80:127.0.0.1"
+          )
+
+          trim_control_chars() {
+            printf '%s' "$1" | tr -d '\r\n\t'
+          }
+
           while read -r plugin_url; do
+            plugin_url="$(trim_control_chars "$plugin_url")"
             [ -z "$plugin_url" ] && continue
+
             url_no_query="${plugin_url%%[\?#]*}"
             base_name=$(basename "$url_no_query")
+            base_name="$(trim_control_chars "$base_name")"
 
             name="$base_name"
             if [[ "$name" == *.lpx ]]; then
@@ -97,16 +111,29 @@ jobs:
             if [[ "$name" == *.plugin ]]; then
               name="${name%.plugin}"
             fi
+            name="$(trim_control_chars "$name")"
             [ -z "$name" ] && name="$base_name"
 
-            enc=$(echo "$name" | jq -sRr @uri)
-            base_url="http://localhost:9101/file/_start_/${plugin_url}/_end_/${enc}.sgmodule"
+            enc=$(printf '%s' "$name" | jq -sRr @uri)
+            base_url="http://${script_hub_host}:${script_hub_port}/file/_start_/${plugin_url}/_end_/${enc}.sgmodule"
             query="type=loon-plugin&target=surge-module&category=$enc_cat"
             url="${base_url}?${query}"
             echo "↓  $url"
-            curl -Ls -A "Surge Mac/2985" "$url" \
-              -o "Chores/sgmodule/$name.sgmodule" \
-              || echo "::warning ::Failed to download $name.sgmodule"
+
+            if curl -fSLo "Chores/sgmodule/$name.sgmodule" \
+              -A "Surge Mac/2985" \
+              --connect-timeout 30 \
+              --max-time 120 \
+              --retry 3 \
+              --retry-delay 5 \
+              --retry-all-errors \
+              "${resolve_flags[@]}" \
+              "$url"; then
+              echo "✓ Downloaded $name.sgmodule"
+            else
+              echo "::warning ::Failed to download $name.sgmodule"
+              rm -f "Chores/sgmodule/$name.sgmodule"
+            fi
           done < plugin_urls.txt
 
       # ---------- 3. Mirror external JS files and rewrite links ----------
