@@ -28,10 +28,13 @@ jobs:
           git config --global user.name  "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Install curl jq netcat
+      - name: Install workflow tooling
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y curl jq netcat-openbsd
+          sudo apt-get install -y curl jq netcat-openbsd python3-pip nodejs
+          python3 -m pip install --no-cache-dir cloudscraper==1.2.71 \
+            || python3 -m pip install --no-cache-dir --break-system-packages \
+              cloudscraper==1.2.71
 
       - name: Wait for Script-Hub container (:9101)
         run: |
@@ -46,24 +49,50 @@ jobs:
         run: |
           set -euo pipefail
 
-          candidate_urls=(
-            "https://hub.kelee.one/list.json"
-          )
+          url="https://hub.kelee.one/list.json"
+          echo "Downloading: $url"
 
-          browser_header="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:122.0) Gecko/20100101 Firefox/122.0"
+          python3 - <<'PY'
+import json
+import sys
 
-          for url in "${candidate_urls[@]}"; do
-            echo "Trying: $url"
-            if curl -fLsS -H "User-Agent: $browser_header" "$url" -o plugin_data.json && [ -s plugin_data.json ]; then
-              echo "✓ Downloaded plugin catalog from $url"
-              break
-            fi
-          done
+import cloudscraper
 
-          if [ ! -s plugin_data.json ]; then
-            echo "::error ::Failed to download plugin list from all known endpoints"
-            exit 1
-          fi
+url = "https://hub.kelee.one/list.json"
+
+scraper = cloudscraper.create_scraper(
+    interpreter="nodejs",
+    browser={"browser": "chrome", "platform": "windows", "mobile": False},
+    delay=10,
+)
+
+try:
+    response = scraper.get(url, timeout=60)
+except Exception as exc:  # pragma: no cover - diagnostic path
+    print(f"::error ::Request to {url} failed: {exc}")
+    sys.exit(1)
+
+if response.status_code != 200:
+    print(f"::error ::{url} returned HTTP {response.status_code}")
+    sys.exit(1)
+
+text = response.text.strip()
+
+if not text:
+    print("::error ::Plugin list download produced an empty file")
+    sys.exit(1)
+
+try:
+    json.loads(text)
+except json.JSONDecodeError:
+    print("::error ::Downloaded plugin list is not valid JSON")
+    sys.exit(1)
+
+with open("plugin_data.json", "w", encoding="utf-8") as handle:
+    handle.write(text)
+
+print(f"✓ Downloaded plugin catalog from {url}")
+PY
 
       - name: Extract plugin source URLs
         run: |
