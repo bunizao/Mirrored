@@ -92,10 +92,17 @@ jobs:
             --resolve "${script_hub_host}:80:127.0.0.1"
           )
 
+          trim_control_chars() {
+            printf '%s' "$1" | tr -d '\r\n\t'
+          }
+
           while read -r plugin_url; do
+            plugin_url="$(trim_control_chars "$plugin_url")"
             [ -z "$plugin_url" ] && continue
+
             url_no_query="${plugin_url%%[\?#]*}"
             base_name=$(basename "$url_no_query")
+            base_name="$(trim_control_chars "$base_name")"
 
             name="$base_name"
             if [[ "$name" == *.lpx ]]; then
@@ -104,8 +111,10 @@ jobs:
             if [[ "$name" == *.plugin ]]; then
               name="${name%.plugin}"
             fi
+            name="$(trim_control_chars "$name")"
             [ -z "$name" ] && name="$base_name"
-            enc=$(echo "$name" | jq -sRr @uri)
+
+            enc=$(printf '%s' "$name" | jq -sRr @uri)
             base_url="http://${script_hub_host}:${script_hub_port}/file/_start_/${plugin_url}/_end_/${enc}.sgmodule"
             query="type=loon-plugin&target=surge-module&category=$enc_cat"
             url="${base_url}?${query}"
