@@ -84,7 +84,7 @@ jobs:
           find Chores/sgmodule -maxdepth 1 -type f \
             -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
-          enc_cat=$(echo "$category" | jq -sRr @uri)
+          enc_cat=$(printf '%s' "$category" | jq -sRr @uri)
           script_hub_host="script.hub"
           script_hub_port=9101
           resolve_flags=(
