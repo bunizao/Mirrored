@@ -92,14 +92,12 @@ jobs:
             base_name=$(basename "$url_no_query")
 
             name="$base_name"
-            while [[ -n "$name" ]]; do
-              lower_name="${name,,}"
-              if [[ "$lower_name" == *.lpx ]] || [[ "$lower_name" == *.plugin ]]; then
-                name="${name%.*}"
-              else
-                break
-              fi
-            done
+            if [[ "$name" == *.lpx ]]; then
+              name="${name%.lpx}"
+            fi
+            if [[ "$name" == *.plugin ]]; then
+              name="${name%.plugin}"
+            fi
             [ -z "$name" ] && name="$base_name"
 
             enc=$(echo "$name" | jq -sRr @uri)
