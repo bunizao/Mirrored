@@ -1,0 +1,33 @@
+#!name=得间小说去广告
+#!desc=移除开屏广告、章末广告，移除扉页广告提示、听书界面广告提示、搜索栏填充词。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/iReaderDejian.png
+#!category=🚫 AD Block
+
+#!openUrl=https://apps.apple.com/app/id1454487240
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-09-04 22:36:17
+
+[Rule]
+DOMAIN,smad.ms.zhangyue.net,REJECT
+DOMAIN,saad.ms.zhangyue.net,REJECT
+
+[Map Local]
+^https:\/\/dj\.palmestore\.com\/djad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/dj\.palmestore\.com\/zybk\/api\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/dj\.palmestore\.com\/zyapi\/bookstore\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/dj\.palmestore\.com\/zybk\/api\/bookshelf\/index\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_15 = type=http-response, pattern=^https:\/\/dj\.palmestore\.com\/zybk\/api\/powerup\/userGroup\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22body.sevenDaysAd%22%2C%22body.shortPlayShow%22%2C%22body.sdkShortPlayAB%22%5D%5D%5D
+
+body_rewrite_19 = type=http-response, pattern=^https:\/\/dj\.palmestore\.com\/zybk\/api\/search\/index\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22body.keywords%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% dj.palmestore.com
+
