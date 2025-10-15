@@ -20,6 +20,9 @@ jobs:
     env:
       MIRROR_RAW: https://github.com/bunizao/Mirrored/raw/main/Chores/js
       MIRROR_KEY: github.com/bunizao/Mirrored
+      PROXY_BASE: ${{ vars.PROXY_BASE }}
+      LIST_URL_PRIMARY: ${{ vars.LIST_URL_PRIMARY }}
+      LIST_URL_BACKUP: ${{ vars.LIST_URL_BACKUP }}
 
     steps:
       - uses: actions/checkout@v3
@@ -37,6 +40,7 @@ jobs:
             curl \
             jq \
             netcat-openbsd \
+            python3-pip \
             nodejs
 
       - name: Wait for Script-Hub container (:9101)
@@ -47,47 +51,62 @@ jobs:
           done
           echo "::error ::container not ready"; exit 1
 
-      # ---------- 1. Prepare mirrored LNPlugin sources ----------
-      - name: Verify mirrored LNPlugin artifacts
+      # ---------- 1. Fetch the plugin list and extract source URLs ----------
+      - name: Download plugin list
         run: |
           set -euo pipefail
 
-          if [ ! -d "Chores/lnplugin" ]; then
-            echo "::error ::Missing Chores/lnplugin directory. Run mirror-lnplugin workflow first."
+          python3 -m pip install --quiet --upgrade pip
+          python3 -m pip install --quiet cloudscraper
+
+          candidate_urls=()
+          if [ -n "${LIST_URL_PRIMARY:-}" ]; then
+            candidate_urls+=("$LIST_URL_PRIMARY")
+          fi
+          if [ -n "${LIST_URL_BACKUP:-}" ]; then
+            candidate_urls+=("$LIST_URL_BACKUP")
+          fi
+
+          if [ "${#candidate_urls[@]}" -eq 0 ]; then
+            echo "::warning ::LIST_URL_* vars missing; using default catalog URLs"
+            candidate_urls=(
+              "https://hub.kelee.one/list.json"
+              "https://pluginhub.kelee.one/list.json"
+            )
+          fi
+
+          success=0
+          for url in "${candidate_urls[@]}"; do
+            echo "Trying: $url"
+            if python3 scripts/download_plugin_list.py \
+              --url "$url" \
+              --output plugin_data.json; then
+              success=1
+              break
+            fi
+          done
+
+          if [ "$success" -ne 1 ] || [ ! -s plugin_data.json ]; then
+            echo "::error ::Failed to download plugin list from all configured URLs"
             exit 1
           fi
 
-          find Chores/lnplugin -maxdepth 1 -type f -name '*.lpx' | sort > lnplugin_files.txt
-
-          if [ ! -s lnplugin_files.txt ]; then
-            echo "::error ::No .lpx artifacts found in Chores/lnplugin"
-            exit 1
-          fi
-
-          echo "Found mirrored LNPlugin files:"
-          cat lnplugin_files.txt
-
-      - name: Start LNPlugin HTTP server
+      - name: Extract plugin source URLs
         run: |
           set -euo pipefail
-          python3 -m http.server 8000 --bind 0.0.0.0 --directory Chores/lnplugin &
-          echo $! > http_server.pid
-          sleep 2
-          if ! kill -0 "$(cat http_server.pid)" 2>/dev/null; then
-            echo "::error ::Failed to start LNPlugin HTTP server"
-            exit 1
-          fi
 
-      - name: Generate plugin source URLs
-        run: |
-          set -euo pipefail
-          python3 scripts/build_local_plugin_urls.py \
-            --input lnplugin_files.txt \
+          python3 scripts/extract_lnplugin_urls.py \
+            --input plugin_data.json \
             --output plugin_urls.txt \
-            --base-url http://host.docker.internal:8000
+            --extensions .lpx .plugin
 
           plugin_count=$(wc -l < plugin_urls.txt)
-          echo "Prepared $plugin_count plugin URLs via local mirror"
+          if [ "$plugin_count" -eq 0 ]; then
+            echo "::error ::Plugin list JSON did not contain any .plugin/.lpx URLs"
+            exit 1
+          fi
+
+          echo "Found $plugin_count plugin links:"
           cat plugin_urls.txt
 
       # ---------- 2. Ask Script-Hub to render .sgmodule files ----------
@@ -100,16 +119,21 @@ jobs:
           enc_cat=$(printf '%s' "$category" | jq -sRr @uri)
           script_hub_host="localhost"
           script_hub_port=9101
+          proxy_base="${PROXY_BASE:-}"
 
           trim_control_chars() {
             printf '%s' "$1" | tr -d '\r\n\t'
           }
 
+          header_value=$(printf 'User-Agent: Surge Mac/2985' | jq -sRr @uri)
+
           while read -r plugin_url; do
             plugin_url="$(trim_control_chars "$plugin_url")"
             [ -z "$plugin_url" ] && continue
 
-            url_no_query="${plugin_url%%[\?#]*}"
+            source_url="$plugin_url"
+
+            url_no_query="${source_url%%[\?#]*}"
             base_name=$(basename "$url_no_query")
             base_name="$(trim_control_chars "$base_name")"
 
@@ -124,8 +148,17 @@ jobs:
             [ -z "$name" ] && name="$base_name"
 
             enc=$(printf '%s' "$name" | jq -sRr @uri)
-            base_url="http://${script_hub_host}:${script_hub_port}/file/_start_/${plugin_url}/_end_/${enc}.sgmodule"
-            query="type=loon-plugin&target=surge-module&category=$enc_cat"
+            effective_url="$source_url"
+            if [ -n "$proxy_base" ]; then
+              case "$effective_url" in
+                https://kelee.one/*|https://*.kelee.one/*)
+                  effective_url="${proxy_base}${effective_url}"
+                  ;;
+              esac
+            fi
+
+            base_url="http://${script_hub_host}:${script_hub_port}/file/_start_/${effective_url}/_end_/${enc}.sgmodule"
+            query="type=loon-plugin&target=surge-module&category=$enc_cat&headers=$header_value"
             url="${base_url}?${query}"
             echo "↓  $url"
 
@@ -249,16 +282,6 @@ jobs:
 
           # Remove temporary files
           rm -f external-js.txt external-js-raw.txt
-
-      - name: Stop LNPlugin HTTP server
-        if: always()
-        run: |
-          if [ -f http_server.pid ]; then
-            if kill "$(cat http_server.pid)" 2>/dev/null; then
-              echo "Stopped LNPlugin HTTP server"
-            fi
-            rm -f http_server.pid
-          fi
 
       - name: Commit & push (if changed)
         shell: bash
