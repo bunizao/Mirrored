@@ -15,16 +15,19 @@ jobs:
       SOURCE_URL: https://hub.kelee.one/list.json
       FALLBACK_URL_1: https://pluginhub.kelee.one/list.json
 
-      # 桥接只读源（用于绕过 JS Challenge；若不想用，留空即可）
-      # 这里同时尝试 http:// 与 https:// 两种上游拼法
+      # 桥接只读源（用于绕过 JS Challenge；不要的话设为空字符串）
+      # 同时尝试 http:// 与 https:// 两种上游拼法
       BRIDGE_PREFIX: 'https://r.jina.ai/http://'
       BRIDGE_PREFIX_ALT: 'https://r.jina.ai/https://'
+
+      # （可选）你的自建反代/Worker 网关（留空则不用）
+      # PROXY_BASE: 'https://your-worker.example.workers.dev/fetch?url='
 
       # 请求头与调试
       USER_AGENT: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       ACCEPT_HEADER: 'application/json, text/plain, */*'
       REFERER: 'https://pluginhub.kelee.one/'
-      DEBUG_CURL: '1'  # 稳定后可改为 0
+      DEBUG_CURL: '1'  # 稳定后可调成 0
 
     steps:
       - name: Checkout main branch
@@ -37,7 +40,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Download plugin catalog (multi-fallback + cache + debug)
+      - name: Download plugin catalog (multi-fallback + smart JSON extract + cache)
         run: |
           set -euo pipefail
 
@@ -48,14 +51,20 @@ jobs:
           [ -n "${FALLBACK_URL_1:-}" ] && urls+=("${FALLBACK_URL_1}")
 
           # 拼接桥接只读源（最后尝试）
-          BRIDGE_PREFIX_HTTP="${BRIDGE_PREFIX:-}"
-          BRIDGE_PREFIX_HTTPS="${BRIDGE_PREFIX_ALT:-}"
-          if [ -n "${BRIDGE_PREFIX_HTTP}" ] || [ -n "${BRIDGE_PREFIX_HTTPS}" ]; then
+          if [ -n "${BRIDGE_PREFIX:-}" ] || [ -n "${BRIDGE_PREFIX_ALT:-}" ]; then
             for u in "${SOURCE_URL}" "${FALLBACK_URL_1:-}"; do
               [ -z "${u:-}" ] && continue
               host_path="${u#https://}"  # 兼容 https://host/path
-              [ -n "${BRIDGE_PREFIX_HTTP}" ] && urls+=("${BRIDGE_PREFIX_HTTP}${host_path}")
-              [ -n "${BRIDGE_PREFIX_HTTPS}" ] && urls+=("${BRIDGE_PREFIX_HTTPS}${host_path}")
+              [ -n "${BRIDGE_PREFIX:-}" ] && urls+=("${BRIDGE_PREFIX}${host_path}")
+              [ -n "${BRIDGE_PREFIX_ALT:-}" ] && urls+=("${BRIDGE_PREFIX_ALT}${host_path}")
+            done
+          fi
+
+          # 自建反代（可选）
+          if [ -n "${PROXY_BASE:-}" ]; then
+            for u in "${SOURCE_URL}" "${FALLBACK_URL_1:-}"; do
+              [ -z "${u:-}" ] && continue
+              urls+=("${PROXY_BASE}${u}")
             done
           fi
 
@@ -94,40 +103,103 @@ jobs:
             echo "::endgroup::"
           }
 
+          try_clean_json() {
+            # 尝试把 text/plain 中的 JSON 从混杂文本中提取出来
+            python3 - "$1" "$2" <<'PY'
+import sys, json, re
+src_path, out_path = sys.argv[1], sys.argv[2]
+src = open(src_path,'rb').read().decode('utf-8','ignore')
+
+def write_clean(obj):
+    with open(out_path,'w',encoding='utf-8') as f:
+        json.dump(obj, f, ensure_ascii=False, separators=(',',':'))
+
+# 1) 直接 JSON
+try:
+    obj = json.loads(src)
+    write_clean(obj)
+    sys.exit(0)
+except Exception:
+    pass
+
+# 2) ```json 代码块
+m = re.search(r"```(?:json)?\s*({.*?})\s*```", src, re.S|re.I)
+if m:
+    try:
+        obj = json.loads(m.group(1))
+        write_clean(obj); sys.exit(0)
+    except Exception:
+        pass
+
+# 3) 提取文本中“最大平衡 {} 块”
+def largest_braced(text):
+    stack = []
+    best_seg = None
+    start = None
+    for i, ch in enumerate(text):
+        if ch == '{':
+            if not stack: start = i
+            stack.append('{')
+        elif ch == '}' and stack:
+            stack.pop()
+            if not stack and start is not None:
+                seg = text[start:i+1]
+                if best_seg is None or len(seg) > len(best_seg):
+                    best_seg = seg
+                start = None
+    return best_seg
+
+cand = largest_braced(src)
+if cand:
+    # 去掉可能的 BOM/前后空白
+    cand = cand.strip()
+    try:
+        obj = json.loads(cand)
+        write_clean(obj); sys.exit(0)
+    except Exception:
+        pass
+
+sys.exit(2)
+PY
+          }
+
           fetch_ok=false
           FALLBACK_MODE=false
-          rm -f plugin_data.json curl_head.log curl_debug.log || true
+          rm -f plugin_data.json plugin_data.raw curl_head.log curl_debug.log || true
 
           for u in "${urls[@]}"; do
             do_preflight "$u"
 
             echo "::group::GET ${u}"
             if [ "${DEBUG_CURL}" = "1" ]; then
-              curl "${base_flags[@]}" -v "$u" -o plugin_data.json 2>>curl_debug.log || true
+              curl "${base_flags[@]}" -v "$u" -D headers.tmp -o plugin_data.raw 2>>curl_debug.log || true
             else
-              curl "${base_flags[@]}" "$u" -o plugin_data.json || true
+              curl "${base_flags[@]}" "$u" -D headers.tmp -o plugin_data.raw || true
             fi
             echo "::endgroup::"
 
-            if [ -s plugin_data.json ]; then
-              if command -v jq >/dev/null 2>&1; then
-                if jq . >/dev/null 2>&1 < plugin_data.json; then
-                  echo "✓ Catalog downloaded from ${u}"
+            if [ -s plugin_data.raw ]; then
+              # 优先直接 jq 校验
+              if command -v jq >/dev/null 2>&1 && jq . >/dev/null 2>&1 < plugin_data.raw; then
+                mv plugin_data.raw plugin_data.json
+                echo "✓ Catalog downloaded (valid JSON) from ${u}"
+                fetch_ok=true
+                break
+              else
+                echo "::warning ::Downloaded catalog not valid JSON from ${u}; trying to extract"
+                if try_clean_json plugin_data.raw plugin_data.json; then
+                  echo "✓ Extracted JSON from text/plain (${u})"
                   fetch_ok=true
                   break
                 else
-                  echo "::warning ::Downloaded catalog not valid JSON from ${u}"
-                  rm -f plugin_data.json
+                  echo "::warning ::Failed to extract JSON from ${u}"
+                  rm -f plugin_data.json || true
                 fi
-              else
-                echo "✓ Catalog downloaded (jq not present) from ${u}"
-                fetch_ok=true
-                break
               fi
             else
               echo "::warning ::Empty response from ${u}"
-              rm -f plugin_data.json || true
             fi
+            rm -f plugin_data.raw headers.tmp || true
           done
 
           if [ "${fetch_ok}" != "true" ]; then
