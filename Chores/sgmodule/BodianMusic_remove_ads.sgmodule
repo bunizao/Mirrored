@@ -1,0 +1,48 @@
+#!name=波点音乐去广告
+#!desc=精简应用配置，禁用P2P传输。移除开屏广告、横幅推广、悬浮广告、歌曲广告、商城入口、搜索推广、评论区推广、试听语音提醒。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BodianMusic.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1541981555
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-08-31 03:36:08
+
+[Map Local]
+^https:\/\/bd-api\.kuwo\.cn\/api\/(play|service|advert)\/advert\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/service\/banner\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/ucenter\/vip\/give\/config\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/service\/home\/module\?.*&moduleId=6 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/pay\/vip\/lowPriceText\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/service\/global\/config\/vipEnter\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/popup\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/pay\/vip\/invitation\/swell\/popup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/service\/version\/popup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/pay\/vip\/invitation\/assist\/popup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/bd-api\.kuwo\.cn\/api\/pay\/h5\/common\/popup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_13 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/service\/conf\/all\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.groupSign.adStartAppDialog%22%2C%22data.groupSign.adGuideTest%22%2C%22data.groupSign.playTips%22%2C%22data.groupSign.adExitChange%22%2C%22data.conf.adGuidePopCount%22%2C%22data.conf.adDownListOpen%22%5D%5D%2C%5B%22json-replace%22%2C%5B%5B%22data.conf.flowControlConfig.uploadEnable%22%2Cfalse%5D%2C%5B%22data.conf.flowControlConfig.p2pEnable%22%2Cfalse%5D%5D%5D%5D
+
+body_rewrite_15 = type=http-response, pattern=^https:\/\/ab-bodian\.kuwo\.cn\/abtest\/ui\/info\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.mapTestInfo.CommentADPosition%22%2C%22data.mapTestInfo.DiscoverADPosition%22%2C%22data.mapTestInfo.DownloadAd%22%2C%22data.mapTestInfo.FreeModVoiceReminder%22%2C%22data.mapTestInfo.GamesTrans%22%2C%22data.mapTestInfo.bodianmvdialog%22%2C%22data.mapTestInfo.MvTryShowAds%22%2C%22data.mapTestInfo.insert%22%5D%5D%5D
+
+body_rewrite_16 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/service\/global\/config\/scene\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.iosP2PCacheEnable%22%2C%22data.warmStartDialog%22%2C%22data.adsNotFinishVipPop4DayInterval%22%5D%5D%2C%5B%22json-replace%22%2C%5B%5B%22data.showShopEntry%22%2Cfalse%5D%2C%5B%22data.iosP2pEnableSendDataLimit%22%2C1%5D%5D%5D%5D
+
+body_rewrite_20 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/search\/topic\/word\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.hotTopic%22%2C%22data.searchFind%22%2C%22data.globalJumpInfo%22%2C%22data.hotWord%22%5D%5D%5D
+
+body_rewrite_24 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/comments\/v3\/topInfo\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22.data.putao%22%2C%22data.bannerVos%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% bd-api.kuwo.cn
+

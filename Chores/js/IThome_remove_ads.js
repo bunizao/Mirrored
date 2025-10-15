@@ -1,62 +1,82 @@
-/*
-引用脚本https://raw.githubusercontent.com/toulanboy/scripts/master/ithome_ad/ithome_ad.js
-脚本二改https://github.com/Keywos/rule/raw/main/JS/ithomes.js
-*/
-const isLoon = typeof $loon !== "undefined";
-let url = $request.url,
-  i = JSON.parse($response.body),
-  FeedTypes = [10023], //直播tip
-  banner = true,
-  tops = true,
-  bannerAd = true;
+// 2025-10-09 22:29:11
 
-if (isLoon) {
-  bannerAd = $persistentStore.read("移除轮播图广告") === "开启";
-  // banner = $persistentStore.read("移除全部轮播图") === "开启";
-  // tops = $persistentStore.read("移除置顶项") === "开启";
-  tops = $argument.removeTopSwitch;
-  banner = $argument.removeBannerSwitch;
-  bannerAd = banner;
-} else if (typeof $argument !== "undefined" && $argument !== "") {
-  let ins = {};
-  try {
-    ins = JSON.parse($argument);
-  } catch (e) {}
-  bannerAd = ins.bannerAd != 0;
-  banner = ins.banner != 0;
-  tops = ins.top != 0;
-}
+(() => {
+    if (!$response?.body) return $done({});
 
-if (/api\/douyin\/GetLiveInfo/.test(url)) {
-  if (i?.data) {
-    i.data = "{}";
-    i.success = true;
-    i.showType = null;
-    i.messageType = null;
-  }
-} else if (i?.data?.list) {
-  if (bannerAd && !banner) {
-    for (const Type of i.data.list) {
-      if (Type.feedType == "10002") {
-        Type.feedContent.focusNewsData = Type.feedContent.focusNewsData.filter(
-          (i) => {
-            return i.isAd === false; // 轮播图广告
-          }
-        );
-        break;
-      }
+    let modified = false;
+    let body;
+    
+    try {
+        body = JSON.parse($response.body);
+    } catch (e) {
+        console.log(`JSON解析失败: ${e.message}`);
+        return $done({});
     }
-  }
-  banner && FeedTypes.push(10002); //轮播
-  tops && FeedTypes.push(10003); //置顶
-  FeedTypes.push(10004); // 信息流红包广告
-  i.data.list = i.data.list.filter((i) => {
-    return (
-      !FeedTypes.includes(i.feedType) &&
-      !i.feedContent.smallTags?.[0]?.text?.includes("广告"));
-  });
-}
-$done({ body: JSON.stringify(i) });
 
-// prettier-ignore
-function getin() {return Object.fromEntries($argument.split("&").map((i) => i.split("=")).map(([k, v]) => [k, decodeURIComponent(v)]));}
+    // 获取参数值
+    const removeAllBanners = $argument?.removeAllBanners !== undefined ? $argument.removeAllBanners : true;
+    const removePinnedArticles = $argument?.removePinnedArticles !== undefined ? $argument.removePinnedArticles : true;
+    
+    // 移除全部横幅
+    const removeAllBannersFunc = () => {
+        if (!removeAllBanners) return;
+        
+        if (Array.isArray(body?.data?.list)) {
+            const originalLength = body.data.list.length;
+            body.data.list = body.data.list.filter(item => 
+                item.feedType !== 10002
+            );
+            modified ||= (originalLength !== body.data.list.length);
+        }
+    };
+    
+    // 移除置顶文章
+    const removePinnedArticlesFunc = () => {
+        if (!removePinnedArticles) return;
+        
+        if (Array.isArray(body?.data?.list)) {
+            const originalLength = body.data.list.length;
+            body.data.list = body.data.list.filter(item => 
+                item.feedType !== 10003
+            );
+            modified ||= (originalLength !== body.data.list.length);
+        }
+    };
+    
+    // 移除横幅广告
+    const removeBannerAdsFunc = () => {
+        if (!Array.isArray(body?.data?.list)) return;
+        
+        body.data.list.forEach(item => {
+            if (item.feedContent?.focusNewsData && Array.isArray(item.feedContent.focusNewsData)) {
+                const originalLength = item.feedContent.focusNewsData.length;
+                item.feedContent.focusNewsData = item.feedContent.focusNewsData.filter(ad => 
+                    !ad.isAd
+                );
+                modified ||= (originalLength !== item.feedContent.focusNewsData.length);
+            }
+        });
+    };
+    
+    // 移除信息流广告（合并：flag===2 或 feedType===10004，任一满足即移除）
+    const removeFeedAdsFunc = () => {
+        if (!Array.isArray(body?.data?.list)) return;
+        
+        const originalLength = body.data.list.length;
+        body.data.list = body.data.list.filter(item => 
+            !(item.feedContent?.flag === 2 || item.feedType === 10004)
+        );
+        modified ||= (originalLength !== body.data.list.length);
+    };
+    
+    // 执行所有过滤函数
+    removeAllBannersFunc();
+    removePinnedArticlesFunc();
+    removeBannerAdsFunc();
+    removeFeedAdsFunc();
+    
+    // 仅在修改时重新序列化
+    $done(modified ? {
+        body: JSON.stringify(body),
+    } : {});
+})();

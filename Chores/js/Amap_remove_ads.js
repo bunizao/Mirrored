@@ -1,7 +1,7 @@
 /*
 引用地址 https://raw.githubusercontent.com/RuCu6/Loon/refs/heads/main/Scripts/amap.js
 */
-// 2025-05-02 20:40
+// 2025-09-01 06:05
 
 const url = $request.url;
 if (!$response.body) $done({});
@@ -281,6 +281,7 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
   // 搜索结果 模块详情
   const items = [
     "CouponBanner", // 高德红包
+    "CouponPush", // 团购优惠券
     // "anchor",
     "adStoreBigBannerModule", // 广告横幅 打车券之类的
     "adv_compliance_info", // 服务提供方
@@ -292,6 +293,8 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
     "brand_service", // 品牌服务
     "brand_shop_bar",
     // "brand_story",
+    "businessQualifications", // 服务须知
+    "carServiceCard", // 车主中心
     "checkIn",
     "check_in", // 足迹打卡
     "cityCardFeed", // 景点卡片
@@ -301,6 +304,7 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
     "co_branded_card",
     "collector_guide", // 游玩的图文指南
     "commonAiAgent", // ai门店助手
+    "commonGoodsShelf", // 商品信息
     "common_coupon_bar", // 领券条幅 新客专享 省钱卡
     "common_coupon_card", // 优惠券卡片
     // "companyInfo", // 简介
@@ -326,6 +330,7 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
     "first_surround_estate_tab", // 周边小区
     // "floor_guide_second", // 楼层导览
     // "footer_logo",
+    "footer_tel_button",
     // "foreclosurehouse",
     // "gallery_info", // 现场照片
     // "ggc_entry",
@@ -340,6 +345,7 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
     "hotelMustRead", // 订房必读
     // "hotelRooms", // 酒店所有房间
     // "hourHotelRooms", // 钟点房
+    "houseAgentService", // 买卖房屋经纪人
     // "houseEvaluationInfo", // 小区居住指数
     "houseList",
     "houseOfficeBrandIntroduction",
@@ -398,6 +404,7 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
     "parentPoiRecEntrance", // 所在商圈
     "platformCustomerCommonModule", // 众安保险赔付
     "platformCustomerComplianceInfo", // 保险公司信息
+    "poiDetailBottomBar",
     "poiDetailBottomBarOperation",
     "poiDetailCommonConfig",
     "poiDetailNewBeltV2", // 金秋出行 横幅
@@ -416,6 +423,7 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
     "rentsaleagencyv3",
     "rentsalehouse",
     "residentialOwners", // 小区业主
+    "retainInfo", // 回收二手车
     "reviews", // 用户评价
     // "roomSelect", // 选择订房日期 悬浮菜单
     "sameIndustryRecommendModule",
@@ -476,6 +484,10 @@ if (url.includes("/aos/perception/publicTravel/beforeNavi")) {
     "yellowPageAdRecommendModule" //淘宝商品推荐
   ];
   if (obj?.data?.modules) {
+    if (obj?.data?.modules?.combineReviews?.data?.write_comment) {
+      // 写评论赢奖励
+      delete obj.data.modules.combineReviews.data.write_comment;
+    }
     for (let i of items) {
       delete obj.data.modules[i];
     }

@@ -1,0 +1,28 @@
+#!name=驾校一点通去广告
+#!desc=移除开屏广告、各页面广告横幅、弹窗广告，移除社区广告。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/JiaXiaoDrive.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id620262310
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-05-13 15:17:08
+
+[Map Local]
+^https:\/\/richmanrules\.ksedt\.com\/serverConfig\/3\/adConfig\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/gouche\.ksedt\.com\/config\/popup\/info$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/richmanrules\.ksedt\.com\/intellectWaterfallBidding\/find$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/op\.ksedt\.com\/jxedtLive\/liveIntroduceResource data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/richmanrules\.ksedt\.com\/intellectWaterfall\/find$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_17 = type=http-response, pattern=http-response ^https:\/\/api\.ksedt\.com\/api\/config\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.homead%22%2C%22result.h5_promotion_page%22%2C%22result.advert_interval%22%2C%22result.abtest_h5url%22%2C%22result.launchApp%22%2C%22result.goucheConfig%22%2C%22result.gouche%22%2C%22result.mainLiveConfig%22%2C%22result.discover%22%2C%22result.adSdkSwitch4testPointVideo%22%2C%22result.adSdkSwitch4simulationExam%22%2C%22result.examPageLoadADSwitch%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% richmanrules.ksedt.com, gouche.ksedt.com, muses.ksedt.com, op.ksedt.com, api.ksedt.com
+
