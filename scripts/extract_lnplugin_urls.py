@@ -222,8 +222,15 @@ def apply_host_prefixes(urls: Iterable[str], mapping: dict[str, str]) -> list[st
         parsed = urlparse(url)
         prefix = lookup(parsed.netloc)
         if prefix:
-            trimmed = prefix.rstrip("/")
-            rewritten.append(f"{trimmed}/{url}")
+            trimmed = prefix.strip()
+            if not trimmed:
+                rewritten.append(url)
+                continue
+
+            if trimmed.endswith(("/", "?", "&", "=")):
+                rewritten.append(f"{trimmed}{url}")
+            else:
+                rewritten.append(f"{trimmed}/{url}")
         else:
             rewritten.append(url)
 

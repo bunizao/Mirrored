@@ -68,8 +68,11 @@ jobs:
           fi
 
           if [ "${#candidate_urls[@]}" -eq 0 ]; then
-            echo "::error ::No plugin catalog URLs configured"
-            exit 1
+            echo "::warning ::LIST_URL_* vars missing; using default catalog URLs"
+            candidate_urls=(
+              "https://hub.kelee.one/list.json"
+              "https://pluginhub.kelee.one/list.json"
+            )
           fi
 
           success=0
