@@ -11,18 +11,20 @@ jobs:
     permissions:
       contents: write
     env:
-      # 主源 + 备用源
+      # 主源 + 备用源（可继续加更多 FALLBACK_URL_*）
       SOURCE_URL: https://hub.kelee.one/list.json
       FALLBACK_URL_1: https://pluginhub.kelee.one/list.json
 
-      # 最后一搏：桥接前缀（把 https://example.com/x 变成 https://r.jina.ai/http://example.com/x）
-      # ——可能失效，但偶尔能穿过 JS Challenge。介意的话可改为 '' 关闭。
+      # 桥接只读源（用于绕过 JS Challenge；若不想用，留空即可）
+      # 这里同时尝试 http:// 与 https:// 两种上游拼法
       BRIDGE_PREFIX: 'https://r.jina.ai/http://'
+      BRIDGE_PREFIX_ALT: 'https://r.jina.ai/https://'
 
+      # 请求头与调试
       USER_AGENT: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       ACCEPT_HEADER: 'application/json, text/plain, */*'
       REFERER: 'https://pluginhub.kelee.one/'
-      DEBUG_CURL: '1'
+      DEBUG_CURL: '1'  # 稳定后可改为 0
 
     steps:
       - name: Checkout main branch
@@ -35,7 +37,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Download plugin catalog (multi-fallback + debug)
+      - name: Download plugin catalog (multi-fallback + cache + debug)
         run: |
           set -euo pipefail
 
@@ -45,13 +47,15 @@ jobs:
           urls+=("${SOURCE_URL}")
           [ -n "${FALLBACK_URL_1:-}" ] && urls+=("${FALLBACK_URL_1}")
 
-          # 组装桥接 URLs（最后尝试）
-          if [ -n "${BRIDGE_PREFIX:-}" ]; then
+          # 拼接桥接只读源（最后尝试）
+          BRIDGE_PREFIX_HTTP="${BRIDGE_PREFIX:-}"
+          BRIDGE_PREFIX_HTTPS="${BRIDGE_PREFIX_ALT:-}"
+          if [ -n "${BRIDGE_PREFIX_HTTP}" ] || [ -n "${BRIDGE_PREFIX_HTTPS}" ]; then
             for u in "${SOURCE_URL}" "${FALLBACK_URL_1:-}"; do
               [ -z "${u:-}" ] && continue
-              # 把 https://host/path 变为 ${BRIDGE_PREFIX}host/path
-              host_path="${u#https://}"
-              urls+=("${BRIDGE_PREFIX}${host_path}")
+              host_path="${u#https://}"  # 兼容 https://host/path
+              [ -n "${BRIDGE_PREFIX_HTTP}" ] && urls+=("${BRIDGE_PREFIX_HTTP}${host_path}")
+              [ -n "${BRIDGE_PREFIX_HTTPS}" ] && urls+=("${BRIDGE_PREFIX_HTTPS}${host_path}")
             done
           fi
 
@@ -59,18 +63,43 @@ jobs:
                       --retry 5 --retry-all-errors --connect-timeout 20 --max-time 120 \
                       -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER")
 
+          is_bridge_url() {
+            case "$1" in
+              https://r.jina.ai/*) return 0 ;;
+              *) return 1 ;;
+            esac
+          }
+
+          do_preflight() {
+            local u="$1"
+            echo "::group::Preflight ${u}"
+            if is_bridge_url "$u"; then
+              # r.jina.ai 不支持 HEAD，用 GET 取 1 字节做轻量预检
+              if [ "${DEBUG_CURL}" = "1" ]; then
+                curl -sS -D - -o /dev/null -r 0-0 --http1.1 \
+                  -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" "$u" | tee -a curl_head.log || true
+              else
+                curl -sS -D - -o /dev/null -r 0-0 --http1.1 \
+                  -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" "$u" >> curl_head.log 2>/dev/null || true
+              fi
+            else
+              if [ "${DEBUG_CURL}" = "1" ]; then
+                curl -sS -I --http1.1 \
+                  -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" | tee -a curl_head.log || true
+              else
+                curl -sS -I --http1.1 \
+                  -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" >> curl_head.log 2>/dev/null || true
+              fi
+            fi
+            echo "::endgroup::"
+          }
+
           fetch_ok=false
           FALLBACK_MODE=false
           rm -f plugin_data.json curl_head.log curl_debug.log || true
 
           for u in "${urls[@]}"; do
-            echo "::group::Preflight HEAD ${u}"
-            if [ "${DEBUG_CURL}" = "1" ]; then
-              curl -sS -I --http1.1 -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" | tee -a curl_head.log || true
-            else
-              curl -sS -I --http1.1 -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" || true
-            fi
-            echo "::endgroup::"
+            do_preflight "$u"
 
             echo "::group::GET ${u}"
             if [ "${DEBUG_CURL}" = "1" ]; then
@@ -102,7 +131,7 @@ jobs:
           done
 
           if [ "${fetch_ok}" != "true" ]; then
-            # 尝试使用仓库内上一版缓存，进入回退模式
+            # 使用仓库内上一版缓存，进入回退模式（避免全流程中断）
             if [ -f Cache/plugin_data.json ] && [ -s Cache/plugin_data.json ]; then
               echo "::warning ::Using cached Cache/plugin_data.json (fallback mode)"
               cp Cache/plugin_data.json plugin_data.json
@@ -117,7 +146,7 @@ jobs:
             fi
           fi
 
-          # 成功获取则更新缓存，供下次回退使用
+          # 成功获取则更新缓存
           if [ "${fetch_ok}" = "true" ]; then
             cp plugin_data.json Cache/plugin_data.json
             echo "REFRESHED_JSON=true" >> "$GITHUB_ENV"
