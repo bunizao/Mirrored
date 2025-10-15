@@ -11,9 +11,7 @@ jobs:
     permissions:
       contents: write
     env:
-
       PROXY_BASE: https://wowproxy.lyetutu.workers.dev/?url=
-
       LIST_URL_PRIMARY: https://hub.kelee.one/list.json
       LIST_URL_BACKUP: https://pluginhub.kelee.one/list.json
 
