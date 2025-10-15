@@ -78,58 +78,57 @@ jobs:
 
           # —— 不用 heredoc 的 Python 清洗函数（避免缩进问题）——
           try_clean_json() {
-            # 用法：try_clean_json <src_path> <out_path>
-            python3 -c '
+            python3 - "$1" "$2" <<'PY'
 import sys, json, re
 src_path, out_path = sys.argv[1], sys.argv[2]
-src = open(src_path, "rb").read().decode("utf-8", "ignore")
+src = open(src_path, 'rb').read().decode('utf-8', 'ignore')
 
 def write_clean(obj):
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
+    with open(out_path, 'w', encoding='utf-8') as fh:
+        json.dump(obj, fh, ensure_ascii=False, separators=(',', ':'))
 
-# 1) 直接 JSON
 try:
-    write_clean(json.loads(src)); sys.exit(0)
+    write_clean(json.loads(src))
+    sys.exit(0)
 except Exception:
     pass
 
-# 2) ```json 代码块
-m = re.search(r"```(?:json)?\\s*({.*?})\\s*```", src, re.S | re.I)
-if m:
+match = re.search(r"```(?:json)?\s*({.*?})\s*```", src, re.S | re.I)
+if match:
     try:
-        write_clean(json.loads(m.group(1))); sys.exit(0)
+        write_clean(json.loads(match.group(1)))
+        sys.exit(0)
     except Exception:
         pass
 
-# 3) 提取最大平衡 {} 块
 stack = []
 best = None
 start = None
-for i, ch in enumerate(src):
-    if ch == "{":
-        if not stack: start = i
-        stack.append("{")
-    elif ch == "}" and stack:
+for idx, ch in enumerate(src):
+    if ch == '{':
+        if not stack:
+            start = idx
+        stack.append(ch)
+    elif ch == '}' and stack:
         stack.pop()
         if not stack and start is not None:
-            seg = src[start:i+1]
-            if best is None or len(seg) > len(best):
-                best = seg
+            segment = src[start:idx + 1]
+            if best is None or len(segment) > len(best):
+                best = segment
             start = None
 
 if best:
     try:
-        write_clean(json.loads(best.strip())); sys.exit(0)
+        write_clean(json.loads(best.strip()))
+        sys.exit(0)
     except Exception:
         pass
 
 sys.exit(2)
-' "$1" "$2"
+PY
           }
 
           fetch_ok=false
-          FALLBACK_MODE=false
           rm -f plugin_data.json plugin_data.raw curl_debug.log headers.tmp || true
 
           for u in "${urls[@]}"; do
@@ -165,7 +164,6 @@ sys.exit(2)
             if [[ -s Cache/plugin_data.json ]]; then
               echo "::warning ::Using cached Cache/plugin_data.json (fallback mode)"
               cp Cache/plugin_data.json plugin_data.json
-              FALLBACK_MODE=true
             else
               [[ -f curl_debug.log ]] && { echo "::group::curl debug"; tail -n +1 curl_debug.log || true; echo "::endgroup::"; }
               echo "::error ::Failed to download plugin catalog via proxy and no cache available"
@@ -180,121 +178,14 @@ sys.exit(2)
             echo "REFRESHED_JSON=false" >> "$GITHUB_ENV"
           fi
 
-          echo "FALLBACK_MODE=${FALLBACK_MODE}" >> "$GITHUB_ENV"
-
-      - name: Extract LNPlugin URLs
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 scripts/extract_lnplugin_urls.py \
-            --input plugin_data.json \
-            --output lnplugin_urls.txt
-
-      - name: Mirror LNPlugin packages (safe-delete aware)
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p Chores/lnplugin
-
-          mapfile -t urls < lnplugin_urls.txt
-          if [[ "${#urls[@]}" -eq 0 ]]; then
-            echo "::error ::No LNPlugin URLs to mirror"
-            exit 1
-          fi
-
-          declare -A seen
-          updated=false
-
-          # 回退模式下不删旧工件，避免误删
-          SAFE_DELETE=true
-          if [[ "${FALLBACK_MODE:-false}" == "true" ]]; then
-            echo "::warning ::Fallback mode ON - stale deletion disabled"
-            SAFE_DELETE=false
-          fi
-
-          for filepath in Chores/lnplugin/*.lpx; do
-            if [[ -e "$filepath" ]]; then
-              seen["$(basename "$filepath")"]=false
-            fi
-          done
-
-          base_flags=(
-            --fail --show-error --location --compressed --http1.1
-            --retry 5 --retry-all-errors --connect-timeout 30 --max-time 120
-            -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER"
-          )
-
-          for url in "${urls[@]}"; do
-            url="${url//$'\r'/}"
-            url="${url//$'\n'/}"
-            [[ -z "$url" ]] && continue
-
-            sanitized="${url%%[\?#]*}"
-            filename="$(basename "$sanitized")"
-            filename="${filename//$'\r'/}"
-            filename="${filename//$'\n'/}"
-
-            if [[ -z "$filename" ]]; then
-              echo "::warning ::Skipping malformed URL: $url"
-              continue
-            fi
-            [[ "$filename" != *.lpx ]] && filename="${filename}.lpx"
-
-            temp_file="Chores/lnplugin/$filename.tmp"
-            final_file="Chores/lnplugin/$filename"
-
-            echo "↓  $url"
-            if [[ "${DEBUG_CURL}" == "1" ]]; then
-              echo "::group::curl $filename"
-              curl "${base_flags[@]}" -v "$url" -o "$temp_file" 2> "curl_${filename}.log" || true
-              echo "::endgroup::"
-            else
-              curl "${base_flags[@]}" "$url" -o "$temp_file" || true
-            fi
-
-            if [[ -s "$temp_file" ]]; then
-              if ! cmp -s "$temp_file" "$final_file" 2>/dev/null; then
-                mv "$temp_file" "$final_file"
-                updated=true
-                echo "✓ Mirrored $filename"
-              else
-                rm -f "$temp_file"
-                echo "= $filename unchanged"
-              fi
-            else
-              echo "::warning ::Downloaded file empty: $filename"
-              rm -f "$temp_file"
-            fi
-
-            seen["$filename"]=true
-          done
-
-          if [[ "${SAFE_DELETE}" == "true" ]]; then
-            for filename in "${!seen[@]}"; do
-              if [[ "${seen[$filename]}" == "false" ]]; then
-                echo "Removing stale artifact: $filename"
-                rm -f "Chores/lnplugin/$filename"
-                updated=true
-              fi
-            done
-          else
-            echo "::notice ::Skip stale deletion due to fallback mode"
-          fi
-
-          if [[ "$updated" == "true" ]]; then
-            echo "MIRROR_UPDATED=true" >> "$GITHUB_ENV"
-          else
-            echo "MIRROR_UPDATED=false" >> "$GITHUB_ENV"
-          fi
-
       - name: Commit and push changes
-        if: env.MIRROR_UPDATED == 'true' || env.REFRESHED_JSON == 'true'
+        if: env.REFRESHED_JSON == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           set -euo pipefail
-          git add Chores/lnplugin Cache/plugin_data.json
+          git add Cache/plugin_data.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
@@ -303,12 +194,12 @@ sys.exit(2)
 
           git fetch origin
           git pull --rebase origin main
-          git add Chores/lnplugin Cache/plugin_data.json
+          git add Cache/plugin_data.json
 
           timestamp=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
-          git commit -m "🪞 Mirror LNPlugin artifacts - $timestamp (UTC+8)"
+          git commit -m "🪞 Refresh LNPlugin catalog - $timestamp (UTC+8)"
           git push origin main
 
       - name: No updates detected
-        if: env.MIRROR_UPDATED != 'true' && env.REFRESHED_JSON != 'true'
-        run: echo "LNPlugin artifacts already up to date (or fallback used with no changes)"
+        if: env.REFRESHED_JSON != 'true'
+        run: echo "LNPlugin catalog already up to date (or fallback used with no changes)"
