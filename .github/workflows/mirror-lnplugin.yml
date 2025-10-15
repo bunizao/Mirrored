@@ -12,7 +12,8 @@ jobs:
       contents: write
     env:
       SOURCE_URL: https://hub.kelee.one/list.json
-      USER_AGENT: Surge Mac/2985
+      USER_AGENT: 'Surge/3070 CFNetwork/1410.0.3 Darwin/22.6.0'
+      ACCEPT_HEADER: 'application/json, text/plain, */*'
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v3
@@ -30,6 +31,7 @@ jobs:
 
           curl -fSL --compressed \
             -A "$USER_AGENT" \
+            -H "Accept: $ACCEPT_HEADER" \
             "$SOURCE_URL" \
             -o plugin_data.json
 
@@ -89,6 +91,7 @@ jobs:
             echo "↓  $url"
             if curl -fSL --compressed \
               -A "$USER_AGENT" \
+              -H "Accept: $ACCEPT_HEADER" \
               --connect-timeout 30 \
               --max-time 120 \
               --retry 3 \
