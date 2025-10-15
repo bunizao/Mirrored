@@ -41,47 +41,9 @@ jobs:
       - name: Extract LNPlugin URLs
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-import json
-import sys
-from pathlib import Path
-
-source = Path('plugin_data.json')
-if not source.exists():
-    print('::error ::Missing plugin_data.json')
-    sys.exit(1)
-
-def collect(node, bucket):
-    if isinstance(node, str):
-        if node.startswith('http') and node.lower().endswith('.lpx'):
-            bucket.add(node.strip())
-        return
-    if isinstance(node, dict):
-        for value in node.values():
-            collect(value, bucket)
-        return
-    if isinstance(node, (list, tuple, set)):
-        for value in node:
-            collect(value, bucket)
-        return
-
-try:
-    payload = json.loads(source.read_text())
-except Exception as exc:  # noqa: BLE001
-    print(f'::error ::Failed to parse plugin catalog JSON: {exc}')
-    sys.exit(1)
-
-urls = set()
-collect(payload, urls)
-
-if not urls:
-    print('::error ::No LNPlugin URLs discovered in plugin catalog')
-    sys.exit(1)
-
-with Path('lnplugin_urls.txt').open('w', encoding='utf-8') as handle:
-    for item in sorted(urls):
-        handle.write(f"{item}\n")
-PY
+          python3 scripts/extract_lnplugin_urls.py \
+            --input plugin_data.json \
+            --output lnplugin_urls.txt
 
       - name: Mirror LNPlugin packages
         run: |

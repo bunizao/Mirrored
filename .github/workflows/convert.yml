@@ -15,7 +15,7 @@ jobs:
     services:
       docker:
         image: xream/script-hub:latest
-        ports: [9100:9100, 9101:9101]
+        ports: ['9100:9100', '9101:9101']
 
     env:
       MIRROR_RAW: https://github.com/bunizao/Mirrored/raw/main/Chores/js
@@ -38,13 +38,6 @@ jobs:
             jq \
             netcat-openbsd \
             nodejs
-            python3-pip \
-            nodejs
-
-          if ! python3 -m pip install --no-cache-dir cloudscraper==1.2.71; then
-            python3 -m pip install --no-cache-dir \
-              --break-system-packages cloudscraper==1.2.71
-          fi
 
       - name: Wait for Script-Hub container (:9101)
         run: |
@@ -77,6 +70,9 @@ jobs:
           echo "Found mirrored LNPlugin files:"
           cat lnplugin_files.txt
 
+          echo "Found mirrored LNPlugin files:"
+          cat lnplugin_files.txt
+
       - name: Start LNPlugin HTTP server
         run: |
           set -euo pipefail
@@ -85,33 +81,16 @@ jobs:
           sleep 2
           if ! kill -0 "$(cat http_server.pid)" 2>/dev/null; then
             echo "::error ::Failed to start LNPlugin HTTP server"
-          grep -oE 'https?://[^"]+\.(plugin|lpx)' plugin_data.json \
-            | sort -u > plugin_urls.txt
-
-          plugin_count=$(wc -l < plugin_urls.txt)
-          if [ "$plugin_count" -eq 0 ]; then
-            echo "::error ::Plugin list JSON missing .plugin/.lpx URLs"
             exit 1
           fi
 
       - name: Generate plugin source URLs
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-import urllib.parse
-from pathlib import Path
-
-files = Path('lnplugin_files.txt').read_text().splitlines()
-if not files:
-    raise SystemExit('::error ::lnplugin_files.txt is empty')
-
-base = 'http://host.docker.internal:8000'
-with open('plugin_urls.txt', 'w', encoding='utf-8') as handle:
-    for file_path in files:
-        name = Path(file_path).name
-        encoded = urllib.parse.quote(name)
-        handle.write(f"{base}/{encoded}\n")
-PY
+          python3 scripts/build_local_plugin_urls.py \
+            --input lnplugin_files.txt \
+            --output plugin_urls.txt \
+            --base-url http://host.docker.internal:8000
 
           plugin_count=$(wc -l < plugin_urls.txt)
           echo "Prepared $plugin_count plugin URLs via local mirror"
@@ -125,12 +104,8 @@ PY
             -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
           enc_cat=$(printf '%s' "$category" | jq -sRr @uri)
-          script_hub_host="script.hub"
+          script_hub_host="localhost"
           script_hub_port=9101
-          resolve_flags=(
-            --resolve "${script_hub_host}:${script_hub_port}:127.0.0.1"
-            --resolve "${script_hub_host}:80:127.0.0.1"
-          )
 
           trim_control_chars() {
             printf '%s' "$1" | tr -d '\r\n\t'
@@ -167,7 +142,6 @@ PY
               --retry 3 \
               --retry-delay 5 \
               --retry-all-errors \
-              "${resolve_flags[@]}" \
               "$url"; then
               echo "✓ Downloaded $name.sgmodule"
             else
