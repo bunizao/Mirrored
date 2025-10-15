@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Iterable, Set
@@ -25,14 +26,21 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+LPX_URL_PATTERN = re.compile(
+    r"https?://[^\s\"'<>]+?\.lpx(?:[^\s\"'<>]*)?",
+    re.IGNORECASE,
+)
+
+
 def collect_urls(node: object, bucket: Set[str], diagnostics: list[str]) -> None:
     if isinstance(node, str):
         candidate = node.strip()
         lowered = candidate.lower()
-        if "lpx" in lowered and len(diagnostics) < 10:
+        matches = LPX_URL_PATTERN.findall(candidate)
+        if matches:
+            bucket.update(match.strip() for match in matches)
+        elif "lpx" in lowered and len(diagnostics) < 10:
             diagnostics.append(candidate)
-        if candidate.startswith("http") and lowered.endswith(".lpx"):
-            bucket.add(candidate)
         return
 
     if isinstance(node, dict):
