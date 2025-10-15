@@ -117,11 +117,6 @@ jobs:
             -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
           enc_cat=$(printf '%s' "$category" | jq -sRr @uri)
-          script_hub_host="localhost"
-          script_hub_port=9101
-          proxy_base="${PROXY_BASE:-}"
-          proxy_base="$(sanitize_field "$proxy_base")"
-
           trim_control_chars() {
             printf '%s' "$1" | tr -d '\r\n\t'
           }
@@ -133,6 +128,11 @@ jobs:
           sanitize_field() {
             strip_surrounding_whitespace "$(trim_control_chars "$1")"
           }
+
+          script_hub_host="localhost"
+          script_hub_port=9101
+          proxy_base="${PROXY_BASE:-}"
+          proxy_base="$(sanitize_field "$proxy_base")"
 
           header_value=$(printf 'User-Agent: Surge Mac/2985' | jq -sRr @uri)
 
