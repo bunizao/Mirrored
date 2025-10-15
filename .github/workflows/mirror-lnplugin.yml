@@ -1,0 +1,156 @@
+name: Mirror LNPlugin Artifacts
+
+on:
+  schedule:
+    - cron: '10,35,59 * * * *'
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      SOURCE_URL: https://hub.kelee.one/list.json
+      USER_AGENT: Surge Mac/2985
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Configure git author
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Download plugin catalog
+        run: |
+          set -euo pipefail
+
+          curl -fSL --compressed \
+            -A "$USER_AGENT" \
+            "$SOURCE_URL" \
+            -o plugin_data.json
+
+          if [ ! -s plugin_data.json ]; then
+            echo "::error ::Downloaded plugin catalog is empty"
+            exit 1
+          fi
+
+      - name: Extract LNPlugin URLs
+        run: |
+          set -euo pipefail
+          python3 scripts/extract_lnplugin_urls.py \
+            --input plugin_data.json \
+            --output lnplugin_urls.txt
+
+      - name: Mirror LNPlugin packages
+        run: |
+          set -euo pipefail
+          mkdir -p Chores/lnplugin
+
+          mapfile -t urls < lnplugin_urls.txt
+          if [ "${#urls[@]}" -eq 0 ]; then
+            echo "::error ::No LNPlugin URLs to mirror"
+            exit 1
+          fi
+
+          declare -A seen
+          updated=false
+
+          for filepath in Chores/lnplugin/*.lpx; do
+            if [ -e "$filepath" ]; then
+              seen["$(basename "$filepath")"]=false
+            fi
+          done
+
+          for url in "${urls[@]}"; do
+            url="${url//$'\r'/}"
+            url="${url//$'\n'/}"
+            [ -z "$url" ] && continue
+
+            sanitized="${url%%[\?#]*}"
+            filename="$(basename "$sanitized")"
+            filename="${filename//$'\r'/}"
+            filename="${filename//$'\n'/}"
+            if [[ -z "$filename" ]]; then
+              echo "::warning ::Skipping malformed URL: $url"
+              continue
+            fi
+
+            if [[ ! "$filename" =~ \\.lpx$ ]]; then
+              filename="${filename}.lpx"
+            fi
+
+            temp_file="Chores/lnplugin/$filename.tmp"
+            final_file="Chores/lnplugin/$filename"
+
+            echo "↓  $url"
+            if curl -fSL --compressed \
+              -A "$USER_AGENT" \
+              --connect-timeout 30 \
+              --max-time 120 \
+              --retry 3 \
+              --retry-delay 5 \
+              "$url" \
+              -o "$temp_file"; then
+              if [ -s "$temp_file" ]; then
+                if ! cmp -s "$temp_file" "$final_file" 2>/dev/null; then
+                  mv "$temp_file" "$final_file"
+                  updated=true
+                  echo "✓ Mirrored $filename"
+                else
+                  rm -f "$temp_file"
+                  echo "= $filename unchanged"
+                fi
+              else
+                echo "::warning ::Downloaded file empty: $filename"
+                rm -f "$temp_file"
+              fi
+            else
+              echo "::warning ::Failed to mirror $filename"
+              rm -f "$temp_file"
+            fi
+
+            seen["$filename"]=true
+          done
+
+          for filename in "${!seen[@]}"; do
+            if [ "${seen[$filename]}" = false ]; then
+              echo "Removing stale artifact: $filename"
+              rm -f "Chores/lnplugin/$filename"
+              updated=true
+            fi
+          done
+
+          if [ "$updated" = true ]; then
+            echo "MIRROR_UPDATED=true" >> "$GITHUB_ENV"
+          else
+            echo "MIRROR_UPDATED=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Commit and push changes
+        if: env.MIRROR_UPDATED == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          git add Chores/lnplugin
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git fetch origin
+          git pull --rebase origin main
+          git add Chores/lnplugin
+
+          timestamp=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
+          git commit -m "🪞 Mirror LNPlugin artifacts - $timestamp (UTC+8)"
+          git push origin main
+
+      - name: No updates detected
+        if: env.MIRROR_UPDATED != 'true'
+        run: echo "LNPlugin artifacts already up to date"
