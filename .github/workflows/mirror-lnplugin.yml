@@ -11,15 +11,17 @@ jobs:
     permissions:
       contents: write
     env:
-      # 主源 + 备用源（可继续往下加）
+      # 主源 + 备用源
       SOURCE_URL: https://hub.kelee.one/list.json
       FALLBACK_URL_1: https://pluginhub.kelee.one/list.json
 
-      # 请求头与行为
+      # 最后一搏：桥接前缀（把 https://example.com/x 变成 https://r.jina.ai/http://example.com/x）
+      # ——可能失效，但偶尔能穿过 JS Challenge。介意的话可改为 '' 关闭。
+      BRIDGE_PREFIX: 'https://r.jina.ai/http://'
+
       USER_AGENT: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       ACCEPT_HEADER: 'application/json, text/plain, */*'
       REFERER: 'https://pluginhub.kelee.one/'
-      # 调试总开关：1 开 0 关
       DEBUG_CURL: '1'
 
     steps:
@@ -33,42 +35,51 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Download plugin catalog (with fallback & debug)
+      - name: Download plugin catalog (multi-fallback + debug)
         run: |
           set -euo pipefail
+
+          mkdir -p Cache
 
           urls=()
           urls+=("${SOURCE_URL}")
           [ -n "${FALLBACK_URL_1:-}" ] && urls+=("${FALLBACK_URL_1}")
 
-          # 组装 curl 通用参数
+          # 组装桥接 URLs（最后尝试）
+          if [ -n "${BRIDGE_PREFIX:-}" ]; then
+            for u in "${SOURCE_URL}" "${FALLBACK_URL_1:-}"; do
+              [ -z "${u:-}" ] && continue
+              # 把 https://host/path 变为 ${BRIDGE_PREFIX}host/path
+              host_path="${u#https://}"
+              urls+=("${BRIDGE_PREFIX}${host_path}")
+            done
+          fi
+
           base_flags=(--fail --show-error --location --compressed --http1.1 \
                       --retry 5 --retry-all-errors --connect-timeout 20 --max-time 120 \
                       -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER")
 
           fetch_ok=false
-          rm -f plugin_data.json || true
+          FALLBACK_MODE=false
+          rm -f plugin_data.json curl_head.log curl_debug.log || true
 
           for u in "${urls[@]}"; do
             echo "::group::Preflight HEAD ${u}"
-            # 预检响应头，便于判断 403/WAF
             if [ "${DEBUG_CURL}" = "1" ]; then
-              curl -sS -I --http1.1 -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" | tee curl_head.log || true
+              curl -sS -I --http1.1 -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" | tee -a curl_head.log || true
             else
               curl -sS -I --http1.1 -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" || true
             fi
             echo "::endgroup::"
 
             echo "::group::GET ${u}"
-            # 根据 DEBUG 开关决定是否 -v 并保存调试日志
             if [ "${DEBUG_CURL}" = "1" ]; then
-              curl "${base_flags[@]}" -v "$u" -o plugin_data.json 2>curl_debug.log || true
+              curl "${base_flags[@]}" -v "$u" -o plugin_data.json 2>>curl_debug.log || true
             else
               curl "${base_flags[@]}" "$u" -o plugin_data.json || true
             fi
             echo "::endgroup::"
 
-            # 校验文件非空 + 可解析 JSON
             if [ -s plugin_data.json ]; then
               if command -v jq >/dev/null 2>&1; then
                 if jq . >/dev/null 2>&1 < plugin_data.json; then
@@ -80,7 +91,6 @@ jobs:
                   rm -f plugin_data.json
                 fi
               else
-                # 没有 jq 时仅检查非空
                 echo "✓ Catalog downloaded (jq not present) from ${u}"
                 fetch_ok=true
                 break
@@ -91,15 +101,31 @@ jobs:
             fi
           done
 
-          # 如失败，输出调试日志
           if [ "${fetch_ok}" != "true" ]; then
-            echo "::group::curl debug logs"
-            [ -f curl_head.log ] && cat curl_head.log || true
-            [ -f curl_debug.log ] && tail -n +1 curl_debug.log || true
-            echo "::endgroup::"
-            echo "::error ::Failed to download plugin catalog from all sources"
-            exit 1
+            # 尝试使用仓库内上一版缓存，进入回退模式
+            if [ -f Cache/plugin_data.json ] && [ -s Cache/plugin_data.json ]; then
+              echo "::warning ::Using cached Cache/plugin_data.json (fallback mode)"
+              cp Cache/plugin_data.json plugin_data.json
+              FALLBACK_MODE=true
+            else
+              echo "::group::curl debug logs"
+              [ -f curl_head.log ] && cat curl_head.log || true
+              [ -f curl_debug.log ] && tail -n +1 curl_debug.log || true
+              echo "::endgroup::"
+              echo "::error ::Failed to download plugin catalog from all sources and no cache available"
+              exit 1
+            fi
           fi
+
+          # 成功获取则更新缓存，供下次回退使用
+          if [ "${fetch_ok}" = "true" ]; then
+            cp plugin_data.json Cache/plugin_data.json
+            echo "REFRESHED_JSON=true" >> "$GITHUB_ENV"
+          else
+            echo "REFRESHED_JSON=false" >> "$GITHUB_ENV"
+          fi
+
+          echo "FALLBACK_MODE=${FALLBACK_MODE}" >> "$GITHUB_ENV"
 
       - name: Extract LNPlugin URLs
         run: |
@@ -108,7 +134,7 @@ jobs:
             --input plugin_data.json \
             --output lnplugin_urls.txt
 
-      - name: Mirror LNPlugin packages (debug-ready)
+      - name: Mirror LNPlugin packages (safe-delete aware)
         run: |
           set -euo pipefail
           mkdir -p Chores/lnplugin
@@ -121,6 +147,13 @@ jobs:
 
           declare -A seen
           updated=false
+
+          # 回退模式下不做“缺失即删除”的清理，防止因旧清单误删
+          SAFE_DELETE=true
+          if [ "${FALLBACK_MODE:-false}" = "true" ]; then
+            echo "::warning ::Fallback mode ON - stale deletion disabled"
+            SAFE_DELETE=false
+          fi
 
           for filepath in Chores/lnplugin/*.lpx; do
             if [ -e "$filepath" ]; then
@@ -179,13 +212,17 @@ jobs:
             seen["$filename"]=true
           done
 
-          for filename in "${!seen[@]}"; do
-            if [ "${seen[$filename]}" = false ]; then
-              echo "Removing stale artifact: $filename"
-              rm -f "Chores/lnplugin/$filename"
-              updated=true
-            fi
-          done
+          if [ "${SAFE_DELETE}" = "true" ]; then
+            for filename in "${!seen[@]}"; do
+              if [ "${seen[$filename]}" = false ]; then
+                echo "Removing stale artifact: $filename"
+                rm -f "Chores/lnplugin/$filename"
+                updated=true
+              fi
+            done
+          else
+            echo "::notice ::Skip stale deletion due to fallback mode"
+          fi
 
           if [ "$updated" = true ]; then
             echo "MIRROR_UPDATED=true" >> "$GITHUB_ENV"
@@ -194,12 +231,12 @@ jobs:
           fi
 
       - name: Commit and push changes
-        if: env.MIRROR_UPDATED == 'true'
+        if: env.MIRROR_UPDATED == 'true' || env.REFRESHED_JSON == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          git add Chores/lnplugin
+          git add Chores/lnplugin Cache/plugin_data.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
@@ -208,12 +245,12 @@ jobs:
 
           git fetch origin
           git pull --rebase origin main
-          git add Chores/lnplugin
+          git add Chores/lnplugin Cache/plugin_data.json
 
           timestamp=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
           git commit -m "🪞 Mirror LNPlugin artifacts - $timestamp (UTC+8)"
           git push origin main
 
       - name: No updates detected
-        if: env.MIRROR_UPDATED != 'true'
-        run: echo "LNPlugin artifacts already up to date"
+        if: env.MIRROR_UPDATED != 'true' && env.REFRESHED_JSON != 'true'
+        run: echo "LNPlugin artifacts already up to date (or fallback used with no changes)"
