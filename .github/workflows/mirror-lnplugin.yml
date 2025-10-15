@@ -11,16 +11,15 @@ jobs:
     permissions:
       contents: write
     env:
-      # 只走代理（全部通过 Secrets 注入，避免明文泄露）
-      PROXY_BASE: ${{ secrets.PROXY_BASE }}              # 例：https://your-worker.workers.dev/?url=
-      LIST_URL_PRIMARY: ${{ secrets.LIST_URL_PRIMARY }}  # 例：https://hub.kelee.one/list.json
-      LIST_URL_BACKUP: ${{ secrets.LIST_URL_BACKUP }}    # 例：https://pluginhub.kelee.one/list.json（可选）
+      PROXY_BASE: https://wowproxy.lyetutu.workers.dev/?url=
+      LIST_URL_PRIMARY: https://hub.kelee.one/list.json
+      LIST_URL_BACKUP: https://pluginhub.kelee.one/list.json
 
       # 请求头与调试
       USER_AGENT: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       ACCEPT_HEADER: 'application/json, text/plain, */*'
       REFERER: 'https://pluginhub.kelee.one/'
-      DEBUG_CURL: '0'  # 排查时改 1
+      DEBUG_CURL: '1'  # 排查时改 1
 
     steps:
       - name: Checkout main branch
@@ -76,7 +75,7 @@ jobs:
             -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER"
           )
 
-          # —— 不用 heredoc 的 Python 清洗函数（避免缩进问题）——
+          # —— 调用脚本执行 JSON 清洗（修复缩进问题）——
           try_clean_json() {
             python3 - "$1" "$2" <<'PY'
 import sys, json, re
