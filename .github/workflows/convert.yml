@@ -117,25 +117,34 @@ jobs:
             -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
           enc_cat=$(printf '%s' "$category" | jq -sRr @uri)
-          script_hub_host="localhost"
-          script_hub_port=9101
-          proxy_base="${PROXY_BASE:-}"
-
           trim_control_chars() {
             printf '%s' "$1" | tr -d '\r\n\t'
           }
 
+          strip_surrounding_whitespace() {
+            printf '%s' "$1" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'
+          }
+
+          sanitize_field() {
+            strip_surrounding_whitespace "$(trim_control_chars "$1")"
+          }
+
+          script_hub_host="localhost"
+          script_hub_port=9101
+          proxy_base="${PROXY_BASE:-}"
+          proxy_base="$(sanitize_field "$proxy_base")"
+
           header_value=$(printf 'User-Agent: Surge Mac/2985' | jq -sRr @uri)
 
           while read -r plugin_url; do
-            plugin_url="$(trim_control_chars "$plugin_url")"
+            plugin_url="$(sanitize_field "$plugin_url")"
             [ -z "$plugin_url" ] && continue
 
             source_url="$plugin_url"
 
             url_no_query="${source_url%%[\?#]*}"
             base_name=$(basename "$url_no_query")
-            base_name="$(trim_control_chars "$base_name")"
+            base_name="$(sanitize_field "$base_name")"
 
             name="$base_name"
             if [[ "$name" == *.lpx ]]; then
@@ -144,20 +153,23 @@ jobs:
             if [[ "$name" == *.plugin ]]; then
               name="${name%.plugin}"
             fi
-            name="$(trim_control_chars "$name")"
+            name="$(sanitize_field "$name")"
             [ -z "$name" ] && name="$base_name"
 
             enc=$(printf '%s' "$name" | jq -sRr @uri)
-            effective_url="$source_url"
+            proxy_prefix=""
             if [ -n "$proxy_base" ]; then
-              case "$effective_url" in
-                https://kelee.one/*|https://*.kelee.one/*)
-                  effective_url="${proxy_base}${effective_url}"
+              host_part="$(printf '%s' "$source_url" | awk -F/ 'NF>2 {print $3}')"
+              host_part="$(sanitize_field "$host_part")"
+              host_lc="$(printf '%s' "$host_part" | tr 'A-Z' 'a-z')"
+              case "$host_lc" in
+                kelee.one|*.kelee.one)
+                  proxy_prefix="$proxy_base"
                   ;;
               esac
             fi
 
-            base_url="http://${script_hub_host}:${script_hub_port}/file/_start_/${effective_url}/_end_/${enc}.sgmodule"
+            base_url="http://${script_hub_host}:${script_hub_port}/file/_start_/${proxy_prefix}${source_url}/_end_/${enc}.sgmodule"
             query="type=loon-plugin&target=surge-module&category=$enc_cat&headers=$header_value"
             url="${base_url}?${query}"
             echo "↓  $url"
