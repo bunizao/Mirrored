@@ -63,6 +63,12 @@ jobs:
             echo "::error ::No .lpx artifacts found in Chores/lnplugin"
             exit 1
           fi
+          python3 scripts/download_plugin_list.py \
+            --url https://hub.kelee.one/list.json \
+            --output plugin_data.json
+
+          echo "Found mirrored LNPlugin files:"
+          cat lnplugin_files.txt
 
           echo "Found mirrored LNPlugin files:"
           cat lnplugin_files.txt
