@@ -47,47 +47,47 @@ jobs:
           done
           echo "::error ::container not ready"; exit 1
 
-      # ---------- 1. Prepare mirrored LNPlugin sources ----------
-      - name: Verify mirrored LNPlugin artifacts
+      # ---------- 1. Fetch the plugin list and extract source URLs ----------
+      - name: Download plugin list
         run: |
           set -euo pipefail
 
-          if [ ! -d "Chores/lnplugin" ]; then
-            echo "::error ::Missing Chores/lnplugin directory. Run mirror-lnplugin workflow first."
+          candidate_urls=(
+            "https://hub.kelee.one/list.json"
+          )
+
+          browser_header="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:122.0) Gecko/20100101 Firefox/122.0"
+          rm -f plugin_data.json
+
+          for url in "${candidate_urls[@]}"; do
+            echo "Trying: $url"
+            if curl -fLsS -H "User-Agent: $browser_header" "$url" -o plugin_data.json \
+              && [ -s plugin_data.json ]; then
+              echo "✓ Downloaded plugin catalog from $url"
+              break
+            fi
+          done
+
+          if [ ! -s plugin_data.json ]; then
+            echo "::error ::Failed to download plugin list from all known endpoints"
             exit 1
           fi
 
-          find Chores/lnplugin -maxdepth 1 -type f -name '*.lpx' | sort > lnplugin_files.txt
-
-          if [ ! -s lnplugin_files.txt ]; then
-            echo "::error ::No .lpx artifacts found in Chores/lnplugin"
-            exit 1
-          fi
-
-          echo "Found mirrored LNPlugin files:"
-          cat lnplugin_files.txt
-
-      - name: Start LNPlugin HTTP server
+      - name: Extract plugin source URLs
         run: |
           set -euo pipefail
-          python3 -m http.server 8000 --bind 0.0.0.0 --directory Chores/lnplugin &
-          echo $! > http_server.pid
-          sleep 2
-          if ! kill -0 "$(cat http_server.pid)" 2>/dev/null; then
-            echo "::error ::Failed to start LNPlugin HTTP server"
-            exit 1
-          fi
-
-      - name: Generate plugin source URLs
-        run: |
-          set -euo pipefail
-          python3 scripts/build_local_plugin_urls.py \
-            --input lnplugin_files.txt \
+          python3 scripts/extract_lnplugin_urls.py \
+            --input plugin_data.json \
             --output plugin_urls.txt \
-            --base-url http://host.docker.internal:8000
+            --extensions .lpx .plugin
 
           plugin_count=$(wc -l < plugin_urls.txt)
-          echo "Prepared $plugin_count plugin URLs via local mirror"
+          if [ "$plugin_count" -eq 0 ]; then
+            echo "::error ::Plugin list JSON did not contain any .plugin/.lpx URLs"
+            exit 1
+          fi
+
+          echo "Found $plugin_count plugin links:"
           cat plugin_urls.txt
 
       # ---------- 2. Ask Script-Hub to render .sgmodule files ----------
@@ -249,16 +249,6 @@ jobs:
 
           # Remove temporary files
           rm -f external-js.txt external-js-raw.txt
-
-      - name: Stop LNPlugin HTTP server
-        if: always()
-        run: |
-          if [ -f http_server.pid ]; then
-            if kill "$(cat http_server.pid)" 2>/dev/null; then
-              echo "Stopped LNPlugin HTTP server"
-            fi
-            rm -f http_server.pid
-          fi
 
       - name: Commit & push (if changed)
         shell: bash
