@@ -76,56 +76,10 @@ jobs:
             -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER"
           )
 
-          # —— 不用 heredoc 的 Python 清洗函数（避免缩进问题）——
+          # —— 调用脚本执行 JSON 清洗（修复缩进问题）——
           try_clean_json() {
             # 用法：try_clean_json <src_path> <out_path>
-            python3 -c '
-import sys, json, re
-src_path, out_path = sys.argv[1], sys.argv[2]
-src = open(src_path, "rb").read().decode("utf-8", "ignore")
-
-def write_clean(obj):
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
-
-# 1) 直接 JSON
-try:
-    write_clean(json.loads(src)); sys.exit(0)
-except Exception:
-    pass
-
-# 2) ```json 代码块
-m = re.search(r"```(?:json)?\\s*({.*?})\\s*```", src, re.S | re.I)
-if m:
-    try:
-        write_clean(json.loads(m.group(1))); sys.exit(0)
-    except Exception:
-        pass
-
-# 3) 提取最大平衡 {} 块
-stack = []
-best = None
-start = None
-for i, ch in enumerate(src):
-    if ch == "{":
-        if not stack: start = i
-        stack.append("{")
-    elif ch == "}" and stack:
-        stack.pop()
-        if not stack and start is not None:
-            seg = src[start:i+1]
-            if best is None or len(seg) > len(best):
-                best = seg
-            start = None
-
-if best:
-    try:
-        write_clean(json.loads(best.strip())); sys.exit(0)
-    except Exception:
-        pass
-
-sys.exit(2)
-' "$1" "$2"
+            python3 scripts/try_clean_json.py "$1" "$2"
           }
 
           fetch_ok=false
