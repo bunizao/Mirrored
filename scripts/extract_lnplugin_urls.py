@@ -62,14 +62,30 @@ def collect_urls(
 ) -> None:
     if isinstance(node, str):
         candidate = node.strip()
-        if candidate.startswith("http"):
-            if _matches_extension(candidate, extensions):
-                bucket.add(candidate)
+        if not candidate:
+            return
+
+        matches_found = False
+        http_candidates = list(_iter_http_candidates(candidate))
+
+        if not http_candidates and candidate.startswith("http"):
+            http_candidates.append(candidate)
+
+        for http_candidate in http_candidates:
+            if _matches_extension(http_candidate, extensions):
+                bucket.add(http_candidate)
+                matches_found = True
             elif debug:
                 print(
-                    f"[debug] skipped candidate at {trail}: {candidate}",
+                    f"[debug] skipped candidate at {trail}: {http_candidate}",
                     file=sys.stderr,
                 )
+
+        if debug and not matches_found and not http_candidates:
+            print(
+                f"[debug] skipped candidate at {trail}: {candidate}",
+                file=sys.stderr,
+            )
         return
 
     if isinstance(node, dict):
@@ -91,6 +107,43 @@ def _matches_extension(candidate: str, extensions: tuple[str, ...]) -> bool:
     parsed = urlparse(candidate)
     path = parsed.path.lower()
     return path.endswith(extensions)
+
+
+def _iter_http_candidates(value: str) -> Iterable[str]:
+    from urllib.parse import parse_qs, unquote, urlparse
+
+    stack = [value]
+    seen: Set[str] = set()
+
+    while stack:
+        current = stack.pop().strip()
+        if not current or current in seen:
+            continue
+        seen.add(current)
+
+        if current.startswith(("http://", "https://")):
+            yield current
+            continue
+
+        if not current.startswith("loon://"):
+            continue
+
+        parsed = urlparse(current)
+
+        if parsed.path:
+            for part in parsed.path.split("/"):
+                part = unquote(part)
+                if part:
+                    stack.append(part)
+
+        if parsed.fragment:
+            stack.append(unquote(parsed.fragment))
+
+        if parsed.query:
+            query = parse_qs(parsed.query, keep_blank_values=False)
+            for values in query.values():
+                for candidate in values:
+                    stack.append(unquote(candidate))
 
 
 def extract_urls(
