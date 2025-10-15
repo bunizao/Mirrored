@@ -47,53 +47,27 @@ jobs:
           done
           echo "::error ::container not ready"; exit 1
 
-      # ---------- 1. Prepare mirrored LNPlugin sources ----------
-      - name: Verify mirrored LNPlugin artifacts
+      # ---------- 1. Prepare LNPlugin source list ----------
+      - name: Generate plugin URLs from cached catalog
         run: |
           set -euo pipefail
 
-          if [ ! -d "Chores/lnplugin" ]; then
-            echo "::error ::Missing Chores/lnplugin directory. Run mirror-lnplugin workflow first."
+          if [ ! -f "Cache/plugin_data.json" ]; then
+            echo "::error ::Missing Cache/plugin_data.json. Run mirror-lnplugin workflow first."
             exit 1
           fi
 
-          find Chores/lnplugin -maxdepth 1 -type f -name '*.lpx' | sort > lnplugin_files.txt
+          python3 scripts/extract_lnplugin_urls.py \
+            --input Cache/plugin_data.json \
+            --output plugin_urls.txt
 
-          if [ ! -s lnplugin_files.txt ]; then
-            echo "::error ::No .lpx artifacts found in Chores/lnplugin"
+          if [ ! -s plugin_urls.txt ]; then
+            echo "::error ::No LNPlugin URLs discovered in cached catalog"
             exit 1
           fi
-          python3 scripts/download_plugin_list.py \
-            --url https://hub.kelee.one/list.json \
-            --output plugin_data.json
-
-          echo "Found mirrored LNPlugin files:"
-          cat lnplugin_files.txt
-
-          echo "Found mirrored LNPlugin files:"
-          cat lnplugin_files.txt
-
-      - name: Start LNPlugin HTTP server
-        run: |
-          set -euo pipefail
-          python3 -m http.server 8000 --bind 0.0.0.0 --directory Chores/lnplugin &
-          echo $! > http_server.pid
-          sleep 2
-          if ! kill -0 "$(cat http_server.pid)" 2>/dev/null; then
-            echo "::error ::Failed to start LNPlugin HTTP server"
-            exit 1
-          fi
-
-      - name: Generate plugin source URLs
-        run: |
-          set -euo pipefail
-          python3 scripts/build_local_plugin_urls.py \
-            --input lnplugin_files.txt \
-            --output plugin_urls.txt \
-            --base-url http://host.docker.internal:8000
 
           plugin_count=$(wc -l < plugin_urls.txt)
-          echo "Prepared $plugin_count plugin URLs via local mirror"
+          echo "Prepared $plugin_count remote LNPlugin URLs for conversion"
           cat plugin_urls.txt
 
       # ---------- 2. Ask Script-Hub to render .sgmodule files ----------
@@ -255,16 +229,6 @@ jobs:
 
           # Remove temporary files
           rm -f external-js.txt external-js-raw.txt
-
-      - name: Stop LNPlugin HTTP server
-        if: always()
-        run: |
-          if [ -f http_server.pid ]; then
-            if kill "$(cat http_server.pid)" 2>/dev/null; then
-              echo "Stopped LNPlugin HTTP server"
-            fi
-            rm -f http_server.pid
-          fi
 
       - name: Commit & push (if changed)
         shell: bash
