@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
 from typing import Iterable, Set
@@ -26,31 +25,21 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-LPX_URL_PATTERN = re.compile(
-    r"https?://[^\s\"'<>]+?\.lpx(?:[^\s\"'<>]*)?",
-    re.IGNORECASE,
-)
-
-
-def collect_urls(node: object, bucket: Set[str], diagnostics: list[str]) -> None:
+def collect_urls(node: object, bucket: Set[str]) -> None:
     if isinstance(node, str):
         candidate = node.strip()
-        lowered = candidate.lower()
-        matches = LPX_URL_PATTERN.findall(candidate)
-        if matches:
-            bucket.update(match.strip() for match in matches)
-        elif "lpx" in lowered and len(diagnostics) < 10:
-            diagnostics.append(candidate)
+        if candidate.startswith("http") and candidate.lower().endswith(".lpx"):
+            bucket.add(candidate)
         return
 
     if isinstance(node, dict):
         for value in node.values():
-            collect_urls(value, bucket, diagnostics)
+            collect_urls(value, bucket)
         return
 
     if isinstance(node, (list, tuple, set)):
         for value in node:
-            collect_urls(value, bucket, diagnostics)
+            collect_urls(value, bucket)
         return
 
 
@@ -62,28 +51,10 @@ def extract_urls(source: Path) -> Iterable[str]:
     except json.JSONDecodeError as exc:
         raise SystemExit(f"::error ::Failed to parse plugin catalog JSON: {exc}")
 
-    if isinstance(payload, dict):
-        keys = list(payload.keys())
-        preview = ", ".join(keys[:8]) + (" …" if len(keys) > 8 else "")
-        print(
-            f"Loaded plugin catalog dictionary with {len(keys)} keys: {preview}",
-        )
-    elif isinstance(payload, list):
-        print(f"Loaded plugin catalog list with {len(payload)} entries")
-    else:
-        print(f"Loaded plugin catalog of type {type(payload).__name__}")
-
     urls: Set[str] = set()
-    diagnostics: list[str] = []
-    collect_urls(payload, urls, diagnostics)
+    collect_urls(payload, urls)
 
     if not urls:
-        if diagnostics:
-            print("Found potential LPX strings but they were not valid URLs:")
-            for candidate in diagnostics:
-                print(f"  - {candidate}")
-        else:
-            print("No strings containing 'lpx' were found in the catalog payload")
         raise SystemExit("::error ::No LNPlugin URLs discovered in plugin catalog")
 
     return sorted(urls)

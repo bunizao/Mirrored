@@ -11,180 +11,135 @@ jobs:
     permissions:
       contents: write
     env:
-      PROXY_BASE: https://wowproxy.lyetutu.workers.dev/?url=
-      LIST_URL_PRIMARY: https://hub.kelee.one/list.json
-      LIST_URL_BACKUP: https://pluginhub.kelee.one/list.json
-
-      # 请求头与调试
-      USER_AGENT: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+      SOURCE_URL: https://hub.kelee.one/list.json
+      USER_AGENT: 'Surge/3070 CFNetwork/1410.0.3 Darwin/22.6.0'
       ACCEPT_HEADER: 'application/json, text/plain, */*'
-      REFERER: 'https://pluginhub.kelee.one/'
-      DEBUG_CURL: '1'  # 排查时改 1
-
     steps:
       - name: Checkout main branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           ref: main
 
       - name: Configure git author
-        shell: bash
         run: |
-          set -euo pipefail
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Download plugin catalog (proxy-only + smart JSON extract + cache + masking)
-        shell: bash
+      - name: Download plugin catalog
         run: |
           set -euo pipefail
 
-          mkdir -p Cache
+          curl -fSL --compressed \
+            -A "$USER_AGENT" \
+            -H "Accept: $ACCEPT_HEADER" \
+            "$SOURCE_URL" \
+            -o plugin_data.json
 
-          : "${PROXY_BASE:?PROXY_BASE secret required}"
-          : "${LIST_URL_PRIMARY:?LIST_URL_PRIMARY secret required}"
-          # LIST_URL_BACKUP 可为空
-
-          # 规范化 PROXY_BASE，确保以 ?url= 结尾
-          if [[ "$PROXY_BASE" != *"?url="* ]]; then
-            PROXY_BASE="${PROXY_BASE%/}?url="
+          if [ ! -s plugin_data.json ]; then
+            echo "::error ::Downloaded plugin catalog is empty"
+            exit 1
           fi
 
-          # —— 安全的一行式 URL 编码（不使用 heredoc）——
-          ENC_PRIMARY="$(python3 -c 'import os, urllib.parse; print(urllib.parse.quote(os.environ["LIST_URL_PRIMARY"], safe=""))')"
-          ENC_BACKUP=""
-          if [[ -n "${LIST_URL_BACKUP:-}" ]]; then
-            ENC_BACKUP="$(python3 -c 'import os, urllib.parse; u=os.environ.get("LIST_URL_BACKUP",""); print(urllib.parse.quote(u, safe=""))')"
+      - name: Extract LNPlugin URLs
+        run: |
+          set -euo pipefail
+          python3 scripts/extract_lnplugin_urls.py \
+            --input plugin_data.json \
+            --output lnplugin_urls.txt
+
+      - name: Mirror LNPlugin packages
+        run: |
+          set -euo pipefail
+          mkdir -p Chores/lnplugin
+
+          mapfile -t urls < lnplugin_urls.txt
+          if [ "${#urls[@]}" -eq 0 ]; then
+            echo "::error ::No LNPlugin URLs to mirror"
+            exit 1
           fi
 
-          # 日志脱敏（原始/编码/最终代理 URL 全部遮罩）
-          echo "::add-mask::${LIST_URL_PRIMARY}"
-          [[ -n "${LIST_URL_BACKUP:-}" ]] && echo "::add-mask::${LIST_URL_BACKUP}"
-          echo "::add-mask::${ENC_PRIMARY}"
-          [[ -n "${ENC_BACKUP}" ]] && echo "::add-mask::${ENC_BACKUP}"
-          echo "::add-mask::${PROXY_BASE}${ENC_PRIMARY}"
-          [[ -n "${ENC_BACKUP}" ]] && echo "::add-mask::${PROXY_BASE}${ENC_BACKUP}"
+          declare -A seen
+          updated=false
 
-          # 只走代理拉取；失败则回退缓存
-          urls=( "${PROXY_BASE}${ENC_PRIMARY}" )
-          [[ -n "${ENC_BACKUP}" ]] && urls+=( "${PROXY_BASE}${ENC_BACKUP}" )
-
-          base_flags=(
-            --fail --show-error --location --compressed --http1.1
-            --retry 5 --retry-all-errors --connect-timeout 20 --max-time 120
-            -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER"
-          )
-
-          # —— 调用脚本执行 JSON 清洗（修复缩进问题）——
-          try_clean_json() {
-            python3 - "$1" "$2" <<'PY'
-import sys, json, re
-src_path, out_path = sys.argv[1], sys.argv[2]
-src = open(src_path, 'rb').read().decode('utf-8', 'ignore')
-
-def write_clean(obj):
-    with open(out_path, 'w', encoding='utf-8') as fh:
-        json.dump(obj, fh, ensure_ascii=False, separators=(',', ':'))
-
-try:
-    write_clean(json.loads(src))
-    sys.exit(0)
-except Exception:
-    pass
-
-match = re.search(r"```(?:json)?\s*({.*?})\s*```", src, re.S | re.I)
-if match:
-    try:
-        write_clean(json.loads(match.group(1)))
-        sys.exit(0)
-    except Exception:
-        pass
-
-stack = []
-best = None
-start = None
-for idx, ch in enumerate(src):
-    if ch == '{':
-        if not stack:
-            start = idx
-        stack.append(ch)
-    elif ch == '}' and stack:
-        stack.pop()
-        if not stack and start is not None:
-            segment = src[start:idx + 1]
-            if best is None or len(segment) > len(best):
-                best = segment
-            start = None
-
-if best:
-    try:
-        write_clean(json.loads(best.strip()))
-        sys.exit(0)
-    except Exception:
-        pass
-
-sys.exit(2)
-PY
-          }
-
-          fetch_ok=false
-          rm -f plugin_data.json plugin_data.raw curl_debug.log headers.tmp || true
-
-          for u in "${urls[@]}"; do
-            if [[ "${DEBUG_CURL}" == "1" ]]; then
-              curl "${base_flags[@]}" "$u" -D headers.tmp -o plugin_data.raw -v 2>>curl_debug.log || true
-            else
-              curl "${base_flags[@]}" "$u" -D headers.tmp -o plugin_data.raw || true
+          for filepath in Chores/lnplugin/*.lpx; do
+            if [ -e "$filepath" ]; then
+              seen["$(basename "$filepath")"]=false
             fi
-
-            if [[ -s plugin_data.raw ]]; then
-              if command -v jq >/dev/null 2>&1 && jq . >/dev/null 2>&1 < plugin_data.raw; then
-                mv plugin_data.raw plugin_data.json
-                echo "✓ Catalog downloaded (valid JSON) via proxy"
-                fetch_ok=true; break
-              else
-                echo "::notice ::Downloaded body not strict-JSON; trying smart extractor"
-                if try_clean_json plugin_data.raw plugin_data.json; then
-                  echo "✓ Extracted JSON from text via proxy"
-                  fetch_ok=true; break
-                else
-                  echo "::warning ::Smart extract failed on this source"
-                  rm -f plugin_data.json || true
-                fi
-              fi
-            else
-              echo "::warning ::Empty response from proxy source"
-            fi
-
-            rm -f plugin_data.raw headers.tmp || true
           done
 
-          if [[ "${fetch_ok}" != "true" ]]; then
-            if [[ -s Cache/plugin_data.json ]]; then
-              echo "::warning ::Using cached Cache/plugin_data.json (fallback mode)"
-              cp Cache/plugin_data.json plugin_data.json
-            else
-              [[ -f curl_debug.log ]] && { echo "::group::curl debug"; tail -n +1 curl_debug.log || true; echo "::endgroup::"; }
-              echo "::error ::Failed to download plugin catalog via proxy and no cache available"
-              exit 1
-            fi
-          fi
+          for url in "${urls[@]}"; do
+            url="${url//$'\r'/}"
+            url="${url//$'\n'/}"
+            [ -z "$url" ] && continue
 
-          if [[ "${fetch_ok}" == "true" ]]; then
-            cp plugin_data.json Cache/plugin_data.json
-            echo "REFRESHED_JSON=true" >> "$GITHUB_ENV"
+            sanitized="${url%%[\?#]*}"
+            filename="$(basename "$sanitized")"
+            filename="${filename//$'\r'/}"
+            filename="${filename//$'\n'/}"
+            if [[ -z "$filename" ]]; then
+              echo "::warning ::Skipping malformed URL: $url"
+              continue
+            fi
+
+            if [[ ! "$filename" =~ \\.lpx$ ]]; then
+              filename="${filename}.lpx"
+            fi
+
+            temp_file="Chores/lnplugin/$filename.tmp"
+            final_file="Chores/lnplugin/$filename"
+
+            echo "↓  $url"
+            if curl -fSL --compressed \
+              -A "$USER_AGENT" \
+              -H "Accept: $ACCEPT_HEADER" \
+              --connect-timeout 30 \
+              --max-time 120 \
+              --retry 3 \
+              --retry-delay 5 \
+              "$url" \
+              -o "$temp_file"; then
+              if [ -s "$temp_file" ]; then
+                if ! cmp -s "$temp_file" "$final_file" 2>/dev/null; then
+                  mv "$temp_file" "$final_file"
+                  updated=true
+                  echo "✓ Mirrored $filename"
+                else
+                  rm -f "$temp_file"
+                  echo "= $filename unchanged"
+                fi
+              else
+                echo "::warning ::Downloaded file empty: $filename"
+                rm -f "$temp_file"
+              fi
+            else
+              echo "::warning ::Failed to mirror $filename"
+              rm -f "$temp_file"
+            fi
+
+            seen["$filename"]=true
+          done
+
+          for filename in "${!seen[@]}"; do
+            if [ "${seen[$filename]}" = false ]; then
+              echo "Removing stale artifact: $filename"
+              rm -f "Chores/lnplugin/$filename"
+              updated=true
+            fi
+          done
+
+          if [ "$updated" = true ]; then
+            echo "MIRROR_UPDATED=true" >> "$GITHUB_ENV"
           else
-            echo "REFRESHED_JSON=false" >> "$GITHUB_ENV"
+            echo "MIRROR_UPDATED=false" >> "$GITHUB_ENV"
           fi
 
       - name: Commit and push changes
-        if: env.REFRESHED_JSON == 'true'
+        if: env.MIRROR_UPDATED == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
         run: |
-          set -euo pipefail
-          git add Cache/plugin_data.json
+          set -e
+          git add Chores/lnplugin
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
@@ -193,12 +148,12 @@ PY
 
           git fetch origin
           git pull --rebase origin main
-          git add Cache/plugin_data.json
+          git add Chores/lnplugin
 
           timestamp=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
-          git commit -m "🪞 Refresh LNPlugin catalog - $timestamp (UTC+8)"
+          git commit -m "🪞 Mirror LNPlugin artifacts - $timestamp (UTC+8)"
           git push origin main
 
       - name: No updates detected
-        if: env.REFRESHED_JSON != 'true'
-        run: echo "LNPlugin catalog already up to date (or fallback used with no changes)"
+        if: env.MIRROR_UPDATED != 'true'
+        run: echo "LNPlugin artifacts already up to date"
