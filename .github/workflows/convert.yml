@@ -98,12 +98,8 @@ jobs:
             -name "*.lpx.sgmodule" -delete
           category="🚫 AD Block"
           enc_cat=$(printf '%s' "$category" | jq -sRr @uri)
-          script_hub_host="script.hub"
+          script_hub_host="localhost"
           script_hub_port=9101
-          resolve_flags=(
-            --resolve "${script_hub_host}:${script_hub_port}:127.0.0.1"
-            --resolve "${script_hub_host}:80:127.0.0.1"
-          )
 
           trim_control_chars() {
             printf '%s' "$1" | tr -d '\r\n\t'
@@ -140,7 +136,6 @@ jobs:
               --retry 3 \
               --retry-delay 5 \
               --retry-all-errors \
-              "${resolve_flags[@]}" \
               "$url"; then
               echo "✓ Downloaded $name.sgmodule"
             else

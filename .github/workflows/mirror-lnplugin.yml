@@ -38,12 +38,12 @@ jobs:
             exit 1
           fi
 
-        - name: Extract LNPlugin URLs
-          run: |
-            set -euo pipefail
-            python3 scripts/extract_lnplugin_urls.py \
-              --input plugin_data.json \
-              --output lnplugin_urls.txt
+      - name: Extract LNPlugin URLs
+        run: |
+          set -euo pipefail
+          python3 scripts/extract_lnplugin_urls.py \
+            --input plugin_data.json \
+            --output lnplugin_urls.txt
 
       - name: Mirror LNPlugin packages
         run: |
