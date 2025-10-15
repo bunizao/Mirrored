@@ -855,6 +855,11 @@ const htmls = `
         </span>
         <textarea ref="textTextarea" @input="autoResize('textTextarea')" v-if=" inputType === 'local-text' " style=" position: relative; top: 4px; " id="localtext" v-model.lazy="localtext" placeholder="请填写本地文件内容"></textarea>
         <textarea ref="textTextarea" @input="autoResize('textTextarea')" v-else style=" position: relative; top: 4px; " id="src" v-model.lazy="src" placeholder="请填写来源 URL 链接(多个 URL 用 😂 连接)"></textarea>
+        <div v-if="inputType !== 'local-text'" class="divstyle" style="margin-top: 0.5rem;">
+          <code style="white-space: nowrap;">代理前缀:</code>
+          <input type="text" id="proxy_base" v-model.lazy="proxy_base" placeholder="可选: 请求代理前缀(例如 https://example.com/)" style="margin-left: 0.5rem; flex: 1;" />
+        </div>
+        <small v-if="inputType !== 'local-text'" style="position: relative; top: 7px; display: block;">&nbsp;&#9432; 当链接无法直连时，可填写代理前缀，生成的链接会自动为每个来源地址加上该前缀</small>
       </div>
       <!--font-size: 16px;  style=" position: relative; top: -3px; "-->
       <small style=" position: relative; top: 7px; ">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B" target="_blank">如何选择类型</a></small>
@@ -1311,6 +1316,7 @@ const htmls = `
     targets: [{value: 'surge-module', label: 'Surge 模块', suffix: '.sgmodule'}, {value: 'stash-stoverride', label: 'Stash 覆写', suffix: '.stoverride'}, {value: 'shadowrocket-module', label: 'Shadowrocket 模块', suffix: '.sgmodule'}, {value: 'loon-plugin', label: 'Loon 插件', suffix: '.plugin'}, {value: 'loon-rule-set', label: '规则集(Loon)', suffix: '.list' }, {value: 'shadowrocket-rule-set', label: '规则集(Shadowrocket)', suffix: '.list' }, {value: 'surge-rule-set', label: '规则集(Surge)', suffix: '.list' }, {value: 'surge-domain-set', label: '域名集¹(Surge)', suffix: '.list' }, {value: 'surge-domain-set2', label: '无法转换为域名集¹的剩余规则集(Surge)', suffix: '.list' }, {value: 'stash-rule-set', label: '规则集(Stash)', suffix: '.list' }, {value: 'stash-domain-set', label: '域名集²(Stash)', suffix: '.list' }, {value: 'stash-domain-set2', label: '无法转换为域名集²的剩余规则集(Stash)', suffix: '.list' }, {value: 'surge-script', label: 'Surge 脚本(兼容)', suffix: '.js'}, {value: 'plain-text', label: '纯文本'}],
     target: '',
     src: '',
+    proxy_base: '',
     headers: '',
     localtext: '',
     n: '',
@@ -1379,7 +1385,7 @@ const htmls = `
     init.target = 'shadowrocket-module'
   }
 
-  const params = [ 'headers', 'n', 'type', 'target', 'x', 'y', 'hnadd', 'hndel', 'hnregdel', 'jsc', 'jsc2', 'cron', 'cronexp', 'njsname', 'njsnametarget', 'timeoutt', 'timeoutv', 'enginet', 'enginev', 'policy', 'arg', 'argv', 'tiles', 'tcolor', 'cachexp', 'nocache', 'del', 'nore', 'synMitm', 'noNtf','jqEnabled', 'wrap_response', 'compatibilityOnly', 'evalScriptori', 'evalScriptmodi', 'evalUrlmodi', 'evalUrlori', 'evJsori', 'evJsmodi', 'evUrlori', 'evUrlmodi','prepend', 'keepHeader', 'jsDelivr', 'sni', 'pm', 'localtext', 'icon', 'category']
+  const params = [ 'headers', 'proxy_base', 'n', 'type', 'target', 'x', 'y', 'hnadd', 'hndel', 'hnregdel', 'jsc', 'jsc2', 'cron', 'cronexp', 'njsname', 'njsnametarget', 'timeoutt', 'timeoutv', 'enginet', 'enginev', 'policy', 'arg', 'argv', 'tiles', 'tcolor', 'cachexp', 'nocache', 'del', 'nore', 'synMitm', 'noNtf','jqEnabled', 'wrap_response', 'compatibilityOnly', 'evalScriptori', 'evalScriptmodi', 'evalUrlmodi', 'evalUrlori', 'evJsori', 'evJsmodi', 'evUrlori', 'evUrlmodi','prepend', 'keepHeader', 'jsDelivr', 'sni', 'pm', 'localtext', 'icon', 'category']
   
   init.editMode = location.pathname.indexOf('/edit') === 0
 
@@ -1414,12 +1420,34 @@ const htmls = `
                   init.jsc_all = true
                 } else if (i === 'jsc2' && param === '.') {
                   init.jsc2_all = true
+                } else if (i === 'proxy_base') {
+                  const value = param.trim()
+                  if (value) {
+                    init.proxy_base = value
+                  }
                 } else {
                   init[i] = param
                 }
-                
+
               }
             })
+            if (init.proxy_base && init.src) {
+              const sanitizedProxyBase = init.proxy_base.trim().replace(/#.*$/, '')
+              if (sanitizedProxyBase) {
+                init.src = init.src
+                  .split('😂')
+                  .map(item => {
+                    const segment = item.trim()
+                    if (!segment) {
+                      return segment
+                    }
+                    return segment.startsWith(sanitizedProxyBase)
+                      ? segment.substring(sanitizedProxyBase.length)
+                      : segment
+                  })
+                  .join('😂')
+              }
+            }
           }
           if(fullname && init.target === 'plain-text') {
             init.filename = fullname
@@ -1589,7 +1617,14 @@ const htmls = `
         }
         
         params.forEach(field => {
-         if (this[field]!==''&&this[field]!==false) {
+          if (field === 'proxy_base') {
+            const value = (this.proxy_base || '').trim()
+            if (value) {
+              fields[field] = value
+            }
+            return
+          }
+          if (this[field] !== '' && this[field] !== false) {
             fields[field] = this[field]
           }
         })
@@ -1618,7 +1653,24 @@ const htmls = `
             filename = 'untitled-' + Date.now()
           }
 
-          return this.baseUrl + pathType + '/_start_/' + src.replace(/#.*$/, '').replace(/😂/g, '%F0%9F%98%82') + '/_end_/' + encodeURIComponent(filename) + suffix + '?' + Object.keys(fields).map(i => i + '=' + encodeURIComponent(fields[i])).join('&')
+          const trimmedProxyBase = (this.proxy_base || '').trim()
+          const sanitizedProxyBase = trimmedProxyBase ? trimmedProxyBase.replace(/#.*$/, '') : ''
+          let requestSrc = src.replace(/#.*$/, '')
+          if (sanitizedProxyBase) {
+            requestSrc = requestSrc
+              .split('😂')
+              .map(item => {
+                const segment = item.trim()
+                if (!segment) {
+                  return segment
+                }
+                return segment.startsWith(sanitizedProxyBase) ? segment : sanitizedProxyBase + segment
+              })
+              .join('😂')
+          }
+          const encodedSrc = requestSrc.replace(/😂/g, '%F0%9F%98%82')
+
+          return this.baseUrl + pathType + '/_start_/' + encodedSrc + '/_end_/' + encodeURIComponent(filename) + suffix + '?' + Object.keys(fields).map(i => i + '=' + encodeURIComponent(fields[i])).join('&')
 
           // let url = new URL(this.baseUrl + pathType + '/_start_/' + src + '/_end_/' + encodeURIComponent(filename) + suffix)
           
