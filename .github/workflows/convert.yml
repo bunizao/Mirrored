@@ -37,6 +37,7 @@ jobs:
             curl \
             jq \
             netcat-openbsd \
+            python3-pip \
             nodejs
 
       - name: Wait for Script-Hub container (:9101)
@@ -52,26 +53,12 @@ jobs:
         run: |
           set -euo pipefail
 
-          candidate_urls=(
-            "https://hub.kelee.one/list.json"
-          )
+          python3 -m pip install --quiet --upgrade pip
+          python3 -m pip install --quiet cloudscraper
 
-          browser_header="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:122.0) Gecko/20100101 Firefox/122.0"
-          rm -f plugin_data.json
-
-          for url in "${candidate_urls[@]}"; do
-            echo "Trying: $url"
-            if curl -fLsS -H "User-Agent: $browser_header" "$url" -o plugin_data.json \
-              && [ -s plugin_data.json ]; then
-              echo "✓ Downloaded plugin catalog from $url"
-              break
-            fi
-          done
-
-          if [ ! -s plugin_data.json ]; then
-            echo "::error ::Failed to download plugin list from all known endpoints"
-            exit 1
-          fi
+          python3 scripts/download_plugin_list.py \
+            --url https://hub.kelee.one/list.json \
+            --output plugin_data.json
 
       - name: Extract plugin source URLs
         run: |
