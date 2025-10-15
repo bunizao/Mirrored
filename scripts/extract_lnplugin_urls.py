@@ -33,6 +33,16 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Print verbose information about URL discovery.",
     )
+    parser.add_argument(
+        "--host-prefix",
+        action="append",
+        default=[],
+        type=parse_host_prefix,
+        metavar="HOST=PREFIX",
+        help=(
+            "Prepend PREFIX to any discovered URL whose hostname matches HOST."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -50,6 +60,24 @@ def normalize_extensions(values: Iterable[str]) -> tuple[str, ...]:
         raise SystemExit("::error ::No file extensions provided for extraction")
 
     return tuple(dict.fromkeys(normalized))
+
+
+def parse_host_prefix(value: str) -> tuple[str, str]:
+    if "=" not in value:
+        raise argparse.ArgumentTypeError(
+            "host-prefix values must be provided as HOST=PREFIX"
+        )
+
+    host, prefix = value.split("=", 1)
+    host = host.strip().lower()
+    prefix = prefix.strip()
+
+    if not host or not prefix:
+        raise argparse.ArgumentTypeError(
+            "host-prefix entries require both a host and prefix"
+        )
+
+    return host, prefix
 
 
 def collect_urls(
@@ -147,7 +175,10 @@ def _iter_http_candidates(value: str) -> Iterable[str]:
 
 
 def extract_urls(
-    source: Path, extensions: tuple[str, ...], *, debug: bool = False
+    source: Path,
+    extensions: tuple[str, ...],
+    *,
+    debug: bool = False,
 ) -> Iterable[str]:
     try:
         payload = json.loads(source.read_text(encoding="utf-8"))
@@ -165,11 +196,47 @@ def extract_urls(
     return sorted(urls)
 
 
+def apply_host_prefixes(urls: Iterable[str], mapping: dict[str, str]) -> list[str]:
+    if not mapping:
+        return list(urls)
+
+    from urllib.parse import urlparse
+
+    normalized_map = {
+        key.lower(): value for key, value in mapping.items() if value
+    }
+
+    def lookup(hostname: str) -> str | None:
+        hostname = hostname.lower()
+        if hostname in normalized_map:
+            return normalized_map[hostname]
+
+        for candidate, prefix in normalized_map.items():
+            if candidate.startswith(".") and hostname.endswith(candidate):
+                return prefix
+
+        return None
+
+    rewritten: list[str] = []
+    for url in urls:
+        parsed = urlparse(url)
+        prefix = lookup(parsed.netloc)
+        if prefix:
+            trimmed = prefix.rstrip("/")
+            rewritten.append(f"{trimmed}/{url}")
+        else:
+            rewritten.append(url)
+
+    return rewritten
+
+
 def main() -> int:
     args = parse_args()
     source_path = Path(args.input)
     extensions = normalize_extensions(args.extensions)
     urls = list(extract_urls(source_path, extensions, debug=args.debug))
+    host_prefix_map = dict(args.host_prefix)
+    urls = apply_host_prefixes(urls, host_prefix_map)
 
     output_path = Path(args.output)
     output_path.write_text("\n".join(urls) + "\n", encoding="utf-8")
