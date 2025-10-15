@@ -11,23 +11,17 @@ jobs:
     permissions:
       contents: write
     env:
-      # 主源 + 备用源（可继续加更多 FALLBACK_URL_*）
-      SOURCE_URL: https://hub.kelee.one/list.json
-      FALLBACK_URL_1: https://pluginhub.kelee.one/list.json
 
-      # 桥接只读源（用于绕过 JS Challenge；不要的话设为空字符串）
-      # 同时尝试 http:// 与 https:// 两种上游拼法
-      BRIDGE_PREFIX: 'https://r.jina.ai/http://'
-      BRIDGE_PREFIX_ALT: 'https://r.jina.ai/https://'
+      PROXY_BASE: ${{ secrets.PROXY_BASE }}
 
-      # （可选）你的自建反代/Worker 网关（留空则不用）
-      # PROXY_BASE: 'https://your-worker.example.workers.dev/fetch?url='
+      LIST_URL_PRIMARY: ${{ secrets.LIST_URL_PRIMARY }}      # 例：https://hub.kelee.one/list.json
+      LIST_URL_BACKUP: ${{ secrets.LIST_URL_BACKUP }}        # 例：https://pluginhub.kelee.one/list.json（可选）
 
       # 请求头与调试
       USER_AGENT: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       ACCEPT_HEADER: 'application/json, text/plain, */*'
       REFERER: 'https://pluginhub.kelee.one/'
-      DEBUG_CURL: '1'  # 稳定后可调成 0
+      DEBUG_CURL: '0'  # 需要排查时改为 1
 
     steps:
       - name: Checkout main branch
@@ -40,71 +34,53 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Download plugin catalog (multi-fallback + smart JSON extract + cache)
+      - name: Download plugin catalog (proxy-only + smart JSON extract + cache + masking)
         run: |
           set -euo pipefail
 
           mkdir -p Cache
 
-          urls=()
-          urls+=("${SOURCE_URL}")
-          [ -n "${FALLBACK_URL_1:-}" ] && urls+=("${FALLBACK_URL_1}")
+          : "${PROXY_BASE:?PROXY_BASE secret required}"
+          : "${LIST_URL_PRIMARY:?LIST_URL_PRIMARY secret required}"
+          # LIST_URL_BACKUP 可为空
 
-          # 拼接桥接只读源（最后尝试）
-          if [ -n "${BRIDGE_PREFIX:-}" ] || [ -n "${BRIDGE_PREFIX_ALT:-}" ]; then
-            for u in "${SOURCE_URL}" "${FALLBACK_URL_1:-}"; do
-              [ -z "${u:-}" ] && continue
-              host_path="${u#https://}"  # 兼容 https://host/path
-              [ -n "${BRIDGE_PREFIX:-}" ] && urls+=("${BRIDGE_PREFIX}${host_path}")
-              [ -n "${BRIDGE_PREFIX_ALT:-}" ] && urls+=("${BRIDGE_PREFIX_ALT}${host_path}")
-            done
+          # 规范化 PROXY_BASE，确保以 ?url= 结尾
+          if [[ "$PROXY_BASE" != *"?url="* ]]; then
+            PROXY_BASE="${PROXY_BASE%/}?url="
           fi
 
-          # 自建反代（可选）
-          if [ -n "${PROXY_BASE:-}" ]; then
-            for u in "${SOURCE_URL}" "${FALLBACK_URL_1:-}"; do
-              [ -z "${u:-}" ] && continue
-              urls+=("${PROXY_BASE}${u}")
-            done
+          # URL 编码（用 Python，通用稳定）
+          ENC_PRIMARY="$(python3 - <<'PY'
+import os, urllib.parse
+print(urllib.parse.quote(os.environ['LIST_URL_PRIMARY'], safe=''))
+PY
+)"
+          ENC_BACKUP=""
+          if [ -n "${LIST_URL_BACKUP:-}" ]; then
+            ENC_BACKUP="$(python3 - <<'PY'
+import os, urllib.parse
+print(urllib.parse.quote(os.environ['LIST_URL_BACKUP'], safe=''))
+PY
+)"
           fi
+
+          # 日志脱敏（原始/编码/最终代理 URL 全部遮罩）
+          echo "::add-mask::$LIST_URL_PRIMARY"
+          [ -n "${LIST_URL_BACKUP:-}" ] && echo "::add-mask::$LIST_URL_BACKUP"
+          echo "::add-mask::$ENC_PRIMARY"
+          [ -n "$ENC_BACKUP" ] && echo "::add-mask::$ENC_BACKUP"
+          echo "::add-mask::${PROXY_BASE}${ENC_PRIMARY}"
+          [ -n "$ENC_BACKUP" ] && echo "::add-mask::${PROXY_BASE}${ENC_BACKUP}"
+
+          # 只走代理拉取（简化 & 稳定）
+          urls=("${PROXY_BASE}${ENC_PRIMARY}")
+          [ -n "$ENC_BACKUP" ] && urls+=("${PROXY_BASE}${ENC_BACKUP}")
 
           base_flags=(--fail --show-error --location --compressed --http1.1 \
                       --retry 5 --retry-all-errors --connect-timeout 20 --max-time 120 \
                       -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER")
 
-          is_bridge_url() {
-            case "$1" in
-              https://r.jina.ai/*) return 0 ;;
-              *) return 1 ;;
-            esac
-          }
-
-          do_preflight() {
-            local u="$1"
-            echo "::group::Preflight ${u}"
-            if is_bridge_url "$u"; then
-              # r.jina.ai 不支持 HEAD，用 GET 取 1 字节做轻量预检
-              if [ "${DEBUG_CURL}" = "1" ]; then
-                curl -sS -D - -o /dev/null -r 0-0 --http1.1 \
-                  -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" "$u" | tee -a curl_head.log || true
-              else
-                curl -sS -D - -o /dev/null -r 0-0 --http1.1 \
-                  -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" "$u" >> curl_head.log 2>/dev/null || true
-              fi
-            else
-              if [ "${DEBUG_CURL}" = "1" ]; then
-                curl -sS -I --http1.1 \
-                  -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" | tee -a curl_head.log || true
-              else
-                curl -sS -I --http1.1 \
-                  -A "$USER_AGENT" -H "Accept: $ACCEPT_HEADER" -e "$REFERER" "$u" >> curl_head.log 2>/dev/null || true
-              fi
-            fi
-            echo "::endgroup::"
-          }
-
           try_clean_json() {
-            # 尝试把 text/plain 中的 JSON 从混杂文本中提取出来
             python3 - "$1" "$2" <<'PY'
 import sys, json, re
 src_path, out_path = sys.argv[1], sys.argv[2]
@@ -116,9 +92,7 @@ def write_clean(obj):
 
 # 1) 直接 JSON
 try:
-    obj = json.loads(src)
-    write_clean(obj)
-    sys.exit(0)
+    write_clean(json.loads(src)); sys.exit(0)
 except Exception:
     pass
 
@@ -126,36 +100,30 @@ except Exception:
 m = re.search(r"```(?:json)?\s*({.*?})\s*```", src, re.S|re.I)
 if m:
     try:
-        obj = json.loads(m.group(1))
-        write_clean(obj); sys.exit(0)
+        write_clean(json.loads(m.group(1))); sys.exit(0)
     except Exception:
         pass
 
-# 3) 提取文本中“最大平衡 {} 块”
+# 3) 提取最大平衡 {} 块
 def largest_braced(text):
-    stack = []
-    best_seg = None
-    start = None
-    for i, ch in enumerate(text):
-        if ch == '{':
+    stack = []; best = None; start = None
+    for i,ch in enumerate(text):
+        if ch=='{':
             if not stack: start = i
             stack.append('{')
-        elif ch == '}' and stack:
+        elif ch=='}' and stack:
             stack.pop()
             if not stack and start is not None:
                 seg = text[start:i+1]
-                if best_seg is None or len(seg) > len(best_seg):
-                    best_seg = seg
+                if best is None or len(seg) > len(best): best = seg
                 start = None
-    return best_seg
+    return best
 
 cand = largest_braced(src)
 if cand:
-    # 去掉可能的 BOM/前后空白
     cand = cand.strip()
     try:
-        obj = json.loads(cand)
-        write_clean(obj); sys.exit(0)
+        write_clean(json.loads(cand)); sys.exit(0)
     except Exception:
         pass
 
@@ -165,67 +133,54 @@ PY
 
           fetch_ok=false
           FALLBACK_MODE=false
-          rm -f plugin_data.json plugin_data.raw curl_head.log curl_debug.log || true
+          rm -f plugin_data.json plugin_data.raw curl_debug.log headers.tmp || true
 
           for u in "${urls[@]}"; do
-            do_preflight "$u"
-
-            echo "::group::GET ${u}"
             if [ "${DEBUG_CURL}" = "1" ]; then
-              curl "${base_flags[@]}" -v "$u" -D headers.tmp -o plugin_data.raw 2>>curl_debug.log || true
+              curl "${base_flags[@]}" "$u" -D headers.tmp -o plugin_data.raw -v 2>>curl_debug.log || true
             else
               curl "${base_flags[@]}" "$u" -D headers.tmp -o plugin_data.raw || true
             fi
-            echo "::endgroup::"
 
             if [ -s plugin_data.raw ]; then
-              # 优先直接 jq 校验
               if command -v jq >/dev/null 2>&1 && jq . >/dev/null 2>&1 < plugin_data.raw; then
                 mv plugin_data.raw plugin_data.json
-                echo "✓ Catalog downloaded (valid JSON) from ${u}"
-                fetch_ok=true
-                break
+                echo "✓ Catalog downloaded (valid JSON) via proxy"
+                fetch_ok=true; break
               else
-                echo "::warning ::Downloaded catalog not valid JSON from ${u}; trying to extract"
+                echo "::notice ::Downloaded body not strict-JSON; trying smart extractor"
                 if try_clean_json plugin_data.raw plugin_data.json; then
-                  echo "✓ Extracted JSON from text/plain (${u})"
-                  fetch_ok=true
-                  break
+                  echo "✓ Extracted JSON from text via proxy"
+                  fetch_ok=true; break
                 else
-                  echo "::warning ::Failed to extract JSON from ${u}"
+                  echo "::warning ::Smart extract failed on this source"
                   rm -f plugin_data.json || true
                 fi
               fi
             else
-              echo "::warning ::Empty response from ${u}"
+              echo "::warning ::Empty response from proxy source"
             fi
             rm -f plugin_data.raw headers.tmp || true
           done
 
           if [ "${fetch_ok}" != "true" ]; then
-            # 使用仓库内上一版缓存，进入回退模式（避免全流程中断）
             if [ -f Cache/plugin_data.json ] && [ -s Cache/plugin_data.json ]; then
               echo "::warning ::Using cached Cache/plugin_data.json (fallback mode)"
               cp Cache/plugin_data.json plugin_data.json
               FALLBACK_MODE=true
             else
-              echo "::group::curl debug logs"
-              [ -f curl_head.log ] && cat curl_head.log || true
-              [ -f curl_debug.log ] && tail -n +1 curl_debug.log || true
-              echo "::endgroup::"
-              echo "::error ::Failed to download plugin catalog from all sources and no cache available"
+              [ -f curl_debug.log ] && { echo "::group::curl debug"; tail -n +1 curl_debug.log || true; echo "::endgroup::"; }
+              echo "::error ::Failed to download plugin catalog via proxy and no cache available"
               exit 1
             fi
           fi
 
-          # 成功获取则更新缓存
           if [ "${fetch_ok}" = "true" ]; then
             cp plugin_data.json Cache/plugin_data.json
             echo "REFRESHED_JSON=true" >> "$GITHUB_ENV"
           else
             echo "REFRESHED_JSON=false" >> "$GITHUB_ENV"
           fi
-
           echo "FALLBACK_MODE=${FALLBACK_MODE}" >> "$GITHUB_ENV"
 
       - name: Extract LNPlugin URLs
@@ -249,7 +204,7 @@ PY
           declare -A seen
           updated=false
 
-          # 回退模式下不做“缺失即删除”的清理，防止因旧清单误删
+          # 回退模式下不删旧工件，避免误删
           SAFE_DELETE=true
           if [ "${FALLBACK_MODE:-false}" = "true" ]; then
             echo "::warning ::Fallback mode ON - stale deletion disabled"
@@ -280,9 +235,7 @@ PY
               echo "::warning ::Skipping malformed URL: $url"
               continue
             fi
-            if [[ ! "$filename" =~ \.lpx$ ]]; then
-              filename="${filename}.lpx"
-            fi
+            [[ "$filename" != *.lpx ]] && filename="${filename}.lpx"
 
             temp_file="Chores/lnplugin/$filename.tmp"
             final_file="Chores/lnplugin/$filename"
