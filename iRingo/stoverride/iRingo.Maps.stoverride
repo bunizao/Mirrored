@@ -9,8 +9,8 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/GeoServices/maps"
 icon: "https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png"
 category: " iRingo"
-date: "2024-12-10 16:10:46"
-version: "4.2.2"
+date: "2025-10-22 09:11:05"
+version: "4.3.1"
 
 rules:
   # 🗺️ Tiles
@@ -57,8 +57,8 @@ http:
 
 script-providers:
   GeoServices.request:
-    url: https://github.com/NSRingo/GeoServices/releases/download/v4.2.2/request.bundle.js
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.3.1/request.bundle.js
     interval: 86400
   GeoServices.response:
-    url: https://github.com/NSRingo/GeoServices/releases/download/v4.2.2/response.bundle.js
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.3.1/response.bundle.js
     interval: 86400
