@@ -9,16 +9,18 @@ author: |-
 homepage: "https://NSRingo.github.io/guide/GeoServices/maps"
 icon: "https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png"
 category: " iRingo"
-date: "2025-10-22 09:11:05"
-version: "4.3.1"
+date: "2025-10-23 09:08:37"
+version: "4.3.2"
 
 rules:
-  # 🗺️ Tiles
+  # 🗺️ Amap
+  - DOMAIN-SUFFIX,is.autonavi.com,DIRECT
+  # 🗺️ Maps
+  - DOMAIN,gspe11-2-cn-ssl.ls.apple.com,DIRECT
+  - DOMAIN,gspe12-cn-ssl.ls.apple.com,DIRECT
   - DOMAIN,gspe19-cn-ssl.ls.apple.com,DIRECT
-  # 🗺️ Dispatcher
-  - DOMAIN,dispatcher.is.autonavi.com,DIRECT
-  # 🗺️ Directions & ETA
-  - DOMAIN,direction2.is.autonavi.com,DIRECT
+  - DOMAIN,gspe19-2-cn-ssl.ls.apple.com,DIRECT
+  - DOMAIN,gspe79-cn-ssl.ls.apple.com,DIRECT
 
 http:
   mitm:
@@ -57,8 +59,8 @@ http:
 
 script-providers:
   GeoServices.request:
-    url: https://github.com/NSRingo/GeoServices/releases/download/v4.3.1/request.bundle.js
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.3.2/request.bundle.js
     interval: 86400
   GeoServices.response:
-    url: https://github.com/NSRingo/GeoServices/releases/download/v4.3.1/response.bundle.js
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.3.2/response.bundle.js
     interval: 86400
