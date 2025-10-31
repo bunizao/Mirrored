@@ -307,7 +307,7 @@ ProtoBuf处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.
 移除首页推广 = type=http-response, pattern=^https:\/\/(?:cn-acs\.m|netflow-mtop)\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.m?show\.cn, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Cainiao_remove_ads.js, requires-body=true
 
 # ---------- PinDuoDuo -----------
-body_rewrite_48 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.dy_module.irregular_banner_dy%22%5D%5D%5D
+body_rewrite_49 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.dy_module.irregular_banner_dy%22%5D%5D%5D
 
 # -------------- JD --------------
 body_rewrite_15 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=basicConfig, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.JDMessage.socketmonitor.isSocketEstablishedAhead%22%2C0%5D%2C%5B%22data.JDMessage.socketmonitor.isSocketReport%22%2C0%5D%2C%5B%22data.JDHttpToolKit.httpdns.httpdns%22%2C0%5D%5D%5D%5D
