@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-05 01:39:41
+#!date=2025-11-05 02:20:20
 
 [Rule]
 AND,((URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/d(\d)?"),(USER-AGENT,"*com.xunmeng.pinduoduo*")),REJECT
@@ -78,7 +78,7 @@ body_rewrite_54 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/ap
 
 body_rewrite_55 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/order_detail_group\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.goods_list%22%5D%5D%5D
 
-body_rewrite_56 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/order\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22marketing_banner_vo%22%5D%5D%5D
+body_rewrite_56 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/order\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22marketing_banner_vo%22%2C%22shipping.banner_above_recommend%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% api.pinduoduo.com
