@@ -1,22 +1,19 @@
 #!name=自动加入TestFlight
 #!desc=自动监控TestFlight名额，一旦有新的名额即刻加入。
-#!author=DecoAri[https://github.com/DecoAri], xream[https://github.com/xream]
+#!author=奶思[https://github.com/fmz200], DecoAri[https://github.com/DecoAri], xream[https://github.com/xream]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/TestFlight.png
 #!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id899247664
 #!tag=定时任务
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-09-02 23:41:52
-#!arguments=CaptureAccountToken:false,CaptureAppID:false,TimingParameters:"0 0/2 * * * ?"
+#!date=2025-11-08 03:16:28
+#!arguments=CaptureAccountToken:false,RunTask:"false",RunMonitor:"true",TaskCron:"0 0/2 * * * ?",TaskMonitor:"0 * * * * ?"
 
 [Script]
-获取账号令牌 = type=http-request, pattern=^https?:\/\/testflight\.apple\.com\/v3\/accounts\/.*\/apps$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TF_keys.js
+获取账号令牌 = type=http-request, pattern=^https?:\/\/testflight\.apple\.com\/v3\/accounts\/.*\/apps$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CaptureAccountToken.js
 
-应用ID捕获 = type=http-request, pattern=^https://testflight.apple.com/join/(.*), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TF_keys.js
+自动加入TF = type=cron, cronexp={{{TaskCron}}}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/AutoJoinTF.js, timeout=600
 
-自动加入TF = type=cron, cronexp={{{TimingParameters}}}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Auto_join_TF.js, timeout=180
-
-[MITM]
-hostname = %APPEND% testflight.apple.com
+监控TF位置 = type=cron, cronexp={{{TaskMonitor}}}, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/AutoMonitorTF.js, timeout=30
 
