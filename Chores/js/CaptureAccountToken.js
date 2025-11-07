@@ -41,7 +41,7 @@ if (reg1.test($request.url)) {
 
 // 获取TF的APP ID
 if (reg2.test($request.url)) {
-  let appId = $.getdata("fmz200_TF_APP_ID") || "";
+  let appId = $.getdata("App_ID") || "";
   let arr = appId.split(",");
   const id = reg2.exec($request.url)[1];
   arr.push(id);
@@ -49,7 +49,7 @@ if (reg2.test($request.url)) {
   if (arr.length > 0) {
     appId = arr.join(",");
   }
-  $.setdata(JSON.stringify(appId), "fmz200_TF_APP_ID");
+  $.setdata(JSON.stringify(appId), "App_ID");
   $.msg($.name, `已添加APP_ID: ${id}`, `当前所有APPID: ${appId}`, "");
   $.done({});
 }

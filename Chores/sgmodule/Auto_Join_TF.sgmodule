@@ -7,7 +7,7 @@
 #!tag=定时任务
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-08 03:16:28
+#!date=2025-11-08 03:27:30
 #!arguments=CaptureAccountToken:false,RunTask:"false",RunMonitor:"true",TaskCron:"0 0/2 * * * ?",TaskMonitor:"0 * * * * ?"
 
 [Script]

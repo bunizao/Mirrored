@@ -8,7 +8,7 @@ const isNode = $.isNode();
 const notify = isNode ? require('./sendNotify') : '';
 $.nodeNotifyMsg = []; // nodeJS合并通知
 
-let TF_APP_ID = isNode ? process.env["fmz200_TF_APP_ID"] : $.getdata("fmz200_TF_APP_ID");
+let TF_APP_ID = isNode ? process.env["App_ID"] : $.getdata("App_ID");
 let TF_header = isNode ? process.env["fmz200_TF_header"] : $.getdata("fmz200_TF_header");
 
 !(async () => {
@@ -119,9 +119,9 @@ function updateData(ids, appId) {
   if (isNode) {
     console.log("TODO 操作node环境变量");
   } else {
-    const ids = $.getdata("fmz200_TF_APP_ID").split(',').filter(ids => ids.trim() !== appId);
+    const ids = $.getdata("App_ID").split(',').filter(ids => ids.trim() !== appId);
     console.log(`TF_APP_ID即将更新为：${ids}`);
-    $.setdata(ids.toString(), "fmz200_TF_APP_ID");
+    $.setdata(ids.toString(), "App_ID");
   }
 }
 

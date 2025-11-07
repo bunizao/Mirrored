@@ -12,7 +12,7 @@ const isNode = $.isNode();
 const notify = isNode ? require('./sendNotify') : '';
 $.nodeNotifyMsg = []; // nodeJS合并通知
 
-const TF_APP_ID = isNode ? process.env["fmz200_TF_APP_ID"] : $.getdata("fmz200_TF_APP_ID");
+const TF_APP_ID = isNode ? process.env["App_ID"] : $.getdata("App_ID");
 const userAgents = [
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_6_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
