@@ -1,0 +1,17 @@
+#!name=淘票票去广告
+#!desc=过滤淘票票开屏广告
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Taopiaopiao.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id566813949
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-11-08 22:55:33
+
+[Script]
+body_rewrite_12 = type=http-response, pattern=^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopintegrationapi\.homeconfig\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.returnValue.floatingBanner%22%2C%22data.returnValue.searchShadeList%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% acs.m.taobao.com
+
