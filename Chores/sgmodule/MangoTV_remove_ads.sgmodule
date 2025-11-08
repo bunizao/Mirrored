@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-09 05:13:05
+#!date=2025-11-09 06:44:13
 
 [Rule]
 DOMAIN,credits.bz.mgtv.com,REJECT
@@ -44,7 +44,7 @@ body_rewrite_32 = type=http-response, pattern=^https?:\/\/mobile\.api\.(mgtv|hun
 
 body_rewrite_35 = type=http-response, pattern=^https?:\/\/dc\d?\.bz\.mgtv\.com\/dynamic\/v\d\/channel\/index\/\w, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22adInfo%22%5D%5D%5D
 
-body_rewrite_37 = type=http-response, pattern=^https:\/\/mobile-thor\.api\.mgtv\.com\/v\d+\/vod\/info\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.config.ad%22%2C%22data.config.vipNav%22%2C%22data.template.skinList%22%5D%5D%5D
+body_rewrite_37 = type=http-response, pattern=^https:\/\/mobile-thor\.api\.mgtv\.com\/v\d+\/vod\/info\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.config.ad%22%2C%22data.config.vipNav%22%2C%22data.template.skinList%22%2C%22data.template.theme%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% dc?.bz.mgtv.com, mobileso.bz.mgtv.com, damang.api.mgtv.com, hb-boom.api.mgtv.com, mobile.api.mgtv.com, mobile.api.hunantv.com, me.bz.mgtv.com, mobile-thor.api.mgtv.com
