@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-09 07:05:44
+#!date=2025-11-09 07:45:13
 
 [Rule]
 DOMAIN,credits.bz.mgtv.com,REJECT
