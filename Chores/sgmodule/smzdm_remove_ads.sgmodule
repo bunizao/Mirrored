@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-12 03:45:03
+#!date=2025-11-12 04:00:04
 
 [Rule]
 DOMAIN,adx-api.zdmimg.com,REJECT
@@ -48,5 +48,5 @@ body_rewrite_34 = type=http-response, pattern=^https:\/\/haojia-cdn\.smzdm\.com\
 body_rewrite_35 = type=http-response, pattern=^https:\/\/post\.m\.smzdm\.com\/ajax_app\/ajax_get_footer_list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tuiguang_ad%22%2C%22data.activity_banner%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% app-api.smzdm.com, homepage-api.smzdm.com, h5.smzdm.com, haojia-api.smzdm.com, haojia.m.smzdm.com, user-api.smzdm.com, article-api.smzdm.com, s-api.smzdm.com, haojia-cdn.smzdm.com
+hostname = %APPEND% app-api.smzdm.com, homepage-api.smzdm.com, h5.smzdm.com, haojia-api.smzdm.com, haojia.m.smzdm.com, user-api.smzdm.com, article-api.smzdm.com, s-api.smzdm.com, haojia-cdn.smzdm.com, post.m.smzdm.com
 
