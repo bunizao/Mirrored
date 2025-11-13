@@ -222,7 +222,6 @@ DOMAIN,th-a.pinduoduo.com
 DOMAIN,ta-a.pinduoduo.com
 DOMAIN,meta.pinduoduo.com
 DOMAIN,apm-a.pinduoduo.com
-DOMAIN,m.pinduoduo.net
 URL-REGEX,"^http:\/\/\w{32}\.jddebug\.com\/diagnose\?"
 DOMAIN,api.biliapi.com
 DOMAIN,app.biliapi.com
