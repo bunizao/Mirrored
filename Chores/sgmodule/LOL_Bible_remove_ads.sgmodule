@@ -7,10 +7,12 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-14 01:49:01
+#!date=2025-11-14 02:24:43
 
 [Map Local]
 ^https:\/\/mlol\.qt\.qq\.com\/go\/recommend\/platstrongshell\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/mlol\.qt\.qq\.com\/go\/club\/match\/get_ai_search_words$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/mlol\.qt\.qq\.com\/go\/mlol_news\/search\/varcache_hotV\d\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
