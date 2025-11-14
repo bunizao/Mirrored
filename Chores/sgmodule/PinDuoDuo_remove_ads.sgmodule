@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-13 19:47:47
+#!date=2025-11-14 17:26:24
 
 [Rule]
 AND,((URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/d(\d)?"),(USER-AGENT,"*com.xunmeng.pinduoduo*")),REJECT
@@ -21,7 +21,6 @@ DOMAIN,cdl-p2.pddpic.com,REJECT
 DOMAIN,cd-1.pddpic.com,REJECT
 DOMAIN,apm.pinduoduo.com,REJECT
 DOMAIN,th-b.pinduoduo.com,REJECT
-DOMAIN,file.pinduoduo.com,REJECT
 DOMAIN,ta.pinduoduo.com,REJECT
 DOMAIN,th.pinduoduo.com,REJECT
 DOMAIN,th-a.pinduoduo.com,REJECT
@@ -69,17 +68,17 @@ DOMAIN,apm-a.pinduoduo.com,REJECT
 ^https:\/\/api\.pinduoduo\.com\/api\/buffon\/nasus\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_50 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.dy_module.irregular_banner_dy%22%2C%22result.icon_set%22%2C%22result.search_bar_hot_query%22%2C%22result.dy_module.irregular_banner_dy%22%5D%5D%5D
+body_rewrite_49 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.dy_module.irregular_banner_dy%22%2C%22result.icon_set%22%2C%22result.search_bar_hot_query%22%2C%22result.dy_module.irregular_banner_dy%22%5D%5D%5D
 
-body_rewrite_52 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/search\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22expansion%22%5D%5D%5D
+body_rewrite_51 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/search\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22expansion%22%5D%5D%5D
 
-body_rewrite_53 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/philo\/personal\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22monthly_card_entrance%22%2C%22personal_center_style_v2_vo%22%2C%22icon_set.icons%22%2C%22icon_set.top_personal_icons%22%5D%5D%5D
+body_rewrite_52 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/philo\/personal\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22monthly_card_entrance%22%2C%22personal_center_style_v2_vo%22%2C%22icon_set.icons%22%2C%22icon_set.top_personal_icons%22%5D%5D%5D
 
-body_rewrite_54 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/oak\/integration\/render\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22bottom_section_list%22%2C%22ui.bottom_section%22%2C%22ui.live_section.float_info%22%5D%5D%5D
+body_rewrite_53 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/oak\/integration\/render\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22bottom_section_list%22%2C%22ui.bottom_section%22%2C%22ui.live_section.float_info%22%5D%5D%5D
 
-body_rewrite_55 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/order_detail_group\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.goods_list%22%5D%5D%5D
+body_rewrite_54 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/order_detail_group\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.goods_list%22%5D%5D%5D
 
-body_rewrite_56 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/order\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22marketing_banner_vo%22%2C%22shipping.banner_above_recommend%22%5D%5D%5D
+body_rewrite_55 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/order\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22marketing_banner_vo%22%2C%22shipping.banner_above_recommend%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% api.pinduoduo.com
