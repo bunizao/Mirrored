@@ -1,5 +1,5 @@
 #!name=优酷视频去广告
-#!desc=过滤优酷视频客户端广告，由于此插件不再维护，客户端版本高于11.0.48可能会导致此插件失效，请勿升级客户端。
+#!desc=移除开屏广告、视频广告、信息流广告。其余广告由于请求已加密，故无法移除。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], RuCu6[https://github.com/RuCu6]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/YouKu_Video.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-14 22:00:44
+#!date=2025-11-14 22:56:21
 
 [Rule]
 DOMAIN,push.m.youku.com,DIRECT
@@ -28,16 +28,17 @@ DOMAIN,dr-danmu.youku.com,REJECT
 DOMAIN,group-ssl-danmu-ori.youku.com,REJECT
 DOMAIN,m.atm.youku.com,REJECT
 DOMAIN,mc.atm.youku.com,REJECT
+DOMAIN,vali-g1.cp31.ott.cibntv.net,REJECT
+DOMAIN,vali-ugc.cp31.ott.cibntv.net,REJECT
 DOMAIN-SUFFIX,iyes.youku.com,REJECT
-DOMAIN-SUFFIX,cp31.ott.cibntv.net,REJECT
 DOMAIN,adsmind.ugdtimg.com,REJECT
 DOMAIN,pre-acs.youku.com,REJECT
 DOMAIN,youku-acs.m.taobao.com,REJECT
 
 [Script]
-body_rewrite_36 = type=http-response, pattern=^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.data.ad%22%2C%22data.data.watermark%22%2C%22data.data.ykad%22%5D%5D%5D
+body_rewrite_37 = type=http-response, pattern=^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.data.ad%22%2C%22data.data.watermark%22%2C%22data.data.ykad%22%5D%5D%5D
 
-body_rewrite_37 = type=http-response, pattern=^https:\/\/push\.m\.youku\.com\/collect-api\/get_push_interval_config_wx\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tipContent%22%2C%22data.tipContentNew%22%5D%5D%5D
+body_rewrite_38 = type=http-response, pattern=^https:\/\/push\.m\.youku\.com\/collect-api\/get_push_interval_config_wx\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.tipContent%22%2C%22data.tipContentNew%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% push.m.youku.com, un-acs.youku.com
