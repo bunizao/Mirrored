@@ -1,0 +1,23 @@
+#!name=Script-Hub
+#!desc=将其他工具的Rewrite、Rule和JavaScript资源转换为Loon能识别的格式，使用前请在本插件的详情页面为[PROXY]项分配代理策略。在插件列表中点击此插件上的链接查看使用方法。
+#!author=xream[https://github.com/xream], Keywos[https://github.com/Keywos], CKYB[https://github.com/CKYB], 小白脸
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/Script-Hub.png
+#!category=🚫 AD Block
+#!openUrl=http://127.0.0.1:9101/
+#!tag=资源转换
+#!loon_version=3.2.1(749)
+#!homepage=https://hub.kelee.one
+#!date=2025-05-13 15:17:08
+
+[Script]
+前端界面 = type=http-request, pattern=^https?:\/\/script\.hub\/($|edit\/|reload), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/script-hub.beta.js, timeout=120
+
+Rewrite转换 = type=http-request, pattern=^https?:\/\/script\.hub\/file\/_start_\/.+type=(?:qx-rewrite|surge-module|loon-plugin|all-module), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Rewrite-Parser.beta.js, timeout=120
+
+Rule转换 = type=http-request, pattern=^https?:\/\/script\.hub\/file\/_start_\/.+type=rule-set, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/rule-parser.beta.js, timeout=120
+
+JavaScript转换 = type=http-request, pattern=^https?:\/\/script\.hub\/convert\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/script-converter.beta.js, timeout=120
+
+[MITM]
+hostname = %APPEND% script.hub, *.script.hub
+
