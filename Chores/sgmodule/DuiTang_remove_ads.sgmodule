@@ -7,18 +7,18 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-19 01:32:26
+#!date=2025-11-19 01:56:42
 
 [Map Local]
 ^https:\/\/xapi\.duitang\.com\/napi\/ads\/\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api(-2)?\.duitang\.com\/napi\/vienna\/daren\/daren\/recommend\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/(vs)?api-2\.duitang\.com\/napi\/vienna\/daren\/daren\/recommend\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_13 = type=http-response, pattern=^https:\/\/api(-2)?\.duitang\.com\/napi\/infra\/settings\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.AD_LINKS%22%5D%5D%5D
+body_rewrite_13 = type=http-response, pattern=^https:\/\/meta\.duitang\.com\/napi\/infra\/settings\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.AD_LINKS%22%5D%5D%5D
 
-body_rewrite_16 = type=http-response, pattern=^https:\/\/api(-2)?\.duitang\.com\/napi\/settings\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.REWARD_AD_PAG_EDITOR%22%2C%22data.REWARD_AD_PHOTO_EDITOR%22%2C%22data.REWARD_AD_CUTOUT_NUM%22%2C%22data.MAIN_EVENTS%22%2C%22data.QA_TOOLTIP_BOTTOM%22%2C%22data.OC_FOLLOW_OFFICIAL%22%2C%22data.AD_MENU_SELECTIONS%22%2C%22data.FEATURE_TEMPLATES%22%2C%22data.FEEDBACK_URL%22%2C%22data.AVATAR_MALL_UPDATE%22%2C%22data.WATERMARK_MALL_UPDATE%22%2C%22data.OC_MALL_UPDATE%22%2C%22data%5B%5C%223D_AVATAR_UPDATE%5C%22%5D%22%2C%22data.BENEFIT_LIST%22%2C%22data.SHARE_BANNER%22%5D%5D%5D
+body_rewrite_16 = type=http-response, pattern=^https:\/\/(vs)?api-2\.duitang\.com\/napi\/settings\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.SPLASH_SWING_OPEN%22%2C%22data.STICKER_SEARCH_HOT_KEYWORDS%22%2C%22data.REWARD_AD_PAG_EDITOR%22%2C%22data.REWARD_AD_PHOTO_EDITOR%22%2C%22data.REWARD_AD_CUTOUT_NUM%22%2C%22data.MAIN_EVENTS%22%2C%22data.QA_TOOLTIP_BOTTOM%22%2C%22data.OC_FOLLOW_OFFICIAL%22%2C%22data.AD_MENU_SELECTIONS%22%2C%22data.FEATURE_TEMPLATES%22%2C%22data.FEEDBACK_URL%22%2C%22data.AVATAR_MALL_UPDATE%22%2C%22data.WATERMARK_MALL_UPDATE%22%2C%22data.OC_MALL_UPDATE%22%2C%22data%5B%5C%223D_AVATAR_UPDATE%5C%22%5D%22%2C%22data.BENEFIT_LIST%22%2C%22data.SHARE_BANNER%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% api.duitang.com, api-2.duitang.com
+hostname = %APPEND% api-2.duitang.com, vsapi-2.duitang.com, meta.duitang.com
 
