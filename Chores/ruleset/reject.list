@@ -1,5 +1,6 @@
 DOMAIN,yyapp-httpdns.gslb.yy.com
 DOMAIN,union-httpdns.gslb.yy.com
+DOMAIN,yuyin-httpdns.gslb.yy.com
 DOMAIN,httpdns-v6.gslb.yy.com
 URL-REGEX,"^http:\/\/103\.44\.58\.64\/md\?"
 URL-REGEX,"^http:\/\/cdn\.wup\.huya\.com\/launch\/queryHttpDns"
