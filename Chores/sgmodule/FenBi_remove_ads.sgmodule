@@ -7,14 +7,14 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-24 03:09:49
+#!date=2025-11-24 03:21:36
 
 [Map Local]
 ^https:\/\/keapi\.fenbi\.com\/app\/iphone\/position_resource\/get_banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/market-api\.fenbi\.com\/iphone\/v1\/assistant\/info\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/keapi\.fenbi\.com\/app\/iphone\/position_resource\/get_home_banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/keapi\.fenbi\.com\/app\/iphone\/position_resource\/get_home_banners\?.*position_resource_type=1 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/ke\.fenbi\.com\/iphone\/v3\/timetable\/today_with_public_episodes\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
@@ -22,14 +22,10 @@
 
 ^https:\/\/hera-webapp\.fenbi\.com\/iphone\/announcement\/hotquery\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/keapi\.fenbi\.com\/app\/iphone\/position_resource\/get_zj_banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/hera-webapp\.fenbi\.com\/iphone\/announcement\/list\/v2\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
 [Script]
-body_rewrite_19 = type=http-response, pattern=^https:\/\/market-api\.fenbi\.com\/toolkit\/iphone\/v1\/app\/banner\/zhaokao\/home\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.leftList%22%5D%5D%5D
+body_rewrite_17 = type=http-response, pattern=^https:\/\/hera-webapp\.fenbi\.com\/iphone\/recommend\/info\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.rollingBanner%22%5D%5D%5D
 
-body_rewrite_21 = type=http-response, pattern=^https:\/\/ke\.fenbi\.com\/iphone\/v3\/apps\/config\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.bottomIconInfos.position.iconDefaultUrl%22%2C%22data.bottomIconInfos.position.iconSelectedUrl%22%2C%22data.bottomIconInfos.position.nightModeIconDefaultUrl%22%2C%22data.bottomIconInfos.position.nightModeIconSelectedUrl%22%5D%5D%5D
+body_rewrite_19 = type=http-response, pattern=^https:\/\/ke\.fenbi\.com\/iphone\/v3\/apps\/config\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.bottomIconInfos.position.iconDefaultUrl%22%2C%22data.bottomIconInfos.position.iconSelectedUrl%22%2C%22data.bottomIconInfos.position.nightModeIconDefaultUrl%22%2C%22data.bottomIconInfos.position.nightModeIconSelectedUrl%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% keapi.fenbi.com, market-api.fenbi.com, ke.fenbi.com, hera-webapp.fenbi.com
