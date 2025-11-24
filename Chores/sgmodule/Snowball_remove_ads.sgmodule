@@ -10,19 +10,17 @@
 #!date=2025-11-25 02:56:44
 
 [Map Local]
-^https:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json\?channel=1&height=932 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/open\.xueqiu\.com\/mpaas\/config\/content\?.+home_visitor_relation_config data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json\?channel=1&location=0&model=6&page=4 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json\?channel=1&location=0&model=1&page=(4|6) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
 ^https:\/\/api\.xueqiu\.com\/ucprofile\/api\/user\/batchGetUserBasicInfo\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.xueqiu\.com\/lightsnow\/launch\/plan\/bee\/query\.json\?channel=1&ip_label=&label_json=.+new_customer=1 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.xueqiu\.com\/lightsnow\/launch\/plan\/bee\/query\.json\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/api\.xueqiu\.com\/lightsnow\/optional\/banner\/query\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/snowflake-theme\/query\/v1\/hot_event\/rich_tag_new\.json\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/open\.xueqiu\.com\/mpaas\/config\/content\?.+cube_detail_bottom_operation_trade_button data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
@@ -34,9 +32,11 @@
 
 ^https:\/\/api\.xueqiu\.com\/livestream\/structure\/live\/hotCard\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
+^https:\/\/fund\.xueqiu\.com\/fundx\/activity\/x\/web\/c\/index\/dataByCode\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [Script]
-body_rewrite_24 = type=http-response, pattern=^https:\/\/open\.xueqiu\.com\/mpaas\/config\/content\?.*keys=timeline_tab_name, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.im_notice_show%22%2C%22data.request_notice_show%22%2C%22data.timeline_tab_name%22%2C%22data.profileMenuConfig_anonymous_V12%22%2C%22data.trade_open_account_promotion_url%22%2C%22data.trade_unify_open_account_list%22%2C%22data.community_ad_download_msg%22%2C%22data.home_tab_dynamic%22%2C%22data.home_tab_dynamic_before%22%2C%22data.home_tab_dynamic_after%22%2C%22data.%22%2C%22isitor_page_login_config%22%2C%22data.open_wechat_mini_app_config%22%2C%22data.user_guide_contact_config%22%2C%22data.brokers_router_config%22%2C%22data.my_page_right_items%22%5D%5D%5D
+body_rewrite_23 = type=http-response, pattern=^https:\/\/open\.xueqiu\.com\/mpaas\/config\/content\?.*keys=timeline_tab_name, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.im_notice_show%22%2C%22data.request_notice_show%22%2C%22data.timeline_tab_name%22%2C%22data.profileMenuConfig_anonymous_V12%22%2C%22data.trade_open_account_promotion_url%22%2C%22data.trade_unify_open_account_list%22%2C%22data.community_ad_download_msg%22%2C%22data.home_tab_dynamic%22%2C%22data.home_tab_dynamic_before%22%2C%22data.home_tab_dynamic_after%22%2C%22data.%22%2C%22isitor_page_login_config%22%2C%22data.open_wechat_mini_app_config%22%2C%22data.user_guide_contact_config%22%2C%22data.brokers_router_config%22%2C%22data.my_page_right_items%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% api.xueqiu.com, open.xueqiu.com, stock.xueqiu.com, 39.103.79.14, 39.106.97.84, 47.95.49.75, 101.201.62.20, 101.201.62.26, 101.201.175.228, 124.250.48.3, 182.92.145.50, 182.92.251.113
+hostname = %APPEND% api.xueqiu.com, open.xueqiu.com, stock.xueqiu.com, fund.xueqiu.com, 39.103.79.14, 39.106.97.84, 47.95.49.75, 101.201.62.20, 101.201.62.26, 101.201.175.228, 124.250.48.3, 182.92.145.50, 182.92.251.113
 
