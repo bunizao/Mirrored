@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-05-13 15:17:08
+#!date=2025-11-25 02:56:44
 
 [Map Local]
 ^https:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json\?channel=1&height=932 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -33,6 +33,9 @@
 ^https:\/\/stock\.xueqiu\.com\/v5\/stock\/group\/recommend\/default\/list\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/api\.xueqiu\.com\/livestream\/structure\/live\/hotCard\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_24 = type=http-response, pattern=^https:\/\/open\.xueqiu\.com\/mpaas\/config\/content\?.*keys=timeline_tab_name, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.im_notice_show%22%2C%22data.request_notice_show%22%2C%22data.timeline_tab_name%22%2C%22data.profileMenuConfig_anonymous_V12%22%2C%22data.trade_open_account_promotion_url%22%2C%22data.trade_unify_open_account_list%22%2C%22data.community_ad_download_msg%22%2C%22data.home_tab_dynamic%22%2C%22data.home_tab_dynamic_before%22%2C%22data.home_tab_dynamic_after%22%2C%22data.%22%2C%22isitor_page_login_config%22%2C%22data.open_wechat_mini_app_config%22%2C%22data.user_guide_contact_config%22%2C%22data.brokers_router_config%22%2C%22data.my_page_right_items%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% api.xueqiu.com, open.xueqiu.com, stock.xueqiu.com, 39.103.79.14, 39.106.97.84, 47.95.49.75, 101.201.62.20, 101.201.62.26, 101.201.175.228, 124.250.48.3, 182.92.145.50, 182.92.251.113
