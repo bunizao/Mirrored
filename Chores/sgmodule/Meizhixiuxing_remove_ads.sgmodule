@@ -1,5 +1,5 @@
 #!name=美丽修行去广告
-#!desc=移除开屏广告、首页广告、发现页广告、美修盒页面广告、下拉广告、搜索推广、版本更新弹窗及我的页面广告。
+#!desc=移除开屏广告、首页广告、发现页广告、美修盒页面广告、下拉广告、弹窗广告、搜索推广、版本更新弹窗及我的页面广告。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Meizhixiuxing.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-21 12:23:49
+#!date=2025-11-26 23:28:08
 
 [Map Local]
 ^https:\/\/api\.bevol\.com\/appmain\/app\/home\/launch$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -23,7 +23,7 @@ body_rewrite_15 = type=http-response, pattern=^https:\/\/api\.bevol\.com\/appmai
 
 body_rewrite_16 = type=http-response, pattern=^https:\/\/api\.bevol\.com\/appmain\/app\/home\/feed$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.banners%22%5D%5D%5D
 
-body_rewrite_18 = type=http-response, pattern=^https:\/\/api\.bevol\.com\/trialbox\/shop\/app\/homePage$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.firstPersonActivity%22%2C%22result.mainActivity%22%2C%22result.brandZone%22%2C%22result.imageAD2%22%5D%5D%5D
+body_rewrite_18 = type=http-response, pattern=^https:\/\/api\.bevol\.com\/trialbox\/shop\/app\/homePage$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.firstPersonActivity%22%2C%22result.mainActivity%22%2C%22result.brandZone%22%2C%22result.imageAD2%22%2C%22result.couponPopupInfo%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% api.bevol.com
