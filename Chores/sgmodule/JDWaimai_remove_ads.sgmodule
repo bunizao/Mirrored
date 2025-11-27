@@ -1,0 +1,20 @@
+#!name=京东外卖去广告
+#!desc=移除首页推广、点评页面非美食外卖内容、购物车及我的页面推荐，精简我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/JDWaimai.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id6752605146
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-11-28 01:52:04
+
+[Map Local]
+^https:\/\/color\.jddj\.com\/client\.action\?functionId=uniformRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_15 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.searchDTO.searchWords%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% color.jddj.com, api.m.jd.com
+
