@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-28 02:32:23
+#!date=2025-11-28 02:52:04
 
 [Map Local]
 ^https:\/\/color\.jddj\.com\/client\.action\?functionId=uniformRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -15,7 +15,7 @@
 ^https:\/\/color\.jddj\.com\/client\.action\?functionId=search_recommendRanking$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_15 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.searchDTO.searchWords%22%5D%5D%5D
+body_rewrite_15 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.searchDTO.searchWords%22%2C%22data.wishlistDTO.bubbleTip%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% color.jddj.com, api.m.jd.com
