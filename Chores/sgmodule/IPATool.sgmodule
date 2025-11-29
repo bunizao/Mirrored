@@ -1,8 +1,9 @@
-#!name=IPA工具箱
-#!desc=一个可以下载IPA包的工具箱
+#!name=IPA工具箱助理
+#!desc=这是Scripting的IPA工具箱的辅助插件，用于下载IPA包和应用降级，IPA工具箱需要购买Scripting的Pro版本才能运行。
 #!author=小白脸
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/IPATool.png
 #!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id6479691128
 #!tag=功能增强
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
