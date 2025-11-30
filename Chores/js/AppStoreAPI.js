@@ -1,3 +1,4 @@
+// 2025-12-01 00:04:38
 // 模块导入工具类
 class $ {
   static async imports(...input) {
@@ -327,7 +328,7 @@ const AuthService = class {
     };
     const body = $.plist.build(dataJson);
     const url = `https://auth.itunes.apple.com/auth/v1/native/fast?guid=${dataJson.guid}`;
-    const resp = await $.http.post({ url, body });
+    const resp = await $.http.post({ url, body, timeout: 6 });
     const parsedResp = $.plist.parse(resp.body);
 
     this.validate(parsedResp);
