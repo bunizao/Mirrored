@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-07 05:22:03
+#!date=2025-12-07 05:28:37
 
 [Map Local]
 ^https:\/\/appwk\.baidu\.com\/xpage\/interface\/wknaad\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -29,7 +29,7 @@ body_rewrite_14 = type=http-response, pattern=^https:\/\/(appwk|tanbi)\.baidu\.c
 
 body_rewrite_15 = type=http-response, pattern=^https:\/\/appwk\.baidu\.com\/appapi\/index\/tab\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data%22%5D%5D%5D
 
-body_rewrite_18 = type=http-response, pattern=^https:\/\/appwk\.baidu\.com\/appapi\/forum\/feed\?verticalType=, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data%22%5D%5D%5D
+body_rewrite_18 = type=http-response, pattern=^https:\/\/appwk\.baidu\.com\/appapi\/forum\/feed\?reqMode=wenkuapp_main_feed, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% appwk.baidu.com, tanbi.baidu.com
