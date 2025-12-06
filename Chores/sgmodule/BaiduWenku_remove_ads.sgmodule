@@ -1,5 +1,5 @@
 #!name=百度文库去广告
-#!desc=移除开屏广告、横幅广告、弹窗广告、信息流推广、搜索填充词、搜索发现、热门搜索，精简我的页面。
+#!desc=移除开屏广告、横幅广告、弹窗广告、信息流推广、搜索发现、热门搜索、资料库搜索推荐，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BaiduWenku.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-07 05:28:37
+#!date=2025-12-07 05:57:46
 
 [Map Local]
 ^https:\/\/appwk\.baidu\.com\/xpage\/interface\/wknaad\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -21,6 +21,10 @@
 ^https:\/\/appwk\.baidu\.com\/activity\/interface\/wkapppopup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/appwk\.baidu\.com\/appapi\/abg\/index\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/naapi\/recommend\/recommenddoc\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/naapi\/recommend\/vipdoccard\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 body_rewrite_13 = type=http-response, pattern=^https:\/\/appwk\.baidu\.com\/appapi\/index\/home\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.bannerInfo%22%2C%22data.bannerList%22%2C%22data.bannerListV2%22%5D%5D%5D
