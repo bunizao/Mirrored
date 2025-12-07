@@ -1,5 +1,5 @@
 #!name=小桔充电去广告
-#!desc=移除开屏广告、应用内悬浮窗、弹窗广告、横幅广告，精简我的页面。
+#!desc=移除横幅广告、弹窗广告，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/XiaojukejiCharge.png
 #!category=🚫 AD Block
@@ -7,10 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-07 21:33:56
-
-[URL Rewrite]
-^https:\/\/am\.didistatic\.com\/static\/am\/cf-terminal\/epower\/epower-thanos-app\/\d+\.\d+\.\d+\/pages\/people\/index\.js$ - reject
+#!date=2025-12-07 22:17:52
 
 [Map Local]
 ^https:\/\/energy\.xiaojukeji\.com\/energy\/hummer\/api\/resource\/display($|\?) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -21,6 +18,8 @@
 
 [Script]
 body_rewrite_13 = type=http-response, pattern=^https:\/\/energy\.xiaojukeji\.com\/am\/marketing\/api\/member\/facade\/charge\/personal\/center\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data%22%5D%5D%5D
+
+精简我的页面 = type=http-response, pattern=^https:\/\/am\.didistatic\.com\/static\/am\/cf-terminal\/epower\/epower-thanos-app\/\d+\.\d+\.\d+\/pages\/people\/index\.js$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/XiaojukejiCharge_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% energy.xiaojukeji.com, am.didistatic.com
