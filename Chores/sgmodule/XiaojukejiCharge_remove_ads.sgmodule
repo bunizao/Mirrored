@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-07 22:54:19
+#!date=2025-12-07 23:17:44
 
 [Map Local]
 ^https:\/\/energy\.xiaojukeji\.com\/energy\/hummer\/api\/resource\/display($|\?) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -16,10 +16,10 @@
 
 ^https:\/\/energy\.xiaojukeji\.com\/station-api\/search\/preWords$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
+^https:\/\/am\.didistatic\.com\/static\/am\/cf-terminal\/epower\/epower-thanos-app\/\d+\.\d+\.\d+\/pages\/people\/index\.js$ data-type=file data="https://kelee.one/Resource/JavaScript/XiaojukejiCharge/XiaojukejiCharge_remove_ads.js" status-code=200 header="Content-Type:text/plain"
+
 [Script]
 body_rewrite_13 = type=http-response, pattern=^https:\/\/energy\.xiaojukeji\.com\/am\/marketing\/api\/member\/facade\/charge\/personal\/center\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data%22%5D%5D%5D
-
-精简我的页面 = type=http-response, pattern=^https:\/\/am\.didistatic\.com\/static\/am\/cf-terminal\/epower\/epower-thanos-app\/\d+\.\d+\.\d+\/pages\/people\/index\.js$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/XiaojukejiCharge_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% energy.xiaojukeji.com, am.didistatic.com
