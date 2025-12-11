@@ -1,6 +1,6 @@
 #!name=AD ByeBye+ 2.x
 #!desc=Most Optimized Ad-free Experience presented with automated updates. | 提供最优化无广告体验，自动同步更新。\nRepo: https://tuu.cat/repo・Update: 12/11/2025・Support: @bunizao・ Channel: @hututu00
-#!include=Block HTTPDNS, Zhihu, Amap, DiDi, REDnote, Weibo, Tieba, PinDuoDuo, 12306, Eleme, Meituan, MiniProgram, Pixiv
+#!include=Zhihu, REDnote, Weibo, Tieba, Cainiao, JD, 12306, Eleme, Meituan, MiniProgram, Pixiv
 #!url=https://tuu.cat/ADBlock
 #!category=🚫 AD Block
 #!author=@hututu0 & Everyone in the community
@@ -19,17 +19,6 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 
 [URL Rewrite]
 
-# -------- Block HTTPDNS ---------
-^https?:\/\/203\.107\.1\.1/\d+/ss - reject
-^https?:\/\/203\.107\.1\.33/\d+/ss - reject
-^https?:\/\/203\.107\.1\.66/\d+/ss - reject
-^https?:\/\/203\.107\.1\.67/\d+/ss - reject
-^https?:\/\/203\.107\.1\.97/\d+/ss - reject
-^https?:\/\/2401:b180:2000:30::1c\/\d+\/d - reject
-^https?:\/\/2401:b180:2000:20::10\/\d+\/d - reject
-^https?:\/\/cdn\.wup\.huya\.com\/monitor\/monitor\.jsp - reject
-^https:\/\/gslbali\.ximalaya\.com\/linkeye-cloud\/httpdns\/ - reject
-
 # ------------ Zhihu -------------
 ^https:\/\/api\.zhihu\.com\/unlimited\/go\/my_card - reject
 ^https:\/\/www\.zhihu\.com\/appview\/v3\/zhmore - reject
@@ -46,11 +35,6 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ########################################################################################
 
 [Map Local]
-
-# -------- Block HTTPDNS ---------
-^https?:\/\/appconf\.mail\.163\.com\/mailmaster\/api\/http\/urlConfig\.do$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https?:\/\/amdc\.alipay\.com\/query data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/msglb\.91160\.com\/msg\/outer\/broker\/get$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # ------------ Zhihu -------------
 ^https:\/\/api\.zhihu\.com\/commercial_api\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -74,28 +58,6 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/www\.zhihu\.com\/api\/v4/(?:answers|questions)\/\d+/related-readings data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/www\.zhihu\.com\/commercial_api\/banners_v3\/mobile_banner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-# ------------- Amap -------------
-^https:\/\/m5\.amap\.com\/ws\/shield\/search\/new_hotword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/card-service-(?:car-end|route-plan) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/tips_adv\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/oss\.amap\.com\/ws\/banner\/lists\/\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5\.amap\.com\/ws\/aos\/main\/page\/product\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/(?:main-page-assets|main-page-location|ridewalk-end-fc|usr-profile-fc\/homeV2) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5\.amap\.com\/ws\/(?:mapapi\/hint_text\/offline_data|message\/notice\/list|shield\/search\/new_hotword) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5\.amap\.com\/ws\/shield\/scene\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5\.amap\.com\/ws\/valueadded\/weather\/v2\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/sns\.amap\.com\/ws\/msgbox\/pull_mp\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(?:order\/car\/(?:feedback\/get_card_questions|feedback\/viptips|king_toolbox_car_bubble|remark\/satisfactionConf|rights_information)|tips\/onscene_visual_optimization) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(?:pay\/web\/paySuccess\/info\/request|transportation\/diversion\/resource\/driving) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/ai\.amap\.com\/v1\/ai_rec\/home_qs\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-# ------------- DiDi -------------
-^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/lion\.didialift\.com\/broker\/\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v1\/other\/slow\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/ct\.xiaojukeji\.com\/agent\/v3\/feeds\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # ----------- REDnote ------------
 ^https:\/\/ci\.xiaohongshu\.com\/system_config\/watermark data-type=tiny-gif status-code=200
@@ -128,26 +90,22 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/tieba\.baidu\.com\/c\/f\/member\/getMemberPopups$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/tiebac\.baidu\.com\/c\/f\/search\/discover$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# ---------- PinDuoDuo -----------
-^https:\/\/api\.pinduoduo\.com\/api\/aristotle\/unrated_order_for_unreceived_tab\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/aristotle\/query_order_list_tabs_element\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/aquarius\/hungary\/global\/homepage\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/order_express_group\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/search_hotquery\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/zaire_biz\/chat\/resource\/get_list_data\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/new_chat_group\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/alexa\/goods\/back_up\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/personal\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/brand-olay\/goods_detail\/bybt_guide\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/engels\/reviews\/require\/append\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/my_order_group\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/likes\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/phantom\/gbdbpdv\/extra\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/manufacturer\/cross\/shortcut\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/dunkirk\/liveactivity\/push\/create\/url\/report\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/growth\/nagato\/app\/index\/gather\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/engels\/wait\/receive\/review\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-^https:\/\/api\.pinduoduo\.com\/api\/buffon\/nasus\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+# ----------- Cainiao ------------
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.app\.home\.tabbar\.marketing\.get\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.adkeyword\.get\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.cncommunity\.my\.station\.query\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbcps\.presentation\.fetch\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbmensa\.research\.researchservice\.(?:acquire|event|close)\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbopen\.miniapp\.recommend\.cpc\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/(?:cn-acs\.m|netflow-mtop)\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.(?:batch\.show\.v2|click\.reply|expose\.m?reply|index)\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/(?:cn-acs\.m|mtop-bff-mtop)\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.(?:homepage\.merge|tabbar\.marketing)\.get\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.cnactivitycenter data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.cncreditmarket\.hit\.getactivityhit\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.com\.cainiao\.longquan\.place\.getpageresourcecontent\.cn data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.cainiao\.adx\.flyad\.getad data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# -------------- JD --------------
+^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(searchBoxWord|stationPullService|uniformRecommend[06]) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # ----------- MiniProgram -----------
 
@@ -204,31 +162,6 @@ body_rewrite_34 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/search
 拦截服务器推送配置 config = type=http-response, pattern=^https:\/\/appcloud2\.zhihu\.com\/v3\/config, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Zhihu_remove_ads.js, requires-body=true
 拦截服务器推送配置 config all = type=http-response, pattern=^https:\/\/m-cloud\.zhihu\.com\/api\/cloud\/zhihu\/config\/all\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Zhihu_remove_ads.js, requires-body=true
 
-# ------------- Amap -------------
-body_rewrite_18 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_business\/process\/marketingOperationStructured\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.commonMaterial%22%2C%22data.tipsOperationLocation%22%2C%22data.resourcePlacement%22%5D%5D%5D
-body_rewrite_19 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/homepage\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22history_tags%22%5D%5D%5D
-body_rewrite_30 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/sharedtrip\/taxi\/order_detail_car_tips\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.carTips.data.popupInfo%22%5D%5D%5D
-移除路线规划推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/aos\/perception\/publicTravel\/beforeNavi\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除路线规划、导航结束页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/bus\/plan\/integrate\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除导航详情页底部酒店、处理附近页 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/c3frontend\/(?:af-(?:hotel|launch)\/page\/main|af-nearby\/nearby), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除路线规划推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/perception\/drive\/(?:routeInfo|routePlan), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除搜索栏推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_bff\/hotword\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除搜索详情页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/(?:mps|search\/sp|sug|tips_operation_location), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除首页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/(?:card-service-plan-home|main-page), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除首页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除我的页面推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaasv3\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除附近页推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search\/nearbyrec_smart\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除开屏广告 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/valueadded\/alimama\/splash_screen\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除打车页推广卡片、弹窗 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(?:car\/order\/content_info|order_web\/friendly_information), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除打车页红点角标、天气图标 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/promotion-web\/resource(\/home)?\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-移除导航详情页推广 = type=http-response, pattern=^https:\/\/(?:info|m5)\.amap\.com\/ws\/shield\/search\/(?:common\/coupon\/info|poi\/detail), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
-
-# ------------- DiDi -------------
-body_rewrite_21 = type=http-response, pattern=^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v1\/other\/fast\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.disorder_cards.communicate_card%22%2C%22data.disorder_cards.not_login_bottom_bar%22%2C%22data.disorder_cards.riding_code_card%22%2C%22data.order_cards.car_owner_widget_card%22%2C%22data.order_cards.marketing_card%22%2C%22data.order_cards.super_banner_card%22%2C%22data.disorder_cards.car_icon.data.icon_info_new_agreement%22%5D%5D%5D
-body_rewrite_22 = type=http-response, pattern=^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.mult_home_banner%22%5D%5D%5D
-body_rewrite_23 = type=http-response, pattern=^https:\/\/common\.diditaxi\.com\.cn\/common\/v5\/usercenter\/layout$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.instances.center_marketing_card%22%2C%22data.instances.center_widget_list%22%2C%22data.instances.center_member_card%22%5D%5D%5D
-body_rewrite_27 = type=http-response, pattern=^https:\/\/api\.udache\.com\/gulfstream\/porsche\/v1\/dache_homepage_layout\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.instances.car_icon_01.data.icon_info_new_agreement%22%5D%5D%5D
-
 # ----------- REDnote ------------
 body_rewrite_19 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/search\/banner_list$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
 body_rewrite_20 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/search\/hot_list$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.items%22%2C%5B%5D%5D%5D%5D%5D
@@ -274,13 +207,17 @@ body_rewrite_19 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/
 body_rewrite_22 = type=http-response, pattern=^https:\/\/tiebac\.baidu\.com\/c\/f\/frs\/frsBottom$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22card_activity%22%5D%5D%5D
 ProtoBuf处理 = type=http-response, pattern=^http(s:\/\/tiebac|:\/\/c\.tieba)\.baidu\.com\/c\/f\/(frs\/(page|threadlist|generalTabList)|pb\/page|excellent\/personalized)\?cmd, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/tieba-proto.js, requires-body=true, binary-body-mode=true, timeout=10
 
-# ---------- PinDuoDuo -----------
-body_rewrite_49 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.dy_module.irregular_banner_dy%22%2C%22result.icon_set%22%2C%22result.search_bar_hot_query%22%2C%22result.dy_module.irregular_banner_dy%22%5D%5D%5D
-body_rewrite_51 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/search\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22expansion%22%5D%5D%5D
-body_rewrite_52 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/philo\/personal\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22monthly_card_entrance%22%2C%22personal_center_style_v2_vo%22%2C%22icon_set.icons%22%2C%22icon_set.top_personal_icons%22%5D%5D%5D
-body_rewrite_53 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/oak\/integration\/render\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22bottom_section_list%22%2C%22ui.bottom_section%22%2C%22ui.live_section.float_info%22%5D%5D%5D
-body_rewrite_54 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v3\/query\/order_detail_group\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.goods_list%22%5D%5D%5D
-body_rewrite_55 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/order\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22marketing_banner_vo%22%2C%22shipping.banner_above_recommend%22%5D%5D%5D
+# ----------- Cainiao ------------
+移除新版我的页面推广 = type=http-response, pattern=^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.app\.e2e\.engine\.page\.fetch\.cn, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Cainiao_remove_ads.js, requires-body=true
+移除我的页面推广 = type=http-response, pattern=^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.app\.mine\.main\.cn, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Cainiao_remove_ads.js, requires-body=true
+移除主页图标 = type=http-response, pattern=^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.nbpresentation\.(?:pickup\.empty\.page|protocol\.homepage)\.get\.cn, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Cainiao_remove_ads.js, requires-body=true
+移除消息中心推广 = type=http-response, pattern=^https:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.nbfriend\.message\.conversation\.list\.cn, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Cainiao_remove_ads.js, requires-body=true
+移除支付宝菜鸟小程序推广 = type=http-response, pattern=^https:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.mshow, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Cainiao_remove_ads.js, requires-body=true
+移除首页推广 = type=http-response, pattern=^https:\/\/(?:cn-acs\.m|netflow-mtop)\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.m?show\.cn, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Cainiao_remove_ads.js, requires-body=true
+
+# -------------- JD --------------
+body_rewrite_15 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=basicConfig, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.JDMessage.socketmonitor.isSocketEstablishedAhead%22%2C0%5D%2C%5B%22data.JDMessage.socketmonitor.isSocketReport%22%2C0%5D%2C%5B%22data.JDHttpToolKit.httpdns.httpdns%22%2C0%5D%5D%5D%5D
+移除京东广告 = type=http-response, pattern=^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=(deliverLayer|getTabHomeInfo|myOrderInfo|orderTrackBusiness|personinfoBusiness|start|welcomeHome), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/JD_remove_ads.js, requires-body=true
 
 # ------------ 12306 -------------
 移除12306开屏广告 = type=http-request, pattern=^https:\/\/ad\.12306\.cn\/ad\/ser\/getAdList$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/12306_remove_splashscreen_ads.js, requires-body=true
@@ -289,6 +226,6 @@ body_rewrite_55 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/or
 ########################################################################################
 
 [MITM]
-hostname = %APPEND% oauth.secure.pixiv.net, api.mcd.cn, orders.kfc.com.cn, dynamicad.kfc.com.cn, res.kfc.com.cn, res.pizzahut.com.cn, 3pp.starbucks.com.cn, htwkop.xiaojukeji.com, tm-api.pin-dao.cn, webchatapp.fcbox.com, dsp.fcbox.com, go.heytea.com, api.hellobike.com, ucmp.sf-express.com, vod-movie.maoyan.com, api.maoyan.com, ad.maoyan.com, wx.maoyan.com, elemecdn.com, fuss10.elemecdn.com, www1.elecfans.com, flowplus.meituan.net, img.meituan.net, s3plus.meituan.net, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, 2401:b180:2000:30::1c, 2401:b180:2000:20::10, amdc.alipay.com, appconf.mail.163.com, msglb.91160.com, api.zhihu.com, appcloud2.zhihu.com, link.zhihu.com, m-cloud.zhihu.com, page-info.zhihu.com, www.zhihu.com, zhuanlan.zhihu.com, *.amap.com, as.xiaojukeji.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, lion.didialift.com, api.udache.com, ct.xiaojukeji.com, res.xiaojukeji.com, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, *.weibo.cn, *.weibo.com, weibo.com, tiebac.baidu.com, tieba.baidu.com, api.pinduoduo.com, ad.12306.cn, mobile.12306.cn
+hostname = %APPEND% oauth.secure.pixiv.net, api.mcd.cn, orders.kfc.com.cn, dynamicad.kfc.com.cn, res.kfc.com.cn, res.pizzahut.com.cn, 3pp.starbucks.com.cn, htwkop.xiaojukeji.com, tm-api.pin-dao.cn, webchatapp.fcbox.com, dsp.fcbox.com, go.heytea.com, api.hellobike.com, ucmp.sf-express.com, vod-movie.maoyan.com, api.maoyan.com, ad.maoyan.com, wx.maoyan.com, elemecdn.com, fuss10.elemecdn.com, www1.elecfans.com, flowplus.meituan.net, img.meituan.net, s3plus.meituan.net, api.zhihu.com, appcloud2.zhihu.com, link.zhihu.com, m-cloud.zhihu.com, page-info.zhihu.com, www.zhihu.com, zhuanlan.zhihu.com, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, www.xiaohongshu.com, *.weibo.cn, *.weibo.com, weibo.com, tiebac.baidu.com, tieba.baidu.com, *-mtop.cainiao.com, cn-acs.m.cainiao.com, guide-acs.m.taobao.com, api.m.jd.com, ad.12306.cn, mobile.12306.cn
 h2 = true
 tcp-connection = true
