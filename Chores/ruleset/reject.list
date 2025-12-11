@@ -164,16 +164,6 @@ URL-REGEX,"^http:\/\/54\.222\.159\.138:8053\/httpdns\/"
 URL-REGEX,"^http:\/\/101\.42\.130\.147:8053\/httpdns\/"
 URL-REGEX,"^http:\/\/106\.55\.220\.18:8053\/httpdns\/"
 URL-REGEX,"^http:\/\/139\.196\.12\.179:8053\/httpdns\/"
-DOMAIN,appcloud.zhihu.com
-DOMAIN,appcloud2.in.zhihu.com
-DOMAIN,crash2.zhihu.com
-DOMAIN,mqtt.zhihu.com
-DOMAIN,sugar.zhihu.com
-DOMAIN,zxid-m.mobileservice.cn
-IP-CIDR,103.41.167.237/32,no-resolve
-IP-CIDR,118.89.204.198/32,no-resolve
-IP-CIDR,182.61.194.7/32,no-resolve
-IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,no-resolve
 DOMAIN,amap-aos-info-nogw.amap.com
 DOMAIN,free-aos-cdn-image.amap.com
 DOMAIN-SUFFIX,v.smtcdns.com
