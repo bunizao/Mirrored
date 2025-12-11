@@ -185,6 +185,8 @@ AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com))
 DOMAIN-SUFFIX,uve.weibo.com
 DOMAIN,huodong.weibo.cn
 DOMAIN-SUFFIX,biz.weibo.com
+DOMAIN,180.76.76.200
+IP-CIDR,180.76.76.200/32,no-resolve
 DOMAIN,acs4baichuan.m.taobao.com
 DOMAIN,adsmind.ugdtimg.com
 DOMAIN,amdc.m.youku.com
