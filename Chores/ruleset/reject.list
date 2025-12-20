@@ -228,7 +228,5 @@ DOMAIN,api.biliapi.com
 DOMAIN,app.biliapi.com
 DOMAIN,api.biliapi.net
 DOMAIN,app.biliapi.net
-DOMAIN,line3-h5-mobile-api.biligame.com
-DOMAIN-SUFFIX,chat.bilibili.com
 AND,((DOMAIN-SUFFIX,chat.bilibili.com),(OR,((DOMAIN-KEYWORD,stun),(DOMAIN-KEYWORD,tracker))))
 DOMAIN,ad.12306.cn
