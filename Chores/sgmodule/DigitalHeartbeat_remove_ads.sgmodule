@@ -1,0 +1,22 @@
+#!name=数字心动去广告
+#!desc=移除开屏广告、轮播图、悬浮挂件、首页信息流广告，精简底栏。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DigitalHeartbeat.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1532385111
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-12-28 18:25:09
+
+[Map Local]
+^https:\/\/api-changzheng\.chinaath\.com\/changzheng-common-proxy-api\/api\/advertising\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api-changzheng\.chinaath\.com\/changzheng-basic-center-api\/api\/appConfigBanner\/listBannerRelease\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_14 = type=http-response, pattern=^https:\/\/api-changzheng\.chinaath\.com\/changzheng-race-proxy-api\/api\/home\/page\/get$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.topHotSearchList%22%2C%22data.bannerListTwo%22%2C%22data.textAdvertisementList%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% api-changzheng.chinaath.com
+
