@@ -7,11 +7,9 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-28 19:11:17
+#!date=2025-12-28 22:51:40
 
 [Map Local]
-^https:\/\/api-changzheng\.chinaath\.com\/changzheng-common-proxy-api\/api\/advertising\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
 ^https:\/\/api-changzheng\.chinaath\.com\/changzheng-basic-center-api\/api\/appConfigBanner\/listBannerRelease\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/api-changzheng\.chinaath\.com\/changzheng-content-center-api\/api\/global\/search\/hotSearch\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -19,6 +17,8 @@
 ^https:\/\/api-changzheng\.chinaath\.com\/changzheng-basic-center-api\/api\/advertisement\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
+body_rewrite_12 = type=http-response, pattern=^https:\/\/api-changzheng\.chinaath\.com\/changzheng-common-proxy-api\/api\/advertising\/proxy\/getOpenScreenAdvertising$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.advertisingList%22%2C%5B%5D%5D%5D%5D%5D
+
 body_rewrite_14 = type=http-response, pattern=^https:\/\/api-changzheng\.chinaath\.com\/changzheng-race-proxy-api\/api\/home\/page\/get$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.topHotSearchList%22%2C%22data.bannerListTwo%22%2C%22data.textAdvertisementList%22%5D%5D%5D
 
 [MITM]
