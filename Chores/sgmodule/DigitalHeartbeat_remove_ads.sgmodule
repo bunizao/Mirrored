@@ -1,5 +1,5 @@
 #!name=数字心动去广告
-#!desc=移除开屏广告、轮播图、悬浮挂件、首页信息流广告，精简底栏。
+#!desc=移除开屏广告、首页顶部标签、轮播图、悬浮挂件、信息流广告。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DigitalHeartbeat.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-28 18:25:09
+#!date=2025-12-28 18:45:28
 
 [Map Local]
 ^https:\/\/api-changzheng\.chinaath\.com\/changzheng-common-proxy-api\/api\/advertising\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
