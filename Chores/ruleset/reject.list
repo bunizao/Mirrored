@@ -78,6 +78,7 @@ DOMAIN,httpdns.alicdn.com
 DOMAIN,httpdns-api.aliyuncs.com
 DOMAIN,httpdns-sc.aliyuncs.com
 IP-CIDR,203.107.1.0/24,no-resolve
+DOMAIN,ucdc.upaas.quark.cn
 DOMAIN,httpdns.danuoyi.tbcache.com
 DOMAIN,httpdns.cctv.com
 DOMAIN,httpdns-browser.platform.dbankcloud.cn
