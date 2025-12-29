@@ -1,5 +1,5 @@
 #!name=滴滴出行去广告
-#!desc=移除开屏广告、精简首页、底栏和我的页面。
+#!desc=移除开屏广告、弹窗广告、横幅推广，精简底栏和我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DiDi.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-28 21:03:34
+#!date=2025-12-29 17:07:29
 
 [Rule]
 DOMAIN,gwp.xiaojukeji.com,REJECT
@@ -26,15 +26,17 @@ AND,((IP-ASN,63646,no-resolve),(DEST-PORT,25641),(PROTOCOL,TCP)),REJECT
 
 ^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
+^https:\/\/poi\.map\.xiaojukeji\.com\/mapapi\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [Script]
 body_rewrite_21 = type=http-response, pattern=^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v1\/other\/fast\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.disorder_cards.communicate_card%22%2C%22data.disorder_cards.not_login_bottom_bar%22%2C%22data.disorder_cards.riding_code_card%22%2C%22data.order_cards.car_owner_widget_card%22%2C%22data.order_cards.marketing_card%22%2C%22data.order_cards.super_banner_card%22%2C%22data.disorder_cards.car_icon.data.icon_info_new_agreement%22%5D%5D%5D
 
 body_rewrite_22 = type=http-response, pattern=^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.mult_home_banner%22%5D%5D%5D
 
-body_rewrite_23 = type=http-response, pattern=^https:\/\/common\.diditaxi\.com\.cn\/common\/v5\/usercenter\/layout$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.instances.center_marketing_card%22%2C%22data.instances.center_widget_list%22%2C%22data.instances.center_member_card%22%5D%5D%5D
+body_rewrite_29 = type=http-response, pattern=^https:\/\/daijia\.kuaidadi\.com:443\/gateway\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.variantInfo%22%5D%5D%5D
 
-body_rewrite_27 = type=http-response, pattern=^https:\/\/api\.udache\.com\/gulfstream\/porsche\/v1\/dache_homepage_layout\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.instances.car_icon_01.data.icon_info_new_agreement%22%5D%5D%5D
+body_rewrite_32 = type=http-response, pattern=^https:\/\/htwkop\.xiaojukeji\.com:443\/gateway\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.didi-bike-homepage-popup%22%2C%22data.variantInfo%22%5D%5D%5D
 
 [MITM]
-hostname = %APPEND% as.xiaojukeji.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, lion.didialift.com, api.udache.com, ct.xiaojukeji.com, res.xiaojukeji.com, daijia.kuaidadi.com, freight.xiaojukeji.com, 112.53.55.225, 139.199.240.84, 113.46.225.*, 162.14.157.*, 123.207.209.*, 120.241.142.*, 120.241.143.*, 116.85.*
+hostname = %APPEND% as.xiaojukeji.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, lion.didialift.com, api.udache.com, ct.xiaojukeji.com, res.xiaojukeji.com, 112.53.55.225, 139.199.240.84, 113.46.225.*, 162.14.157.*, 123.207.209.*, 120.241.142.*, 120.241.143.*, 116.85.*
 
