@@ -280,16 +280,16 @@ jobs:
                 else
                   echo "✗ Downloaded file is empty or too small: $filename"
                   rm -f "$file_path"
-                  ((failed_downloads++))
+                  failed_downloads=$((failed_downloads + 1))
                 fi
               else
                 echo "✗ Downloaded file is empty or too small: $filename"
                 rm -f "$file_path"
-                ((failed_downloads++))
+                failed_downloads=$((failed_downloads + 1))
               fi
             else
               echo "✗ Failed to download: $url"
-              ((failed_downloads++))
+              failed_downloads=$((failed_downloads + 1))
             fi
           done < external-js.txt
 
