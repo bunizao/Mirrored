@@ -1,6 +1,6 @@
 - url: "https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Block_HTTPDNS.sgmodule"
   header: "Block HTTPDNS"
-- url: "https://github.com/bunizao/Mirrored/blob/main/Chores/sgmodule/BlockAdvertisers.sgmodule"
+- url: "https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/BlockAdvertisers.sgmodule"
   header: "AD Block"
 - url: "https://github.com/bunizao/Mirrored/raw/main/Chores/sgmodule/Zhihu_remove_ads.sgmodule"
   header: "Zhihu"
