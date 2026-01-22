@@ -6,6 +6,20 @@ on:
     branches: [main]
   schedule:
     - cron: '5,30,55 * * * *'
+  workflow_dispatch:
+    inputs:
+      list_url_primary:
+        description: "Primary plugin list URL (e.g. https://hub.kelee.one/list.json)"
+        required: false
+        default: ""
+      list_url_backup:
+        description: "Backup plugin list URL"
+        required: false
+        default: ""
+      proxy_base:
+        description: "Proxy base URL (include trailing ?url= if needed)"
+        required: false
+        default: ""
 
 jobs:
   build:
@@ -20,9 +34,9 @@ jobs:
     env:
       MIRROR_RAW: https://github.com/bunizao/Mirrored/raw/main/Chores/js
       MIRROR_KEY: github.com/bunizao/Mirrored
-      PROXY_BASE: ${{ vars.PROXY_BASE || 'https://proxy.tomatopie.tutuis.me?url=' }}
-      LIST_URL_PRIMARY: ${{ vars.LIST_URL_PRIMARY }}
-      LIST_URL_BACKUP: ${{ vars.LIST_URL_BACKUP }}
+      PROXY_BASE: ${{ inputs.proxy_base || vars.PROXY_BASE || '' }}
+      LIST_URL_PRIMARY: ${{ inputs.list_url_primary || vars.LIST_URL_PRIMARY }}
+      LIST_URL_BACKUP: ${{ inputs.list_url_backup || vars.LIST_URL_BACKUP }}
 
     steps:
       - uses: actions/checkout@v3
@@ -132,9 +146,6 @@ jobs:
           script_hub_host="localhost"
           script_hub_port=9101
           proxy_base="${PROXY_BASE:-}"
-          if [ -z "$proxy_base" ]; then
-            proxy_base="https://proxy.tomatopie.tutuis.me?url="
-          fi
           proxy_base="$(sanitize_field "$proxy_base")"
 
           header_value=$(printf 'User-Agent: Surge Mac/2985' | jq -sRr @uri)
