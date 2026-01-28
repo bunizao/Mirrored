@@ -1,5 +1,66 @@
-{
-  "message": "Bad credentials",
-  "documentation_url": "https://docs.github.com/rest",
-  "status": "401"
-}
+name: " iRingo: 🗺️ Maps"
+desc: |-
+  自定义 Maps app
+  添加国际版功能
+  自定义服务版本
+openUrl: "http://boxjs.com/#/app/iRingo.Maps"
+author: |-
+  VirgilClyne[https://github.com/VirgilClyne]
+homepage: "https://NSRingo.github.io/guide/GeoServices/maps"
+icon: "https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png"
+category: " iRingo"
+date: "2025-10-27 07:07:29"
+version: "4.4.0"
+
+rules:
+  # 🗺️ Amap
+  - DOMAIN-SUFFIX,is.autonavi.com,DIRECT
+  # 🗺️ Maps
+  - DOMAIN,gspe11-2-cn-ssl.ls.apple.com,DIRECT
+  - DOMAIN,gspe12-cn-ssl.ls.apple.com,DIRECT
+  - DOMAIN,gspe19-cn-ssl.ls.apple.com,DIRECT
+  - DOMAIN,gspe19-2-cn-ssl.ls.apple.com,DIRECT
+  - DOMAIN,gspe79-cn-ssl.ls.apple.com,DIRECT
+
+http:
+  mitm:
+    - "configuration.ls.apple.com"
+    - "gspe35-ssl.ls.apple.com"
+  script:
+    - match: ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults
+      name: GeoServices.request
+      type: request
+      argument:
+    - match: ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults
+      name: GeoServices.response
+      type: response
+      require-body: true
+      argument:
+    - match: ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements
+      name: GeoServices.request
+      type: request
+      argument:
+    - match: ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements
+      name: GeoServices.response
+      type: response
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config
+      name: GeoServices.request
+      type: request
+      argument:
+    - match: ^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config
+      name: GeoServices.response
+      type: response
+      require-body: true
+      binary-mode: true
+      argument:
+
+script-providers:
+  GeoServices.request:
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.4.0/request.bundle.js
+    interval: 86400
+  GeoServices.response:
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.4.0/response.bundle.js
+    interval: 86400
