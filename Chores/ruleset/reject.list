@@ -418,6 +418,7 @@ DOMAIN,firebaselogging-pa.googleapis.com
 DOMAIN,firebaseinappmessaging.googleapis.com
 DOMAIN,firebaseremoteconfig.googleapis.com
 DOMAIN,fundingchoicesmessages.google.com
+DOMAIN-SUFFIX,doubleclick.net
 DOMAIN-SUFFIX,doubleclick-cn.net
 DOMAIN-SUFFIX,googlesyndication-cn.com
 DOMAIN-SUFFIX,xinduoad.com
@@ -448,6 +449,7 @@ DOMAIN-SUFFIX,etoolads.cn
 DOMAIN,ad.aggrxinc.com
 DOMAIN-SUFFIX,mentamob.com
 DOMAIN-SUFFIX,advlion.com
+DOMAIN-SUFFIX,shanghailingye.cn
 DOMAIN-SUFFIX,tradplusad.com
 DOMAIN-SUFFIX,fancyapi.com
 DOMAIN-SUFFIX,medproad.com
