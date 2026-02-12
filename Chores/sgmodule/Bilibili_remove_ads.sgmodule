@@ -7,9 +7,9 @@
 #!tag=去广告
 #!system=ios
 #!system_version=15
-#!loon_version=3.2.9(837)
+#!loon_version=3.3.8(936)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-20 22:40:36
+#!date=2026-02-12 21:42:00
 #!arguments=displayUpList:"show",purifyComment:true,optimizeRequest:true,sponsorBlock:false,logLevel:"off"
 
 [Rule]
@@ -21,6 +21,9 @@ AND,((DOMAIN-SUFFIX,chat.bilibili.com),(OR,((DOMAIN-KEYWORD,stun),(DOMAIN-KEYWOR
 
 [URL Rewrite]
 ^https:\/\/api\.bilibili\.com\/pgc\/page\/channel\?(.*)&mobi_app=iphone&(.*)$ https://api.bilibili.com/pgc/page/channel?$1&mobi_app=iphone_i&$2 header
+
+[Header Rewrite]
+http-response ^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.(interface\.v1\.(Teenagers\/ModeStatus|Search\/DefaultWords)|view\.v1\.View\/TFInfo|viewunite\.v1\.View\/ViewEndPage)$ header-add 'grpc-status' '0'
 
 [Map Local]
 ^https:\/\/line3-h5-mobile-api\.biligame\.com\/game\/live\/large_card_material\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
