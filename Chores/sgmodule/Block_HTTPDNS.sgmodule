@@ -112,6 +112,7 @@ URL-REGEX,"^http:\/\/180\.76\.76\.112\/v\d\/",REJECT
 URL-REGEX,"^http:\/\/180\.76\.76\.112\/v\d\/resolve",REJECT
 URL-REGEX,"^http:\/\/180\.76\.76\.220\/v\d\/resolve",REJECT
 IP-CIDR,186.76.76.200/32,REJECT,no-resolve
+IP-CIDR,180.76.76.200/32,REJECT,no-resolve
 DOMAIN,httpdns.ocloud.heytapmobi.com,REJECT
 DOMAIN,httpdns.push.heytapmobi.com,REJECT
 DOMAIN,dns.jd.com,REJECT
