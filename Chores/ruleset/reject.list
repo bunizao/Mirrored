@@ -78,6 +78,7 @@ DOMAIN,httpdns.alicdn.com
 DOMAIN,httpdns-api.aliyuncs.com
 DOMAIN,httpdns-sc.aliyuncs.com
 IP-CIDR,203.107.1.0/24,no-resolve
+DOMAIN,amdc.alipay.com
 DOMAIN,ucdc.upaas.quark.cn
 DOMAIN,httpdns.danuoyi.tbcache.com
 DOMAIN,httpdns.cctv.com
@@ -165,6 +166,7 @@ URL-REGEX,"^http:\/\/54\.222\.159\.138:8053\/httpdns\/"
 URL-REGEX,"^http:\/\/101\.42\.130\.147:8053\/httpdns\/"
 URL-REGEX,"^http:\/\/106\.55\.220\.18:8053\/httpdns\/"
 URL-REGEX,"^http:\/\/139\.196\.12\.179:8053\/httpdns\/"
+USER-AGENT,"HttpdnsSDK*"
 AND,((DOMAIN-KEYWORD,tnc),(OR,((DOMAIN-SUFFIX,capcutapi.com),(DOMAIN-SUFFIX,zijieapi.com),(DOMAIN-SUFFIX,isnssdk.com),(DOMAIN-SUFFIX,toutiaoapi.com),(DOMAIN-SUFFIX,bytedance.com),(DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,sgsnssdk.com))))
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com))
 AND,((DOMAIN-KEYWORD,ads),(DOMAIN-KEYWORD,-normal.zijieapi.com))
