@@ -513,4 +513,9 @@ DOMAIN,ta-a.pinduoduo.com
 DOMAIN,meta.pinduoduo.com
 DOMAIN,apm-a.pinduoduo.com
 URL-REGEX,"^http:\/\/\w{32}\.jddebug\.com\/diagnose\?"
+DOMAIN,api.biliapi.com
+DOMAIN,app.biliapi.com
+DOMAIN,api.biliapi.net
+DOMAIN,app.biliapi.net
+AND,((DOMAIN-SUFFIX,chat.bilibili.com),(OR,((DOMAIN-KEYWORD,stun),(DOMAIN-KEYWORD,tracker))))
 DOMAIN,ad.12306.cn
