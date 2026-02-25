@@ -5,10 +5,10 @@
 #!category=🚫 AD Block
 #!openUrl=https://itunes.apple.com/app/id1069513131
 #!tag=功能增强
-#!system_version=true8
+#!system_version=18
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2026-02-25 18:55:07
+#!date=2026-02-25 19:48:36
 #!arguments=Weather.Provider:"ColorfulClouds",NextHour.Provider:"ColorfulClouds",AirQuality.Calculate.Algorithm:"EU_EAQI",API.ColorfulClouds.Token:"",API.QWeather.Host:"devapi.qweather.com",API.QWeather.Token:"",API.WAQI.Token:"",Storage:"Argument",LogLevel:"WARN"
 
 [Rule]
