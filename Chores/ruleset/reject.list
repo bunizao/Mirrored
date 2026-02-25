@@ -419,7 +419,6 @@ DOMAIN,app-analytics-services.com
 DOMAIN,odm.app-ads-services.com
 DOMAIN,firebaselogging-pa.googleapis.com
 DOMAIN,firebaseinappmessaging.googleapis.com
-DOMAIN,firebaseremoteconfig.googleapis.com
 DOMAIN,fundingchoicesmessages.google.com
 DOMAIN-SUFFIX,doubleclick.net
 DOMAIN-SUFFIX,doubleclick-cn.net
