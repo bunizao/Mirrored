@@ -1,5 +1,5 @@
 #!name=DREAME去广告
-#!desc=移除开屏广告、首页大图推广、横幅推广，精简底栏。仅支持2.5.1版。
+#!desc=移除开屏广告、首页大图推广、横幅推广，精简底栏，阻止桌面图标替换。仅支持2.5.1版。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DREAME.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2026-02-27 11:15:32
+#!date=2026-02-27 11:38:55
 
 [Map Local]
 ^https:\/\/cn\.iot\.dreame\.tech:\d+\/dreame-product\/public\/advertisement\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -17,6 +17,9 @@
 ^https:\/\/cn-wxmall\.dreame\.tech\/main\/goods\/get-topgoods$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/cn\.iot\.dreame\.tech:\d+\/dreame-product\/public\/common-plugin$ data-type=text data="{"code":0,"success":true,"data":{"version":1144,"appVer":20,"url":"https://kelee.one/Resource/Zip/DREAME/d6996fee95380affdf740ee44a85fbe9___UNI__EDB922E.zip","md5":"e0cc9cb77d9e0cf275e41e73dba3f988","validDate":"","changeLog":"","status":""},"msg":"操作成功"}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_16 = type=http-response, pattern=^https:\/\/cn\.iot\.dreame\.tech:13267\/dreame-system\/dreame-app\/setting\/query$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.appIconConfig%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% cn-mall.dreame.tech, cn-wxmall.dreame.tech, cn.iot.dreame.tech
