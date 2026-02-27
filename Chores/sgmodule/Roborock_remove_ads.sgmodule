@@ -7,10 +7,10 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2026-02-21 23:47:18
+#!date=2026-02-27 08:43:48
 
 [URL Rewrite]
-^https:\/\/api\.roborock\.com\/v2\/h5\.page\.item\.info\?id=4046$ - reject
+^https:\/\/cniot\.roborock\.com\/api\/v1\/app\/theme\/device\/icon\? - reject
 
 [Map Local]
 ^https:\/\/cniot\.roborock\.com\/api\/v1\/activity\/banner\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
