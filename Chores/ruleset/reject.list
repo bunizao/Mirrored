@@ -1,7 +1,11 @@
-URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/(?:d\d*|ss|v\d+\/d|v?\d+\/(?:resolve|ss))\?"
-URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\]\/(?:d\d*|ss|v\d+\/d|v?\d+\/(?:resolve|ss))\?"
 DOMAIN-KEYWORD,httpdns
 DOMAIN-KEYWORD,httpsdns
+USER-AGENT,"httpdns*"
+USER-AGENT,"httpsdns*"
+USER-AGENT,"Httpdns*"
+USER-AGENT,"Httpsdns*"
+URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\/v?[0-9]+)?\/(?:sign_)?(?:(?:d|ss)[46]?|resolve)\?"
+URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\](?:\/v?[0-9]+)?\/(?:sign_)?(?:(?:d|ss)[46]?|resolve)\?"
 DOMAIN,yyapp-httpdns.gslb.yy.com
 DOMAIN,union-httpdns.gslb.yy.com
 DOMAIN,yuyin-httpdns.gslb.yy.com
@@ -134,7 +138,6 @@ DOMAIN,tp2p.kg.qq.com
 IP-CIDR,81.71.61.216/32,no-resolve
 URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d+\/httpdns\/"
 URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\]:\d+\/httpdns\/"
-USER-AGENT,"HttpdnsSDK*"
 AND,((DOMAIN-KEYWORD,tnc),(OR,((DOMAIN-SUFFIX,capcutapi.com),(DOMAIN-SUFFIX,zijieapi.com),(DOMAIN-SUFFIX,isnssdk.com),(DOMAIN-SUFFIX,toutiaoapi.com),(DOMAIN-SUFFIX,bytedance.com),(DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,sgsnssdk.com))))
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com))
 AND,((DOMAIN-KEYWORD,ads),(DOMAIN-KEYWORD,-normal.zijieapi.com))
