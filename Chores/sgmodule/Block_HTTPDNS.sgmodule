@@ -6,13 +6,17 @@
 #!tag=去广告, 依赖
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2026-03-01 22:21:48
+#!date=2026-03-01 23:16:49
 
 [Rule]
-URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/(?:d\d*|ss|v\d+\/d|v?\d+\/(?:resolve|ss))\?",REJECT
-URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\]\/(?:d\d*|ss|v\d+\/d|v?\d+\/(?:resolve|ss))\?",REJECT
 DOMAIN-KEYWORD,httpdns,REJECT
 DOMAIN-KEYWORD,httpsdns,REJECT
+USER-AGENT,"httpdns*",REJECT
+USER-AGENT,"httpsdns*",REJECT
+USER-AGENT,"Httpdns*",REJECT
+USER-AGENT,"Httpsdns*",REJECT
+URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\/v?[0-9]+)?\/(?:sign_)?(?:(?:d|ss)[46]?|resolve)\?",REJECT
+URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\](?:\/v?[0-9]+)?\/(?:sign_)?(?:(?:d|ss)[46]?|resolve)\?",REJECT
 DOMAIN,yyapp-httpdns.gslb.yy.com,REJECT
 DOMAIN,union-httpdns.gslb.yy.com,REJECT
 DOMAIN,yuyin-httpdns.gslb.yy.com,REJECT
@@ -145,7 +149,6 @@ DOMAIN,tp2p.kg.qq.com,REJECT
 IP-CIDR,81.71.61.216/32,REJECT,no-resolve
 URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d+\/httpdns\/",REJECT
 URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\]:\d+\/httpdns\/",REJECT
-USER-AGENT,"HttpdnsSDK*",REJECT
 
 [URL Rewrite]
 ^https?:\/\/cdn\.wup\.huya\.com\/monitor\/monitor\.jsp - reject
