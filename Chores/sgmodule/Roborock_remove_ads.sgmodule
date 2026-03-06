@@ -1,5 +1,5 @@
 #!name=Roborock去广告
-#!desc=移除横幅、活动推广。
+#!desc=移除横幅、活动推广、机器人图标，精简服务中心。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Roborock.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2026-02-27 08:43:48
+#!date=2026-03-06 14:51:35
 
 [URL Rewrite]
 ^https:\/\/cniot\.roborock\.com\/api\/v1\/app\/theme\/device\/icon\? - reject
