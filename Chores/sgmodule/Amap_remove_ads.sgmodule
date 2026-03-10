@@ -7,7 +7,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2026-02-22 06:04:15
+#!date=2026-03-10 19:47:26
 
 [Rule]
 DOMAIN,amap-aos-info-nogw.amap.com,REJECT
@@ -15,10 +15,6 @@ DOMAIN,free-aos-cdn-image.amap.com,REJECT
 DOMAIN-SUFFIX,v.smtcdns.com,REJECT
 
 [Map Local]
-^https:\/\/m5-zb\.amap\.com\/ws\/ride\/home\/page\/get_commuting_card\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/m5\.amap\.com\/ws\/shield\/search_business\/process\/orderList\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
 ^https:\/\/m5\.amap\.com\/ws\/shield\/search\/new_hotword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/card-service-(?:car-end|route-plan) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -46,11 +42,11 @@ DOMAIN-SUFFIX,v.smtcdns.com,REJECT
 ^https:\/\/m5-zb\.amap\.com\/ws\/boss\/(?:pay\/web\/paySuccess\/info\/request|transportation\/diversion\/resource\/driving) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-body_rewrite_20 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_business\/process\/marketingOperationStructured\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.commonMaterial%22%2C%22data.tipsOperationLocation%22%2C%22data.resourcePlacement%22%5D%5D%5D
+body_rewrite_18 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_business\/process\/marketingOperationStructured\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.commonMaterial%22%2C%22data.tipsOperationLocation%22%2C%22data.resourcePlacement%22%5D%5D%5D
 
-body_rewrite_21 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/homepage\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22history_tags%22%5D%5D%5D
+body_rewrite_19 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/search_poi\/homepage\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22history_tags%22%5D%5D%5D
 
-body_rewrite_33 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/sharedtrip\/taxi\/order_detail_car_tips\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.carTips.data.popupInfo%22%5D%5D%5D
+body_rewrite_31 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/sharedtrip\/taxi\/order_detail_car_tips\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.carTips.data.popupInfo%22%5D%5D%5D
 
 移除路线规划推广 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/aos\/perception\/publicTravel\/beforeNavi\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Amap_remove_ads.js, requires-body=true
 
