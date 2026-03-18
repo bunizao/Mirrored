@@ -1,0 +1,29 @@
+#!name=盒马去广告
+#!desc=移除开屏广告、首页信息流广告及推广、弹窗广告、悬浮挂件、商品及购物车推荐，精简底栏及我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/MrHema.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1063183999
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2026-03-18 22:26:57
+
+[Map Local]
+^https:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.render\.querysinglepage\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.sg\.queryinnerpage\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.lbs\.address\.getshopinfolist\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.render\.querysearchpage\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.sg\.querysinglescene\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.melon\.collocation\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs-m\.freshippo\.com\/gw\/mtop\.wdk\.fc\.recommend\.feedscommondservice\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% acs-m.freshippo.com
+
