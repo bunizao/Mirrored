@@ -5,8 +5,8 @@
 #!homepage = https://NSRingo.github.io/guide/GeoServices/maps
 #!icon = https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png
 #!category =  iRingo
-#!date = 2026-03-13 01:15:52
-#!version = 4.5.1
+#!date = 2026-04-03 17:43:15
+#!version = 4.6.0
 
 #[filter_local]
 # 🗺️ Amap
@@ -20,14 +20,14 @@ host, gspe79-cn-ssl.ls.apple.com, direct
 
 #[rewrite_local]
 # 🗺️ Network Defaults
-^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults url script-request-header https://github.com/NSRingo/GeoServices/releases/download/v4.5.1/request.bundle.js
-^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults url script-response-body https://github.com/NSRingo/GeoServices/releases/download/v4.5.1/response.bundle.js
+^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults url script-request-header https://github.com/NSRingo/GeoServices/releases/download/v4.6.0/request.bundle.js
+^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults url script-response-body https://github.com/NSRingo/GeoServices/releases/download/v4.6.0/response.bundle.js
 # 🗺️ Announcements
-^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements url script-request-header https://github.com/NSRingo/GeoServices/releases/download/v4.5.1/request.bundle.js
-^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements url script-response-body https://github.com/NSRingo/GeoServices/releases/download/v4.5.1/response.bundle.js
+^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements url script-request-header https://github.com/NSRingo/GeoServices/releases/download/v4.6.0/request.bundle.js
+^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/config\/announcements url script-response-body https://github.com/NSRingo/GeoServices/releases/download/v4.6.0/response.bundle.js
 # 🗺️ Resource Manifest
-^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config url script-request-header https://github.com/NSRingo/GeoServices/releases/download/v4.5.1/request.bundle.js
-^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config url script-response-body https://github.com/NSRingo/GeoServices/releases/download/v4.5.1/response.bundle.js
+^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config url script-request-header https://github.com/NSRingo/GeoServices/releases/download/v4.6.0/request.bundle.js
+^https?:\/\/gspe35-ssl\.ls\.apple\.(com|cn)\/geo_manifest\/dynamic\/config url script-response-body https://github.com/NSRingo/GeoServices/releases/download/v4.6.0/response.bundle.js
 
 #[mitm]
 hostname = configuration.ls.apple.com, gspe35-ssl.ls.apple.com
