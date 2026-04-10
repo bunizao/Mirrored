@@ -238,7 +238,7 @@ EMS中国邮政物流速递去广告 = type=http-response, pattern=^https:\/\/um
 
 全家微会员去广告 = type=http-response, pattern=^https:\/\/minifm\.maxxipoint\.com\/banner\/list, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/FamilyMart.js, requires-body=true
 
-罗森点点去广告 = type=http-response, pattern=^https:\/\/lawsonapi\.yorentown\.com\/area\/sh-lawson\/app\/v1\/home, script-path=https://kelee.one/Resource/JavaScript/WexinMiniPrograms/lawson/lawson.js, requires-body=true
+罗森点点去广告 = type=http-response, pattern=^https:\/\/lawsonapi\.yorentown\.com\/area\/sh-lawson\/app\/v1\/home, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/lawson.js, requires-body=true
 
 茶颜悦色去广告 = type=http-response, pattern=^https:\/\/miniapp\.sexytea2013\.com\/cms\/slot\/queryByCodes\?codes=INDEX_TOP_BANNER, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/chayanyuese_remove_ads.js, requires-body=true
 
