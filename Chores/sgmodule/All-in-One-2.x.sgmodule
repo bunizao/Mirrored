@@ -1,6 +1,6 @@
 #!name=AD ByeBye+ 2.x
 #!desc=Most Optimized Ad-free Experience presented with automated updates. | 提供最优化无广告体验，自动同步更新。\nRepo: https://tuu.cat/repo・Update: 04/11/2026・Support: @bunizao・ Channel: @hututu00
-#!include=AD Block, Zhihu, Amap, DiDi, Weibo, Tieba, Cainiao, PinDuoDuo, JD, Bilibili, 12306, Eleme, Meituan, MiniProgram, Pixiv
+#!include=Block HTTPDNS, AD Block, Zhihu, Amap, DiDi, REDnote, Weibo, Tieba, Cainiao, PinDuoDuo, JD, Bilibili, 12306, Eleme, Meituan, MiniProgram, Pixiv
 #!url=https://tuu.cat/ADBlock
 #!category=🚫 AD Block
 #!author=@hututu0 & Everyone in the community
@@ -18,6 +18,10 @@ URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-TINYGIF
 RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList/DOMAlN/AD.Reject.list,REJECT,extended-matching
 
 [URL Rewrite]
+
+# -------- Block HTTPDNS ---------
+^https?:\/\/cdn\.wup\.huya\.com\/monitor\/monitor\.jsp - reject
+^https:\/\/gslbali\.ximalaya\.com\/linkeye-cloud\/httpdns\/ - reject
 
 # ----------- AD Block -----------
 ^https:\/\/video-dsp\.pddpic\.com\/market-dsp-video\/ - reject
@@ -39,6 +43,11 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ########################################################################################
 
 [Map Local]
+
+# -------- Block HTTPDNS ---------
+^https?:\/\/appconf\.mail\.163\.com\/mailmaster\/api\/http\/urlConfig\.do$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/msglb\.91160\.com\/msg\/outer\/broker\/get$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/ucdc\d?-upaas\.uc\.cn\/api\/v\d\/dns_query\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # ------------ Zhihu -------------
 ^https:\/\/api\.zhihu\.com\/commercial_api\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -86,6 +95,13 @@ RULE-SET,https://raw.githubusercontent.com/bunizao/TutuBetterRules/tutu/RuleList
 ^https:\/\/ct\.xiaojukeji\.com\/agent\/v3\/feeds\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/poi\.map\.xiaojukeji\.com\/mapapi\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# ----------- REDnote ------------
+^https:\/\/ci\.xiaohongshu\.com\/system_config\/watermark data-type=tiny-gif status-code=200
+^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/surprisebox\/(?:get_style|open|submit_action) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/www\.xiaohongshu\.com\/api\/marketing\/box\/trigger\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/(?:v2\/guide\/user_banner|v3\/note\/guide) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/www\.xiaohongshu\.com\/api\/sns\/(?:v1\/ads\/resource|v2\/hey\/\w+\/hey_gallery) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # ------------ Weibo -------------
 ^https:\/\/api\.weibo\.cn\/2\/(?:ug\/checkin\/list|push\/daily|push\/info) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -221,6 +237,24 @@ body_rewrite_22 = type=http-response, pattern=^https:\/\/res\.xiaojukeji\.com\/r
 body_rewrite_29 = type=http-response, pattern=^https:\/\/daijia\.kuaidadi\.com:443\/gateway\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.variantInfo%22%5D%5D%5D
 body_rewrite_32 = type=http-response, pattern=^https:\/\/htwkop\.xiaojukeji\.com:443\/gateway\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.didi-bike-homepage-popup%22%2C%22data.variantInfo%22%5D%5D%5D
 
+# ----------- REDnote ------------
+body_rewrite_19 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/search\/banner_list$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data%22%2C%7B%7D%5D%5D%5D%5D
+body_rewrite_20 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/search\/hot_list$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.items%22%2C%5B%5D%5D%5D%5D%5D
+body_rewrite_21 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v4\/search\/hint, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.hint_words%22%2C%5B%5D%5D%5D%5D%5D
+body_rewrite_22 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v4\/search\/trending\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.queries%22%2C%5B%5D%5D%2C%5B%22data.hint_word%22%2C%7B%7D%5D%5D%5D%5D
+移除图片和实况照片水印 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/note\/(?:imagefeed|live_photo\/save), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除界面整体配置 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/system\/service\/ui\/config\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除开屏广告 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/system_service\/config\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除开屏广告 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v2\/system_service\/splash_config, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除详情页小部件、关注页感兴趣的人 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v2\/(?:note\/widgets|user\/followings\/followfeed), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除信息流广告 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v4\/followfeed\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除详情页感兴趣的人 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v5\/recommend\/user\/follow_recommend\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除评论区实况照片水印 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/(?:v1\/interaction\/comment\/video\/download|v5\/note\/comment\/list), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除图片和视频水印 = type=http-response, pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/(?:v2\/note\/feed|v3\/note\/videofeed), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除信息流广告 = type=http-response, pattern=^https:\/\/(?:edith|rec)\.xiaohongshu\.com\/api\/sns\/v6\/homefeed\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除搜索页广告 = type=http-response, pattern=^https:\/\/(?:edith|so)\.xiaohongshu\.com\/api\/sns\/v10\/search\/notes\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+移除视频水印 = type=http-response, pattern=^https:\/\/(?:edith|rec|www)\.xiaohongshu\.com\/api\/sns\/(?:v4\/note\/videofeed|v10\/note\/video\/save), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/RedPaper_remove_ads.js, requires-body=true
+
 # ------------ Weibo -------------
 移除首页推广 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/(?:checkin\/show|client\/publisher_list|push\/active), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
 移除首页顶部标签 = type=http-response, pattern=^https:\/\/api\.weibo\.cn\/2\/groups\/allgroups\/v2\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weibo_remove_ads.js, requires-body=true
@@ -277,6 +311,6 @@ body_rewrite_14 = type=http-response, pattern=^https:\/\/ad\.12306\.cn\/ad\/ser\
 ########################################################################################
 
 [MITM]
-hostname = %APPEND% oauth.secure.pixiv.net, api.mcd.cn, orders.kfc.com.cn, dynamicad.kfc.com.cn, res.kfc.com.cn, res.pizzahut.com.cn, 3pp.starbucks.com.cn, htwkop.xiaojukeji.com, tm-api.pin-dao.cn, webchatapp.fcbox.com, dsp.fcbox.com, go.heytea.com, api.hellobike.com, ucmp.sf-express.com, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com, *.zhihu.com, *.amap.com, as.xiaojukeji.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, lion.didialift.com, api.udache.com, ct.xiaojukeji.com, res.xiaojukeji.com, 112.53.55.225, 139.199.240.84, 113.46.225.*, 162.14.157.*, 123.207.209.*, 120.241.142.*, 120.241.143.*, 116.85.*, *.weibo.cn, *.weibo.com, weibo.com, tiebac.baidu.com, tieba.baidu.com, netflow-mtop.cainiao.com, nbcps-mtop.cainiao.com, cn-acs.m.cainiao.com, e2e-mtop.cainiao.com, longquan-mtop.cainiao.com, api.pinduoduo.com, api.m.jd.com, grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com, line3-h5-mobile-api.biligame.com, ad.12306.cn, mobile.12306.cn
+hostname = %APPEND% oauth.secure.pixiv.net, api.mcd.cn, orders.kfc.com.cn, dynamicad.kfc.com.cn, res.kfc.com.cn, res.pizzahut.com.cn, 3pp.starbucks.com.cn, htwkop.xiaojukeji.com, tm-api.pin-dao.cn, webchatapp.fcbox.com, dsp.fcbox.com, go.heytea.com, api.hellobike.com, ucmp.sf-express.com, appconf.mail.163.com, msglb.91160.com, ucdc2-upaas.uc.cn, video-dsp.pddpic.com, t-dsp.pinduoduo.com, images.pinduoduo.com, *.zhihu.com, *.amap.com, as.xiaojukeji.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, lion.didialift.com, api.udache.com, ct.xiaojukeji.com, res.xiaojukeji.com, 112.53.55.225, 139.199.240.84, 113.46.225.*, 162.14.157.*, 123.207.209.*, 120.241.142.*, 120.241.143.*, 116.85.*, ci.xiaohongshu.com, edith.xiaohongshu.com, rec.xiaohongshu.com, so.xiaohongshu.com, www.xiaohongshu.com, *.weibo.cn, *.weibo.com, weibo.com, tiebac.baidu.com, tieba.baidu.com, netflow-mtop.cainiao.com, nbcps-mtop.cainiao.com, cn-acs.m.cainiao.com, e2e-mtop.cainiao.com, longquan-mtop.cainiao.com, api.pinduoduo.com, api.m.jd.com, grpc.biliapi.net, app.bilibili.com, api.bilibili.com, api.live.bilibili.com, line3-h5-mobile-api.biligame.com, ad.12306.cn, mobile.12306.cn
 h2 = true
 tcp-connection = true
