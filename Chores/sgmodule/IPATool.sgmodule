@@ -13,7 +13,7 @@
 [Script]
 App Store API = type=http-request, pattern=^https:\/\/apple-api\.com, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/AppStoreAPI.js, requires-body=true
 
-安装器 = type=http-request, pattern=^https:\/\/xiaobai\.app, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Installer.js
+安装器 = type=http-request, pattern=^https:\/\/xiaobai\.app, script-path=https://kelee.one/Resource/JavaScript/IPATool/Installer.js
 
 [MITM]
 hostname = %APPEND% apple-api.com, xiaobai.app
