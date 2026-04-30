@@ -9,7 +9,7 @@
 #!system_version=15
 #!loon_version=3.3.8(936)
 #!homepage=https://hub.kelee.one
-#!date=2026-03-09 00:25:19
+#!date=2026-04-30 16:24:57
 #!arguments=displayUpList:"show",purifyComment:true,optimizeRequest:,sponsorBlock:#,logLevel:"off"
 #!arguments-desc=displayUpList: [动态]中[最常访问]的显示方式\nauto：仅当列表中存在直播状态时显示；show：始终显示；hide：始终隐藏。\n\npurifyComment: 移除评论区置顶广告\n移除评论区置顶广告\n\noptimizeRequest: 优化评论区加载异常\n尝试解决评论区加载异常的问题\n\nsponsorBlock: 空降助手\n用于跳过视频中的广告\n\nlogLevel: 日志等级\n脚本的日志输出等级
 
@@ -36,7 +36,7 @@ http-response ^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.(interface\.v1\.(Tee
 
 ^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.interface\.v1\.Search\/DefaultWords$ data-type=base64 data="AAAAACEaHeaQnOe0ouinhumikeOAgeeVquWJp+aIlnVw5Li7KAE=" header="Content-Type:text/plain"
 
-^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.(?:view\.v1\.View\/TFInfo|viewunite\.v1\.View\/ViewEndPage)$ data-type=base64 data="AAAAAAA=" header="Content-Type:text/plain"
+^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.(view\.v1\.View\/TFInfo|viewunite\.v1\.View\/(PlayPause|ViewEndPage))$ data-type=base64 data="AAAAAAA=" header="Content-Type:text/plain"
 
 [Script]
 body_rewrite_36 = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.common_equip%22%5D%5D%5D
