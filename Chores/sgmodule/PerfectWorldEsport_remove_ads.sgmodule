@@ -1,0 +1,20 @@
+#!name=完美世界电竞去广告
+#!desc=移除开屏广告，精简搜索页。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/PerfectWorldEsport.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1460786904
+#!category=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2026-05-13 00:54:14
+
+[Map Local]
+^https:\/\/appactivity\.wmpvp\.com\/hotsearch\/all\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_12 = type=http-response, pattern=^https:\/\/api\.wmpvp\.com\/api\/v1\/config\/promote$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.ad%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% api.wmpvp.com, appactivity.wmpvp.com
+
