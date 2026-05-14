@@ -1,0 +1,36 @@
+#!name=华尔街见闻去广告
+#!desc=移除开屏广告、文末广告、信息流广告，精简底栏。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/FinanceNews.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id738227477
+#!category=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2026-05-14 23:18:27
+
+[Map Local]
+^https:\/\/api-one-wscn\.awtmt\.com\/apiv1\/advertising\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api-one-wscn\.awtmt\.com\/apiv1\/kvconfig\/items\/search_keywords_wscnvip$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api-one-wscn\.awtmt\.com\/apiv1\/search\/hotsearch\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api-one-wscn\.awtmt\.com\/apiv1\/content\/articles\/hot\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/wallstreetcn\.com\/app-faas\/coupon\/user\/search\/popup$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api-one-wscn\.awtmt\.com\/apiv1\/content\/lives\/relateddata\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api-one-wscn\.awtmt\.com\/apiv1\/content\/articles\/relateddata\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api-one-wscn\.awtmt\.com\/apiv1\/content\/carousel\/information-flow\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_21 = type=http-response, pattern=^https:\/\/api-one-wscn\.awtmt\.com\/apiv1\/content\/articles\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.recommend_vip_img_uri%22%5D%5D%5D
+
+body_rewrite_22 = type=http-response, pattern=^https:\/\/api-one-wscn\.awtmt\.com\/\/apiv1\/kvconfig\/items\/membersrights$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.vip_article%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% api-one-wscn.awtmt.com
+
