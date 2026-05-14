@@ -1,0 +1,40 @@
+#!name=36氪去广告
+#!desc=移除开屏广告、首页右上角运营位、信息流广告、文末广告，移除相关文章推荐、大家都在看及皮肤配置，精简搜索页面、我的页面及底栏。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/36Kr.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id593394038
+#!category=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2026-05-15 01:42:13
+
+[Rule]
+DOMAIN,adx.36kr.com,REJECT
+DOMAIN,ad.jiemian.com,REJECT
+
+[Map Local]
+^https:\/\/gateway\.36kr\.com\/api\/mis\/nav\/me\/recom\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/gateway\.36kr\.com\/api\/mis\/nav\/search\/hotword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/gateway\.36kr\.com\/api\/mis\/nav\/search\/topicListV2\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/gateway\.36kr\.com\/api\/adx\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/gateway\.36kr\.com\/api\/mis\/page\/article\/recom\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/gateway\.36kr\.com\/api\/mis\/page\/newsflash\/recom\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/gateway\.36kr\.com\/api\/mis\/sys\/skin\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_15 = type=http-response, pattern=^https:\/\/gateway\.36kr\.com\/api\/mis\/sys\/config\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.contentConfig%22%2C%22data.positionConfigList%22%2C%22data.switchConfig.ios.sunrise_sign%22%2C%22data.switchConfig.ios.sunrise_sunit_task%22%2C%22data.switchConfig.ios.sunrise_sunit_mall%22%2C%22data.switchConfig.ios.sunrise_distribution_icon%22%2C%22data.secondFloorConfig%22%5D%5D%5D
+
+body_rewrite_16 = type=http-response, pattern=^https:\/\/36kr\.com\/global\/sensors\/config\/iOS\.conf\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22configs.disableSDK%22%2Ctrue%5D%5D%5D%5D
+
+body_rewrite_22 = type=http-response, pattern=^https:\/\/gateway\.36kr\.com\/api\/mis\/nav\/home\/subnav\/flow\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.adItemList%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% gateway.36kr.com, 36kr.com
+
