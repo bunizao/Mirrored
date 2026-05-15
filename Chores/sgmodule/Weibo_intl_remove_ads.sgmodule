@@ -7,7 +7,7 @@
 #!category=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-07-09 14:07:46
+#!date=2026-05-15 22:35:54
 
 [Map Local]
 ^https:\/\/bootpreload\.uve\.weibo\.com\/v1\/ad\/preload$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
