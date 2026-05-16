@@ -136,6 +136,7 @@ DOMAIN,serveraddr.service.kugou.com
 DOMAIN,twns.p2ptun.qq.com
 DOMAIN,tp2p.kg.qq.com
 IP-CIDR,81.71.61.216/32,no-resolve
+DOMAIN,httpdns.immomo.com
 URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d+\/httpdns\/"
 URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\]:\d+\/httpdns\/"
 DOMAIN-KEYWORD,adstrategy
@@ -348,6 +349,7 @@ DOMAIN,im-x.jd.com
 DOMAIN,xlog.jd.com
 DOMAIN,janapi.jd.com
 DOMAIN-SUFFIX,toponadss.com
+DOMAIN-SUFFIX,toponad.com
 DOMAIN-SUFFIX,motowoo.com
 DOMAIN,guide2.bianxianmao.com
 DOMAIN,sdk.zhangyuyidong.cn
@@ -428,6 +430,7 @@ DOMAIN-SUFFIX,shenshiads.com
 DOMAIN-SUFFIX,adshenshi.com
 DOMAIN-SUFFIX,qidianad.com
 DOMAIN-SUFFIX,kuaichuanad.com
+DOMAIN-SUFFIX,statisticslinks.com
 DOMAIN-SUFFIX,tradplusad.com
 DOMAIN-SUFFIX,fancyapi.com
 DOMAIN-SUFFIX,medproad.com
