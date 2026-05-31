@@ -1,0 +1,19 @@
+#!name=南网在线去广告
+#!desc=移除瀑布流广告、精简搜索页和我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/CSG.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1341596112
+#!category=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2026-06-01 02:30:32
+
+[Map Local]
+^https:\/\/95598\.csg\.cn\/mp\/ucs\/ma\/zt\/content\/queryHotInformations$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/95598\.csg\.cn\/mp\/mpaas\/rubik\/openapi\/rubik\/mobile\/getRubikScene$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% 95598.csg.cn
+
