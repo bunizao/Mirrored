@@ -1,0 +1,48 @@
+#!name=测测去广告
+#!desc=移除开屏广告、活动皮肤、各类弹窗及横幅、金刚位红点文字，精简首页标签及搜索页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Cece.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id756771906
+#!category=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2026-05-13 00:20:48
+
+[Map Local]
+^https:\/\/api\.cece\.com\/user\/index\/banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/ask\/ai_chat\/popup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/user\/popup\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/chart\/easter_egg\/popup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/user\/register_task\/notice_task\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/ask\/ask\/alert_minus\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/msgAsk\/question\/new_coupon_status\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/user\/user\/myPageBanner\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/live\/recommend\/new_user\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/chart\/tools\/get_search_recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/user\/rank\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/chart\/config\/chart_activity\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.cece\.com\/live\/user\/coupon_tab\? data-type=json data="{"code":0,"msg":""}" status-code=200
+
+[Script]
+body_rewrite_12 = type=http-response, pattern=^https:\/\/api\.cece\.com\/user\/init\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.launch_img_url%22%2C%22data.launch_goto_url%22%5D%5D%5D
+
+body_rewrite_13 = type=http-response, pattern=^https:\/\/api\.cece\.com\/common\/app\/app_config\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.is_new_year%22%2Cfalse%5D%2C%5B%22data.spring_festival%22%2Cfalse%5D%2C%5B%22data.show_feedback_entry%22%2Cfalse%5D%2C%5B%22data.show_course_entry%22%2Cfalse%5D%2C%5B%22data.show_store_entry%22%2Cfalse%5D%2C%5B%22data.show_luna%22%2Cfalse%5D%2C%5B%22data.show_ead%22%2Cfalse%5D%2C%5B%22data.show_ad%22%2Cfalse%5D%2C%5B%22data.show_live_filter_tarot%22%2Cfalse%5D%2C%5B%22data.community_feed_adswitch%22%2Cfalse%5D%2C%5B%22data.open_screen_ad_times%22%2C0%5D%2C%5B%22data.open_screen_ad_duration%22%2C0%5D%2C%5B%22data.isShowThumbsGif%22%2Cfalse%5D%2C%5B%22data.teenager_mode_open%22%2Cfalse%5D%2C%5B%22data.flu_log%22%2Cfalse%5D%5D%5D%2C%5B%22json-del%22%2C%5B%22data.activity_list%22%2C%22data.fortune_ab_config%22%5D%5D%5D
+
+body_rewrite_22 = type=http-response, pattern=^https:\/\/api\.cece\.com\/common\/app\/risk_entrance\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.ai_fortune_show_ask_tool%22%2Cfalse%5D%2C%5B%22data.ai_sign_show_ask_tool%22%2Cfalse%5D%2C%5B%22data.single_tool_show_dice_card%22%2Cfalse%5D%2C%5B%22data.single_tool_show_tarot_card%22%2Cfalse%5D%2C%5B%22data.single_tool_show_bazi_card%22%2Cfalse%5D%2C%5B%22data.single_tool_show_hepan_card%22%2Cfalse%5D%2C%5B%22data.single_tool_show_ziwei_card%22%2Cfalse%5D%2C%5B%22data.single_tool_show_xingpan_card%22%2Cfalse%5D%2C%5B%22data.multi_tool_show_card%22%2Cfalse%5D%2C%5B%22data.ai_ccai_show_multi_tool%22%2Cfalse%5D%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% api.cece.com
+

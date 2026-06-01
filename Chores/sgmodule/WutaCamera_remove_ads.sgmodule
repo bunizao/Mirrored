@@ -5,9 +5,9 @@
 #!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1061534032
 #!category=去广告
-#!loon_version=3.2.4(787)
+#!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
-#!date=2025-07-05 02:22:08
+#!date=2026-06-01 17:11:35
 
 [Script]
 body_rewrite_12 = type=http-response, pattern=^https:\/\/api-release\.wuta-cam\.com\/ad_tree$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22regular.splash%22%2C%22big_day%22%2C%22big_day_overrides%22%2C%22regular.home_bottom_right_entry_v2%22%2C%22regular.pic_upload_alert%22%2C%22regular.retouching_before_icon%22%5D%5D%5D

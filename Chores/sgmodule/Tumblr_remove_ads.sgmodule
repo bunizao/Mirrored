@@ -5,9 +5,9 @@
 #!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id305343404
 #!category=去广告
-#!loon_version=3.2.4(787)
+#!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
-#!date=2026-05-09 19:47:07
+#!date=2026-06-01 17:11:35
 
 [Script]
 body_rewrite_12 = type=http-response, pattern=^https:\/\/api-http2\.tumblr\.com\/v2\/config$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22response.ad_placement_configuration%22%2C%22response.configuration.fan_placement_id%22%2C%22response.configuration.display_io_max_ad_count%22%2C%22response.configuration.display_io_max_ad_loading_count%22%2C%22response.configuration.display_io_placement_id%22%2C%22response.configuration.display_io_test_placement_id%22%2C%22response.configuration.display_io_interscroller_display_test_placement_id%22%2C%22response.configuration.display_io_interscroller_video_test_placement_id%22%2C%22response.configuration.dfp_ad_unit_id%22%2C%22response.configuration.adx_total_queue_size%22%2C%22response.configuration.adx_loading_queue_size%22%2C%22response.configuration.fan_total_queue_size%22%2C%22response.configuration.fan_loading_queue_size%22%2C%22response.configuration.yahoo_total_queue_size%22%2C%22response.configuration.yahoo_loading_queue_size%22%2C%22response.configuration.min_minutes_between_sponsored_moments%22%2C%22response.configuration.rewarded_ad_timeout_seconds%22%2C%22response.configuration.vungle_ad_token_sync_seconds%22%2C%22response.configuration.static_interstitial_close_button_delay_seconds%22%2C%22response.configuration.video_interstitial_close_button_delay_seconds%22%2C%22response.configuration.static_interstitial_bid_floor_usd%22%2C%22response.configuration.video_interstitial_bid_floor_usd%22%5D%5D%5D

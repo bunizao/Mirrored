@@ -5,9 +5,9 @@
 #!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1503466530
 #!category=去广告
-#!loon_version=3.2.4(787)
+#!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
-#!date=2025-07-10 21:25:29
+#!date=2026-06-01 17:11:35
 
 [Script]
 body_rewrite_12 = type=http-response, pattern=^https:\/\/conf-m-ssl\.xunlei\.com\/external\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22values.me_config.entrance_list_vertical_enable%22%2C%22values.me_config.common_service_list%22%2C%22values.me_config.banner_service_list%22%5D%5D%5D

@@ -6,9 +6,9 @@
 #!openUrl=https://apps.apple.com/app/id1427096901
 #!category=去广告
 #!system=ios
-#!loon_version=3.2.4(787)
+#!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
-#!date=2025-05-13 15:17:08
+#!date=2026-06-01 17:11:35
 
 [Script]
 body_rewrite_12 = type=http-response, pattern=^https:\/\/confssl\d?\.iweimai\.cn\/wm_ios_update\.json\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22isShowCJAd%22%2C0%5D%5D%5D%2C%5B%22json-del%22%2C%5B%22launchAd%22%2C%22adBanners%22%2C%22ad%22%5D%5D%5D
