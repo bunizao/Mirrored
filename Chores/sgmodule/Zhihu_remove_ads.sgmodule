@@ -16,9 +16,13 @@
 
 ^https:\/\/api\.zhihu\.com\/search\/preset_words\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
+^https:\/\/api\.zhihu\.com\/search\/related_queries\/question\/\d+$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 ^https:\/\/zhida\.zhihu\.com\/ai_ingress\/knowledge\/square\/categories\/feeds\?categoryId=1%7D$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/zhida\.zhihu\.com\/ai_ingress\/ai_chat\/guidance$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.zhihu\.com\/content-distribution-core\/bubble\/common\/show$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/www\.zhihu\.com\/api\/v\d\/members\/homepage_card$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
@@ -33,7 +37,7 @@ body_rewrite_16 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/questi
 
 body_rewrite_18 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/comment_v\d\/(answers|pins)\/\d+\/root_comment\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22atmosphere_voting_config%22%5D%5D%5D
 
-body_rewrite_19 = type=http-response, pattern=^https:\/\/(api|page-info)\.zhihu\.com\/(articles|answers)\/v\d\/\d+$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22third_business%22%5D%5D%5D
+body_rewrite_19 = type=http-response, pattern=^https:\/\/(api|page-info)\.zhihu\.com\/(articles|answers)\/v\d\/\d+$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22third_business%22%2C%22float_search_word%22%5D%5D%5D
 
 body_rewrite_22 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/(articles|answers|pins)\/v\d\/\d+\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22third_business%22%2C%22ring_info%22%2C%22interaction_bar_plugins%22%5D%5D%5D
 
@@ -41,7 +45,9 @@ body_rewrite_23 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/commen
 
 body_rewrite_24 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/podcasts\/hub\/v\d$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22banners%22%5D%5D%5D
 
-body_rewrite_32 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/people\/self$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22vip_info.entrance_new.right_button%22%2C%22vip_info.entrance_v2%22%5D%5D%5D
+body_rewrite_28 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/search_v\d\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22pendant%22%5D%5D%5D
+
+body_rewrite_36 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/people\/self$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22vip_info.entrance_new.right_button%22%2C%22vip_info.entrance_v2%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% m-cloud.zhihu.com, api.zhihu.com, www.zhihu.com, page-info.zhihu.com, zhida.zhihu.com
