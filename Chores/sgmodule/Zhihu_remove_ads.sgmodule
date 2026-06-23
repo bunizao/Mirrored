@@ -37,7 +37,7 @@ body_rewrite_16 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/questi
 
 body_rewrite_18 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/comment_v\d\/(answers|pins)\/\d+\/root_comment\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22atmosphere_voting_config%22%5D%5D%5D
 
-body_rewrite_19 = type=http-response, pattern=^https:\/\/(api|page-info)\.zhihu\.com\/(articles|answers)\/v\d\/\d+$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22third_business%22%2C%22float_search_word%22%5D%5D%5D
+body_rewrite_19 = type=http-response, pattern=^https:\/\/(api|page-info)(?:\.zhihu)?\.com\/answers\/v\d\/\d+(?:\?.*)?$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22third_business%22%2C%22float_search_word%22%5D%5D%5D
 
 body_rewrite_22 = type=http-response, pattern=^https:\/\/api\.zhihu\.com\/(articles|answers|pins)\/v\d\/\d+\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22third_business%22%2C%22ring_info%22%2C%22interaction_bar_plugins%22%5D%5D%5D
 
