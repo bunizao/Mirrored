@@ -401,6 +401,7 @@ DOMAIN,firebaseinappmessaging.googleapis.com
 DOMAIN,fundingchoicesmessages.google.com
 DOMAIN-SUFFIX,doubleclick.net
 DOMAIN-SUFFIX,doubleclick-cn.net
+DOMAIN-SUFFIX,googlesyndication.com
 DOMAIN-SUFFIX,googlesyndication-cn.com
 DOMAIN-SUFFIX,xinduoad.com
 DOMAIN-SUFFIX,kuaiyiad.com
@@ -441,9 +442,10 @@ DOMAIN-SUFFIX,fancyapi.com
 DOMAIN-SUFFIX,medproad.com
 DOMAIN-SUFFIX,applovin.com
 DOMAIN-SUFFIX,iads.unity3d.com
+DOMAIN-SUFFIX,unityads.unity3d.com
 DOMAIN-SUFFIX,unityads.unitychina.cn
 DOMAIN-SUFFIX,tapjoy.com
-DOMAIN-SUFFIX,ads.vungle.com
+DOMAIN-SUFFIX,vungle.com
 DOMAIN-SUFFIX,adsmoloco.com
 DOMAIN-SUFFIX,smadex.com
 DOMAIN-SUFFIX,tapad.com
@@ -459,6 +461,9 @@ DOMAIN-SUFFIX,amazon-adsystem.com
 DOMAIN-SUFFIX,skarb.club
 DOMAIN-SUFFIX,skarb.work
 DOMAIN-SUFFIX,amplitude.com
+DOMAIN-SUFFIX,fivecdm.com
+DOMAIN-SUFFIX,doubleverify.com
+DOMAIN,ep7.facebook.com
 DOMAIN,amap-aos-info-nogw.amap.com
 DOMAIN,free-aos-cdn-image.amap.com
 DOMAIN-SUFFIX,v.smtcdns.com
