@@ -242,7 +242,7 @@ EMS中国邮政物流速递去广告 = type=http-response, pattern=^https:\/\/um
 
 茶颜悦色去广告 = type=http-response, pattern=^https:\/\/miniapp\.sexytea2013\.com\/cms\/slot\/queryByCodes\?codes=INDEX_TOP_BANNER, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/chayanyuese_remove_ads.js, requires-body=true
 
-COCO点单去广告 = type=http-response, pattern=^https:\/\/coco-com\.e\.verystar\.net\/v1\/home\/info, script-path=https://kelee.one/Resource/JavaScript/WexinMiniPrograms/coco/coco.js, requires-body=true
+COCO点单去广告 = type=http-response, pattern=^https:\/\/coco-com\.e\.verystar\.net\/v1\/home\/info, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/coco.js, requires-body=true
 
 滴滴青桔去广告 = type=http-response, pattern=^https:\/\/htwkop\.xiaojukeji\.com\/gateway\?api=hm\.fa\.homeConfig, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/qingju.js, requires-body=true
 
@@ -250,7 +250,7 @@ COCO点单去广告 = type=http-response, pattern=^https:\/\/coco-com\.e\.veryst
 
 M Stand去广告 = type=http-response, pattern=^https:\/\/api\.prod\.dj\.mstand\.cn\/scrm\/mini\/app\/index\/info, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/M_Stand.js, requires-body=true
 
-T3出行去广告 = type=http-response, pattern=^https:\/\/passenger\.t3go\.cn\/(solution\-|common\-)?(passenger\-)?(activity\-|app\-)?api\/notoken\/(trip\/)?api\/(home\/|common\/)?(v[1-3]\/)?(ad\/getNegativescreen|solution\/passenger\/open\/getHomeMenu|leftmenu|getHomeInfoGlobal), script-path=https://kelee.one/Resource/JavaScript/WexinMiniPrograms/T3/T3.js, requires-body=true
+T3出行去广告 = type=http-response, pattern=^https:\/\/passenger\.t3go\.cn\/(solution\-|common\-)?(passenger\-)?(activity\-|app\-)?api\/notoken\/(trip\/)?api\/(home\/|common\/)?(v[1-3]\/)?(ad\/getNegativescreen|solution\/passenger\/open\/getHomeMenu|leftmenu|getHomeInfoGlobal), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/T3.js, requires-body=true
 
 古茗去广告 = type=http-response, pattern=^https:\/\/newton\.gumingnc\.com\/newton-buyer\/newton\/buyer\/(ump|touch|external\/front), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/ming.js, requires-body=true
 
