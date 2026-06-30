@@ -218,8 +218,13 @@ DOMAIN,nadvideo2.baidu.com
 DOMAIN,wn.pos.baidu.com
 DOMAIN,miniapp-ad.cdn.bcebos.com
 DOMAIN,mobads-pre-config.cdn.bcebos.com
+DOMAIN,hm.baidu.com
+DOMAIN,api.map.baidu.com
+DOMAIN,dlswbr.baidu.com
+DOMAIN,miao.baidu.com
 DOMAIN-SUFFIX,union.baidu.cn
 DOMAIN-SUFFIX,union.baidu.com
+DOMAIN,tdid.m.qq.com
 DOMAIN,adsmind.gdtimg.com
 DOMAIN,adsmind.ugdtimg.com
 DOMAIN,ads.privacy.qq.com
@@ -337,6 +342,7 @@ DOMAIN,logrcv.aiclk.com
 DOMAIN,acjs.aliyun.com
 DOMAIN,retcode.alicdn.com
 DOMAIN,arms-retcode.aliyuncs.com
+DOMAIN-SUFFIX,iytcdn.com
 DOMAIN,huichuan.sm.cn
 DOMAIN,huichuan-mc.sm.cn
 DOMAIN,api.sm.cn
@@ -463,6 +469,8 @@ DOMAIN-SUFFIX,skarb.work
 DOMAIN-SUFFIX,amplitude.com
 DOMAIN-SUFFIX,fivecdm.com
 DOMAIN-SUFFIX,doubleverify.com
+DOMAIN-SUFFIX,tobidad.cn
+DOMAIN-SUFFIX,tobidad.com
 DOMAIN,ep7.facebook.com
 DOMAIN,amap-aos-info-nogw.amap.com
 DOMAIN,free-aos-cdn-image.amap.com
