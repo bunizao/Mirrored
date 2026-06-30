@@ -1,0 +1,25 @@
+#!name=百度翻译去广告
+#!desc=移除开屏广告、横幅广告，精简我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BaiduTranslate.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id605670941
+#!category=去广告
+#!loon_version=3.4.0(962)
+#!homepage=https://hub.kelee.one
+#!date=2026-06-30 23:28:03
+
+[URL Rewrite]
+^https:\/\/fanyi-app\.baidu\.com\/static\/react-activity\/page\/courseBoutique\.html\? - reject
+
+[Map Local]
+^https:\/\/fanyi-app\.baidu\.com\/transapp\/v2\/api\/launch\/config\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_13 = type=http-response, pattern=^https:\/\/fanyi-app\.baidu\.com\/transapp\/comment\/my\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.taskBanner%22%2C%22data.act%22%5D%5D%5D
+
+body_rewrite_14 = type=http-response, pattern=^https:\/\/fanyi-app\.baidu\.com\/transapp\/recitewd\/myplan\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.activityRec%22%2C%22data.activityRecList%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% fanyi-app.baidu.com
+
