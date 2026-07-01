@@ -144,6 +144,7 @@ IP-CIDR,81.71.61.216/32,no-resolve
 DOMAIN,httpdns.immomo.com
 URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d+\/httpdns\/"
 URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\]:\d+\/httpdns\/"
+DOMAIN,httpdns.zybang.com
 DOMAIN-KEYWORD,adstrategy
 AND,((DOMAIN-KEYWORD,tnc),(OR,((DOMAIN-SUFFIX,capcutapi.com),(DOMAIN-SUFFIX,zijieapi.com),(DOMAIN-SUFFIX,isnssdk.com),(DOMAIN-SUFFIX,toutiaoapi.com),(DOMAIN-SUFFIX,bytedance.com),(DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,sgsnssdk.com))))
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com))
@@ -444,6 +445,7 @@ DOMAIN-SUFFIX,adshenshi.com
 DOMAIN-SUFFIX,qidianad.com
 DOMAIN-SUFFIX,kuaichuanad.com
 DOMAIN-SUFFIX,statisticslinks.com
+DOMAIN,adx.zuoyebang.com
 DOMAIN-SUFFIX,tradplusad.com
 DOMAIN-SUFFIX,fancyapi.com
 DOMAIN-SUFFIX,medproad.com
