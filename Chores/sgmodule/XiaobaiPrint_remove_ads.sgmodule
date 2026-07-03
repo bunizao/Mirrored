@@ -1,0 +1,26 @@
+#!name=小白智慧打印去广告
+#!desc=移除开屏广告、首页推广金刚位、热门内容推荐、横幅广告、搜索填充词、搜索发现，精简我的页面。账户页面错误是已知问题，无需反馈。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/XiaobaiPrint.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1505946846
+#!category=去广告
+#!loon_version=3.4.0(962)
+#!homepage=https://hub.kelee.one
+#!date=2026-07-03 10:43:28
+
+[Rule]
+DOMAIN,ad.lovefree.cc,REJECT
+DOMAIN-SUFFIX,adwanji.com,REJECT
+
+[Map Local]
+^https:\/\/epbox\.gongfudou\.com\/big_data\/v\d\/banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/epbox\.gongfudou\.com\/big_data\/v\d\/canvas\/query_actions\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_15 = type=http-response, pattern=^https:\/\/epbox\.gongfudou\.com\/graphql$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.mallConsumables%22%2C%22data.currentUser.goodsCoupons%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% epbox.gongfudou.com
+
