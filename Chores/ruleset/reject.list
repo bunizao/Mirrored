@@ -204,6 +204,9 @@ DOMAIN-SUFFIX,popadshop.com
 DOMAIN-SUFFIX,admobile.vip
 DOMAIN-SUFFIX,yksdks.com
 DOMAIN-SUFFIX,dutils.com
+DOMAIN,init.sms.mob.com
+DOMAIN,sdkapi.sms.mob.com
+DOMAIN,code.sms.mob.com
 DOMAIN-SUFFIX,mob.com
 DOMAIN,smartop-sdkapi.jiguang.cn
 DOMAIN,sdk.verification.jiguang.cn
@@ -452,6 +455,11 @@ DOMAIN-SUFFIX,kuaichuanad.com
 DOMAIN-SUFFIX,statisticslinks.com
 DOMAIN,adx.zuoyebang.com
 DOMAIN-SUFFIX,cxwlad.com
+DOMAIN-SUFFIX,ad.gameley.com
+DOMAIN-SUFFIX,yiweiads.com
+DOMAIN-SUFFIX,adx.52qumao.com
+DOMAIN-SUFFIX,hzjizhun.cn
+DOMAIN-SUFFIX,hzjizhun.com
 DOMAIN-SUFFIX,tradplusad.com
 DOMAIN-SUFFIX,fancyapi.com
 DOMAIN-SUFFIX,medproad.com
