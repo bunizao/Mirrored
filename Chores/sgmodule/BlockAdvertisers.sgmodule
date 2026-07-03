@@ -6,7 +6,7 @@
 #!category=去广告, 依赖
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
-#!date=2026-07-03 00:40:22
+#!date=2026-07-03 09:14:56
 
 [Rule]
 DOMAIN-KEYWORD,adstrategy,REJECT
@@ -67,6 +67,8 @@ DOMAIN-SUFFIX,admobile.vip,REJECT
 DOMAIN-SUFFIX,yksdks.com,REJECT
 DOMAIN-SUFFIX,dutils.com,REJECT
 DOMAIN-SUFFIX,mob.com,REJECT
+DOMAIN,smartop-sdkapi.jiguang.cn,DIRECT
+DOMAIN,sdk.verification.jiguang.cn,DIRECT
 DOMAIN-SUFFIX,jiguang.cn,REJECT
 DOMAIN-SUFFIX,jpush.cn,REJECT
 DOMAIN-SUFFIX,jpush.io,REJECT

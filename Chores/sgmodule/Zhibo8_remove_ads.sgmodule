@@ -1,0 +1,38 @@
+#!name=直播吧去广告
+#!desc=移除信息流广告、横幅广告、弹窗广告、皮肤配置、悬浮挂件、热门搜索，移除青少年模式，精简我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Zhibo8.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1228058501
+#!category=去广告
+#!loon_version=3.4.0(962)
+#!homepage=https://hub.kelee.one
+#!date=2026-07-03 08:23:50
+
+[Map Local]
+^https:\/\/rn\.qiumibao\.com\/news\/relation\.php$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/guess\.qiumibao\.com\/api\/c\/notice$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/guess\.qiumibao\.com\/api\/c\/pop$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/guess\.qiumibao\.com\/api\/ep\/pop$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/guess\.qiumibao\.com\/api\/c\/banner$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/search\.qiumibao\.com\/hot\/word_list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_14 = type=http-response, pattern=^https:\/\/a\.qiumibao\.com\/ios\/config\/\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22skin%22%2C%22advert%22%2C%22advert_config%22%2C%22mall%22%2C%22httpdns%22%2C%22reward%22%2C%22pgame%22%2C%22corner_mark%22%2C%22liveshop%22%2C%22theme%22%2C%22pop%22%2C%22live_activity_push%22%5D%5D%5D
+
+body_rewrite_21 = type=http-response, pattern=^https:\/\/guess\.qiumibao\.com\/api\/n\/rcd$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banner%22%5D%5D%5D
+
+body_rewrite_22 = type=http-response, pattern=^https:\/\/pre-match\.qiumibao\.com\/pre_match_data\/v\d\/\d+-\d+-\d+\/\d+_fund\.htm\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22'del(.data%5B%5D%22%2C%22%7C%22%2C%22select(.type%22%2C%22%3D%3D%22%2C%22%5C%22guide%5C%22))'%22%5D%5D%5D
+
+body_rewrite_23 = type=http-response, pattern=^https:\/\/guess\.qiumibao\.com\/api\/c\/menu$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.banner%22%5D%5D%5D
+
+body_rewrite_24 = type=http-response, pattern=^https:\/\/s\.qiumibao\.com\/m\/ios\/json\/zhibo\/zuqiu\/\d+\/match\d+vl\.htm\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22ep_v2%22%2C%22ep_live%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% headline.qiumibao.com, a.qiumibao.com, rn.qiumibao.com, guess.qiumibao.com, s.qiumibao.com, pre-match.qiumibao.com, search.qiumibao.com
+
