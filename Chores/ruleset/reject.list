@@ -147,6 +147,7 @@ DOMAIN,httpdns.immomo.com
 URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d+\/httpdns\/"
 URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\]:\d+\/httpdns\/"
 DOMAIN,httpdns.zybang.com
+IP-CIDR6,2407:c080:802:9fe:e09b:a0e2:44ea/128,no-resolve
 DOMAIN-KEYWORD,adstrategy
 AND,((DOMAIN-KEYWORD,tnc),(OR,((DOMAIN-SUFFIX,capcutapi.com),(DOMAIN-SUFFIX,zijieapi.com),(DOMAIN-SUFFIX,isnssdk.com),(DOMAIN-SUFFIX,toutiaoapi.com),(DOMAIN-SUFFIX,bytedance.com),(DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,sgsnssdk.com))))
 AND,((DOMAIN-KEYWORD,-ad-),(DOMAIN-SUFFIX,byteimg.com))
@@ -368,7 +369,6 @@ DOMAIN,dsp-x.jd.com
 DOMAIN,im-x.jd.com
 DOMAIN,xlog.jd.com
 DOMAIN,janapi.jd.com
-DOMAIN,dg.k.jd.com
 DOMAIN-SUFFIX,toponadss.com
 DOMAIN-SUFFIX,toponad.com
 DOMAIN-SUFFIX,motowoo.com
@@ -460,6 +460,7 @@ DOMAIN-SUFFIX,yiweiads.com
 DOMAIN-SUFFIX,adx.52qumao.com
 DOMAIN-SUFFIX,hzjizhun.cn
 DOMAIN-SUFFIX,hzjizhun.com
+DOMAIN-SUFFIX,sogaha.cn
 DOMAIN-SUFFIX,tradplusad.com
 DOMAIN-SUFFIX,fancyapi.com
 DOMAIN-SUFFIX,medproad.com
