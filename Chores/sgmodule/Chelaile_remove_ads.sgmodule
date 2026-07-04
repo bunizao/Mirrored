@@ -7,7 +7,7 @@
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
-#!date=2026-07-04 19:55:41
+#!date=2026-07-04 19:58:28
 
 [Rule]
 DOMAIN,ad.chelaile.net.cn,REJECT
@@ -17,8 +17,6 @@ DOMAIN,ad.chelaile.net.cn,REJECT
 
 [Map Local]
 ^https:\/\/image3\.chelaile\.net\.cn\/hw6u6LYY\.png$ data-type=tiny-gif status-code=200
-
-^https:\/\/api\.chelaile\.net\.cn\/bus\/stop!encryptedHomePage\.action\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/api\.chelaile\.net\.cn\/goocity\/flowPos\/home\? data-type=text data="**YGKJ{"jsonr":{"status":"00","data":{"advertList":[{"id":106,"title":"站点地图","iconUrl":"https://image3.chelaile.net.cn/89iIqxaM.png","linkUrl":"","adType":5,"showRedDot":0,"updateTime":0,"appId":"","appPath":"","bubbleOrder":0,"h5Type":0},{"id":1,"title":"地铁","iconUrl":"https://image3.chelaile.net.cn/rewrLCWY.png","linkUrl":"https://web.chelaile.net.cn/metro/index.html?h5_stats_referer=icon","adType":2,"showRedDot":0,"updateTime":0,"appId":"","appPath":"","bubbleOrder":0,"h5Type":0}]}YGKJ##" status-code=200 header="Content-Type:application/json"
 
