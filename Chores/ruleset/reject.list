@@ -525,5 +525,5 @@ DOMAIN,api.biliapi.com
 DOMAIN,app.biliapi.com
 DOMAIN,api.biliapi.net
 DOMAIN,app.biliapi.net
-AND,((DOMAIN-SUFFIX,chat.bilibili.com),(OR,((DOMAIN-KEYWORD,stun),(DOMAIN-KEYWORD,tracker))))
+AND,((DOMAIN-SUFFIX,chat.bilibili.com),(OR,((DOMAIN-KEYWORD,stun),(DOMAIN-KEYWORD,tracker),(DOMAIN-KEYWORD,p2p))))
 DOMAIN,ad.12306.cn
