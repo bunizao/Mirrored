@@ -7,7 +7,7 @@
 #!category=去广告
 #!loon_version=3.5.0(969)
 #!homepage=https://hub.kelee.one
-#!date=2026-07-11 19:18:14
+#!date=2026-07-11 20:21:39
 
 [Rule]
 AND,((URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/d(\d)?"),(USER-AGENT,"*com.xunmeng.pinduoduo*")),REJECT
@@ -68,10 +68,6 @@ DOMAIN,apm-a.pinduoduo.com,REJECT
 ^https:\/\/api\.pinduoduo\.com\/api\/buffon\/nasus\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v2\/query\/goods_detail_with_tags\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v\d\/query\/push_express\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/api\.pinduoduo\.com\/api\/alexa\/cells\/hub\/v\d\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 body_rewrite_50 = type=http-response, pattern=^https:\/\/api\.pinduoduo\.com\/api\/alexa\/homepage\/hub\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22result.dy_module.irregular_banner_dy%22%2C%22result.icon_set%22%2C%22result.search_bar_hot_query%22%2C%22result.dy_module.irregular_banner_dy%22%5D%5D%5D

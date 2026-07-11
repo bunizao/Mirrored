@@ -1,107 +1,101 @@
 /*
 https://t.me/ibilibili
-2026-07-11 19:18:08
+2026-07-11 20:05:34
 */
-
 let body = $response.body || "";
 
-const KEEP_SERVER_DATA_KEYS = new Set([
-  "fastBindCMobilePreCheck",
-  "queryStationPackageInfo",
-]);
+const oldChunk = "https://pfile.pddpic.com/mdkd/mdkd/_next/static/chunks/9410-b8806e870a26db7d.js";
+const newChunk = "https://kelee.one/Resource/JavaScript/PinDuoDuo/9410-b8806e870a26db7d.js";
 
-function removeGifContainers(html) {
-  const classMarker = 'class="index_gif-container';
-  let searchFrom = 0;
+function replaceAllText(text, from, to) {
+  let pos = text.indexOf(from);
+  while (pos !== -1) {
+    text = text.slice(0, pos) + to + text.slice(pos + from.length);
+    pos = text.indexOf(from, pos + to.length);
+  }
+  return text;
+}
 
-  while (true) {
-    const classIndex = html.indexOf(classMarker, searchFrom);
-    if (classIndex === -1) break;
+function removeGifContainer(html) {
+  const marker = "index_gif-container";
+  let pos = html.indexOf(marker);
 
-    const divStart = html.lastIndexOf("<div", classIndex);
-    if (divStart === -1) {
-      searchFrom = classIndex + classMarker.length;
-      continue;
+  while (pos !== -1) {
+    const open = html.lastIndexOf("<div", pos);
+    if (open === -1) break;
+
+    let i = open;
+    let depth = 0;
+    let end = -1;
+
+    while (i < html.length) {
+      const nextOpen = html.indexOf("<div", i);
+      const nextClose = html.indexOf("</div>", i);
+      if (nextClose === -1) break;
+
+      if (nextOpen !== -1 && nextOpen < nextClose) {
+        depth++;
+        i = nextOpen + 4;
+      } else {
+        depth--;
+        i = nextClose + 6;
+        if (depth === 0) {
+          end = i;
+          break;
+        }
+      }
     }
 
-    const openTagEnd = html.indexOf(">", divStart);
-    if (openTagEnd === -1 || openTagEnd < classIndex) {
-      searchFrom = classIndex + classMarker.length;
-      continue;
-    }
+    if (end === -1) break;
 
-    const divEnd = findElementEnd(html, divStart);
-    if (divEnd === -1) {
-      searchFrom = classIndex + classMarker.length;
-      continue;
-    }
-
-    html = html.slice(0, divStart) + html.slice(divEnd);
-    searchFrom = divStart;
+    html = html.slice(0, open) + html.slice(end);
+    pos = html.indexOf(marker, open);
   }
 
   return html;
 }
 
-function findElementEnd(html, startIndex) {
-  let index = startIndex;
-  let depth = 0;
-
-  while (index < html.length) {
-    const nextOpen = html.indexOf("<div", index);
-    const nextClose = html.indexOf("</div>", index);
-
-    if (nextClose === -1) return -1;
-
-    if (nextOpen !== -1 && nextOpen < nextClose) {
-      depth += 1;
-      index = nextOpen + 4;
-      continue;
-    }
-
-    depth -= 1;
-    index = nextClose + 6;
-
-    if (depth === 0) return index;
-  }
-
-  return -1;
-}
-
 function trimNextData(html) {
-  const scriptStart = html.indexOf('<script id="__NEXT_DATA__"');
-  if (scriptStart === -1) return html;
+  const idNeedle = 'id="__NEXT_DATA__"';
+  const idPos = html.indexOf(idNeedle);
+  if (idPos === -1) return html;
 
-  const openEnd = html.indexOf(">", scriptStart);
-  if (openEnd === -1) return html;
+  const tagStart = html.lastIndexOf("<script", idPos);
+  if (tagStart === -1) return html;
 
-  const scriptEnd = html.indexOf("</script>", openEnd);
-  if (scriptEnd === -1) return html;
+  const contentStart = html.indexOf(">", tagStart);
+  if (contentStart === -1) return html;
 
-  const rawJson = html.slice(openEnd + 1, scriptEnd);
+  const tagEnd = html.indexOf("</script>", contentStart);
+  if (tagEnd === -1) return html;
+
+  const jsonText = html.slice(contentStart + 1, tagEnd);
 
   try {
-    const data = JSON.parse(rawJson);
-    const serverData = data?.props?.pageProps?.serverData;
+    const data = JSON.parse(jsonText);
+    const serverData = data &&
+      data.props &&
+      data.props.pageProps &&
+      data.props.pageProps.serverData;
 
     if (Array.isArray(serverData)) {
-      data.props.pageProps.serverData = serverData.filter((item) =>
-        KEEP_SERVER_DATA_KEYS.has(item && item.key)
+      data.props.pageProps.serverData = serverData.filter(item =>
+        item &&
+        (item.key === "fastBindCMobilePreCheck" ||
+         item.key === "queryStationPackageInfo")
       );
     }
 
-    return (
-      html.slice(0, openEnd + 1) +
+    return html.slice(0, contentStart + 1) +
       JSON.stringify(data) +
-      html.slice(scriptEnd)
-    );
+      html.slice(tagEnd);
   } catch (e) {
-    console.log("__NEXT_DATA__ parse failed: " + e.message);
     return html;
   }
 }
 
-body = removeGifContainers(body);
+body = replaceAllText(body, oldChunk, newChunk);
+body = removeGifContainer(body);
 body = trimNextData(body);
 
 $done({ body });
