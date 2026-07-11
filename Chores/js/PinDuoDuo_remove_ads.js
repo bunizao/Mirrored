@@ -1,32 +1,107 @@
-// 脚本引用 https://raw.githubusercontent.com/RuCu6/Loon/refs/heads/main/Scripts/pdd.js
-// 2024-11-06 04:20
+/*
+https://t.me/ibilibili
+2026-07-11 19:18:08
+*/
 
-const url = $request.url;
-if (!$response.body) $done({});
-let obj = JSON.parse($response.body);
+let body = $response.body || "";
 
-if (url.includes("/api/alexa/homepage/hub")) {
-  // 底部标签栏
-  if (obj?.result) {
-    if (obj?.result?.bottom_tabs?.length > 0) {
-      // 标签栏1
-      obj.result.bottom_tabs = obj.result.bottom_tabs.filter((i) => /(?:chat_list|index|personal)/.test(i?.link));
+const KEEP_SERVER_DATA_KEYS = new Set([
+  "fastBindCMobilePreCheck",
+  "queryStationPackageInfo",
+]);
+
+function removeGifContainers(html) {
+  const classMarker = 'class="index_gif-container';
+  let searchFrom = 0;
+
+  while (true) {
+    const classIndex = html.indexOf(classMarker, searchFrom);
+    if (classIndex === -1) break;
+
+    const divStart = html.lastIndexOf("<div", classIndex);
+    if (divStart === -1) {
+      searchFrom = classIndex + classMarker.length;
+      continue;
     }
-    if (obj?.result?.buffer_bottom_tabs?.length > 0) {
-      // 标签栏2
-      obj.result.buffer_bottom_tabs = obj.result.buffer_bottom_tabs.filter((i) => /(?:chat_list|index|personal)/.test(i?.link));
+
+    const openTagEnd = html.indexOf(">", divStart);
+    if (openTagEnd === -1 || openTagEnd < classIndex) {
+      searchFrom = classIndex + classMarker.length;
+      continue;
     }
-    if (obj?.result?.dy_module?.irregular_banner_dy) {
-      delete obj.result.dy_module.irregular_banner_dy; // 首页 顶部banner
+
+    const divEnd = findElementEnd(html, divStart);
+    if (divEnd === -1) {
+      searchFrom = classIndex + classMarker.length;
+      continue;
     }
-    // delete obj.result.icon_set; // 顶部图标 多多买菜 现金大转盘
-    if (obj?.result?.search_bar_hot_query) {
-      delete obj.result.search_bar_hot_query; // 搜索框填充词
+
+    html = html.slice(0, divStart) + html.slice(divEnd);
+    searchFrom = divStart;
+  }
+
+  return html;
+}
+
+function findElementEnd(html, startIndex) {
+  let index = startIndex;
+  let depth = 0;
+
+  while (index < html.length) {
+    const nextOpen = html.indexOf("<div", index);
+    const nextClose = html.indexOf("</div>", index);
+
+    if (nextClose === -1) return -1;
+
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth += 1;
+      index = nextOpen + 4;
+      continue;
     }
-    if (obj?.result?.top_skin) {
-      delete obj.result.top_skin; // 首页 顶部背景图
+
+    depth -= 1;
+    index = nextClose + 6;
+
+    if (depth === 0) return index;
+  }
+
+  return -1;
+}
+
+function trimNextData(html) {
+  const scriptStart = html.indexOf('<script id="__NEXT_DATA__"');
+  if (scriptStart === -1) return html;
+
+  const openEnd = html.indexOf(">", scriptStart);
+  if (openEnd === -1) return html;
+
+  const scriptEnd = html.indexOf("</script>", openEnd);
+  if (scriptEnd === -1) return html;
+
+  const rawJson = html.slice(openEnd + 1, scriptEnd);
+
+  try {
+    const data = JSON.parse(rawJson);
+    const serverData = data?.props?.pageProps?.serverData;
+
+    if (Array.isArray(serverData)) {
+      data.props.pageProps.serverData = serverData.filter((item) =>
+        KEEP_SERVER_DATA_KEYS.has(item && item.key)
+      );
     }
+
+    return (
+      html.slice(0, openEnd + 1) +
+      JSON.stringify(data) +
+      html.slice(scriptEnd)
+    );
+  } catch (e) {
+    console.log("__NEXT_DATA__ parse failed: " + e.message);
+    return html;
   }
 }
 
-$done({ body: JSON.stringify(obj) });
+body = removeGifContainers(body);
+body = trimNextData(body);
+
+$done({ body });
