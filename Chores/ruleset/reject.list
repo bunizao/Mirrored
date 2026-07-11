@@ -340,6 +340,7 @@ AND,((DOMAIN-KEYWORD,adash),(DOMAIN-SUFFIX,ut.taobao.com))
 URL-REGEX,"^http:\/\/.+\/amdc\/mobileDispatch"
 DOMAIN,baichuan-sdk.alicdn.com
 DOMAIN,acs4baichuan.m.taobao.com
+DOMAIN,nbsdk-baichuan.alicdn.com
 DOMAIN,api.sm.cn
 DOMAIN,c.sm.cn
 DOMAIN,content-understand-strategy.sm.cn
