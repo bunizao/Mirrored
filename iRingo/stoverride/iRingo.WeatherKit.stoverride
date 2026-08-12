@@ -2,19 +2,21 @@ name: " iRingo: 🌤 WeatherKit"
 desc: |-
   iOS 18 & macOS 15 & watchOS 11
   1.解锁全部天气功能
-  2.替换空气质量数据
-  3.添加下一小时降水数据
-  4.添加天气数据
+  2.修改空气质量数据
+  3.修改下一小时降水数据
+  4.修改天气数据
+  5.修改天气预警数据
 openUrl: "http://boxjs.com/#/app/iRingo.WeatherKit"
 author: |-
   VirgilClyne[https://github.com/VirgilClyne]
   WordlessEcho[https://github.com/WordlessEcho]
   001[https://github.com/001ProMax]
+  hhh2210[https://github.com/hhh2210]
 homepage: "https://NSRingo.github.io/guide/Weather/weather-kit"
 icon: "https://developer.apple.com/assets/elements/icons/weatherkit/weatherkit-128x128.png"
 category: " iRingo"
-date: "2026-08-03 09:10:30"
-version: "3.2.0"
+date: "2026-08-12 02:22:36"
+version: "3.2.1"
 
 rules:
   - DOMAIN,weather-analytics-events.apple.com,REJECT-DROP
@@ -43,11 +45,11 @@ http:
       argument:
 script-providers:
   WeatherKit.api.v1.availability.response:
-    url: https://github.com/NSRingo/WeatherKit/releases/download/v3.2.0/response.bundle.js
+    url: https://github.com/NSRingo/WeatherKit/releases/download/v3.2.1/response.bundle.js
     interval: 86400
   WeatherKit.api.v1.weatherAlerts.request:
-    url: https://github.com/NSRingo/WeatherKit/releases/download/v3.2.0/request.bundle.js
+    url: https://github.com/NSRingo/WeatherKit/releases/download/v3.2.1/request.bundle.js
     interval: 86400
   WeatherKit.api.v2.weather.response:
-    url: https://github.com/NSRingo/WeatherKit/releases/download/v3.2.0/response.bundle.js
+    url: https://github.com/NSRingo/WeatherKit/releases/download/v3.2.1/response.bundle.js
     interval: 86400
