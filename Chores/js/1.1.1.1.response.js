@@ -1,3 +1,2 @@
-<html><body><h1>503 Service Unavailable</h1>
-No server is available to handle this request.
-</body></html>
+429: Too Many Requests
+For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service).
