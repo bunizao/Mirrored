@@ -246,7 +246,7 @@ COCO点单去广告 = type=http-response, pattern=^https:\/\/coco-com\.e\.veryst
 
 滴滴青桔去广告 = type=http-response, pattern=^https:\/\/htwkop\.xiaojukeji\.com\/gateway\?api=hm\.fa\.homeConfig, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/qingju.js, requires-body=true
 
-一点点+去广告 = type=http-response, pattern=^https:\/\/cappapi\.alittle-tea\.com\/open\?method=catering\.set\.ad, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/alittle-tea.js, requires-body=true
+一点点+去广告 = type=http-response, pattern=^https:\/\/cappapi\.alittle-tea\.com\/open\?method=catering\.set\.ad, script-path=https://kelee.one/Resource/JavaScript/WexinMiniPrograms/alittle-tea/alittle-tea.js, requires-body=true
 
 M Stand去广告 = type=http-response, pattern=^https:\/\/api\.prod\.dj\.mstand\.cn\/scrm\/mini\/app\/index\/info, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/M_Stand.js, requires-body=true
 
