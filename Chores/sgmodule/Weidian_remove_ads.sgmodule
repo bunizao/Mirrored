@@ -1,5 +1,5 @@
 #!name=微店去广告
-#!desc=移除开屏广告、弹窗广告、猜你喜欢、猜你想搜、关注推荐，精简我的页面。
+#!desc=移除开屏广告、弹窗广告、猜你喜欢、猜你想搜、关注推荐，精简搜索页和我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Weidian.png
 #!category=🚫 AD Block
@@ -7,7 +7,7 @@
 #!category=去广告
 #!loon_version=3.5.1(980)
 #!homepage=https://hub.kelee.one
-#!date=2026-08-26 07:08:13
+#!date=2026-08-26 07:17:57
 
 [Script]
 配置修改 = type=http-response, pattern=^https:\/\/thor\.weidian\.com\/appconf\/getAppConfig\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/getAppConfig.js, requires-body=true, binary-body-mode=true
