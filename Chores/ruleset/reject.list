@@ -272,6 +272,7 @@ DOMAIN-KEYWORD,ad.hunyuan.tencent.com
 DOMAIN-SUFFIX,gdt.qq.com
 DOMAIN-SUFFIX,l.qq.com
 DOMAIN-SUFFIX,imtmp.net
+DOMAIN-SUFFIX,gdtimg.com
 DOMAIN-SUFFIX,ugdtimg.com
 IP-CIDR,47.110.187.87/32,no-resolve
 DOMAIN-SUFFIX,opadlink.com
