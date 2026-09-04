@@ -7,7 +7,7 @@
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
-#!date=2026-09-03 16:19:24
+#!date=2026-09-04 18:10:18
 
 [Rule]
 DOMAIN,gwp.xiaojukeji.com,REJECT
