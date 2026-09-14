@@ -41,7 +41,7 @@ body_rewrite_16 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/
 
 body_rewrite_20 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/search\/topic\/word\/list\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.hotTopic%22%2C%22data.searchFind%22%2C%22data.globalJumpInfo%22%2C%22data.hotWord%22%5D%5D%5D
 
-body_rewrite_24 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/comments\/v3\/topInfo\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22.data.putao%22%2C%22data.bannerVos%22%5D%5D%5D
+body_rewrite_24 = type=http-response, pattern=^https:\/\/bd-api\.kuwo\.cn\/api\/comments\/v3\/topInfo\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.putao%22%2C%22data.bannerVos%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% bd-api.kuwo.cn
