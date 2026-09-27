@@ -1,0 +1,20 @@
+#!name=WakeUp课程表去广告
+#!desc=移除横幅广告、弹窗广告，精简我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/WakeupSchedule.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1553402284
+#!category=去广告
+#!loon_version=3.4.0(962)
+#!homepage=https://hub.kelee.one
+#!date=2026-07-01 10:56:37
+
+[Map Local]
+^https:\/\/api\.wakeup\.fun\/wakeup\/app\/bannerconf$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_13 = type=http-response, pattern=^https:\/\/api\.wakeup\.fun\/wakeup\/user\/mine$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.bannerItems%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% api.wakeup.fun
+

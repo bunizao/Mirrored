@@ -1,0 +1,26 @@
+#!name=天猫校园去广告
+#!desc=移除广告配置、开屏广告、弹窗广告、AI助手、促销模块，精简我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/TmallCampus.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id6447346132
+#!category=去广告
+#!loon_version=3.4.0(962)
+#!homepage=https://hub.kelee.one
+#!date=2026-06-30 18:13:11
+
+[Map Local]
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.tmall\.campus\.guide\.advertising\.config\.list\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.tmall\.campus\.ai\.agent\.assistant\.settings\.get\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.tmall\.campus\.guide\.delivering\.recall\.general\.data\.query\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.tmall\.campus\.guide\.app\.home\.pop\.get\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_16 = type=http-response, pattern=^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.tmall\.kangaroo\.core\.service\.route\.fixrespagerecommend\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.resultValue.data.normal-banner-resource-code%22%2C%22data.resultValue.data.feeds-channel-code%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% acs.m.taobao.com
+

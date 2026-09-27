@@ -1,0 +1,28 @@
+#!name=中华万年历去广告
+#!desc=移除开屏广告、弹窗、信息流推广，精简我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/EtouchEcalendar.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id505424979
+#!category=去广告
+#!loon_version=3.4.0(962)
+#!homepage=https://hub.kelee.one
+#!date=2026-06-01 17:11:35
+
+[Rule]
+DOMAIN,sdk.ad.sfys365.com,REJECT
+
+[Map Local]
+^https:\/\/client-lz\.rili\.cn\/lizhi\/api\/auth\/voice_room_entrance\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/client-lz\.rili\.cn\/lizhi\/api\/fortune\/question_spots\/panel\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/client-lz\.rili\.cn\/lizhi\/api\/jujia\/flow\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/client-lz\.rili\.cn\/lizhi\/api\/album\/hl_card\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/client-lz\.rili\.cn\/lizhi\/api\/fortune\/overview\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% v0-client-lz.rili.cn, client-lz.rili.cn
+
