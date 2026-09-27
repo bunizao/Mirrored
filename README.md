@@ -1,103 +1,56 @@
-# Mirrored
+# 🪞 Mirrored
 
-> 🪞 **Script & module mirror — for personal use only**
->
-> A single raw host that keeps several open-source projects such as **BiliUniverse**, **DualSubs** and **iRingo** in sync, and serves their assets in formats ready for **Surge / Loon / Stash / Egern / Quantumult X / Shadowrocket**.
-> 
-> 📖 [中文索引](README.zh-CN.md)
+开放模块与脚本的镜像站：自动同步，统一地址，可直接用于 Surge / Egern / Loon / Stash / Quantumult X / Shadowrocket。
+
+📖 **[浏览全部模块 →](README.zh-CN.md)**
 
 ---
 
-## Why this repo exists
+## 为什么是 Mirrored
 
-- **Centralised raw links** – everything lives under one `raw.githubusercontent.com/bunizao/Mirrored` path.
-- **Automated upstream sync** – GitHub Actions pull the latest upstream releases and rebuild combined modules such as `All-in-One-2.x.sgmodule`.
-- **Resilient by design** – when an upstream source is unavailable the last known-good file is kept instead of being deleted.
-- **Personal backup & learning** – meant for experimentation and archival. Long-term availability is *not* guaranteed and commercial use is discouraged.
+许多曾公开托管在 GitHub 上的模块与脚本，正陆续迁往私有部署：不再开放自由访问，请求会被记录详细日志，部分正常用户也会被拦截。依赖它们的配置随时可能失效，使用痕迹也可能在不知不觉中暴露。
+
+开源生态正在收紧。本为规避审查而生的社区，正在筑起一道道高墙。
+
+Mirrored 因此而生。它像一座互联网档案馆，持续镜像并同步这些资源，让脚本不再受制于单一源站或政策变化。
+
+这并不容易：审查、封锁、反爬与私有化都在让开放的镜像越来越难维持。但正因如此，才更需要有人去做。
+
+Mirrored 不是对抗，而是守护。无论生态如何收紧，我们都希望为开发者与爱好者留下一个仍能信任、仍能访问、仍能延续的地方。
 
 ---
 
-## Quick start
+## 快速开始
 
-In Surge / Stash / Loon choose **Modules ▶ Install from URL** and paste:
+推荐的去广告合集，在 App 中「从 URL 安装模块」：
 
 ```text
 https://raw.githubusercontent.com/bunizao/Mirrored/main/Chores/sgmodule/All-in-One-2.x.sgmodule
 ```
 
----
+其他模块请看 **[中文索引](README.zh-CN.md)**，每个模块都附有说明和链接。
 
-## Repository layout
+## 收录内容
 
-| Path | Contents | Produced by |
-|------|----------|-------------|
-| `BiliUniverse/` | Bilibili modules from [BiliUniverse](https://github.com/BiliUniverse) releases | `sync-releases` |
-| `DualSubs/` | Dual-language subtitle modules from [DualSubs](https://github.com/DualSubs) releases | `sync-releases` |
-| `iRingo/` | Apple service modules from [NSRingo](https://github.com/NSRingo) releases, split into `plugin/`, `sgmodule/`, `snippet/`, `stoverride/` | `sync-releases` |
-| `Chores/sgmodule/` | Surge modules converted from the Loon plugin catalog, plus the combined `All-in-One-2.x.sgmodule` | `build-modules`, `build-aio` |
-| `Chores/js/` | Mirrored copies of the scripts those modules load | `build-modules` |
-| `Chores/ruleset/reject.list` | Reject rules merged from the All-in-One sources | `build-aio` |
-| `config/` | What to mirror and how (see below) | — |
-| `src/mirrored/` | The Python tooling behind every workflow | — |
+| 目录 | 内容 | 上游 |
+| --- | --- | --- |
+| [`Chores/`](Chores) | 去广告与工具模块、去广告规则集、脚本镜像 | 社区作者 |
+| [`BiliUniverse/`](BiliUniverse) | 哔哩哔哩增强 | [BiliUniverse](https://github.com/BiliUniverse) |
+| [`DualSubs/`](DualSubs) | 流媒体双语字幕 | [DualSubs](https://github.com/DualSubs) |
+| [`iRingo/`](iRingo) | Apple 服务增强 | [NSRingo](https://github.com/NSRingo) |
 
-Files under the output directories are generated; edit `config/` instead.
+每个镜像文件开头都有一行 `# 🪞 Mirrored` 注释，标明它的上游来源。
 
 ---
 
-## Automation
+## 致谢
 
-| Workflow | Schedule | What it does |
-|----------|----------|--------------|
-| [`sync-releases.yml`](.github/workflows/sync-releases.yml) | every 25 min | Mirrors the latest release assets of the repositories in `config/releases.yaml`. Renamed upstream repositories are followed automatically. Files upstream no longer publishes are listed in the job summary; run it manually with `prune` to delete them. |
-| [`build-modules.yml`](.github/workflows/build-modules.yml) | every 25 min, and on config changes | Downloads every plugin in the catalog (directly with a Surge User-Agent, falling back to `PROXY_BASE`), converts them through a local Script-Hub container, mirrors external scripts the same way, rebuilds the All-in-One module and notifies `bunizao/TutuBetterRules` when it changes. Pull requests touching the pipeline get a full dry run. |
-| [`ci.yml`](.github/workflows/ci.yml) | pull requests | Ruff, pytest and actionlint. |
+感谢 BiliUniverse、DualSubs、iRingo 的作者，以及每一位独立脚本作者。
 
-Upstream outages show up as warnings and in each run's job summary; they never delete existing files. A run only fails when it cannot do its job at all (for example, every upstream failed or an All-in-One source is missing).
+## 声明
 
-Workflows started manually from a branch other than `main` are dry runs: they report what would change without pushing.
+1. 仅供学习与个人备份使用，使用者自行承担由此产生的一切责任。
+2. 所有模块与脚本的版权归原作者所有。
+3. 如有侵权，请提交 issue 或邮件联系，将及时删除。
 
-Repository settings used by `build-modules`:
-
-| Name | Kind | Purpose |
-|------|------|---------|
-| `PROXY_BASE` | variable | Fallback prefix for plugin and script downloads when the direct request fails, e.g. `https://proxy.example/?url=` |
-| `LIST_URL_PRIMARY`, `LIST_URL_BACKUP` | variables | Override the plugin catalog URL (default in `config/modules.yaml`) |
-| `DISPATCH_TOKEN` | secret | Token allowed to send `repository_dispatch` to `bunizao/TutuBetterRules` |
-
----
-
-## Configuration
-
-- [`config/releases.yaml`](config/releases.yaml) – upstream repositories, where each asset type goes, extra files and forced module arguments.
-- [`config/modules.yaml`](config/modules.yaml) – plugin catalog, Script-Hub conversion and script mirroring settings.
-- [`config/index.yaml`](config/index.yaml) – layout of the Chinese index page `README.zh-CN.md`, built from the plugin catalog metadata (`Chores/catalog.json`) and each file's own header.
-- [`config/aio.yaml`](config/aio.yaml) – modules merged into `All-in-One-2.x.sgmodule`, rendered with [`config/templates/`](config/templates).
-
----
-
-## Development
-
-Requires [uv](https://docs.astral.sh/uv/).
-
-```sh
-uv sync                                   # install dependencies
-uv run mirrored sync-releases --only DualSubs
-uv run mirrored build-aio
-uv run mirrored build-index                    # regenerate the Chinese index page
-docker run -d --rm --network host xream/script-hub   # Script-Hub on :9101 for build-modules
-uv run mirrored build-modules
-uv run pytest && uv run ruff check && uv run ruff format --check && uv run actionlint
-```
-
----
-
-## Acknowledgements
-
-- Huge thanks to the authors of BiliUniverse, DualSubs, iRingo, and every independent script contributor.
-- GitHub Actions provides the free CI/CD that makes continuous synchronisation possible.
-
-## Disclaimer 📜
-
-1. For educational and personal backup purposes only. You assume all legal and financial responsibilities arising from use.
-2. Copyright for every mirrored module and script belongs to the original authors.
-3. If any content infringes your rights, please open an issue or email me; it will be removed promptly.
+<sub>维护与开发说明见 [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)。</sub>

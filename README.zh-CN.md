@@ -1,10 +1,8 @@
 # 🪞 Mirrored 中文索引
 
-[![Build modules](https://github.com/bunizao/Mirrored/actions/workflows/build-modules.yml/badge.svg)](https://github.com/bunizao/Mirrored/actions/workflows/build-modules.yml) [![Sync](https://github.com/bunizao/Mirrored/actions/workflows/sync-releases.yml/badge.svg)](https://github.com/bunizao/Mirrored/actions/workflows/sync-releases.yml)
+> 本页随上游自动更新。
 
-> 本页由 `mirrored build-index` 自动生成，请勿手动编辑。
-
-自动同步多个开源项目的模块、插件与脚本，统一托管在同一个 raw 地址下，可直接用于 Surge / Egern / Loon / Stash / Quantumult X。
+开放模块与脚本的镜像，可直接用于 Surge / Egern / Loon / Stash / Quantumult X。项目介绍见 [README](https://github.com/bunizao/Mirrored#readme)。
 
 ## 🚀 快速开始
 
@@ -23,7 +21,7 @@ https://raw.githubusercontent.com/bunizao/Mirrored/main/Chores/sgmodule/All-in-O
 
 ## 🧩 去广告与工具模块 · 274 个
 
-由 Loon 插件经 Script-Hub 转换的 Surge 模块，模块引用的外部脚本已镜像到本仓库。点击名称打开模块链接。
+点击名称打开模块链接。
 
 <details>
 <summary><b>去广告</b> · 253 个</summary>
