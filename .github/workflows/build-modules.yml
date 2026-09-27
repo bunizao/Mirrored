@@ -52,7 +52,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       # Host networking lets Script-Hub read the plugins mirrored serves on 127.0.0.1.
       - name: Start Script-Hub
