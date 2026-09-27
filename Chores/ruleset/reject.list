@@ -73,6 +73,11 @@ IP-CIDR,203.107.1.0/24,no-resolve
 DOMAIN,amdc.alipay.com
 DOMAIN,ucdc.upaas.quark.cn
 DOMAIN,httpdns.danuoyi.tbcache.com
+URL-REGEX,"^http:\/\/amdc\.m\.taobao\.com\/amdc\/mobileDispatchh"
+URL-REGEX,"^http:\/\/47\.246\.103\.9\/amdc\/mobileDispatch"
+URL-REGEX,"^http:\/\/47\.246\.103\.10\/amdc\/mobileDispatch"
+URL-REGEX,"^http:\/\/59\.82\.113\.10\/amdc\/mobileDispatch"
+URL-REGEX,"^http:\/\/59\.82\.113\.219\/amdc\/mobileDispatch"
 DOMAIN,httpdns.cctv.com
 DOMAIN,httpdns-browser.platform.dbankcloud.cn
 DOMAIN,httpdns.huaweicloud.com
@@ -341,7 +346,6 @@ DOMAIN,adash.man.aliyuncs.com
 DOMAIN,applog.uc.cn
 DOMAIN,atoken.m.taobao.com
 AND,((DOMAIN-KEYWORD,adash),(DOMAIN-SUFFIX,ut.taobao.com))
-URL-REGEX,"^http:\/\/.+\/amdc\/mobileDispatch"
 DOMAIN,baichuan-sdk.alicdn.com
 DOMAIN,acs4baichuan.m.taobao.com
 DOMAIN,nbsdk-baichuan.alicdn.com
@@ -467,6 +471,7 @@ DOMAIN-SUFFIX,hzjizhun.cn
 DOMAIN-SUFFIX,hzjizhun.com
 DOMAIN-SUFFIX,sogaha.cn
 DOMAIN,zxid-m.mobileservice.cn
+DOMAIN,xadsmartget.adgain.cn
 DOMAIN-SUFFIX,tradplusad.com
 DOMAIN-SUFFIX,fancyapi.com
 DOMAIN-SUFFIX,medproad.com
