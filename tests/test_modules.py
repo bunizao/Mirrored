@@ -165,6 +165,34 @@ def test_fetch_tries_each_user_agent_and_names_the_blocker(fake_session) -> None
     assert str(info.value) == "direct: HTTP 403 (cf); direct#2: HTTP 403 (cf); proxy: HTTP 403 (cf)"
 
 
+def test_proxy_hop_uses_its_own_session_and_user_agent(fake_session) -> None:
+    direct = fake_session({}, fallback=lambda url: FakeResponse(403))
+    browser = fake_session({"P=https://kelee.one/a.lpx": FakeResponse(content=b"#!name=A")})
+    got = fetch.fetch(
+        direct,
+        "https://kelee.one/a.lpx",
+        proxy_base="P=",
+        proxy_hosts=["kelee.one"],
+        user_agents=["Surge Mac/2985"],
+        proxy_session=browser,
+    )
+    assert got == fetch.Fetched(b"#!name=A", "proxy")
+    assert direct.calls == ["https://kelee.one/a.lpx"]
+    # The browser session keeps its own User-Agent.
+    assert browser.sent_headers == [None]
+
+
+def test_block_reason_names_cloudflare_mitigation(fake_session) -> None:
+    session = fake_session(
+        {},
+        fallback=lambda url: FakeResponse(
+            403, headers={"Server": "cloudflare", "cf-mitigated": "challenge"}
+        ),
+    )
+    with pytest.raises(fetch.FetchError, match=r"^direct: HTTP 403 \(cloudflare, challenge\)$"):
+        fetch.fetch(session, "https://x.example/a.lpx")
+
+
 def test_matches_host() -> None:
     assert fetch.matches_host("https://sub.kelee.one/a.lpx", ["kelee.one"])
     assert not fetch.matches_host("https://notkelee.one/a.lpx", ["kelee.one"])

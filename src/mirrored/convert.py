@@ -126,6 +126,7 @@ def convert_all(
     root: Path,
     config: ConvertConfig,
     proxy_base: str = "",
+    proxy_session: requests.Session | None = None,
     workers: int = 4,
 ) -> list[ConvertResult]:
     by_name = _dedupe(plugin_urls)
@@ -143,6 +144,7 @@ def convert_all(
                 proxy_base=proxy_base,
                 proxy_hosts=config.proxy_hosts,
                 user_agents=config.fetch_user_agents,
+                proxy_session=proxy_session,
                 validate=looks_like_module,
             )
             (staging / plugin_filename(url)).write_bytes(fetched.content)

@@ -53,6 +53,7 @@ def mirror_scripts(
     config: ScriptsConfig,
     proxy_base: str = "",
     proxy_hosts: Sequence[str] = (),
+    proxy_session: requests.Session | None = None,
 ) -> list[ScriptResult]:
     modules = module_files(modules_dir, config.exclude)
     texts = {path: path.read_text(encoding="utf-8", errors="surrogateescape") for path in modules}
@@ -77,6 +78,7 @@ def mirror_scripts(
                 url,
                 proxy_base=proxy_base,
                 proxy_hosts=proxy_hosts,
+                proxy_session=proxy_session,
                 validate=lambda content: len(content) >= MIN_SCRIPT_BYTES,
             )
         except FetchError as exc:

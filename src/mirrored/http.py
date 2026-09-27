@@ -32,3 +32,18 @@ def make_session(
     if user_agent:
         session.headers["User-Agent"] = user_agent
     return session
+
+
+def make_browser_session() -> requests.Session:
+    """A Cloudflare-aware session that looks like desktop Chrome (TLS and headers).
+
+    Cloudflare zones with bot protection reject plain HTTP clients coming from
+    datacenter networks such as GitHub-hosted runners.
+    """
+    import cloudscraper  # Imported lazily: heavy and only needed here.
+
+    return cloudscraper.create_scraper(
+        interpreter="nodejs",
+        browser={"browser": "chrome", "platform": "windows", "mobile": False},
+        delay=10,
+    )

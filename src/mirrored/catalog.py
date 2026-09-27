@@ -7,6 +7,7 @@ from collections.abc import Iterable, Iterator, Sequence
 from urllib.parse import parse_qs, unquote, urlparse
 
 from mirrored import gha
+from mirrored.http import make_browser_session
 
 
 class CatalogError(Exception):
@@ -16,15 +17,9 @@ class CatalogError(Exception):
 def download_catalog(urls: Sequence[str], *, timeout: int = 60) -> object:
     """Fetch the first catalog URL that returns valid JSON.
 
-    The catalog sits behind Cloudflare, so a Cloudflare-aware client is required.
+    The catalog sits behind Cloudflare, so a browser-like client is required.
     """
-    import cloudscraper  # Imported lazily: heavy and only needed here.
-
-    scraper = cloudscraper.create_scraper(
-        interpreter="nodejs",
-        browser={"browser": "chrome", "platform": "windows", "mobile": False},
-        delay=10,
-    )
+    scraper = make_browser_session()
     failures = []
     for url in urls:
         try:

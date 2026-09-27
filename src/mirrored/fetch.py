@@ -36,22 +36,29 @@ def fetch(
     proxy_base: str = "",
     proxy_hosts: Sequence[str] = (),
     user_agents: Sequence[str] = (),
+    proxy_session: requests.Session | None = None,
     validate: Callable[[bytes], bool] = bool,
     timeout: tuple[float, float] = (30, 60),
 ) -> Fetched:
-    """Try ``url`` directly with each of ``user_agents`` (or the session's), then the proxy."""
+    """Try ``url`` directly with each of ``user_agents`` (or the session's), then the proxy.
+
+    ``proxy_session`` (e.g. a browser-like session) is used for the proxy hop with
+    its own User-Agent; otherwise ``session`` is reused with the first agent.
+    """
     agents = list(user_agents) or [None]
     attempts = [
-        ("direct" if i == 0 else f"direct#{i + 1}", url, agent) for i, agent in enumerate(agents)
+        ("direct" if i == 0 else f"direct#{i + 1}", session, url, agent)
+        for i, agent in enumerate(agents)
     ]
     if proxy_base and matches_host(url, proxy_hosts):
-        attempts.append(("proxy", f"{proxy_base}{url}", agents[0]))
+        hop = (proxy_session, None) if proxy_session else (session, agents[0])
+        attempts.append(("proxy", hop[0], f"{proxy_base}{url}", hop[1]))
 
     reasons = []
-    for via, target, agent in attempts:
+    for via, client, target, agent in attempts:
         headers = {"User-Agent": agent} if agent else None
         try:
-            response = session.get(target, headers=headers, timeout=timeout)
+            response = client.get(target, headers=headers, timeout=timeout)
         except requests.RequestException as exc:
             reasons.append(f"{via}: {type(exc).__name__}")
             continue
@@ -65,6 +72,8 @@ def fetch(
 
 
 def _origin(response: requests.Response) -> str:
-    # Naming the responding server tells a CDN/WAF block apart from the origin refusing.
-    server = response.headers.get("Server", "")
-    return f" ({server})" if server else ""
+    # Naming the responding server (and Cloudflare's mitigation, if any) tells a
+    # CDN/WAF block apart from the origin refusing.
+    parts = [response.headers.get("Server", ""), response.headers.get("cf-mitigated", "")]
+    details = ", ".join(p for p in parts if p)
+    return f" ({details})" if details else ""

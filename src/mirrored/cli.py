@@ -14,7 +14,7 @@ from pathlib import Path
 from mirrored import aio, catalog, convert, gha, releases, scripts
 from mirrored.config import ConfigError, load_aio, load_modules, load_releases
 from mirrored.files import changed_files, snapshot
-from mirrored.http import make_session
+from mirrored.http import make_browser_session, make_session
 
 
 def cmd_sync_releases(args: argparse.Namespace) -> int:
@@ -58,6 +58,8 @@ def cmd_build_modules(args: argparse.Namespace) -> int:
         args.proxy_base if args.proxy_base is not None else os.environ.get("PROXY_BASE", "")
     ).strip()
     proxy_hosts = config.convert.proxy_hosts
+    # The proxy's Cloudflare zone blocks non-browser clients from datacenter IPs.
+    proxy_session = make_browser_session() if proxy_base else None
     modules_dir = args.root / config.convert.output_dir
     # Converted modules briefly hold upstream script links until the mirroring
     # step rewrites them, so real changes are measured across the whole command.
@@ -91,6 +93,7 @@ def cmd_build_modules(args: argparse.Namespace) -> int:
                     root=args.root,
                     config=config.convert,
                     proxy_base=proxy_base,
+                    proxy_session=proxy_session,
                 )
                 for r in results:
                     print(f"{r.status:>9}  {r.name}  {r.via}  {r.detail}".rstrip())
@@ -105,6 +108,7 @@ def cmd_build_modules(args: argparse.Namespace) -> int:
             config=config.scripts,
             proxy_base=proxy_base,
             proxy_hosts=proxy_hosts,
+            proxy_session=proxy_session,
         )
         for r in script_results:
             print(f"{r.status:>9}  {r.filename}  {r.detail}".rstrip())
