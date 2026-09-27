@@ -1,0 +1,44 @@
+[project]
+name = "mirrored"
+version = "0.1.0"
+description = "Tooling that keeps the Mirrored module and script mirror in sync with upstream."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = [
+    "cloudscraper>=1.2.71",
+    "pyyaml>=6.0",
+    "requests>=2.32",
+]
+
+[project.scripts]
+mirrored = "mirrored.cli:main"
+
+[dependency-groups]
+dev = [
+    "actionlint-py>=1.7",
+    "pytest>=8.3",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "BLE", "RUF"]
+# The repository deliberately uses emoji and non-ASCII text in user-facing strings.
+ignore = ["RUF001"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["mirrored"]
+known-local-folder = ["fakes"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers"]
+pythonpath = ["tests"]

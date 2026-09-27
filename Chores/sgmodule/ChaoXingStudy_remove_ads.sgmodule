@@ -1,0 +1,28 @@
+#!name=学习通去广告
+#!desc=移除开屏广告、横幅推广，精简校园补给站频道。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/ChaoXingStudy.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id977946724
+#!category=去广告
+#!loon_version=3.4.0(962)
+#!homepage=https://hub.kelee.one
+#!date=2026-06-30 19:09:23
+
+[Map Local]
+^https:\/\/home-yd\.chaoxing\.com\/apis\/data\/getAdsRecommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/home-yd\.chaoxing\.com\/apis\/banner\/getConfigInfoForXsqy\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/groupyd2\.chaoxing\.com\/apis\/activity\/getActivitys_attention\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appswh\.chaoxing\.com\/apis\/activity\/getNoteTopicList\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+body_rewrite_12 = type=http-response, pattern=^https:\/\/learn\.chaoxing\.com\/apis\/service\/appConfig\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.ad%22%5D%5D%5D
+
+body_rewrite_16 = type=http-response, pattern=^https:\/\/apps\.chaoxing\.com\/apis\/home\/getHpXsqy\.jspx\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.list_timeapp%22%5D%5D%5D
+
+[MITM]
+hostname = %APPEND% learn.chaoxing.com, home-yd.chaoxing.com, apps.chaoxing.com, groupyd2.chaoxing.com, appswh.chaoxing.com
+

@@ -1,0 +1,36 @@
+# Sources merged into the All-in-One module by `mirrored build-aio`.
+#
+# Every source must exist locally; the build fails instead of publishing a
+# partial bundle. `header` labels the source in the generated file.
+
+template: config/templates/All-in-One-2.x.sgmodule.template
+output: Chores/sgmodule/All-in-One-2.x.sgmodule
+ruleset: Chores/ruleset/reject.list
+
+sources:
+  - path: Chores/sgmodule/Block_HTTPDNS.sgmodule
+    header: "Block HTTPDNS"
+  - path: Chores/sgmodule/BlockAdvertisers.sgmodule
+    header: "AD Block"
+  - path: Chores/sgmodule/Zhihu_remove_ads.sgmodule
+    header: "Zhihu"
+  - path: Chores/sgmodule/Amap_remove_ads.sgmodule
+    header: "Amap"
+  - path: Chores/sgmodule/DiDi_remove_ads.sgmodule
+    header: "DiDi"
+  - path: Chores/sgmodule/RedPaper_remove_ads.sgmodule
+    header: "REDnote"
+  - path: Chores/sgmodule/Weibo_remove_ads.sgmodule
+    header: "Weibo"
+  - path: Chores/sgmodule/Tieba_remove_ads.sgmodule
+    header: "Tieba"
+  - path: Chores/sgmodule/Cainiao_remove_ads.sgmodule
+    header: "Cainiao"
+  - path: Chores/sgmodule/PinDuoDuo_remove_ads.sgmodule
+    header: "PinDuoDuo"
+  - path: Chores/sgmodule/JD_remove_ads.sgmodule
+    header: "JD"
+  - path: Chores/sgmodule/Bilibili_remove_ads.sgmodule
+    header: "Bilibili"
+  - path: Chores/sgmodule/12306_remove_ads.sgmodule
+    header: "12306"

@@ -1,0 +1,26 @@
+name: Set up mirrored
+description: Install uv, Python and the locked project dependencies.
+
+inputs:
+  dev:
+    description: Also install the development dependency group (linters, tests).
+    default: "false"
+
+runs:
+  using: composite
+  steps:
+    - uses: astral-sh/setup-uv@v6
+      with:
+        python-version: "3.12"
+        enable-cache: true
+
+    - name: Install dependencies
+      shell: bash
+      env:
+        DEV: ${{ inputs.dev }}
+      run: |
+        if [ "$DEV" = "true" ]; then
+          uv sync --locked
+        else
+          uv sync --locked --no-dev
+        fi

@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "config/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/actions/setup
+        with:
+          dev: "true"
+
+      - name: Ruff lint
+        run: uv run --no-sync ruff check --output-format github
+
+      - name: Ruff format
+        run: uv run --no-sync ruff format --check
+
+      - name: Tests
+        run: uv run --no-sync pytest
+
+      - name: Lint workflows
+        run: uv run --no-sync actionlint

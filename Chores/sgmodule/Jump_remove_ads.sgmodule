@@ -1,0 +1,23 @@
+#!name=Jump去广告
+#!desc=移除Jump开屏广告
+#!author=MoonYuki[https://github.com/MoonYuki]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Jump.png
+#!category=🚫 AD Block
+#!openUrl=https://apps.apple.com/app/id1529434108
+#!category=去广告
+#!loon_version=3.4.0(962)
+#!homepage=https://hub.kelee.one
+#!date=2026-06-01 17:11:35
+
+[Rule]
+DOMAIN,zlsdk.1rtb.net,REJECT
+DOMAIN,jp.ad.gameley.com,REJECT
+DOMAIN,toblog.ctobsnssdk.com,REJECT
+DOMAIN,s3plus.meituan.net,REJECT
+DOMAIN,images.pinduoduo.com,REJECT
+DOMAIN,qh-material.taobao.com,REJECT
+DOMAIN-SUFFIX,admobile.top,REJECT
+
+[MITM]
+hostname = %APPEND% switch.jumpvg.com
+
