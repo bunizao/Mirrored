@@ -9,11 +9,12 @@ catalog:
   urls:
     - https://hub.kelee.one/list.json
   extensions: [.lpx, .plugin]
+  # Trimmed catalog metadata (names, descriptions, tags, icons) for the index page.
+  metadata_output: Chores/catalog.json
 
 convert:
   output_dir: Chores/sgmodule
   scripthub_url: http://localhost:9101
-  category: "🚫 AD Block"
   # Sent to Script-Hub; also the default for direct plugin downloads.
   user_agent: Surge Mac/2985
   # kelee.one only serves clients that identify as Surge. Direct downloads try

@@ -4,7 +4,8 @@ name: Build modules
 #    and convert them into Surge modules (Chores/sgmodule) via Script-Hub.
 # 2. Mirror the external scripts those modules load (Chores/js) and rewrite their links.
 # 3. Rebuild the All-in-One module and reject ruleset from config/aio.yaml.
-# 4. Notify bunizao/TutuBetterRules when the All-in-One outputs changed.
+# 4. Regenerate the Chinese index page (README.zh-CN.md).
+# 5. Notify bunizao/TutuBetterRules when the All-in-One outputs changed.
 
 on:
   schedule:
@@ -14,6 +15,7 @@ on:
     paths:
       - "config/modules.yaml"
       - "config/aio.yaml"
+      - "config/index.yaml"
       - "config/templates/**"
       - "src/**"
       - "Chores/sgmodule/**"
@@ -70,13 +72,18 @@ jobs:
         id: aio
         run: uv run --no-sync mirrored build-aio
 
+      # Also picks up files synced by sync-releases since the last run.
+      - name: Update index page
+        if: ${{ !cancelled() && steps.modules.outcome == 'success' }}
+        run: uv run --no-sync mirrored build-index
+
       - name: Commit and push
         id: commit
         # Keep converted modules even if the All-in-One build failed.
         if: ${{ !cancelled() && steps.modules.outcome == 'success' }}
         uses: ./.github/actions/commit-and-push
         with:
-          paths: Chores/sgmodule Chores/js Chores/ruleset
+          paths: Chores/sgmodule Chores/js Chores/ruleset Chores/catalog.json README.zh-CN.md
           message: "chore(build): update modules, scripts and All-in-One"
           push: ${{ github.ref == 'refs/heads/main' }}
 

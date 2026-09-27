@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import json
 from collections.abc import Iterable, Iterator, Sequence
+from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
 
 from mirrored import gha
+from mirrored.files import write_if_changed
 from mirrored.http import make_browser_session
 
 
@@ -86,3 +88,60 @@ def _iter_http_candidates(value: str) -> Iterator[str]:
             stack.append(unquote(parsed.fragment))
         for values in parse_qs(parsed.query).values():
             stack.extend(unquote(v) for v in values)
+
+
+def plugin_filename(url: str) -> str:
+    return urlparse(url).path.rsplit("/", 1)[-1].strip()
+
+
+def plugin_name(url: str) -> str:
+    """Derive the module name from a plugin URL, e.g. ``.../Foo.lpx?x=1`` -> ``Foo``."""
+    name = plugin_filename(url)
+    for suffix in (".lpx", ".plugin"):
+        name = name.removesuffix(suffix)
+    return name.strip() or plugin_filename(url)
+
+
+def plugin_records(payload: object, extensions: Iterable[str]) -> dict:
+    """Trim the catalog to the metadata the index page shows, keyed to module files."""
+    if not isinstance(payload, dict):
+        return {"name": "", "notice": [], "plugins": []}
+    suffixes = tuple(_normalize_extension(ext) for ext in extensions)
+    plugins = []
+    for entry in payload.get("lists") or []:
+        if not isinstance(entry, dict):
+            continue
+        urls = [
+            u
+            for u in _iter_http_candidates(str(entry.get("url", "")))
+            if urlparse(u).path.lower().endswith(suffixes)
+        ]
+        if not urls:
+            continue
+        plugins.append(
+            {
+                "file": f"{plugin_name(urls[0])}.sgmodule",
+                "name": str(entry.get("name", "")),
+                "desc": str(entry.get("desc", "")),
+                "tags": [str(t) for t in entry.get("tag") or []],
+                "icon": str(entry.get("icon", "")),
+                "date": str(entry.get("date", "")),
+                "authors": [
+                    {"name": str(a.get("name", "")), "homepage": str(a.get("homepage", ""))}
+                    for a in entry.get("author") or []
+                    if isinstance(a, dict)
+                ],
+                "source": urls[0],
+            }
+        )
+    notice = payload.get("notice") or []
+    return {
+        "name": str(payload.get("name", "")),
+        "notice": [str(n) for n in notice] if isinstance(notice, list) else [str(notice)],
+        "plugins": plugins,
+    }
+
+
+def save_records(path: Path, records: dict) -> bool:
+    data = json.dumps(records, ensure_ascii=False, indent=1) + "\n"
+    return write_if_changed(path, data.encode("utf-8"))

@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: "5,30,55 * * * *"
   workflow_dispatch:
+    inputs:
+      prune:
+        description: Delete files upstream no longer publishes (only for fully synced sources)
+        type: boolean
+        default: false
 
 permissions: {}
 
@@ -26,9 +31,13 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Sync release assets
-        run: uv run --no-sync mirrored sync-releases
+        run: |
+          args=()
+          if [ "$PRUNE" = "true" ]; then args+=(--prune); fi
+          uv run --no-sync mirrored sync-releases "${args[@]}"
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          PRUNE: ${{ inputs.prune }}
 
       - name: Commit and push
         uses: ./.github/actions/commit-and-push

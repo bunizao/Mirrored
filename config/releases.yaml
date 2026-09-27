@@ -37,12 +37,6 @@ sources:
       sgmodule: iRingo/sgmodule
       snippet: iRingo/snippet
       stoverride: iRingo/stoverride
-    # Files that are not published as release assets.
-    extra_files:
-      - url: https://raw.githubusercontent.com/NSRingo/Siri/dev/debug/Siri.V2.beta.sgmodule
-        path: iRingo/sgmodule/Siri.V2.beta.sgmodule
-      - url: https://raw.githubusercontent.com/NSRingo/Siri/dev/debug/Siri.V2.macOS.beta.sgmodule
-        path: iRingo/sgmodule/Siri.V2.macOS.beta.sgmodule
     # Default values forced into the `#!arguments=` header, keyed by extension.
     argument_overrides:
       sgmodule:

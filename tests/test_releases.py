@@ -5,6 +5,7 @@ from pathlib import Path
 
 from mirrored import releases
 from mirrored.config import ExtraFile, ReleaseSource
+from mirrored.credit import add_credit
 
 from fakes import FakeResponse
 
@@ -80,8 +81,11 @@ def test_sync_routes_assets_and_follows_redirects(tmp_path: Path, fake_session) 
 
     assert [r.error for r in results] == [None, None]
     assert results[0].updated == ["out/sg/A.sgmodule", "out/plugin/A.plugin"]
-    assert (tmp_path / "out/sg/A.sgmodule").read_text() == "#!arguments=Proxy:United States\n"
-    assert (tmp_path / "out/plugin/A.plugin").read_text() == "[Plugin]\n"
+    upstream = "https://github.com/Old/Name"
+    assert (tmp_path / "out/sg/A.sgmodule").read_text() == add_credit(
+        "#!arguments=Proxy:United States\n", upstream
+    )
+    assert (tmp_path / "out/plugin/A.plugin").read_text() == add_credit("[Plugin]\n", upstream)
     assert (tmp_path / "out/sg/extra.sgmodule").exists()
     assert not (tmp_path / "out/notes.txt").exists()
 
@@ -125,3 +129,40 @@ def test_failed_download_keeps_existing_file(tmp_path: Path, fake_session) -> No
 
     assert results[0].error
     assert (tmp_path / "out/G.sgmodule").read_text() == "previous"
+
+
+def test_find_stale_lists_files_upstream_no_longer_publishes(tmp_path: Path, fake_session) -> None:
+    out = tmp_path / "out"
+    out.mkdir()
+    (out / "Old.sgmodule").write_text("old")
+    (out / "README.md").write_text("index")  # Not a routed extension: never stale.
+    source = ReleaseSource(
+        name="Demo",
+        repos=("Good/Repo",),
+        routes={"sgmodule": "out"},
+        extra_files=(ExtraFile("https://raw.example/x.sgmodule", "out/Extra.sgmodule"),),
+    )
+    api = fake_session(
+        {f"{API}/Good/Repo/releases/latest": FakeResponse(content=release("New.sgmodule"))}
+    )
+    downloads = fake_session(
+        {
+            "https://dl.example/New.sgmodule": FakeResponse(content=b"new"),
+            "https://raw.example/x.sgmodule": FakeResponse(content=b"extra"),
+        }
+    )
+
+    results = releases.sync_source(source, root=tmp_path, api=api, downloads=downloads)
+
+    assert releases.find_stale(source, results, tmp_path) == ["out/Old.sgmodule"]
+
+
+def test_find_stale_refuses_when_a_repo_failed(tmp_path: Path, fake_session) -> None:
+    (tmp_path / "out").mkdir()
+    (tmp_path / "out/Old.sgmodule").write_text("old")
+    source = ReleaseSource(name="Demo", repos=("Gone/Repo",), routes={"sgmodule": "out"})
+    results = releases.sync_source(
+        source, root=tmp_path, api=fake_session({}), downloads=fake_session({})
+    )
+    assert results[0].error
+    assert releases.find_stale(source, results, tmp_path) is None

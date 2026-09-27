@@ -8,13 +8,13 @@ import requests
 
 from mirrored import catalog, convert, fetch, scripts
 from mirrored.config import ConvertConfig, ScriptsConfig
+from mirrored.credit import add_credit
 
 from fakes import FakeResponse
 
 CONVERT = ConvertConfig(
     output_dir="mods",
     scripthub_url="http://localhost:9101",
-    category="🚫 AD Block",
     user_agent="Surge Mac/2985",
     fetch_user_agents=("Surge Mac/2985",),
     proxy_hosts=("kelee.one",),
@@ -62,8 +62,7 @@ def test_scripthub_url_matches_legacy_workflow() -> None:
     assert url == (
         "http://localhost:9101/file/_start_/"
         "https://kelee.one/Tool/Loon/Lpx/1.1.1.1.lpx/_end_/1.1.1.1.sgmodule"
-        "?type=loon-plugin&target=surge-module&category=%F0%9F%9A%AB%20AD%20Block"
-        "&headers=User-Agent%3A%20Surge%20Mac%2F2985"
+        "?type=loon-plugin&target=surge-module&headers=User-Agent%3A%20Surge%20Mac%2F2985"
     )
 
 
@@ -121,8 +120,12 @@ def test_convert_uses_fallback_and_keeps_last_known_good(tmp_path: Path, fake_se
     }
     assert by_name["Gone"].detail == "fetch: direct: HTTP 403; proxy: unexpected content"
     assert by_name["Broken"].detail == "convert: HTTP 500"
-    assert (tmp_path / "mods/Direct.sgmodule").read_text() == "#!name=Direct\n# converted\n"
-    assert (tmp_path / "mods/Proxied.sgmodule").read_text() == "#!name=Proxied\n# converted\n"
+    assert (tmp_path / "mods/Direct.sgmodule").read_text() == add_credit(
+        "#!name=Direct\n# converted\n", direct
+    )
+    assert (tmp_path / "mods/Proxied.sgmodule").read_text() == add_credit(
+        "#!name=Proxied\n# converted\n", proxied
+    )
     assert (tmp_path / "mods/Gone.sgmodule").read_text() == "#!name=Gone\nprevious\n"
     assert (tmp_path / "mods/Broken.sgmodule").read_text() == "#!name=Broken\nprevious\n"
 

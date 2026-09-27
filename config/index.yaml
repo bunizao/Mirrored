@@ -1,0 +1,42 @@
+# The Chinese index page rendered by `mirrored build-index`. Titles and intros
+# are user-facing text; everything else comes from the files and the catalog.
+
+output: README.zh-CN.md
+raw_base: https://raw.githubusercontent.com/bunizao/Mirrored/main
+repo_url: https://github.com/bunizao/Mirrored
+
+# Converted plugins: metadata saved by `mirrored build-modules`.
+catalog: Chores/catalog.json
+modules_dir: Chores/sgmodule
+pinned:
+  - All-in-One-2.x.sgmodule
+
+# Never shown on the page: matching authors are dropped from author lists and
+# matching plugins (name, description or file) are not listed at all.
+hide:
+  - kelee
+  - keli
+  - 可莉
+  - luestr
+
+projects:
+  - title: 📺 BiliUniverse · 哔哩哔哩增强
+    intro: 哔哩哔哩客户端增强：全球模式、CDN 重定向、界面增强与去广告。
+    upstream: https://github.com/BiliUniverse
+    dirs:
+      sgmodule: BiliUniverse
+
+  - title: 🍿 DualSubs · 双语字幕
+    intro: YouTube、Netflix、Spotify 等流媒体的双语字幕与歌词增强。
+    upstream: https://github.com/DualSubs
+    dirs:
+      sgmodule: DualSubs
+
+  - title: 🍎 iRingo · Apple 服务增强
+    intro: 解锁并自定义 Apple 天气、地图、Siri、新闻、TV、TestFlight 等服务。
+    upstream: https://github.com/NSRingo
+    dirs:
+      sgmodule: iRingo/sgmodule
+      plugin: iRingo/plugin
+      stoverride: iRingo/stoverride
+      snippet: iRingo/snippet
