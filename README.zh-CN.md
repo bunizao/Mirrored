@@ -1,10 +1,20 @@
 # 🪞 Mirrored 中文索引
 
-[![Build modules](https://github.com/bunizao/Mirrored/actions/workflows/build-modules.yml/badge.svg)](https://github.com/bunizao/Mirrored/actions/workflows/build-modules.yml) [![Sync](https://github.com/bunizao/Mirrored/actions/workflows/sync-releases.yml/badge.svg)](https://github.com/bunizao/Mirrored/actions/workflows/sync-releases.yml)
+> 本页随上游自动更新。
 
-> 本页由 `mirrored build-index` 自动生成，请勿手动编辑。
+开放模块与脚本的镜像，可直接用于 Surge / Egern / Loon / Stash / Quantumult X。
 
-自动同步多个开源项目的模块、插件与脚本，统一托管在同一个 raw 地址下，可直接用于 Surge / Egern / Loon / Stash / Quantumult X。
+## 为什么是 Mirrored
+
+许多曾公开托管在 GitHub 上的模块与脚本，正陆续迁往私有部署：不再开放自由访问，请求会被记录详细日志，部分正常用户也会被拦截。依赖它们的配置随时可能失效，使用痕迹也可能在不知不觉中暴露。
+
+开源生态正在收紧。本为规避审查而生的社区，正在筑起一道道高墙。
+
+Mirrored 因此而生。它像一座互联网档案馆，持续镜像并同步这些资源，让脚本不再受制于单一源站或政策变化。
+
+这并不容易：审查、封锁、反爬与私有化都在让开放的镜像越来越难维持。但正因如此，才更需要有人去做。
+
+Mirrored 不是对抗，而是守护。无论生态如何收紧，我们都希望为开发者与爱好者留下一个仍能信任、仍能访问、仍能延续的地方。
 
 ## 🚀 快速开始
 
@@ -23,7 +33,7 @@ https://raw.githubusercontent.com/bunizao/Mirrored/main/Chores/sgmodule/All-in-O
 
 ## 🧩 去广告与工具模块 · 274 个
 
-由 Loon 插件经 Script-Hub 转换的 Surge 模块，模块引用的外部脚本已镜像到本仓库。点击名称打开模块链接。
+点击名称打开模块链接。
 
 <details>
 <summary><b>去广告</b> · 253 个</summary>

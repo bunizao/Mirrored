@@ -16,7 +16,7 @@ from pathlib import Path
 from mirrored.config import IndexConfig, IndexProject
 from mirrored.files import write_if_changed
 
-GENERATED_NOTE = "> 本页由 `mirrored build-index` 自动生成，请勿手动编辑。"
+GENERATED_NOTE = "> 本页随上游自动更新。"
 DESC_LIMIT = 48
 # Groups this small are expanded by default.
 OPEN_GROUP_LIMIT = 10
@@ -112,22 +112,19 @@ def _details(summary: str, body: list[str], *, open_: bool) -> list[str]:
 
 
 def _header(config: IndexConfig) -> list[str]:
-    actions = f"{config.repo_url}/actions/workflows"
-    badges = " ".join(
-        f"[![{label}]({actions}/{wf}/badge.svg)]({actions}/{wf})"
-        for label, wf in (("Build modules", "build-modules.yml"), ("Sync", "sync-releases.yml"))
-    )
-    return [
+    lines = [
         "# 🪞 Mirrored 中文索引",
-        "",
-        badges,
         "",
         GENERATED_NOTE,
         "",
-        "自动同步多个开源项目的模块、插件与脚本，统一托管在同一个 raw 地址下，"
-        "可直接用于 Surge / Egern / Loon / Stash / Quantumult X。",
+        "开放模块与脚本的镜像，可直接用于 Surge / Egern / Loon / Stash / Quantumult X。",
         "",
     ]
+    if config.about:
+        lines += ["## 为什么是 Mirrored", ""]
+        for paragraph in config.about:
+            lines += [paragraph, ""]
+    return lines
 
 
 def _quick_start(root: Path, config: IndexConfig) -> list[str]:
@@ -195,7 +192,6 @@ def _kelee(root: Path, config: IndexConfig) -> list[str]:
     lines = [
         f"## 🧩 去广告与工具模块 · {len(plugins)} 个",
         "",
-        "由 Loon 插件经 Script-Hub 转换的 Surge 模块，模块引用的外部脚本已镜像到本仓库。"
         "点击名称打开模块链接。",
         "",
     ]

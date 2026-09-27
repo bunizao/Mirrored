@@ -247,6 +247,8 @@ class IndexConfig:
     projects: tuple[IndexProject, ...]
     # Case-insensitive terms: matching authors and plugins are left off the page.
     hide: tuple[str, ...] = ()
+    # Paragraphs introducing the project at the top of the page.
+    about: tuple[str, ...] = ()
 
 
 def load_index(path: Path) -> IndexConfig:
@@ -277,4 +279,5 @@ def load_index(path: Path) -> IndexConfig:
         pinned=_str_list(data, "pinned", where),
         projects=tuple(projects),
         hide=tuple(term.lower() for term in _str_list(data, "hide", where)),
+        about=_str_list(data, "about", where),
     )

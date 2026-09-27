@@ -2,6 +2,14 @@
 # are user-facing text; everything else comes from the files and the catalog.
 
 output: README.zh-CN.md
+
+# Shown under "为什么是 Mirrored" at the top of the page, one paragraph per item.
+about:
+  - 许多曾公开托管在 GitHub 上的模块与脚本，正陆续迁往私有部署：不再开放自由访问，请求会被记录详细日志，部分正常用户也会被拦截。依赖它们的配置随时可能失效，使用痕迹也可能在不知不觉中暴露。
+  - 开源生态正在收紧。本为规避审查而生的社区，正在筑起一道道高墙。
+  - Mirrored 因此而生。它像一座互联网档案馆，持续镜像并同步这些资源，让脚本不再受制于单一源站或政策变化。
+  - 这并不容易：审查、封锁、反爬与私有化都在让开放的镜像越来越难维持。但正因如此，才更需要有人去做。
+  - Mirrored 不是对抗，而是守护。无论生态如何收紧，我们都希望为开发者与爱好者留下一个仍能信任、仍能访问、仍能延续的地方。
 raw_base: https://raw.githubusercontent.com/bunizao/Mirrored/main
 repo_url: https://github.com/bunizao/Mirrored
 
