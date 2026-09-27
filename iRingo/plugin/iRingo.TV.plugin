@@ -8,6 +8,7 @@
 #!system = iOS,iPadOS,tvOS,macOS
 #!date = 2025-04-17 03:19:05
 #!version = 3.4.4
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://github.com/NSRingo/TV
 
 [Argument]
 ThirdParty = switch,false,tag=启用第三方 App 与 TV app 关联功能,desc=是否将桌面版/macOS版/app版等平台的 TV app 转换至 iPad 版，以启用第三方 App 与 TV app 关联功能(如: Disney+, Prime Video 等)。

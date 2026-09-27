@@ -9,6 +9,7 @@
 #!date = 2024-12-24 04:25:10
 #!version = 4.2.7
 #!system_version = 15
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://github.com/NSRingo/Siri
 
 [Argument]
 CountryCode = select,"SG","AUTO","CN","HK","TW","US","JP","AU","GB","KR","CA","IE",tag=国家或地区代码,desc=不同国家或地区提供的内容或有差别，此选项同时会影响分配给您不同地区的 Siri 服务器。

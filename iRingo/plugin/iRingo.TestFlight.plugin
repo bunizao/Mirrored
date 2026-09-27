@@ -8,6 +8,7 @@
 #!system = iOS,iPadOS,tvOS,macOS,watchOS
 #!date = 2024-12-24 08:53:51
 #!version = 3.4.0
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://github.com/NSRingo/Testflight
 
 [Argument]
 CountryCode = select,"US","AUTO","CN","HK","TW","SG","JP","AU","GB","KR","CA","IE",tag=国家或地区代码,desc=不同国家或地区提供的内容或有差别。

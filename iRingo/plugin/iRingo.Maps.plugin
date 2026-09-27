@@ -9,6 +9,7 @@
 #!date = 2026-04-04 20:55:24
 #!version = 4.6.1
 #!system_version = 15
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://github.com/NSRingo/GeoServices
 
 [Argument]
 GeoManifest.Dynamic.Config.CountryCode = select,"CN","AUTO","HK","TW","SG","US","JP","AU","GB","KR","CA","IE",tag=[动态配置] 资源清单的国家或地区代码,desc=此选项影响“地图”整体配置内容，包括以下的地图功能与服务。
