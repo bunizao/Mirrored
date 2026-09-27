@@ -1,6 +1,8 @@
 # Mirrored
 
 > 🪞 **Script & module mirror — for personal use only**
+> 📖 [中文索引](README.zh-CN.md) — every module with its description and raw link.
+>
 > A single raw host that keeps several open-source projects such as **BiliUniverse**, **DualSubs** and **iRingo** in sync, and serves their assets in formats ready for **Surge / Loon / Stash / Egern / Quantumult X / Shadowrocket**.
 
 ---
@@ -45,7 +47,7 @@ Files under the output directories are generated; edit `config/` instead.
 
 | Workflow | Schedule | What it does |
 |----------|----------|--------------|
-| [`sync-releases.yml`](.github/workflows/sync-releases.yml) | every 25 min | Mirrors the latest release assets of the repositories in `config/releases.yaml`. Renamed upstream repositories are followed automatically. |
+| [`sync-releases.yml`](.github/workflows/sync-releases.yml) | every 25 min | Mirrors the latest release assets of the repositories in `config/releases.yaml`. Renamed upstream repositories are followed automatically. Files upstream no longer publishes are listed in the job summary; run it manually with `prune` to delete them. |
 | [`build-modules.yml`](.github/workflows/build-modules.yml) | every 25 min, and on config changes | Downloads every plugin in the catalog (directly with a Surge User-Agent, falling back to `PROXY_BASE`), converts them through a local Script-Hub container, mirrors external scripts the same way, rebuilds the All-in-One module and notifies `bunizao/TutuBetterRules` when it changes. Pull requests touching the pipeline get a full dry run. |
 | [`ci.yml`](.github/workflows/ci.yml) | pull requests | Ruff, pytest and actionlint. |
 
@@ -67,6 +69,7 @@ Repository settings used by `build-modules`:
 
 - [`config/releases.yaml`](config/releases.yaml) – upstream repositories, where each asset type goes, extra files and forced module arguments.
 - [`config/modules.yaml`](config/modules.yaml) – plugin catalog, Script-Hub conversion and script mirroring settings.
+- [`config/index.yaml`](config/index.yaml) – titles and sections of the Chinese index pages (`README.zh-CN.md` and each directory's `README.md`).
 - [`config/aio.yaml`](config/aio.yaml) – modules merged into `All-in-One-2.x.sgmodule`, rendered with [`config/templates/`](config/templates).
 
 ---
@@ -79,6 +82,7 @@ Requires [uv](https://docs.astral.sh/uv/).
 uv sync                                   # install dependencies
 uv run mirrored sync-releases --only DualSubs
 uv run mirrored build-aio
+uv run mirrored build-index                    # regenerate the Chinese index pages
 docker run -d --rm --network host xream/script-hub   # Script-Hub on :9101 for build-modules
 uv run mirrored build-modules
 uv run pytest && uv run ruff check && uv run ruff format --check && uv run actionlint

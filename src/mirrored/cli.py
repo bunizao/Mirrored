@@ -11,8 +11,8 @@ import os
 import sys
 from pathlib import Path
 
-from mirrored import aio, catalog, convert, gha, releases, scripts
-from mirrored.config import ConfigError, load_aio, load_modules, load_releases
+from mirrored import aio, catalog, convert, gha, index, releases, scripts
+from mirrored.config import ConfigError, load_aio, load_index, load_modules, load_releases
 from mirrored.files import changed_files, snapshot
 from mirrored.http import make_browser_session, make_session
 
@@ -33,10 +33,31 @@ def cmd_sync_releases(args: argparse.Namespace) -> int:
     downloads = make_session()
 
     results = []
+    stale_rows = []
     for source in sources:
         with gha.group(f"Sync {source.name}"):
-            results += releases.sync_source(source, root=args.root, api=api, downloads=downloads)
+            source_results = releases.sync_source(
+                source, root=args.root, api=api, downloads=downloads
+            )
+        results += source_results
+
+        stale = releases.find_stale(source, source_results, args.root)
+        if stale is None:
+            gha.notice(f"{source.name}: stale-file check skipped because a repository failed.")
+            continue
+        for path in stale:
+            if args.prune:
+                (args.root / path).unlink()
+            print(f"{'removed' if args.prune else 'stale':>9}  {path}")
+            stale_rows.append((source.name, path, "removed" if args.prune else "stale"))
     releases.report(results)
+    if stale_rows:
+        hint = "" if args.prune else "\n\nRun with `--prune` (workflow input `prune`) to delete."
+        gha.summary(
+            "## Files no longer published upstream\n\n"
+            + gha.table(["Source", "File", "Action"], stale_rows)
+            + hint
+        )
 
     for result in results:
         for path in result.updated:
@@ -133,6 +154,18 @@ def cmd_build_aio(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_build_index(args: argparse.Namespace) -> int:
+    config = load_index(args.root / args.config)
+    known = {page.path for page in config.pages}
+    unknown = set(args.page or ()) - known
+    if unknown:
+        raise ConfigError(f"no index page for {', '.join(sorted(unknown))}")
+    changed = index.build(args.root, config, args.page)
+    for path in changed:
+        print(f"  updated  {path}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mirrored", description=__doc__.splitlines()[0])
     parser.add_argument(
@@ -143,6 +176,11 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("sync-releases", help="mirror assets from upstream GitHub releases")
     p.add_argument("--config", default="config/releases.yaml")
     p.add_argument("--only", action="append", metavar="NAME", help="limit to these sources")
+    p.add_argument(
+        "--prune",
+        action="store_true",
+        help="delete files upstream no longer publishes (only for sources that fully synced)",
+    )
     p.set_defaults(func=cmd_sync_releases)
 
     p = sub.add_parser("build-modules", help="convert plugins and mirror their scripts")
@@ -160,6 +198,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--config", default="config/aio.yaml")
     p.add_argument("--date", help="override the Update: date (MM/DD/YYYY)")
     p.set_defaults(func=cmd_build_aio)
+
+    p = sub.add_parser("build-index", help="regenerate the Chinese index pages")
+    p.add_argument("--config", default="config/index.yaml")
+    p.add_argument("--page", action="append", help="only these directory pages (repeatable)")
+    p.set_defaults(func=cmd_build_index)
     return parser
 
 

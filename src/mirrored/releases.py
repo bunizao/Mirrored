@@ -28,6 +28,9 @@ class RepoResult:
     updated: list[str] = field(default_factory=list)
     unchanged: int = 0
     error: str | None = None
+    # Paths (relative to the repository root) that upstream currently publishes.
+    published: list[str] = field(default_factory=list)
+    extra: bool = False
 
 
 def extension_of(name: str) -> str:
@@ -120,6 +123,7 @@ def sync_source(
                 route = source.routes.get(extension_of(name))
                 if not route:
                     continue
+                result.published.append(f"{route}/{name}")
                 data = download(downloads, asset["browser_download_url"])
                 if _store(root / route / name, data, source.argument_overrides):
                     result.updated.append(f"{route}/{name}")
@@ -130,7 +134,7 @@ def sync_source(
             gha.warning(f"{repo}: {exc}")
 
     for extra in source.extra_files:
-        result = RepoResult(source.name, extra.url)
+        result = RepoResult(source.name, extra.url, published=[extra.path], extra=True)
         results.append(result)
         try:
             data = download(downloads, extra.url)
@@ -142,6 +146,24 @@ def sync_source(
             result.error = str(exc)
             gha.warning(f"{extra.url}: {exc}")
     return results
+
+
+def find_stale(source: ReleaseSource, results: list[RepoResult], root: Path) -> list[str] | None:
+    """Files in the source's directories that upstream no longer publishes.
+
+    Returns None when any repository failed to sync: its assets are unknown, so
+    nothing may be judged stale (a failed fetch must never delete files).
+    """
+    if any(r.error for r in results if not r.extra):
+        return None
+    published = {p for r in results for p in r.published}
+    present = {
+        path.relative_to(root).as_posix()
+        for ext, route in source.routes.items()
+        for path in (root / route).glob(f"*.{ext}")
+        if path.is_file()
+    }
+    return sorted(present - published)
 
 
 def report(results: list[RepoResult]) -> None:

@@ -222,3 +222,72 @@ def load_aio(path: Path) -> AioConfig:
         ruleset=_str(data, "ruleset", where),
         sources=tuple(parsed),
     )
+
+
+# --- index.yaml ------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class IndexSection:
+    dir: str
+    ext: str
+    label: str
+
+
+@dataclass(frozen=True)
+class IndexPage:
+    path: str
+    title: str
+    intro: str
+    upstream: str
+    sections: tuple[IndexSection, ...]
+    pinned: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class IndexConfig:
+    raw_base: str
+    root: str
+    pages: tuple[IndexPage, ...]
+
+
+def load_index(path: Path) -> IndexConfig:
+    data = _load(path)
+    where = str(path)
+    pages = data.get("pages")
+    if not isinstance(pages, list) or not pages:
+        raise ConfigError(f"{where}: 'pages' must be a non-empty list")
+    parsed = []
+    for index, raw in enumerate(pages):
+        page_where = f"{where}: pages[{index}]"
+        if not isinstance(raw, Mapping):
+            raise ConfigError(f"{page_where}: expected a mapping")
+        sections = []
+        for j, sec in enumerate(raw.get("sections") or []):
+            sec_where = f"{page_where}.sections[{j}]"
+            if not isinstance(sec, Mapping):
+                raise ConfigError(f"{sec_where}: expected a mapping")
+            sections.append(
+                IndexSection(
+                    dir=_str(sec, "dir", sec_where),
+                    ext=_str(sec, "ext", sec_where),
+                    label=_str(sec, "label", sec_where),
+                )
+            )
+        if not sections:
+            raise ConfigError(f"{page_where}: 'sections' must not be empty")
+        parsed.append(
+            IndexPage(
+                path=_str(raw, "path", page_where),
+                title=_str(raw, "title", page_where),
+                intro=str(raw.get("intro") or ""),
+                upstream=str(raw.get("upstream") or ""),
+                sections=tuple(sections),
+                pinned=_str_list(raw, "pinned", page_where),
+            )
+        )
+    return IndexConfig(
+        raw_base=_str(data, "raw_base", where).rstrip("/"),
+        root=_str(data, "root", where),
+        pages=tuple(parsed),
+    )

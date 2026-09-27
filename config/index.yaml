@@ -1,0 +1,52 @@
+# Chinese index pages rendered by `mirrored build-index`: a README.md in each
+# listed directory plus the root page. Titles and intros are user-facing text.
+
+raw_base: https://raw.githubusercontent.com/bunizao/Mirrored/main
+root: README.zh-CN.md
+
+pages:
+  - path: BiliUniverse
+    title: BiliUniverse · 哔哩哔哩增强
+    intro: 哔哩哔哩客户端增强：全球模式、CDN 重定向、界面增强与去广告。
+    upstream: https://github.com/BiliUniverse
+    sections:
+      - dir: BiliUniverse
+        ext: sgmodule
+        label: Surge / Egern 模块
+
+  - path: DualSubs
+    title: DualSubs · 双语字幕
+    intro: YouTube、Netflix、Spotify 等流媒体的双语字幕与歌词增强。
+    upstream: https://github.com/DualSubs
+    sections:
+      - dir: DualSubs
+        ext: sgmodule
+        label: Surge / Egern 模块
+
+  - path: iRingo
+    title: iRingo · Apple 服务增强
+    intro: 解锁并自定义 Apple 天气、地图、Siri、新闻、TV、TestFlight 等服务。
+    upstream: https://github.com/NSRingo
+    sections:
+      - dir: iRingo/sgmodule
+        ext: sgmodule
+        label: Surge / Egern 模块
+      - dir: iRingo/plugin
+        ext: plugin
+        label: Loon 插件
+      - dir: iRingo/stoverride
+        ext: stoverride
+        label: Stash 覆写
+      - dir: iRingo/snippet
+        ext: snippet
+        label: Quantumult X 片段
+
+  - path: Chores/sgmodule
+    title: Chores · 去广告与工具模块
+    intro: 由可莉插件目录经 Script-Hub 转换的 Surge 模块，外部脚本已镜像到本仓库。
+    pinned:
+      - All-in-One-2.x.sgmodule
+    sections:
+      - dir: Chores/sgmodule
+        ext: sgmodule
+        label: Surge 模块
