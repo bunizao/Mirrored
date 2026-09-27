@@ -18,3 +18,14 @@ def write_if_changed(path: Path, data: bytes) -> bool:
     tmp.write_bytes(data)
     tmp.replace(path)
     return True
+
+
+def snapshot(directory: Path, pattern: str = "*") -> dict[Path, bytes]:
+    """Map every file under ``directory`` matching ``pattern`` to its contents."""
+    if not directory.is_dir():
+        return {}
+    return {p: p.read_bytes() for p in directory.rglob(pattern) if p.is_file()}
+
+
+def changed_files(before: dict[Path, bytes], after: dict[Path, bytes]) -> list[Path]:
+    return sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))

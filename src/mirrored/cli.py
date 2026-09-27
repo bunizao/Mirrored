@@ -13,6 +13,7 @@ from pathlib import Path
 
 from mirrored import aio, catalog, convert, gha, releases, scripts
 from mirrored.config import ConfigError, load_aio, load_modules, load_releases
+from mirrored.files import changed_files, snapshot
 from mirrored.http import make_session
 
 
@@ -53,15 +54,21 @@ def _env_list(*names: str) -> list[str]:
 def cmd_build_modules(args: argparse.Namespace) -> int:
     config = load_modules(args.root / args.config)
 
+    proxy_base = (
+        args.proxy_base if args.proxy_base is not None else os.environ.get("PROXY_BASE", "")
+    ).strip()
+    proxy_hosts = config.convert.proxy_hosts
+    modules_dir = args.root / config.convert.output_dir
+    # Converted modules briefly hold upstream script links until the mirroring
+    # step rewrites them, so real changes are measured across the whole command.
+    before = snapshot(modules_dir, "*.sgmodule")
+
     if not args.skip_convert:
         catalog_urls = (
             args.catalog_url
             or _env_list("LIST_URL_PRIMARY", "LIST_URL_BACKUP")
             or list(config.catalog.urls)
         )
-        proxy_base = (
-            args.proxy_base if args.proxy_base is not None else os.environ.get("PROXY_BASE", "")
-        ).strip()
         try:
             with gha.group("Download plugin catalog"):
                 payload = catalog.download_catalog(catalog_urls)
@@ -72,18 +79,21 @@ def cmd_build_modules(args: argparse.Namespace) -> int:
         except catalog.CatalogError as exc:
             gha.warning(f"Skipping plugin conversion: {exc}")
         else:
-            session = make_session(user_agent=config.convert.user_agent, retries=1)
+            fetch_session = make_session(user_agent=config.convert.user_agent)
+            # Conversion errors are deterministic, so Script-Hub calls are not retried.
+            scripthub = make_session(retries=0)
             with gha.group("Convert plugins via Script-Hub"):
-                convert.wait_for_scripthub(session, config.convert.scripthub_url)
+                convert.wait_for_scripthub(scripthub, config.convert.scripthub_url)
                 results = convert.convert_all(
-                    session,
+                    fetch_session,
+                    scripthub,
                     plugin_urls,
                     root=args.root,
                     config=config.convert,
                     proxy_base=proxy_base,
                 )
                 for r in results:
-                    print(f"{r.status:>9}  {r.name}  {r.detail}".rstrip())
+                    print(f"{r.status:>9}  {r.name}  {r.via}  {r.detail}".rstrip())
             convert.report(results)
 
     with gha.group("Mirror external scripts"):
@@ -91,12 +101,18 @@ def cmd_build_modules(args: argparse.Namespace) -> int:
         script_results = scripts.mirror_scripts(
             session,
             root=args.root,
-            modules_dir=args.root / config.convert.output_dir,
+            modules_dir=modules_dir,
             config=config.scripts,
+            proxy_base=proxy_base,
+            proxy_hosts=proxy_hosts,
         )
         for r in script_results:
             print(f"{r.status:>9}  {r.filename}  {r.detail}".rstrip())
     scripts.report(script_results)
+
+    changed = changed_files(before, snapshot(modules_dir, "*.sgmodule"))
+    names = ", ".join(p.name for p in changed) or "none"
+    gha.summary(f"## Changed modules\n\n{len(changed)} changed: {names}")
     return 0
 
 
@@ -128,7 +144,9 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("build-modules", help="convert plugins and mirror their scripts")
     p.add_argument("--config", default="config/modules.yaml")
     p.add_argument("--catalog-url", action="append", help="override the catalog URLs (repeatable)")
-    p.add_argument("--proxy-base", help="prefix for proxied hosts (default: $PROXY_BASE)")
+    p.add_argument(
+        "--proxy-base", help="fallback proxy prefix for proxy_hosts (default: $PROXY_BASE)"
+    )
     p.add_argument(
         "--skip-convert", action="store_true", help="only mirror scripts of existing modules"
     )

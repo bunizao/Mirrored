@@ -1,20 +1,27 @@
 # Settings for `mirrored build-modules`: convert the Loon plugin catalog into Surge
 # modules via Script-Hub, then mirror the external scripts those modules load.
+#
+# Every download tries the direct URL first and falls back to PROXY_BASE for
+# proxy_hosts; if both fail the previously published file is kept.
 
 catalog:
   # Tried in order. LIST_URL_PRIMARY / LIST_URL_BACKUP (or --catalog-url) take precedence.
   urls:
     - https://hub.kelee.one/list.json
-    - https://pluginhub.kelee.one/list.json
   extensions: [.lpx, .plugin]
 
 convert:
   output_dir: Chores/sgmodule
   scripthub_url: http://localhost:9101
   category: "🚫 AD Block"
+  # kelee.one only serves clients that identify as Surge.
   user_agent: Surge Mac/2985
-  # Plugins hosted on these domains (or their subdomains) are fetched through PROXY_BASE.
+  # Plugins and scripts on these domains (or their subdomains) are retried through
+  # PROXY_BASE when the direct download fails.
   proxy_hosts: [kelee.one]
+  # Plugins are downloaded by mirrored and served to Script-Hub from this address,
+  # so Script-Hub must share the host network (see build-modules.yml).
+  serve_host: 127.0.0.1
 
 scripts:
   output_dir: Chores/js

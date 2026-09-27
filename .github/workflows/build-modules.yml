@@ -1,6 +1,7 @@
 name: Build modules
 
-# 1. Convert the Loon plugin catalog into Surge modules (Chores/sgmodule) via Script-Hub.
+# 1. Download the Loon plugin catalog and every plugin (direct, then PROXY_BASE),
+#    and convert them into Surge modules (Chores/sgmodule) via Script-Hub.
 # 2. Mirror the external scripts those modules load (Chores/js) and rewrite their links.
 # 3. Rebuild the All-in-One module and reject ruleset from config/aio.yaml.
 # 4. Notify bunizao/TutuBetterRules when the All-in-One outputs changed.
@@ -16,6 +17,14 @@ on:
       - "config/templates/**"
       - "src/**"
       - "Chores/sgmodule/**"
+  # Pull requests that touch the pipeline get a full dry run (nothing is pushed).
+  pull_request:
+    paths:
+      - "config/**"
+      - "src/**"
+      - "uv.lock"
+      - ".github/workflows/build-modules.yml"
+      - ".github/actions/**"
   workflow_dispatch:
     inputs:
       list_url_primary:
@@ -40,14 +49,12 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
-    services:
-      scripthub:
-        image: xream/script-hub:latest
-        ports:
-          - 9100:9100
-          - 9101:9101
     steps:
       - uses: actions/checkout@v5
+
+      # Host networking lets Script-Hub read the plugins mirrored serves on 127.0.0.1.
+      - name: Start Script-Hub
+        run: docker run --detach --rm --network host --name scripthub xream/script-hub:latest
 
       - uses: ./.github/actions/setup
 

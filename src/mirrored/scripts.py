@@ -11,6 +11,7 @@ import requests
 
 from mirrored import gha
 from mirrored.config import ScriptsConfig
+from mirrored.fetch import FetchError, fetch
 from mirrored.files import write_if_changed
 
 # `script-path=<url>` where the URL contains `.js`; stops at whitespace, commas and quotes.
@@ -50,6 +51,8 @@ def mirror_scripts(
     root: Path,
     modules_dir: Path,
     config: ScriptsConfig,
+    proxy_base: str = "",
+    proxy_hosts: Sequence[str] = (),
 ) -> list[ScriptResult]:
     modules = module_files(modules_dir, config.exclude)
     texts = {path: path.read_text(encoding="utf-8", errors="surrogateescape") for path in modules}
@@ -69,17 +72,17 @@ def mirror_scripts(
             )
             continue
         try:
-            response = session.get(url, timeout=(30, 60))
-        except requests.RequestException as exc:
-            results.append(ScriptResult(url, filename, "failed", type(exc).__name__))
+            fetched = fetch(
+                session,
+                url,
+                proxy_base=proxy_base,
+                proxy_hosts=proxy_hosts,
+                validate=lambda content: len(content) >= MIN_SCRIPT_BYTES,
+            )
+        except FetchError as exc:
+            results.append(ScriptResult(url, filename, "failed", str(exc)))
             continue
-        if response.status_code != 200:
-            results.append(ScriptResult(url, filename, "failed", f"HTTP {response.status_code}"))
-            continue
-        if len(response.content) < MIN_SCRIPT_BYTES:
-            results.append(ScriptResult(url, filename, "failed", "response too small"))
-            continue
-        changed = write_if_changed(output_dir / filename, response.content)
+        changed = write_if_changed(output_dir / filename, fetched.content)
         results.append(ScriptResult(url, filename, "updated" if changed else "unchanged"))
         rewrites[url] = f"{config.mirror_base}/{filename}"
 

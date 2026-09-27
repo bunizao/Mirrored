@@ -46,7 +46,7 @@ Files under the output directories are generated; edit `config/` instead.
 | Workflow | Schedule | What it does |
 |----------|----------|--------------|
 | [`sync-releases.yml`](.github/workflows/sync-releases.yml) | every 25 min | Mirrors the latest release assets of the repositories in `config/releases.yaml`. Renamed upstream repositories are followed automatically. |
-| [`build-modules.yml`](.github/workflows/build-modules.yml) | every 25 min, and on config changes | Converts the plugin catalog through a Script-Hub container, mirrors external scripts, rebuilds the All-in-One module and notifies `bunizao/TutuBetterRules` when it changes. |
+| [`build-modules.yml`](.github/workflows/build-modules.yml) | every 25 min, and on config changes | Downloads every plugin in the catalog (directly with a Surge User-Agent, falling back to `PROXY_BASE`), converts them through a local Script-Hub container, mirrors external scripts the same way, rebuilds the All-in-One module and notifies `bunizao/TutuBetterRules` when it changes. Pull requests touching the pipeline get a full dry run. |
 | [`ci.yml`](.github/workflows/ci.yml) | pull requests | Ruff, pytest and actionlint. |
 
 Upstream outages show up as warnings and in each run's job summary; they never delete existing files. A run only fails when it cannot do its job at all (for example, every upstream failed or an All-in-One source is missing).
@@ -57,8 +57,8 @@ Repository settings used by `build-modules`:
 
 | Name | Kind | Purpose |
 |------|------|---------|
-| `PROXY_BASE` | variable | Prefix for fetching `kelee.one` plugins, e.g. `https://proxy.example/?url=` |
-| `LIST_URL_PRIMARY`, `LIST_URL_BACKUP` | variables | Override the plugin catalog URLs |
+| `PROXY_BASE` | variable | Fallback prefix for `kelee.one` downloads when the direct request fails, e.g. `https://proxy.example/?url=` |
+| `LIST_URL_PRIMARY`, `LIST_URL_BACKUP` | variables | Override the plugin catalog URL (default `https://hub.kelee.one/list.json`) |
 | `DISPATCH_TOKEN` | secret | Token allowed to send `repository_dispatch` to `bunizao/TutuBetterRules` |
 
 ---
@@ -79,7 +79,8 @@ Requires [uv](https://docs.astral.sh/uv/).
 uv sync                                   # install dependencies
 uv run mirrored sync-releases --only DualSubs
 uv run mirrored build-aio
-uv run mirrored build-modules --skip-convert   # script mirroring only; conversion needs Script-Hub on :9101
+docker run -d --rm --network host xream/script-hub   # Script-Hub on :9101 for build-modules
+uv run mirrored build-modules
 uv run pytest && uv run ruff check && uv run ruff format --check && uv run actionlint
 ```
 

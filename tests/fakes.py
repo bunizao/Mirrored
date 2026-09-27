@@ -30,14 +30,21 @@ class FakeResponse:
 class FakeSession:
     """Minimal stand-in for ``requests.Session`` driven by a URL -> response mapping."""
 
-    def __init__(self, routes: dict[str, FakeResponse | Exception | Callable[[], FakeResponse]]):
+    def __init__(
+        self,
+        routes: dict[str, FakeResponse | Exception | Callable[[], FakeResponse]],
+        fallback: Callable[[str], FakeResponse] | None = None,
+    ):
         self.routes = routes
+        self.fallback = fallback
         self.headers: dict[str, str] = {}
         self.calls: list[str] = []
 
     def get(self, url: str, **_: object) -> FakeResponse:
         self.calls.append(url)
         route = self.routes.get(url)
+        if route is None and self.fallback:
+            return self.fallback(url)
         if route is None:
             return FakeResponse(404, b'{"message": "Not Found"}', url)
         if isinstance(route, Exception):

@@ -125,6 +125,8 @@ class ConvertConfig:
     category: str
     user_agent: str
     proxy_hosts: tuple[str, ...]
+    # Address Script-Hub uses to reach the local plugin server.
+    serve_host: str
 
 
 @dataclass(frozen=True)
@@ -167,6 +169,7 @@ def load_modules(path: Path) -> ModulesConfig:
             category=_str(convert, "category", f"{where}: convert"),
             user_agent=_str(convert, "user_agent", f"{where}: convert"),
             proxy_hosts=_str_list(convert, "proxy_hosts", f"{where}: convert"),
+            serve_host=str(convert.get("serve_host") or "127.0.0.1"),
         ),
         scripts=ScriptsConfig(
             output_dir=_str(scripts, "output_dir", f"{where}: scripts"),

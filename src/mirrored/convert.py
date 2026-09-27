@@ -1,15 +1,22 @@
 """Convert Loon plugins into Surge modules through a local Script-Hub instance.
 
-A failed conversion never touches the existing module: users keep the last
-known-good copy instead of losing it to an upstream outage.
+Plugins are downloaded here (see ``mirrored.fetch``) and handed to Script-Hub
+from a short-lived local HTTP server, so Script-Hub never needs to reach the
+upstream itself. A plugin that cannot be fetched or converted never touches
+the existing module: users keep the last known-good copy.
 """
 
 from __future__ import annotations
 
+import tempfile
+import threading
 import time
-from collections.abc import Sequence
+from collections.abc import Iterator, Sequence
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager
 from dataclasses import dataclass
+from functools import partial
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import quote, urlparse
 
@@ -17,6 +24,7 @@ import requests
 
 from mirrored import gha
 from mirrored.config import ConvertConfig
+from mirrored.fetch import FetchError, fetch
 from mirrored.files import write_if_changed
 
 
@@ -24,17 +32,21 @@ from mirrored.files import write_if_changed
 class ConvertResult:
     name: str
     source_url: str
-    status: str  # "updated", "unchanged" or "failed"
+    status: str  # "converted" or "failed"
     detail: str = ""
+    via: str = ""  # How the plugin was fetched: "direct" or "proxy".
 
 
 def plugin_name(url: str) -> str:
     """Derive the module name from a plugin URL, e.g. ``.../Foo.lpx?x=1`` -> ``Foo``."""
-    base = urlparse(url).path.rsplit("/", 1)[-1].strip()
-    name = base
+    name = plugin_filename(url)
     for suffix in (".lpx", ".plugin"):
         name = name.removesuffix(suffix)
-    return name.strip() or base
+    return name.strip() or plugin_filename(url)
+
+
+def plugin_filename(url: str) -> str:
+    return urlparse(url).path.rsplit("/", 1)[-1].strip()
 
 
 def _uri(value: str) -> str:
@@ -42,13 +54,7 @@ def _uri(value: str) -> str:
     return quote(value, safe="")
 
 
-def needs_proxy(url: str, proxy_hosts: Sequence[str]) -> bool:
-    host = (urlparse(url).hostname or "").lower()
-    return any(host == h or host.endswith(f".{h}") for h in proxy_hosts)
-
-
-def scripthub_url(source_url: str, name: str, config: ConvertConfig, proxy_base: str = "") -> str:
-    prefix = proxy_base if proxy_base and needs_proxy(source_url, config.proxy_hosts) else ""
+def scripthub_url(source_url: str, name: str, config: ConvertConfig) -> str:
     base = config.scripthub_url.rstrip("/")
     query = "&".join(
         [
@@ -59,12 +65,12 @@ def scripthub_url(source_url: str, name: str, config: ConvertConfig, proxy_base:
         ]
     )
     # Script-Hub expects the raw source URL between the _start_/_end_ markers.
-    return f"{base}/file/_start_/{prefix}{source_url}/_end_/{_uri(name)}.sgmodule?{query}"
+    return f"{base}/file/_start_/{source_url}/_end_/{_uri(name)}.sgmodule?{query}"
 
 
-def looks_like_module(text: str) -> bool:
-    """Script-Hub output always starts with a ``#!name=`` header."""
-    return "#!name=" in text[:4096]
+def looks_like_module(content: bytes) -> bool:
+    """Both Loon plugins and Script-Hub output start with a ``#!name=`` header."""
+    return b"#!name=" in content[:4096]
 
 
 def wait_for_scripthub(session: requests.Session, url: str, *, timeout: float = 120) -> None:
@@ -79,37 +85,26 @@ def wait_for_scripthub(session: requests.Session, url: str, *, timeout: float = 
             time.sleep(3)
 
 
-def convert_one(
-    session: requests.Session,
-    source_url: str,
-    name: str,
-    output: Path,
-    config: ConvertConfig,
-    proxy_base: str,
-) -> ConvertResult:
-    url = scripthub_url(source_url, name, config, proxy_base)
+class _QuietHandler(SimpleHTTPRequestHandler):
+    def log_message(self, format: str, *args: object) -> None:
+        pass
+
+
+@contextmanager
+def serve_directory(directory: Path, host: str) -> Iterator[str]:
+    """Serve ``directory`` over HTTP on an ephemeral port; yields the base URL."""
+    handler = partial(_QuietHandler, directory=str(directory))
+    server = ThreadingHTTPServer((host, 0), handler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
     try:
-        response = session.get(url, timeout=(30, 120))
-    except requests.RequestException as exc:
-        return ConvertResult(name, source_url, "failed", type(exc).__name__)
-    if response.status_code != 200:
-        return ConvertResult(name, source_url, "failed", f"HTTP {response.status_code}")
-    text = response.content.decode("utf-8", "replace")
-    if not looks_like_module(text):
-        return ConvertResult(name, source_url, "failed", "response is not a module")
-    changed = write_if_changed(output, response.content)
-    return ConvertResult(name, source_url, "updated" if changed else "unchanged")
+        yield f"http://{host}:{server.server_address[1]}"
+    finally:
+        server.shutdown()
+        server.server_close()
 
 
-def convert_all(
-    session: requests.Session,
-    plugin_urls: Sequence[str],
-    *,
-    root: Path,
-    config: ConvertConfig,
-    proxy_base: str = "",
-    workers: int = 4,
-) -> list[ConvertResult]:
+def _dedupe(plugin_urls: Sequence[str]) -> dict[str, str]:
     # Several URLs can share a file name; the last one in sorted order wins,
     # matching the historical behaviour, but the clash is reported.
     by_name: dict[str, str] = {}
@@ -120,36 +115,82 @@ def convert_all(
                 f"{name}.sgmodule is claimed by {by_name[name]} and {url}; using the latter"
             )
         by_name[name] = url
+    return by_name
 
+
+def convert_all(
+    fetch_session: requests.Session,
+    scripthub: requests.Session,
+    plugin_urls: Sequence[str],
+    *,
+    root: Path,
+    config: ConvertConfig,
+    proxy_base: str = "",
+    workers: int = 4,
+) -> list[ConvertResult]:
+    by_name = _dedupe(plugin_urls)
     output_dir = root / config.output_dir
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        futures = [
-            pool.submit(
-                convert_one,
-                session,
+    results: dict[str, ConvertResult] = {}
+
+    with tempfile.TemporaryDirectory(prefix="plugins-") as tmp, ThreadPoolExecutor(workers) as pool:
+        staging = Path(tmp)
+
+        # 1. Download every plugin through the fallback chain.
+        def download(name: str, url: str) -> tuple[str, str]:
+            fetched = fetch(
+                fetch_session,
                 url,
-                name,
-                output_dir / f"{name}.sgmodule",
-                config,
-                proxy_base,
+                proxy_base=proxy_base,
+                proxy_hosts=config.proxy_hosts,
+                validate=looks_like_module,
             )
-            for name, url in sorted(by_name.items())
-        ]
-        return [f.result() for f in futures]
+            (staging / plugin_filename(url)).write_bytes(fetched.content)
+            return name, fetched.via
+
+        futures = {pool.submit(download, n, u): n for n, u in by_name.items()}
+        fetched_via: dict[str, str] = {}
+        for future, name in futures.items():
+            try:
+                fetched_via[name] = future.result()[1]
+            except FetchError as exc:
+                results[name] = ConvertResult(name, by_name[name], "failed", f"fetch: {exc}")
+
+        # 2. Let Script-Hub convert the local copies.
+        with serve_directory(staging, config.serve_host) as base:
+
+            def convert(name: str) -> ConvertResult:
+                url = by_name[name]
+                local = f"{base}/{quote(plugin_filename(url))}"
+                result = ConvertResult(name, url, "failed", via=fetched_via[name])
+                try:
+                    response = scripthub.get(scripthub_url(local, name, config), timeout=(30, 120))
+                except requests.RequestException as exc:
+                    result.detail = f"convert: {type(exc).__name__}"
+                    return result
+                if response.status_code != 200:
+                    result.detail = f"convert: HTTP {response.status_code}"
+                elif not looks_like_module(response.content):
+                    result.detail = "convert: response is not a module"
+                else:
+                    write_if_changed(output_dir / f"{name}.sgmodule", response.content)
+                    result.status = "converted"
+                return result
+
+            for result in pool.map(convert, sorted(fetched_via)):
+                results[result.name] = result
+
+    return [results[name] for name in sorted(results)]
 
 
 def report(results: Sequence[ConvertResult]) -> None:
     failed = [r for r in results if r.status == "failed"]
-    updated = [r for r in results if r.status == "updated"]
+    proxied = sum(r.via == "proxy" for r in results)
     lines = [
         "## Plugin conversion",
         "",
-        f"{len(results)} plugins · {len(updated)} updated · "
-        f"{len(results) - len(updated) - len(failed)} unchanged · {len(failed)} failed "
-        "(existing modules kept)",
+        f"{len(results)} plugins · {len(results) - len(failed)} converted · "
+        f"{len(failed)} failed (existing modules kept) · {proxied} fetched via proxy",
     ]
-    if updated:
-        lines += ["", "**Updated:** " + ", ".join(r.name for r in updated)]
     if failed:
         rows = [(r.name, r.detail, r.source_url) for r in failed]
         lines += [
