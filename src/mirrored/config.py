@@ -124,6 +124,8 @@ class ConvertConfig:
     scripthub_url: str
     category: str
     user_agent: str
+    # User-Agents tried in order when downloading plugins directly.
+    fetch_user_agents: tuple[str, ...]
     proxy_hosts: tuple[str, ...]
     # Address Script-Hub uses to reach the local plugin server.
     serve_host: str
@@ -168,6 +170,8 @@ def load_modules(path: Path) -> ModulesConfig:
             scripthub_url=_str(convert, "scripthub_url", f"{where}: convert"),
             category=_str(convert, "category", f"{where}: convert"),
             user_agent=_str(convert, "user_agent", f"{where}: convert"),
+            fetch_user_agents=_str_list(convert, "fetch_user_agents", f"{where}: convert")
+            or (_str(convert, "user_agent", f"{where}: convert"),),
             proxy_hosts=_str_list(convert, "proxy_hosts", f"{where}: convert"),
             serve_host=str(convert.get("serve_host") or "127.0.0.1"),
         ),

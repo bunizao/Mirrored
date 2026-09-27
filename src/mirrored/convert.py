@@ -142,6 +142,7 @@ def convert_all(
                 url,
                 proxy_base=proxy_base,
                 proxy_hosts=config.proxy_hosts,
+                user_agents=config.fetch_user_agents,
                 validate=looks_like_module,
             )
             (staging / plugin_filename(url)).write_bytes(fetched.content)

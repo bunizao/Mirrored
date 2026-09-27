@@ -12,6 +12,7 @@ class FakeResponse:
     content: bytes = b""
     url: str = ""
     history: list = field(default_factory=list)
+    headers: dict = field(default_factory=dict)
 
     @property
     def ok(self) -> bool:
@@ -39,9 +40,11 @@ class FakeSession:
         self.fallback = fallback
         self.headers: dict[str, str] = {}
         self.calls: list[str] = []
+        self.sent_headers: list[dict | None] = []
 
-    def get(self, url: str, **_: object) -> FakeResponse:
+    def get(self, url: str, headers: dict | None = None, **_: object) -> FakeResponse:
         self.calls.append(url)
+        self.sent_headers.append(headers)
         route = self.routes.get(url)
         if route is None and self.fallback:
             return self.fallback(url)

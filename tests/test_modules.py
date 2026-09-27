@@ -16,6 +16,7 @@ CONVERT = ConvertConfig(
     scripthub_url="http://localhost:9101",
     category="🚫 AD Block",
     user_agent="Surge Mac/2985",
+    fetch_user_agents=("Surge Mac/2985",),
     proxy_hosts=("kelee.one",),
     serve_host="127.0.0.1",
 )
@@ -147,6 +148,21 @@ def test_fetch_prefers_direct_and_only_proxies_configured_hosts(
             session, "https://other.example/b.js", proxy_base="P=", proxy_hosts=["kelee.one"]
         )
     assert "P=https://other.example/b.js" not in session.calls
+
+
+def test_fetch_tries_each_user_agent_and_names_the_blocker(fake_session) -> None:
+    session = fake_session({}, fallback=lambda url: FakeResponse(403, headers={"Server": "cf"}))
+    with pytest.raises(fetch.FetchError) as info:
+        fetch.fetch(
+            session,
+            "https://kelee.one/a.lpx",
+            proxy_base="P=",
+            proxy_hosts=["kelee.one"],
+            user_agents=["UA1", "UA2"],
+        )
+    assert [h["User-Agent"] for h in session.sent_headers] == ["UA1", "UA2", "UA1"]
+    assert session.calls[-1] == "P=https://kelee.one/a.lpx"
+    assert str(info.value) == "direct: HTTP 403 (cf); direct#2: HTTP 403 (cf); proxy: HTTP 403 (cf)"
 
 
 def test_matches_host() -> None:

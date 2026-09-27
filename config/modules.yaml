@@ -14,8 +14,13 @@ convert:
   output_dir: Chores/sgmodule
   scripthub_url: http://localhost:9101
   category: "🚫 AD Block"
-  # kelee.one only serves clients that identify as Surge.
+  # Sent to Script-Hub; also the default for direct plugin downloads.
   user_agent: Surge Mac/2985
+  # kelee.one only serves clients that identify as Surge. Direct downloads try
+  # these in order before falling back to PROXY_BASE.
+  fetch_user_agents:
+    - Surge Mac/2985
+    - Surge/3070 CFNetwork/1410.0.3 Darwin/22.6.0
   # Plugins and scripts on these domains (or their subdomains) are retried through
   # PROXY_BASE when the direct download fails.
   proxy_hosts: [kelee.one]
