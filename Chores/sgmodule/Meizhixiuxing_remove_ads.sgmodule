@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、首页广告、发现页广告、美修盒页面广告、下拉广告、弹窗广告、搜索推广、版本更新弹窗及我的页面广告。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Meizhixiuxing.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1089854728
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Meizhixiuxing_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/api\.bevol\.com\/appmain\/app\/home\/launch$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"

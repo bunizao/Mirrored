@@ -2,12 +2,12 @@
 #!desc=移除HTTPDNS和QUIC传输配置，移除开屏广告、信息流广告、回答页广告，移除回答页下的相关回答、专栏卡片及圈子卡片，移除直答页面推荐知识库和提问推荐，移除评论区评论氛围满意度调查，精简首页顶部标签及我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Zhihu.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id432274380
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/api\.zhihu\.com\/commercial_api\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"

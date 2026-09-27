@@ -2,12 +2,12 @@
 #!desc=移除首页推广、点评页面非美食内容、购物车及我的页面推荐、搜索发现、搜索榜单，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/JDWaimai.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id6752605146
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/JDWaimai_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/color\.jddj\.com\/client\.action\?functionId=uniformRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"

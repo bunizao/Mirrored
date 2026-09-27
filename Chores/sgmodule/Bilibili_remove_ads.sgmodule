@@ -2,7 +2,6 @@
 #!desc=过滤哔哩哔哩广告、移除青少年模式弹窗和交互式弹幕、移除无用功能和链接跟踪参数，增加空降助手以便跳过视频中插入的广告。此插件仅建议iOS 15以上设备使用，且必须启用MitM-over-HTTP/2功能。\n\n空降助手是第三方提供的功能，依赖于Android版空降助手的服务器数据运作，可能会存在不准确或者失效的问题，此功能与哔哩哔哩官方无关。
 #!author=kokoryh[https://github.com/kokoryh]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Bilibili.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id736536022
 #!category=去广告
 #!system=ios
@@ -12,6 +11,7 @@
 #!date=2026-09-14 09:14:54
 #!arguments=displayUpList:"show",purifyComment:true,optimizeRequest:,sponsorBlock:#,logLevel:"off"
 #!arguments-desc=displayUpList: [动态]中[最常访问]的显示方式\nauto：仅当列表中存在直播状态时显示；show：始终显示；hide：始终隐藏。\n\npurifyComment: 移除评论区置顶广告\n移除评论区置顶广告\n\noptimizeRequest: 优化评论区加载异常\n尝试解决评论区加载异常的问题\n\nsponsorBlock: 空降助手\n用于跳过视频中的广告\n\nlogLevel: 日志等级\n脚本的日志输出等级
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Bilibili_remove_ads.lpx
 
 [Rule]
 DOMAIN,api.biliapi.com,REJECT

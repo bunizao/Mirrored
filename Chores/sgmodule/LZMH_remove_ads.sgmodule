@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、弹窗，移除首页、服务和发现页面无用内容。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/LZMH.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1070838360
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-08-22 02:46:00
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/LZMH_remove_ads.lpx
 
 [URL Rewrite]
 ^http:\/\/lzmh\.lz-qs\.com:5090\/resource\/download\/ - reject

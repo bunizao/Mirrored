@@ -2,12 +2,12 @@
 #!desc=移除Line各类广告
 #!author=jkgtw[https://github.com/jkgtw]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Line.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id443904275
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Line_remove_ads.lpx
 
 [Rule]
 URL-REGEX,"^https:\/\/a\.line\.me\/er\/lads\/v\d\/ei\?",REJECT-TINYGIF

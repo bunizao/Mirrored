@@ -2,12 +2,12 @@
 #!desc=移除虎扑开屏广告、首页顶部推广、我的页面多余模块及各类横幅推广。
 #!author=ZenmoFeiShi[https://github.com/ZenmoFeiShi]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/HUPU.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id906632439
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/HUPU_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/games\.mobileapi\.hupu\.com\/\d\/\d\.\d\.\d+\/bplapi\/reddot\/v1\/app\/getReddot data-type=text data="{}" status-code=200 header="Content-Type:application/json"

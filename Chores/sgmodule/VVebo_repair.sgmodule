@@ -2,12 +2,12 @@
 #!desc=修复失效的用户时间线和我的页面。使用此插件前需要禁用微博去广告插件，避免插件冲突导致失效。
 #!author=suiyuran[https://github.com/suiyuran], androidcn[https://github.com/androidcn]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/VVebo.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id670910957
 #!category=功能增强
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/VVebo_repair.lpx
 
 [Script]
 修复时间线 = type=http-request, pattern=^https:\/\/api\.weibo\.cn\/2\/users\/show\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/VVebo_repair.js

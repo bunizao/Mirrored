@@ -2,12 +2,12 @@
 #!desc=精简首页和底部导航
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/ShandongSchool.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1540537249
 #!category=去广告
 #!loon_version=3.5.1(984)
 #!homepage=https://hub.kelee.one
 #!date=2026-09-21 00:06:55
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/ShandongSchool_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/api\.huachenjie\.com\/run-front\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"

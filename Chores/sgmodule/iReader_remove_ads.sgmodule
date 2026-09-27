@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、悬浮广告、弹窗广告、朗读音色广告及我的页面广告，移除各页面的横幅轮播图。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/iReader.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id463150061
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/iReader_remove_ads.lpx
 
 [Rule]
 DOMAIN,saad.ms.zhangyue.net,REJECT

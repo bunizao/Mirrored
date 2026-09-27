@@ -2,12 +2,12 @@
 #!desc=过滤菜鸟广告
 #!author=小白脸
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Cainiao.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id951610982
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Cainiao_remove_ads.lpx
 
 [URL Rewrite]
 ^https:\/\/nbcps-mtop\.cainiao\.com\/gw\/mtop\.cainiao\.nbcps\.presentation\.fetch\.cn - reject

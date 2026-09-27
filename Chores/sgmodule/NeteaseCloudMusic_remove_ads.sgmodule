@@ -2,7 +2,6 @@
 #!desc=过滤网易云音乐广告，并允许自定义界面。
 #!author=RuCu6[https://github.com/RuCu6], Keywos[https://github.com/Keywos]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/NeteaseCloudMusic.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id590338362
 #!category=去广告
 #!loon_version=3.4.0(962)
@@ -10,6 +9,7 @@
 #!date=2026-06-01 17:11:35
 #!arguments=MY:false,DT:false,FX:false,PRGG:false,PRRK:false,PRDRD:false,PRSCVPT:false,PRST:false,PRRR:false,HMPR:false,PRMST:false,PRCN:false
 #!arguments-desc=MY: [隐藏底栏]漫游标签\n\nDT: [隐藏底部]笔记标签\n\nFX: [隐藏底部]发现标签\n\nPRGG: [隐藏首页]问候语\n\nPRRK: [隐藏首页]排行榜\n\nPRDRD: [隐藏首页]每日推荐\n\nPRSCVPT: [隐藏首页]推荐歌单\n\nPRST: [隐藏首页]最近常听\n\nPRRR: [隐藏首页]雷达歌单\n\nHMPR: [隐藏首页]音乐合伙人\n\nPRMST: [隐藏首页]推荐专属歌单\n\nPRCN: [隐藏首页]你的专属歌单
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/NeteaseCloudMusic_remove_ads.lpx
 
 [Rule]
 DOMAIN,iadmat.nosdn.127.net,REJECT

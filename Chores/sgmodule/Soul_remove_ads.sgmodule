@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、移除话题页面热Soul话题、移除评论区礼物榜、移除更新提示、移除青少年弹窗、移除我的页面推广、移除悬浮部件。
 #!author=ZenmoFeiShi[https://github.com/ZenmoFeiShi], RuCu6[https://github.com/RuCu6], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Soul.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1032287195
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Soul_remove_ads.lpx
 
 [Rule]
 DOMAIN-SUFFIX,soulapp.cn,DIRECT

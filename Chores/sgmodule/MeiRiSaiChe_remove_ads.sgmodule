@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、信息流广告。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/MeiRiSaiChe.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1590997618
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-07-02 20:41:31
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/MeiRiSaiChe_remove_ads.lpx
 
 [Script]
 body_rewrite_12 = type=http-response, pattern=^https:\/\/api\.romielf\.com\/index\/indexv\d\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-replace%22%2C%5B%5B%22data.advertisement%22%2C%5B%5D%5D%2C%5B%22data.listadvertising%22%2C%5B%5D%5D%5D%5D%5D

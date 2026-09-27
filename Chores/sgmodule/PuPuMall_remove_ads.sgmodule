@@ -2,12 +2,12 @@
 #!desc=移除超市去开屏广告，移除首页顶部轮播图和图标广告、启动小弹图广告、首页右下角悬浮动画、搜索热搜榜、搜索建议词、搜索发现热词、订单页面商，精简我的页面。
 #!author=kelv1n1n[https://github.com/kelv1n1n], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/PuPuMall.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1144025167
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/PuPuMall_remove_ads.lpx
 
 [URL Rewrite]
 ^https:\/\/j1\.pupuapi\.com\/client\/account\/discount\/order - reject

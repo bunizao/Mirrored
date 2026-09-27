@@ -2,12 +2,12 @@
 #!desc=移除京东开屏广告，精简我的页面产品推广。
 #!author=RuCu6[https://github.com/RuCu6], Maasea[https://github.com/Maasea]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/JD.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id414245413
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/JD_remove_ads.lpx
 
 [Rule]
 URL-REGEX,"^http:\/\/\w{32}\.jddebug\.com\/diagnose\?",REJECT

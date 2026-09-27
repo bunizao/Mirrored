@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、横幅广告，精简首页，拦截优惠购页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/OKOK.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id999308991
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-07-03 13:38:14
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/OKOK_remove_ads.lpx
 
 [URL Rewrite]
 ^https:\/\/shop171777386\.m\.youzan\.com\/v2\/showcase\/homepage\? - reject

@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、焦点图广告、瀑布流广告、搜索页面广告、移除青少年弹窗，精简底栏和我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/iQiYi_Video.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1190755526
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/iQiYi_Video_remove_ads.lpx
 
 [Rule]
 IP-CIDR,103.44.59.54/32,REJECT,no-resolve

@@ -2,12 +2,12 @@
 #!desc=移除起点读书开屏广告、每日导读、各类弹窗、文末广告、搜索填充词，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/QiDian.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id534174796
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/QiDian_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/magev6\.if\.qidian\.com\/argus\/api\/v4\/client\/getsplashscreen\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"

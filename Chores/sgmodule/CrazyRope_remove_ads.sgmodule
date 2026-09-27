@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、横幅广告、弹窗广告、活动推广，精简首页标签和搜索页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/CrazyRope.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1531440648
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-07-01 00:19:10
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/CrazyRope_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/api\.tiantiantiaosheng\.com\/api\d\/abtest\/ads_v\d\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"

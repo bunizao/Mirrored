@@ -2,7 +2,6 @@
 #!desc=高级订阅管理工具，定时任务默认为每天23点55分，可在插件设置中自定义。使用前请在本插件的详情页面为[PROXY]项分配代理策略。
 #!author=Peng-YM[https://github.com/Peng-YM]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/Sub-Store.png
-#!category=🚫 AD Block
 #!openUrl=https://sub.store
 #!category=订阅管理
 #!loon_version=3.4.0(962)
@@ -10,6 +9,7 @@
 #!date=2026-06-01 17:11:35
 #!arguments=cron:"55 23 * * *"
 #!arguments-desc=cron: 定时参数\n这里需要输入符合CRON表达式的参数
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Sub-Store.lpx
 
 [Script]
 Sub-Store Core = type=http-request, pattern=^https?:\/\/sub\.store\/((download)|api\/(preview|sync|(utils\/node-info))), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/sub-store-1.min.js, requires-body=true, timeout=120

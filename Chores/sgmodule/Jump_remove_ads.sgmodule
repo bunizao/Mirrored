@@ -2,12 +2,12 @@
 #!desc=移除Jump开屏广告
 #!author=MoonYuki[https://github.com/MoonYuki]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Jump.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1529434108
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Jump_remove_ads.lpx
 
 [Rule]
 DOMAIN,zlsdk.1rtb.net,REJECT

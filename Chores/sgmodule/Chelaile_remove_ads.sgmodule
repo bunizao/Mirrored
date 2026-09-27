@@ -2,12 +2,12 @@
 #!desc=清洗配置，移除开屏广告、首页金刚位、文章推荐，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Chelaile.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id667831823
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-07-04 19:58:28
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Chelaile_remove_ads.lpx
 
 [Rule]
 DOMAIN,ad.chelaile.net.cn,REJECT

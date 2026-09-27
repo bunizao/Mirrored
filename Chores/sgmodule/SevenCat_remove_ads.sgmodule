@@ -2,12 +2,12 @@
 #!desc=移除大部分七猫小说广告，但受限于七猫小说自身对MitM和VPN状态的检测，部分页面广告无法移除。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/SevenCat.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1387717110
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/SevenCat_remove_ads.lpx
 
 [Rule]
 DOMAIN,cdn-ad.wtzw.com,REJECT

@@ -2,12 +2,12 @@
 #!desc=移除弹窗，精简首页和生活服务。此插件需要IPA签名方可使用，App Store用户请勿使用此插件，务必点击下方主页链接查看详细教程。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/FC_Box.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id1259763050
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/FC_Box_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/consumer\.fcbox\.com\/fcboxactivityweb\/api\/v\d\/clientPage\/modulesAggregated\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"

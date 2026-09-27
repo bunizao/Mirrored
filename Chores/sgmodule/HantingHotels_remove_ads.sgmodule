@@ -2,12 +2,12 @@
 #!desc=移除弹窗、横幅，精简首页。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/HantingHotels.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id556808349
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-12 16:06:38
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/HantingHotels_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/hweb-manager\.huazhu\.com\/notice\/getAppPopupNotifyAlert$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"

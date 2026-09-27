@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、侧滑页面广告、消息广告、浮窗广告、横幅广告、信息流广告、弹窗广告。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Jin10Data.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id901284508
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-08-27 06:29:33
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Jin10Data_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/jad-api\.jin10\.com\/ad\d\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"

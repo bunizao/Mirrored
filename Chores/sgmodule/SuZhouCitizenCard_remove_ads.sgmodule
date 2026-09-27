@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、横幅，移除信息流推广。
 #!author=xream[https://github.com/xream]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/SuZhouCitizenCard.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id897076369
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/SuZhouCitizenCard_remove_ads.lpx
 
 [Map Local]
 ^https?:\/\/newapp2\.szsmk\.com\/app\/config\/queryMainAd data-type=text data="{"message":"操作成功","main_ad_list":[],"code":"000000"}" header="Content-Type:application/json"

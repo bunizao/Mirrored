@@ -2,12 +2,12 @@
 #!desc=移除中国人保开屏广告和应用内广告
 #!author=Sliverkiss[https://github.com/Sliverkiss]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/PICC_Insurance.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id710189980
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/PICC_Insurance_remove_ads.lpx
 
 [URL Rewrite]
 ^https:\/\/zgrb\.epicc\.com\.cn\/G-HAPP\/h\/headlines\/queryHeadlines - reject

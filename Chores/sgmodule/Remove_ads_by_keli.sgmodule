@@ -2,11 +2,11 @@
 #!desc=可莉自用的广告过滤器
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/KeLee.png
-#!category=🚫 AD Block
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx
 
 [Rule]
 DOMAIN,acdn.adnxs.com,REJECT

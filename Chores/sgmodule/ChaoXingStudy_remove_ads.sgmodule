@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、横幅推广，精简校园补给站频道。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/ChaoXingStudy.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id977946724
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
 #!date=2026-06-30 19:09:23
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/ChaoXingStudy_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/home-yd\.chaoxing\.com\/apis\/data\/getAdsRecommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"

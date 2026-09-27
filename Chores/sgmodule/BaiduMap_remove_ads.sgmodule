@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、出行页面推广、周边页面推广、打车页面推广，精简我的页面。此插件需要IPA签名方可使用，App Store用户请勿使用此插件，务必点击下方主页链接查看详细教程。
 #!author=可莉🅥[https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BaiduMap.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id452186370
 #!category=去广告
 #!loon_version=3.4.0(962)
 #!homepage=https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c
 #!date=2026-06-01 17:11:35
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/BaiduMap_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/afd\.baidu\.com\/afd\/entry\?action=(update|query) data-type=text data="{}" status-code=200 header="Content-Type:application/json"

@@ -2,12 +2,12 @@
 #!desc=移除开屏广告、活动皮肤、各类弹窗及横幅、金刚位红点文字，精简首页标签及搜索页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Cece.png
-#!category=🚫 AD Block
 #!openUrl=https://apps.apple.com/app/id756771906
 #!category=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
 #!date=2026-05-13 00:20:48
+# 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Cece_remove_ads.lpx
 
 [Map Local]
 ^https:\/\/api\.cece\.com\/user\/index\/banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
