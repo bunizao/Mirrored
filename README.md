@@ -1,9 +1,10 @@
 # Mirrored
 
 > 🪞 **Script & module mirror — for personal use only**
-> 📖 [中文索引](README.zh-CN.md) — every module with its description and raw link.
 >
 > A single raw host that keeps several open-source projects such as **BiliUniverse**, **DualSubs** and **iRingo** in sync, and serves their assets in formats ready for **Surge / Loon / Stash / Egern / Quantumult X / Shadowrocket**.
+> 
+> 📖 [中文索引](README.zh-CN.md)
 
 ---
 
