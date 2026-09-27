@@ -112,15 +112,19 @@ def _details(summary: str, body: list[str], *, open_: bool) -> list[str]:
 
 
 def _header(config: IndexConfig) -> list[str]:
-    return [
+    lines = [
         "# 🪞 Mirrored 中文索引",
         "",
         GENERATED_NOTE,
         "",
-        "开放模块与脚本的镜像，可直接用于 Surge / Egern / Loon / Stash / Quantumult X。"
-        f"项目介绍见 [README]({config.repo_url}#readme)。",
+        "开放模块与脚本的镜像，可直接用于 Surge / Egern / Loon / Stash / Quantumult X。",
         "",
     ]
+    if config.about:
+        lines += ["## 为什么是 Mirrored", ""]
+        for paragraph in config.about:
+            lines += [paragraph, ""]
+    return lines
 
 
 def _quick_start(root: Path, config: IndexConfig) -> list[str]:

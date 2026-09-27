@@ -1,56 +1,58 @@
-# 🪞 Mirrored
+# Mirrored
 
-开放模块与脚本的镜像站：自动同步，统一地址，可直接用于 Surge / Egern / Loon / Stash / Quantumult X / Shadowrocket。
-
-📖 **[浏览全部模块 →](README.zh-CN.md)**
-
----
-
-## 为什么是 Mirrored
-
-许多曾公开托管在 GitHub 上的模块与脚本，正陆续迁往私有部署：不再开放自由访问，请求会被记录详细日志，部分正常用户也会被拦截。依赖它们的配置随时可能失效，使用痕迹也可能在不知不觉中暴露。
-
-开源生态正在收紧。本为规避审查而生的社区，正在筑起一道道高墙。
-
-Mirrored 因此而生。它像一座互联网档案馆，持续镜像并同步这些资源，让脚本不再受制于单一源站或政策变化。
-
-这并不容易：审查、封锁、反爬与私有化都在让开放的镜像越来越难维持。但正因如此，才更需要有人去做。
-
-Mirrored 不是对抗，而是守护。无论生态如何收紧，我们都希望为开发者与爱好者留下一个仍能信任、仍能访问、仍能延续的地方。
+> 🪞 **Script & module mirror — for personal use only**
+>
+> A single raw host that keeps open-source modules and scripts in sync and serves them in formats ready for **Surge / Egern / Loon / Stash / Quantumult X / Shadowrocket**.
+>
+> 📖 [中文索引 · Browse all modules](README.zh-CN.md)
 
 ---
 
-## 快速开始
+## Why Mirrored
 
-推荐的去广告合集，在 App 中「从 URL 安装模块」：
+Many modules and scripts that were once openly hosted on GitHub are moving to private deployments. They no longer offer free access: requests are logged in detail, and some legitimate users are blocked outright. Configurations that depend on them can break at any time, and usage traces may be exposed without anyone noticing.
+
+The open ecosystem is closing in. A community born to route around censorship is putting up walls of its own.
+
+Mirrored exists to keep these tools available. Like an internet archive, it continuously mirrors and syncs them so that scripts no longer depend on a single origin or a sudden change of policy.
+
+This is not easy. Censorship, blocked origins, anti-scraping measures and the spread of private hosting all make an open mirror harder to keep alive. That is exactly why it is worth doing.
+
+Mirrored is not a fight; it is preservation. However the ecosystem tightens, we want to leave developers and enthusiasts a place they can still trust, still reach, and still build on.
+
+---
+
+## Quick start
+
+In Surge / Stash / Loon, choose **Install module from URL** and paste the recommended ad-blocking bundle:
 
 ```text
 https://raw.githubusercontent.com/bunizao/Mirrored/main/Chores/sgmodule/All-in-One-2.x.sgmodule
 ```
 
-其他模块请看 **[中文索引](README.zh-CN.md)**，每个模块都附有说明和链接。
+Every other module, with a description and link, is listed in the [index](README.zh-CN.md).
 
-## 收录内容
+## What's mirrored
 
-| 目录 | 内容 | 上游 |
+| Directory | Contents | Upstream |
 | --- | --- | --- |
-| [`Chores/`](Chores) | 去广告与工具模块、去广告规则集、脚本镜像 | 社区作者 |
-| [`BiliUniverse/`](BiliUniverse) | 哔哩哔哩增强 | [BiliUniverse](https://github.com/BiliUniverse) |
-| [`DualSubs/`](DualSubs) | 流媒体双语字幕 | [DualSubs](https://github.com/DualSubs) |
-| [`iRingo/`](iRingo) | Apple 服务增强 | [NSRingo](https://github.com/NSRingo) |
+| [`Chores/`](Chores) | Ad-blocking and utility modules, a reject ruleset, mirrored scripts | Community authors |
+| [`BiliUniverse/`](BiliUniverse) | Bilibili enhancements | [BiliUniverse](https://github.com/BiliUniverse) |
+| [`DualSubs/`](DualSubs) | Dual-language subtitles for streaming services | [DualSubs](https://github.com/DualSubs) |
+| [`iRingo/`](iRingo) | Apple service enhancements | [NSRingo](https://github.com/NSRingo) |
 
-每个镜像文件开头都有一行 `# 🪞 Mirrored` 注释，标明它的上游来源。
+Every mirrored file starts with a `# 🪞 Mirrored` line naming its upstream source.
 
 ---
 
-## 致谢
+## Acknowledgements
 
-感谢 BiliUniverse、DualSubs、iRingo 的作者，以及每一位独立脚本作者。
+Huge thanks to the authors of BiliUniverse, DualSubs, iRingo, and every independent script contributor.
 
-## 声明
+## Disclaimer 📜
 
-1. 仅供学习与个人备份使用，使用者自行承担由此产生的一切责任。
-2. 所有模块与脚本的版权归原作者所有。
-3. 如有侵权，请提交 issue 或邮件联系，将及时删除。
+1. For educational and personal backup purposes only. You assume all legal and financial responsibilities arising from use.
+2. Copyright for every mirrored module and script belongs to the original authors.
+3. If any content infringes your rights, please open an issue or email me; it will be removed promptly.
 
-<sub>维护与开发说明见 [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)。</sub>
+<sub>Maintainer notes: [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)</sub>
