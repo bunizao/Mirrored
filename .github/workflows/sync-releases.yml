@@ -39,9 +39,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           PRUNE: ${{ inputs.prune }}
 
-      - name: Update index pages
-        run: uv run --no-sync mirrored build-index --page BiliUniverse --page DualSubs --page iRingo
-
       - name: Commit and push
         uses: ./.github/actions/commit-and-push
         with:

@@ -18,12 +18,14 @@ from dataclasses import dataclass
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import quote, urlparse
+from urllib.parse import quote
 
 import requests
 
 from mirrored import gha
+from mirrored.catalog import plugin_filename, plugin_name
 from mirrored.config import ConvertConfig
+from mirrored.credit import add_credit_bytes
 from mirrored.fetch import FetchError, fetch
 from mirrored.files import write_if_changed
 
@@ -37,18 +39,6 @@ class ConvertResult:
     via: str = ""  # How the plugin was fetched: "direct" or "proxy".
 
 
-def plugin_name(url: str) -> str:
-    """Derive the module name from a plugin URL, e.g. ``.../Foo.lpx?x=1`` -> ``Foo``."""
-    name = plugin_filename(url)
-    for suffix in (".lpx", ".plugin"):
-        name = name.removesuffix(suffix)
-    return name.strip() or plugin_filename(url)
-
-
-def plugin_filename(url: str) -> str:
-    return urlparse(url).path.rsplit("/", 1)[-1].strip()
-
-
 def _uri(value: str) -> str:
     # Same escaping as jq's @uri: everything except RFC 3986 unreserved characters.
     return quote(value, safe="")
@@ -60,7 +50,6 @@ def scripthub_url(source_url: str, name: str, config: ConvertConfig) -> str:
         [
             "type=loon-plugin",
             "target=surge-module",
-            f"category={_uri(config.category)}",
             f"headers={_uri(f'User-Agent: {config.user_agent}')}",
         ]
     )
@@ -175,7 +164,8 @@ def convert_all(
                 elif not looks_like_module(response.content):
                     result.detail = "convert: response is not a module"
                 else:
-                    write_if_changed(output_dir / f"{name}.sgmodule", response.content)
+                    module = add_credit_bytes(response.content, url)
+                    write_if_changed(output_dir / f"{name}.sgmodule", module)
                     result.status = "converted"
                 return result
 

@@ -5,6 +5,7 @@ from pathlib import Path
 
 from mirrored import releases
 from mirrored.config import ExtraFile, ReleaseSource
+from mirrored.credit import add_credit
 
 from fakes import FakeResponse
 
@@ -80,8 +81,11 @@ def test_sync_routes_assets_and_follows_redirects(tmp_path: Path, fake_session) 
 
     assert [r.error for r in results] == [None, None]
     assert results[0].updated == ["out/sg/A.sgmodule", "out/plugin/A.plugin"]
-    assert (tmp_path / "out/sg/A.sgmodule").read_text() == "#!arguments=Proxy:United States\n"
-    assert (tmp_path / "out/plugin/A.plugin").read_text() == "[Plugin]\n"
+    upstream = "https://github.com/Old/Name"
+    assert (tmp_path / "out/sg/A.sgmodule").read_text() == add_credit(
+        "#!arguments=Proxy:United States\n", upstream
+    )
+    assert (tmp_path / "out/plugin/A.plugin").read_text() == add_credit("[Plugin]\n", upstream)
     assert (tmp_path / "out/sg/extra.sgmodule").exists()
     assert not (tmp_path / "out/notes.txt").exists()
 

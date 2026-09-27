@@ -116,13 +116,13 @@ def load_releases(path: Path) -> list[ReleaseSource]:
 class CatalogConfig:
     urls: tuple[str, ...]
     extensions: tuple[str, ...]
+    metadata_output: str
 
 
 @dataclass(frozen=True)
 class ConvertConfig:
     output_dir: str
     scripthub_url: str
-    category: str
     user_agent: str
     # User-Agents tried in order when downloading plugins directly.
     fetch_user_agents: tuple[str, ...]
@@ -164,11 +164,11 @@ def load_modules(path: Path) -> ModulesConfig:
         catalog=CatalogConfig(
             urls=_str_list(catalog, "urls", f"{where}: catalog"),
             extensions=_str_list(catalog, "extensions", f"{where}: catalog"),
+            metadata_output=_str(catalog, "metadata_output", f"{where}: catalog"),
         ),
         convert=ConvertConfig(
             output_dir=_str(convert, "output_dir", f"{where}: convert"),
             scripthub_url=_str(convert, "scripthub_url", f"{where}: convert"),
-            category=_str(convert, "category", f"{where}: convert"),
             user_agent=_str(convert, "user_agent", f"{where}: convert"),
             fetch_user_agents=_str_list(convert, "fetch_user_agents", f"{where}: convert")
             or (_str(convert, "user_agent", f"{where}: convert"),),
@@ -228,66 +228,53 @@ def load_aio(path: Path) -> AioConfig:
 
 
 @dataclass(frozen=True)
-class IndexSection:
-    dir: str
-    ext: str
-    label: str
-
-
-@dataclass(frozen=True)
-class IndexPage:
-    path: str
+class IndexProject:
     title: str
     intro: str
     upstream: str
-    sections: tuple[IndexSection, ...]
-    pinned: tuple[str, ...] = ()
+    # File extension (without the dot) -> directory holding that format.
+    dirs: Mapping[str, str]
 
 
 @dataclass(frozen=True)
 class IndexConfig:
+    output: str
     raw_base: str
-    root: str
-    pages: tuple[IndexPage, ...]
+    repo_url: str
+    catalog: str
+    modules_dir: str
+    pinned: tuple[str, ...]
+    projects: tuple[IndexProject, ...]
+    # Case-insensitive terms: matching authors and plugins are left off the page.
+    hide: tuple[str, ...] = ()
 
 
 def load_index(path: Path) -> IndexConfig:
     data = _load(path)
     where = str(path)
-    pages = data.get("pages")
-    if not isinstance(pages, list) or not pages:
-        raise ConfigError(f"{where}: 'pages' must be a non-empty list")
-    parsed = []
-    for index, raw in enumerate(pages):
-        page_where = f"{where}: pages[{index}]"
+    projects = []
+    for index, raw in enumerate(data.get("projects") or []):
+        item_where = f"{where}: projects[{index}]"
         if not isinstance(raw, Mapping):
-            raise ConfigError(f"{page_where}: expected a mapping")
-        sections = []
-        for j, sec in enumerate(raw.get("sections") or []):
-            sec_where = f"{page_where}.sections[{j}]"
-            if not isinstance(sec, Mapping):
-                raise ConfigError(f"{sec_where}: expected a mapping")
-            sections.append(
-                IndexSection(
-                    dir=_str(sec, "dir", sec_where),
-                    ext=_str(sec, "ext", sec_where),
-                    label=_str(sec, "label", sec_where),
-                )
-            )
-        if not sections:
-            raise ConfigError(f"{page_where}: 'sections' must not be empty")
-        parsed.append(
-            IndexPage(
-                path=_str(raw, "path", page_where),
-                title=_str(raw, "title", page_where),
+            raise ConfigError(f"{item_where}: expected a mapping")
+        dirs = _str_map(raw, "dirs", item_where)
+        if not dirs:
+            raise ConfigError(f"{item_where}: 'dirs' must not be empty")
+        projects.append(
+            IndexProject(
+                title=_str(raw, "title", item_where),
                 intro=str(raw.get("intro") or ""),
                 upstream=str(raw.get("upstream") or ""),
-                sections=tuple(sections),
-                pinned=_str_list(raw, "pinned", page_where),
+                dirs=dirs,
             )
         )
     return IndexConfig(
+        output=_str(data, "output", where),
         raw_base=_str(data, "raw_base", where).rstrip("/"),
-        root=_str(data, "root", where),
-        pages=tuple(parsed),
+        repo_url=_str(data, "repo_url", where).rstrip("/"),
+        catalog=_str(data, "catalog", where),
+        modules_dir=_str(data, "modules_dir", where),
+        pinned=_str_list(data, "pinned", where),
+        projects=tuple(projects),
+        hide=tuple(term.lower() for term in _str_list(data, "hide", where)),
     )

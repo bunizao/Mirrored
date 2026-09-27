@@ -12,6 +12,7 @@ import requests
 
 from mirrored import gha
 from mirrored.config import ReleaseSource
+from mirrored.credit import add_credit_bytes
 from mirrored.files import write_if_changed
 
 API_ROOT = "https://api.github.com"
@@ -96,7 +97,10 @@ def download(session: requests.Session, url: str) -> bytes:
     return response.content
 
 
-def _store(path: Path, data: bytes, overrides: Mapping[str, Mapping[str, str]]) -> bool:
+def _store(
+    path: Path, data: bytes, overrides: Mapping[str, Mapping[str, str]], source: str
+) -> bool:
+    data = add_credit_bytes(data, source)
     ext_overrides = overrides.get(extension_of(path.name))
     if ext_overrides:
         # surrogateescape round-trips any bytes that are not valid UTF-8 untouched.
@@ -125,7 +129,8 @@ def sync_source(
                     continue
                 result.published.append(f"{route}/{name}")
                 data = download(downloads, asset["browser_download_url"])
-                if _store(root / route / name, data, source.argument_overrides):
+                upstream = f"https://github.com/{repo}"
+                if _store(root / route / name, data, source.argument_overrides, upstream):
                     result.updated.append(f"{route}/{name}")
                 else:
                     result.unchanged += 1
@@ -138,7 +143,7 @@ def sync_source(
         results.append(result)
         try:
             data = download(downloads, extra.url)
-            if _store(root / extra.path, data, source.argument_overrides):
+            if _store(root / extra.path, data, source.argument_overrides, extra.url):
                 result.updated.append(extra.path)
             else:
                 result.unchanged += 1

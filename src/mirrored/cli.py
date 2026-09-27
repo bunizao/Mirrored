@@ -97,6 +97,10 @@ def cmd_build_modules(args: argparse.Namespace) -> int:
                 payload = catalog.download_catalog(catalog_urls)
                 plugin_urls = catalog.extract_plugin_urls(payload, config.catalog.extensions)
                 print(f"Found {len(plugin_urls)} plugins")
+                catalog.save_records(
+                    args.root / config.catalog.metadata_output,
+                    catalog.plugin_records(payload, config.catalog.extensions),
+                )
             if not plugin_urls:
                 raise catalog.CatalogError("catalog contains no plugin URLs")
         except catalog.CatalogError as exc:
@@ -156,13 +160,8 @@ def cmd_build_aio(args: argparse.Namespace) -> int:
 
 def cmd_build_index(args: argparse.Namespace) -> int:
     config = load_index(args.root / args.config)
-    known = {page.path for page in config.pages}
-    unknown = set(args.page or ()) - known
-    if unknown:
-        raise ConfigError(f"no index page for {', '.join(sorted(unknown))}")
-    changed = index.build(args.root, config, args.page)
-    for path in changed:
-        print(f"  updated  {path}")
+    changed = index.build(args.root, config)
+    print(f"{'updated' if changed else 'unchanged':>9}  {config.output}")
     return 0
 
 
@@ -199,9 +198,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--date", help="override the Update: date (MM/DD/YYYY)")
     p.set_defaults(func=cmd_build_aio)
 
-    p = sub.add_parser("build-index", help="regenerate the Chinese index pages")
+    p = sub.add_parser("build-index", help="regenerate the Chinese index page")
     p.add_argument("--config", default="config/index.yaml")
-    p.add_argument("--page", action="append", help="only these directory pages (repeatable)")
     p.set_defaults(func=cmd_build_index)
     return parser
 

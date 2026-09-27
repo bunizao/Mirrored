@@ -59,8 +59,8 @@ Repository settings used by `build-modules`:
 
 | Name | Kind | Purpose |
 |------|------|---------|
-| `PROXY_BASE` | variable | Fallback prefix for `kelee.one` downloads when the direct request fails, e.g. `https://proxy.example/?url=` |
-| `LIST_URL_PRIMARY`, `LIST_URL_BACKUP` | variables | Override the plugin catalog URL (default `https://hub.kelee.one/list.json`) |
+| `PROXY_BASE` | variable | Fallback prefix for plugin and script downloads when the direct request fails, e.g. `https://proxy.example/?url=` |
+| `LIST_URL_PRIMARY`, `LIST_URL_BACKUP` | variables | Override the plugin catalog URL (default in `config/modules.yaml`) |
 | `DISPATCH_TOKEN` | secret | Token allowed to send `repository_dispatch` to `bunizao/TutuBetterRules` |
 
 ---
@@ -69,7 +69,7 @@ Repository settings used by `build-modules`:
 
 - [`config/releases.yaml`](config/releases.yaml) – upstream repositories, where each asset type goes, extra files and forced module arguments.
 - [`config/modules.yaml`](config/modules.yaml) – plugin catalog, Script-Hub conversion and script mirroring settings.
-- [`config/index.yaml`](config/index.yaml) – titles and sections of the Chinese index pages (`README.zh-CN.md` and each directory's `README.md`).
+- [`config/index.yaml`](config/index.yaml) – layout of the Chinese index page `README.zh-CN.md`, built from the plugin catalog metadata (`Chores/catalog.json`) and each file's own header.
 - [`config/aio.yaml`](config/aio.yaml) – modules merged into `All-in-One-2.x.sgmodule`, rendered with [`config/templates/`](config/templates).
 
 ---
@@ -82,7 +82,7 @@ Requires [uv](https://docs.astral.sh/uv/).
 uv sync                                   # install dependencies
 uv run mirrored sync-releases --only DualSubs
 uv run mirrored build-aio
-uv run mirrored build-index                    # regenerate the Chinese index pages
+uv run mirrored build-index                    # regenerate the Chinese index page
 docker run -d --rm --network host xream/script-hub   # Script-Hub on :9101 for build-modules
 uv run mirrored build-modules
 uv run pytest && uv run ruff check && uv run ruff format --check && uv run actionlint
