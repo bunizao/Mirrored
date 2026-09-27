@@ -1,0 +1,85 @@
+name: Build modules
+
+# 1. Convert the Loon plugin catalog into Surge modules (Chores/sgmodule) via Script-Hub.
+# 2. Mirror the external scripts those modules load (Chores/js) and rewrite their links.
+# 3. Rebuild the All-in-One module and reject ruleset from config/aio.yaml.
+# 4. Notify bunizao/TutuBetterRules when the All-in-One outputs changed.
+
+on:
+  schedule:
+    - cron: "5,30,55 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - "config/modules.yaml"
+      - "config/aio.yaml"
+      - "config/templates/**"
+      - "src/**"
+      - "Chores/sgmodule/**"
+  workflow_dispatch:
+    inputs:
+      list_url_primary:
+        description: Primary plugin catalog URL (e.g. https://hub.kelee.one/list.json)
+        required: false
+      list_url_backup:
+        description: Backup plugin catalog URL
+        required: false
+      proxy_base:
+        description: Proxy prefix for kelee.one plugins (include a trailing ?url= if needed)
+        required: false
+
+permissions: {}
+
+concurrency:
+  group: build-modules-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    services:
+      scripthub:
+        image: xream/script-hub:latest
+        ports:
+          - 9100:9100
+          - 9101:9101
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/actions/setup
+
+      - name: Convert plugins and mirror scripts
+        id: modules
+        run: uv run --no-sync mirrored build-modules
+        env:
+          LIST_URL_PRIMARY: ${{ inputs.list_url_primary || vars.LIST_URL_PRIMARY }}
+          LIST_URL_BACKUP: ${{ inputs.list_url_backup || vars.LIST_URL_BACKUP }}
+          PROXY_BASE: ${{ inputs.proxy_base || vars.PROXY_BASE }}
+
+      - name: Build All-in-One module
+        id: aio
+        run: uv run --no-sync mirrored build-aio
+
+      - name: Commit and push
+        id: commit
+        # Keep converted modules even if the All-in-One build failed.
+        if: ${{ !cancelled() && steps.modules.outcome == 'success' }}
+        uses: ./.github/actions/commit-and-push
+        with:
+          paths: Chores/sgmodule Chores/js Chores/ruleset
+          message: "chore(build): update modules, scripts and All-in-One"
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Notify TutuBetterRules
+        if: steps.aio.outputs.changed == 'true' && steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::DISPATCH_TOKEN is not set; TutuBetterRules was not notified."
+            exit 0
+          fi
+          gh api repos/bunizao/TutuBetterRules/dispatches -f event_type=sync_files

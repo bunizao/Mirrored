@@ -1,0 +1,39 @@
+name: Sync upstream releases
+
+# Mirrors release assets of the repositories listed in config/releases.yaml
+# into BiliUniverse/, DualSubs/ and iRingo/.
+
+on:
+  schedule:
+    - cron: "5,30,55 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: sync-releases-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ./.github/actions/setup
+
+      - name: Sync release assets
+        run: uv run --no-sync mirrored sync-releases
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Commit and push
+        uses: ./.github/actions/commit-and-push
+        with:
+          paths: BiliUniverse DualSubs iRingo
+          message: "chore(sync): update upstream release assets"
+          # Runs dispatched from other branches are dry runs.
+          push: ${{ github.ref == 'refs/heads/main' }}

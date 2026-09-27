@@ -1,0 +1,49 @@
+# Upstream GitHub releases mirrored into this repository by `mirrored sync-releases`.
+#
+# For every repository the latest release is fetched and each asset is routed by
+# its file extension into a directory. Assets whose extension has no route are
+# skipped. Renamed or transferred repositories are followed automatically, but
+# the run emits a notice so the entry can be updated here.
+
+sources:
+  - name: BiliUniverse
+    repos:
+      - BiliUniverse/Global
+      - BiliUniverse/Redirect
+      - BiliUniverse/Enhanced
+      - BiliUniverse/ADBlock
+    routes:
+      sgmodule: BiliUniverse
+
+  - name: DualSubs
+    repos:
+      - DualSubs/YouTube
+      - DualSubs/Universal
+      - DualSubs/Netflix
+      - DualSubs/Spotify
+    routes:
+      sgmodule: DualSubs
+
+  - name: iRingo
+    repos:
+      - NSRingo/WeatherKit
+      - NSRingo/News
+      - NSRingo/Testflight
+      - NSRingo/GeoServices
+      - NSRingo/Siri
+      - NSRingo/TV
+    routes:
+      plugin: iRingo/plugin
+      sgmodule: iRingo/sgmodule
+      snippet: iRingo/snippet
+      stoverride: iRingo/stoverride
+    # Files that are not published as release assets.
+    extra_files:
+      - url: https://raw.githubusercontent.com/NSRingo/Siri/dev/debug/Siri.V2.beta.sgmodule
+        path: iRingo/sgmodule/Siri.V2.beta.sgmodule
+      - url: https://raw.githubusercontent.com/NSRingo/Siri/dev/debug/Siri.V2.macOS.beta.sgmodule
+        path: iRingo/sgmodule/Siri.V2.macOS.beta.sgmodule
+    # Default values forced into the `#!arguments=` header, keyed by extension.
+    argument_overrides:
+      sgmodule:
+        Proxy: United States

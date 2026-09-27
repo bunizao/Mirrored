@@ -1,0 +1,29 @@
+# Settings for `mirrored build-modules`: convert the Loon plugin catalog into Surge
+# modules via Script-Hub, then mirror the external scripts those modules load.
+
+catalog:
+  # Tried in order. LIST_URL_PRIMARY / LIST_URL_BACKUP (or --catalog-url) take precedence.
+  urls:
+    - https://hub.kelee.one/list.json
+    - https://pluginhub.kelee.one/list.json
+  extensions: [.lpx, .plugin]
+
+convert:
+  output_dir: Chores/sgmodule
+  scripthub_url: http://localhost:9101
+  category: "🚫 AD Block"
+  user_agent: Surge Mac/2985
+  # Plugins hosted on these domains (or their subdomains) are fetched through PROXY_BASE.
+  proxy_hosts: [kelee.one]
+
+scripts:
+  output_dir: Chores/js
+  mirror_base: https://github.com/bunizao/Mirrored/raw/main/Chores/js
+  user_agent: Surge Mac/3272
+  # URLs containing any of these substrings already point at this mirror.
+  skip_patterns:
+    - github.com/bunizao/Mirrored
+    - githubusercontent.com/bunizao/Mirrored
+  # Modules whose script links are left untouched (generated from other modules).
+  exclude:
+    - All-in-One-2.x.sgmodule
