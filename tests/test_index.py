@@ -140,6 +140,20 @@ def test_render_merges_formats_of_a_project_into_one_row(tmp_path: Path) -> None
     assert index.build(tmp_path, config) is False
 
 
+def test_same_name_modules_are_disambiguated_by_file(tmp_path: Path) -> None:
+    config = make_repo(tmp_path)
+    records = json.loads((tmp_path / "catalog.json").read_text())
+    records["plugins"][1]["name"] = records["plugins"][2]["name"] = "Same"
+    (tmp_path / "catalog.json").write_text(json.dumps(records))
+
+    page = index.render(tmp_path, config)
+
+    assert "Same.sgmodule" not in page
+    assert "[Same](https://raw.example/main/mods/Ad2.sgmodule) <sub>Ad2</sub>" in page
+    assert "[Same](https://raw.example/main/mods/Ad3.sgmodule) <sub>Ad3</sub>" in page
+    assert "<sub>Ad1</sub>" not in page
+
+
 def test_hidden_terms_drop_authors_and_plugins(tmp_path: Path) -> None:
     config = make_repo(tmp_path)
     records = json.loads((tmp_path / "catalog.json").read_text())

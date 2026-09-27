@@ -93,6 +93,16 @@ def read_entry(path: Path) -> Entry:
     )
 
 
+def _duplicates(names: list[str]) -> set[str]:
+    seen: set[str] = set()
+    return {name for name in names if name in seen or seen.add(name)}
+
+
+def _disambiguate(label: str, name: str, stem: str, duplicates: set[str]) -> str:
+    """Append the file stem to labels whose display name is not unique."""
+    return f"{label} <sub>{cell(stem)}</sub>" if name in duplicates else label
+
+
 def _details(summary: str, body: list[str], *, open_: bool) -> list[str]:
     tag = "<details open>" if open_ else "<details>"
     return [tag, f"<summary>{summary}</summary>", "", *body, "", "</details>", ""]
@@ -190,6 +200,9 @@ def _kelee(root: Path, config: IndexConfig) -> list[str]:
         "",
     ]
 
+    # Different upstream plugins can share a display name.
+    duplicates = _duplicates([clean(p["name"]) for p in plugins])
+
     # Largest groups first; the catch-all group always comes last.
     ordered = sorted(groups.items(), key=lambda kv: (kv[0] == OTHER_GROUP, -len(kv[1]), kv[0]))
     for tag, items in ordered:
@@ -197,8 +210,10 @@ def _kelee(root: Path, config: IndexConfig) -> list[str]:
         for p in items:
             icon = f'<img src="{p["icon"]}" width="24" alt="">' if p.get("icon") else ""
             url = f"{config.raw_base}/{config.modules_dir}/{p['file']}"
+            name = clean(p["name"])
+            label = _disambiguate(f"[{cell(name)}]({url})", name, Path(p["file"]).stem, duplicates)
             table.append(
-                f"| {icon} | [{cell(clean(p['name']))}]({url}) "
+                f"| {icon} | {label} "
                 f"| {cell(clean(p.get('desc', ''), DESC_LIMIT)) or '—'} "
                 f"| {_authors(p.get('authors', []), config)} | {_date(p.get('date', ''))} |"
             )
@@ -240,18 +255,22 @@ def _project(root: Path, config: IndexConfig, project: IndexProject) -> list[str
         "| 名称 | 说明 | " + " | ".join(FORMAT_LABELS[ext] for ext in formats) + " |",
         "| --- | --- | " + " | ".join(":-:" for _ in formats) + " |",
     ]
+
+    def first_entry(stem: str) -> Entry:
+        return rows[stem][next(ext for ext in formats if ext in rows[stem])]
+
+    duplicates = _duplicates([first_entry(stem).name for stem in rows])
     for stem in sorted(rows, key=str.lower):
         by_ext = rows[stem]
-        first = by_ext[next(ext for ext in formats if ext in by_ext)]
+        first = first_entry(stem)
         links = [
             f"[链接]({config.raw_base}/{project.dirs[ext]}/{by_ext[ext].filename})"
             if ext in by_ext
             else "—"
             for ext in formats
         ]
-        lines.append(
-            f"| {cell(first.name)} | {cell(first.desc) or '—'} | " + " | ".join(links) + " |"
-        )
+        label = _disambiguate(cell(first.name), first.name, stem, duplicates)
+        lines.append("| " + " | ".join([label, cell(first.desc) or "—", *links]) + " |")
     return [*lines, ""]
 
 
