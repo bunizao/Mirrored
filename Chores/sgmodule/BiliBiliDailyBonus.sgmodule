@@ -2,7 +2,7 @@
 #!desc=定时任务及Cookie获取
 #!author=MartinsKing（@ClydeTime）
 #!icon=https://raw.githubusercontent.com/ClydeTime/BiliBili/main/database/icon_Avatar.png
-#!category=🚫 AD Block
+#!category=签到
 
 #!homepage=https://github.com/ClydeTime/BiliBili/tree/master
 #!arguments=扫码Cookie:false,RunTime:"30 7 * * *",APPCookie:true,bigPoint:false
