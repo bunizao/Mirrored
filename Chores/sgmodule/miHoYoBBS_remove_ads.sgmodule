@@ -9,6 +9,23 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/miHoYoBBS_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/bbs-api(-ab)?\.miyoushe\.com\/apihub\/api\/getAppStartupData$ 'delpaths([["data","resp_map","/teenager/api/info"]])'
+http-response-jq (?i)^https:\/\/bbs-api(-ab)?\.miyoushe\.com\/apihub\/api\/getAppStartupData$ 'delpaths([["data","resp_map","/apihub/api/getAppConfig","data","get_app_config_response","config","is_show_teenager_mode_btn"]])'
+http-response-jq (?i)^https:\/\/bbs-api(-ab)?\.miyoushe\.com\/apihub\/api\/getAppStartupData$ 'delpaths([["data","resp_map","/apihub/api/getAppConfig","data","get_app_config_response","config","teenager_popup_freq_type"]])'
+http-response-jq (?i)^https:\/\/bbs-api(-ab)?\.miyoushe\.com\/apihub\/api\/getAppConfig$ 'if ((getpath(["data","config"]) // {}) | has("teenager_popup_freq_type")) then (setpath(["data","config","teenager_popup_freq_type"]; 0)) else . end'
+http-response-jq (?i)^https:\/\/bbs-api(-ab)?\.miyoushe\.com\/apihub\/api\/getAppConfig$ 'if ((getpath(["data","config"]) // {}) | has("is_show_teenager_mode_btn")) then (setpath(["data","config","is_show_teenager_mode_btn"]; 0)) else . end'
+http-response-jq (?i)^https:\/\/bbs-api-ab\.miyoushe\.com\/teenager\/api\/info$ 'if ((getpath(["data"]) // {}) | has("is_enabled")) then (setpath(["data","is_enabled"]; false)) else . end'
+http-response-jq (?i)^https:\/\/bbs-api-ab\.miyoushe\.com\/teenager\/api\/info$ 'if ((getpath(["data"]) // {}) | has("is_teenager")) then (setpath(["data","is_teenager"]; false)) else . end'
+http-response-jq (?i)^https:\/\/bbs-api-ab\.miyoushe\.com\/teenager\/api\/info$ 'if ((getpath(["data"]) // {}) | has("is_force")) then (setpath(["data","is_force"]; false)) else . end'
+
+[Map Local]
+(?i)^https:\/\/bbs-api(-ab)?\.miyoushe\.com\/apihub\/api\/getAppSplash$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/bbs-api(-ab)?\.miyoushe\.com\/apihub\/api\/getHotKeywordAndEvent$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/bbs-api-static\.miyoushe\.com\/search\/api\/search\/pre_keyword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% bbs-api.miyoushe.com, bbs-api-ab.miyoushe.com
 

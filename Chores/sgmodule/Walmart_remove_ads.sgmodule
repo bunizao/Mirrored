@@ -9,6 +9,16 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Walmart_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/api-hyper\.walmartmobile\.cn\/cms-web\/frontapi\/common\/page\/get\?.*&type=26$ '.data |= (.moduleList | map(select(.templateCode == "nav-bar-title" or .templateCode == "member-info" or .templateCode == "distribution-center" or .templateCode == "wallet" or .templateCode == "swiper" or .templateCode == "my-order")))'
+
+[Map Local]
+(?i)^https:\/\/api-hyper\.walmartmobile\.cn\/search\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api-hyper\.walmartmobile\.cn\/cms-web\/frontapi\/shadedWords\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api-hyper\.walmartmobile\.cn\/search\/frontapi\/discovery-words\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% api-hyper.walmartmobile.cn
 

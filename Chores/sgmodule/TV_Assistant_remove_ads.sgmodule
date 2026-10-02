@@ -9,6 +9,20 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/TV_Assistant_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/saas\.hpplay\.cn\/api\/lebo-desk\/endpoint\/app-resource\/app_home_pop_up data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/saas\.hpplay\.cn\/api\/lebo-desk\/endpoint\/app-resource\/app_home_tips data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/saas\.hpplay\.cn\/api\/lebo-desk\/endpoint\/app-resource\/app_index_operate2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/saas\.hpplay\.cn\/api\/lebo-rabbit\/app-card\/list data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/saas\.hpplay\.cn\/api\/lebo-desk\/endpoint\/app-resource\/app-user-banner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+移除底栏视频标签 = type=http-response, pattern=(?i)^https:\/\/saas\.hpplay\.cn\/api\/lebo-desk\/endpoint\/app-resource\/app_tab_red_dot\?user-tag=1$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/TV_Assistant_remove_ads.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% saas.hpplay.cn
 

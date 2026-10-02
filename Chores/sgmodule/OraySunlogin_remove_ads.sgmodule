@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/OraySunlogin_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/client-api-v2\.oray\.com\/materials\/SLCC_iOS_DEVICE_FREE\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% client-api-v2.oray.com
 

@@ -12,6 +12,14 @@
 [Rule]
 DOMAIN,ad.chelaile.net.cn,REJECT
 
+[Map Local]
+(?i)^https:\/\/cdn\.web\.chelaile\.net\.cn\/info-flow\/index\.html\? data-type=text data="" status-code=404
+
+(?i)^https:\/\/image3\.chelaile\.net\.cn\/hw6u6LYY\.png$ data-type=tiny-gif status-code=200
+
+[Script]
+清洗配置 = type=http-response, pattern=(?i)^https:\/\/api\.chelaile\.net\.cn\/bus-side\/appToggle\/getStatus\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Chelaile_remove_ads.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% api.chelaile.net.cn, web.chelaile.net.cn, cdn.web.chelaile.net.cn, image3.chelaile.net.cn
 

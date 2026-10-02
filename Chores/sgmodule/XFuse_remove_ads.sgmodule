@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/XFuse_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/cili\.xfuse\.fun\/s\/ data-type=text data="" status-code=404
+
 [MITM]
 hostname = %APPEND% cili.xfuse.fun, i.micecube.com, img.mofyi.com
 

@@ -9,3 +9,6 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/NodeLinkCheck.lpx
 
+[Script]
+代理链路检测 = type=generic, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/NodeLinkCheck.js
+

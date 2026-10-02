@@ -12,6 +12,9 @@
 [Rule]
 DOMAIN,adui.tg.meitu.com,REJECT
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/api\.posters\.meitu\.com\/common\/init\.json 'delpaths([["data","vip"]])'
+
 [MITM]
 hostname = %APPEND% api.posters.meitu.com
 

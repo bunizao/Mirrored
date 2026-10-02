@@ -9,6 +9,18 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/iWallBiZhi_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/api\.fzxhmy\.com\/seek\/trendingword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.fzxhmy\.com\/tone\/trending\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+移除首页广告配置 = type=http-response, pattern=(?i)^https:\/\/api\.fzxhmy\.com\/core\/initialize\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/core_initialize.js, requires-body=true
+
+移除首页轮播图广告 = type=http-response, pattern=(?i)^https:\/\/api\.fzxhmy\.com\/landing\/initialize\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/landing_initialize.js, requires-body=true
+
+移除头像页横幅跳转 = type=http-response, pattern=(?i)^https:\/\/api\.fzxhmy\.com\/avatar\/landing\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/landing.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% api.fzxhmy.com
 

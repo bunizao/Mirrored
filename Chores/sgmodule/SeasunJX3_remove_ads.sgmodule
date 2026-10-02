@@ -12,6 +12,9 @@
 [General]
 always-real-ip = %APPEND% *-update.xoyocdn.com, xg-flow.xoyo.com
 
+[Map Local]
+(?i)^https:\/\/jx3comm\.xoyocdn\.com\/jx3gc\/zhcn\/login_ad\/WebCareer\/WebCareerTab\.txt data-type=text data="" status-code=404
+
 [MITM]
 hostname = %APPEND% jx3comm.xoyocdn.com
 

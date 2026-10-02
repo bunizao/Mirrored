@@ -9,6 +9,19 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/ChengFenMiao_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/app\.chengfenmiao\.com\/helper\/setting\? 'delpaths([["detail_buy_sites"]])'
+http-response-jq (?i)^https:\/\/app\.chengfenmiao\.com\/helper\/setting\? 'delpaths([["bottom_sites"]])'
+
+[Map Local]
+(?i)^https:\/\/app\.chengfenmiao\.com\/Listing\/LiveHots\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/app\.chengfenmiao\.com\/helper\/VersionCheck\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/app\.chengfenmiao\.com\/item\/closet\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/app\.chengfenmiao\.com\/Helper\/HotWords\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% app.chengfenmiao.com
 

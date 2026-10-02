@@ -9,6 +9,20 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/TianQiTong_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/tqt\.weibo\.cn\/master\/nav\/tab\? 'map(.tabs|=map(select(.type=="weather" or .type=="radar" or .type=="my")))'
+
+[Map Local]
+(?i)^https:\/\/forecast\.sina\.cn\/app\/overall\/switch\.php\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/tqt\.weibo\.cn\/business\/advert\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/tqt\.weibo\.cn\/user\/device\/ad_multi_star\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/tqt\.weibo\.cn\/operation\/activity\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/tqt\.weibo\.cn\/api\/user\/user\/\d\.\d\/\?method=personal_center$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% forecast.sina.cn, tqt.weibo.cn
 

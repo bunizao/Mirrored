@@ -9,6 +9,12 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/WPForum_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/api\.wfdata\.club\/v2\/yesfeng\/slideshow\? '.data |= map(select(.protocolId == 1))'
+
+[Map Local]
+(?i)^https:\/\/api\.wfdata\.club\/v2\/yesfeng\/yesList\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% api.wfdata.club
 

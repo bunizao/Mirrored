@@ -9,6 +9,11 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/TXDocs_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/tianshu\.qq\.com\/open\/ts_access\/GetAds\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/h5\.qzone\.qq\.com\/p\/adboss\/api\/json\/ts_access\/GetAds$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% tianshu.qq.com, h5.qzone.qq.com
 

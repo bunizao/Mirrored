@@ -9,6 +9,17 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/DoubanRead_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/read\.douban\.com\/api\/v2\/ads\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/read\.douban\.com\/api\/v2\/popup$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/read\.douban\.com\/api\/v2\/search\/hot_words$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/read\.douban\.com\/api\/v2\/search\/hot_charts$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/read\.douban\.com\/api\/v2\/search\/rec_urls$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% read.douban.com
 

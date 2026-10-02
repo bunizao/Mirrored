@@ -13,6 +13,11 @@
 DOMAIN,ad.jia.360.cn,REJECT
 DOMAIN,ad.iot.360.cn,REJECT
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/jia\.360\.cn\/conf\/v1\.json 'delpaths([["tab_conf"]])'
+http-response-jq (?i)^https:\/\/jia\.360\.cn\/conf\/v1\.json 'delpaths([["ad_conf"]])'
+http-response-jq (?i)^https:\/\/jia\.360\.cn\/conf\/v1\.json 'delpaths([["activity"]])'
+
 [MITM]
 hostname = %APPEND% jia.360.cn
 

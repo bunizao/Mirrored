@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Sofascore_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/api\.sofascore\.com\/api\/v\d\/dsp\/country\/[A-Z]{2}$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% api.sofascore.com
 

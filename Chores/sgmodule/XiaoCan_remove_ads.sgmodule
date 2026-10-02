@@ -9,6 +9,13 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/XiaoCan_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/web2\.realtech-inc\.com\/oss\/xc-app-assets\/configs\/common\/theme\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/sdk\.1rtb\.net\/sdk\/req_ad\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/gw\.xiaocantech\.com\/g\/pa data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% gw.xiaocantech.com, web2.realtech-inc.com, sdk.1rtb.net
 

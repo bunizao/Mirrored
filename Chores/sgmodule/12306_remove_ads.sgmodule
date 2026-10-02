@@ -12,6 +12,13 @@
 [Rule]
 DOMAIN,ad.12306.cn,DIRECT
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/ad\.12306\.cn\/ad\/ser\/getAdList$ 'delpaths([["materialsList"]])'
+http-response-jq (?i)^https:\/\/ad\.12306\.cn\/ad\/ser\/getAdList$ 'delpaths([["advertParam"]])'
+
+[Script]
+移除12306应用内广告 = type=http-request, pattern=(?i)^https:\/\/mobile\.12306\.cn\/otsmobile\/app\/mgs\/mgw\.htm$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/12306_remove_ads.js
+
 [MITM]
 hostname = %APPEND% ad.12306.cn, mobile.12306.cn
 

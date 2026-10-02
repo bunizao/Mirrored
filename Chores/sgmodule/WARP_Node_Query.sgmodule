@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/WARP_Node_Query.lpx
 
+[Script]
+WARP · INFO = type=generic, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/1.1.1.1.panel.js, timeout=10
+
 [MITM]
 hostname = %APPEND% api.cloudflareclient.com, zero-trust-client.cloudflareclient.com
 

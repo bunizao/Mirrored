@@ -12,6 +12,18 @@
 [Rule]
 DOMAIN,render-web.11222.cn,REJECT
 
+[Map Local]
+(?i)^https:\/\/huichuan\.sm\.cn\/nativead data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/ocean\.shuqireader\.com\/api\/route\/iosReadPage\/adV2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/ocean\.shuqireader\.com\/api\/route\/ios\/readPage$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/ocean\.shuqireader\.com\/api\/render\/load\/resource data-type=text data="" status-code=404
+
+[Script]
+移除书城横幅和阅读广告 = type=http-response, pattern=(?i)^https:\/\/ocean\.shuqireader\.com\/sqios\/render\/render\/page\/bookstore$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/ShuQiCenterReader_remove_ads.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% ocean.shuqireader.com, huichuan.sm.cn
 

@@ -9,6 +9,12 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/WakeupSchedule_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/api\.wakeup\.fun\/wakeup\/user\/mine$ 'delpaths([["data","bannerItems"]])'
+
+[Map Local]
+(?i)^https:\/\/api\.wakeup\.fun\/wakeup\/app\/bannerconf$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% api.wakeup.fun
 

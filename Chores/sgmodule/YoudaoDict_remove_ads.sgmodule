@@ -9,6 +9,18 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/YoudaoDict_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/dict\.youdao\.com\/homepage\/toolbar\/get\/ 'delpaths([["data","vipTag"]])'
+
+[Map Local]
+(?i)^https:\/\/dict\.youdao\.com\/vip\/activity\/startup\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/dict\.youdao\.com\/vip\/activity\/retention\/configs\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/dict\.youdao\.com\/vip\/activity\/retention\/match\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/dict\.youdao\.com\/vip\/user\/paid\/guide\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% dict.youdao.com
 

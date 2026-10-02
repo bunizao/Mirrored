@@ -9,6 +9,13 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/AxWorkSchedule_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/schedule-api\.julanling\.com\/api\d\/get_splash$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/schedule-api\.julanling\.com\/api\d\/index_advert$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/schedule-api\.julanling\.com\/api\d\/queryAdvertConfig$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% schedule-api.julanling.com
 

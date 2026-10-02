@@ -9,6 +9,10 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Pinterest_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/api\.pinterest\.com\/v\d\/feeds\/home\/\? '.data |= map(select(.is_promoted == false or .is_promoted == "false"))'
+http-response-jq (?i)^https:\/\/api\.pinterest\.com\/v\d\/pins\/\d+\/related\/modules\/\? '.data |= map(select(.is_promoted == false or .is_promoted == "false"))'
+
 [MITM]
 hostname = %APPEND% api.pinterest.com
 

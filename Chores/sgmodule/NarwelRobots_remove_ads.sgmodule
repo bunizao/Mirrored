@@ -9,6 +9,13 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/NarwelRobots_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/cn-app\.narwaltech\.com\/operate\/appPosition\/listSplash\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/cn-app\.narwaltech\.com\/operate\/cactivity\/listByResourceIds\?resourceIds=(user_center_banner|index_banner) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/store\.narwal\.com\/mall\/customPage\/getByPageKeyword\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% cn-app.narwaltech.com, store.narwal.com
 

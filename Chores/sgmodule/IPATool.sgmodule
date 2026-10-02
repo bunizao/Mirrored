@@ -10,6 +10,11 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/IPATool.lpx
 
+[Script]
+App Store API = type=http-request, pattern=(?i)^https:\/\/apple-api\.com, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/AppStoreAPI.js, requires-body=true
+
+安装器 = type=http-request, pattern=(?i)^https:\/\/xiaobai\.app, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Installer.js
+
 [MITM]
 hostname = %APPEND% apple-api.com, xiaobai.app
 

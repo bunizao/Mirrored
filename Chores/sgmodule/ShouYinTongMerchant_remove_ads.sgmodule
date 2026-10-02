@@ -9,6 +9,17 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/ShouYinTongMerchant_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/syt\.leshuazf\.com\/merchant\/merchant\/showOpenScreenAd$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/m\.fqfin\.cn\/cls\/leshuapay\/preCredit\.json$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/syt\.leshuazf\.com\/merchant\/messageCenter\/stationLetterList$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/syt\.leshuazf\.com\/merchant\/merchant\/getBannerConfig$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/syt\.leshuazf\.com\/merchant\/popup\/getPopupInfo$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% syt.leshuazf.com, m.fqfin.cn
 

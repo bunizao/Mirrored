@@ -9,6 +9,31 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/HeartideBrainWave_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/startup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/user\/identity\/ad\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/discover\/ad$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/home\/activity\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/newborn\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/my\/ad\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/search\/config\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/newborn\/search\/ranks\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/search\/inputs\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/newborn\/sleeps\/guides\/banner\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.psy-1\.com\/cosleep\/newborn\/search\/ranks\/items\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% api.psy-1.com
 

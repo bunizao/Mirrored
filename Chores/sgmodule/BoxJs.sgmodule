@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/BoxJs.lpx
 
+[Script]
+BoxJS = type=http-request, pattern=(?i)^https?:\/\/(.+\.)?boxjs\.(com|net), script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/chavy.boxjs.js, requires-body=true, timeout=120
+
 [MITM]
 hostname = %APPEND% boxjs.com, boxjs.net, *.boxjs.com, *.boxjs.net
 

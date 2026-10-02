@@ -12,6 +12,15 @@
 [Rule]
 DOMAIN,ymg-api.terabox.com,REJECT
 
+[Map Local]
+(?i)^https:\/\/www\.terabox\.com\/adx\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/www\.terabox\.com\/api\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/www\.terabox\.com\/api\/page\/tips\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/www\.terabox\.com\/rest\/1\.0\/task\/common\/inttips\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% www.terabox.com
 

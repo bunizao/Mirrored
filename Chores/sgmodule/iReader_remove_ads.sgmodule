@@ -12,6 +12,23 @@
 [Rule]
 DOMAIN,saad.ms.zhangyue.net,REJECT
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/(webboot\.zhangyue\.com|ih2\.ireader\.com)\/zybook4\/iphone\/u\/p\/api\.php\? 'delpaths([["Splash"]])'
+http-response-jq (?i)^https:\/\/(webboot\.zhangyue\.com|ih2\.ireader\.com)\/bookstore\/read\/visual\/channel\/list\? '.body.list |= map(select(.id | contains("ad_") | not))'
+
+[Map Local]
+(?i)^https:\/\/(webboot\.zhangyue\.com|ih2\.ireader\.com)\/zyapi\/bookstore\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/(webboot\.zhangyue\.com|ih2\.ireader\.com)\/bookstore\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/(webboot\.zhangyue\.com|ih2\.ireader\.com)\/zybk\/api\/pop\/index\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/(webboot\.zhangyue\.com|ih2\.ireader\.com)\/zyapi\/bookstore\/user\/mytab\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/(webboot\.zhangyue\.com|ih2\.ireader\.com)\/zyboot\/activity\/mytab\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)https:\/\/(webboot\.zhangyue\.com|ih2\.ireader\.com)\/zyam\/app\/app\.php\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% webboot.zhangyue.com, ih2.ireader.com
 

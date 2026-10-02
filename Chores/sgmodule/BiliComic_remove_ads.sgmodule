@@ -9,6 +9,34 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/BiliComic_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetActivityTab data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetBubbles data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetCommonBanner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/SearchBanner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.SeasonV\d\/GetSeasonInfo data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/bookshelf\.v\d\.Bookshelf\/ListEmptyRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/bookshelf\.v\d\.Bookshelf\/NovelRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/novel\.v\d\.Novel\/MoreRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetBubbles data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/AppInit data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/ListFlash data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+移除顶部标签 = type=http-response, pattern=(?i)^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetClassPageAllTabs, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliComic_remove_ads.js, requires-body=true
+
+精简我的页面 = type=http-response, pattern=(?i)^https:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.User\/UCenterConf, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BiliComic_remove_ads.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% manga.bilibili.com
 

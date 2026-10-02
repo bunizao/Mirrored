@@ -9,6 +9,17 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/PICOOC_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/api2\.picooc\.com\/v\d\/api\/focus\/strategy\/execute\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api2\.picooc\.com\/v\d\/api\/dietGuide\/query\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api2\.picooc\.com\/program\/listMainProgram\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/a\.picooc\.com\/v\d\/api\/camp\/sys\/config\/coupon\/pattern\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api2\.picooc\.com\/v\d\/api\/account\/getTabsInfo\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% api2.picooc.com, a.picooc.com
 

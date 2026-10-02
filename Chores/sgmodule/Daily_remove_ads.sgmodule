@@ -9,6 +9,10 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Daily_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https?:\/\/m\.pvp\.xoyo\.com\/conf\/server-mapping$ 'delpaths([["data","splashConf"]])'
+http-response-jq (?i)^https?:\/\/m\.pvp\.xoyo\.com\/conf\/server-mapping$ 'delpaths([["data","splashConfNew"]])'
+
 [MITM]
 hostname = %APPEND% m.pvp.xoyo.com
 

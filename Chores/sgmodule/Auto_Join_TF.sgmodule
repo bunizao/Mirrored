@@ -7,7 +7,14 @@
 #!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
 #!date=2026-10-02 13:57:49
-#!arguments=CaptureAccountToken:false,RunTask:false,RunMonitor:false,TaskCron:"0 0/2 * * * ?",TaskMonitor:"0 * * * * ?"
-#!arguments-desc=CaptureAccountToken: 捕获账号令牌\n此开关控制插件是否捕获账户令牌\n\nRunTask: 自动加入TF\n此开关控制是否启动定时任务\n\nRunMonitor: 监控TF位置\n此开关控制是否启动定时任务\n\nTaskCron: 加入TF定时参数\n这里需要输入符合CRON表达式的参数\n\nTaskMonitor: 监控TF定时参数\n这里需要输入符合CRON表达式的参数
+#!arguments=CaptureAccountToken:#,RunTask:#,RunMonitor:#,TaskCron:"0 0/2 * * * ?",TaskMonitor:"0 * * * * ?"
+#!arguments-desc=CaptureAccountToken: 捕获账号令牌\n此开关控制插件是否捕获账户令牌\n可选值: false, true\n\nRunTask: 自动加入TF\n此开关控制是否启动定时任务\n可选值: false, true\n\nRunMonitor: 监控TF位置\n此开关控制是否启动定时任务\n可选值: true, false\n\nTaskCron: 加入TF定时参数\n这里需要输入符合CRON表达式的参数\n\nTaskMonitor: 监控TF定时参数\n这里需要输入符合CRON表达式的参数
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Auto_Join_TF.lpx
+
+[Script]
+{{{{{CaptureAccountToken}}}}}获取账号令牌 = type=http-request, pattern=(?i)^https?:\/\/testflight\.apple\.com\/v3\/accounts\/.*\/apps$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/CaptureAccountToken.js
+
+{{{{{RunTask}}}}}自动加入TF = type=cron, cronexp="{{{{{TaskCron}}}}}", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/AutoJoinTF.js, timeout=600
+
+{{{{{RunMonitor}}}}}监控TF位置 = type=cron, cronexp="{{{{{TaskMonitor}}}}}", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/AutoMonitorTF.js, timeout=30
 

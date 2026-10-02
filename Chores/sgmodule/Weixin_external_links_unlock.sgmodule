@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Weixin_external_links_unlock.lpx
 
+[Script]
+微信外部链接解锁 = type=http-response, pattern=(?i)^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Weixin_external_links_unlock.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% weixin110.qq.com, security.wechat.com
 

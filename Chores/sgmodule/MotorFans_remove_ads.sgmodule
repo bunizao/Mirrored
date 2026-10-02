@@ -9,6 +9,21 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/MotorFans_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/api\.58moto\.com\/forum\/public\/businessEssayController\.do\?action=22004 'delpaths([["data","link"]])'
+
+[Map Local]
+(?i)^https:\/\/api\.58moto\.com\/advert\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.58moto\.com\/mall\/goods\/self\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.58moto\.com\/mall\/goods\/self\/homeList\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.58moto\.com\/forum\/public\/businessEssayController\.do$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+修改配置 = type=http-response, pattern=(?i)^https:\/\/api\.58moto\.com\/expands\/config\/appWholeConfig\?key=app_whole_config$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/MotorFans_remove_ads.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% api.58moto.com
 

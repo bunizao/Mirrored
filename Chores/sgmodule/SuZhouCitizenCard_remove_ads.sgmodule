@@ -9,6 +9,10 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/SuZhouCitizenCard_remove_ads.lpx
 
+[Body Rewrite]
+http-response (?i)^https?:\/\/newapp2\.szsmk\.com\/app\/config\/queryMainAd "json" "{\"message\":\"操作成功\",\"main_ad_list\":[],\"code\":\"000000\"}"
+http-response (?i)^https?:\/\/newapp2\.szsmk\.com\/app\/config\/(queryCarousel|queryRecommendation)\/ "json" "{\"code\":\"000000\",\"message\":\"操作成功\",\"list\":[]}"
+
 [MITM]
 hostname = %APPEND% newapp2.szsmk.com
 

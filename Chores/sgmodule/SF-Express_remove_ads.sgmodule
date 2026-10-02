@@ -9,6 +9,14 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/SF-Express_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/ccsp-egmas\.sf-express\.com\/cx-app-base\/base\/app\/appHomeConfig\/query$ '.obj |= map(select(.position != 2))'
+
+[Map Local]
+(?i)^https:\/\/ccsp-egmas\.sf-express\.com\/cx-app-base\/base\/app\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/ucmp\.sf-express\.com\/proxy\/esgcempcore\/memberGoods\/pointMallService\/goodsList$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% ccsp-egmas.sf-express.com, ucmp.sf-express.com, ucmp-static.sf-express.com
 

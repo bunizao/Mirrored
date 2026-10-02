@@ -12,6 +12,20 @@
 [Rule]
 DOMAIN,adx.zuoyebang.com,REJECT
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/www\.kuaiduizuoye\.com\/codesearch\/aid\/home$ 'delpaths([["data","homeBannerList"]])'
+
+[Map Local]
+(?i)^https:\/\/www\.kuaiduizuoye\.com\/init\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/www\.kuaiduizuoye\.com\/activity\/init\/checkappconfig$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/www\.kuaiduizuoye\.com\/kdapi\/conf\/appbannersv3$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/www\.kuaiduizuoye\.com\/kdapi\/conf\/initbanner$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/apivip\.kuaiduizuoye\.com\/viponline\/scancode\/mycard$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% www.kuaiduizuoye.com, apivip.kuaiduizuoye.com
 

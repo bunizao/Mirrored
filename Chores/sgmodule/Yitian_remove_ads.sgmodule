@@ -9,6 +9,15 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Yitian_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/(m2u-api\.getkwai|api-m2u\.kuaishou)\.com\/api-server\/api\/v1\/system\/configs\? 'delpaths([["data","shouldUseLMAdFirst"]])'
+http-response-jq (?i)^https:\/\/(m2u-api\.getkwai|api-m2u\.kuaishou)\.com\/api-server\/api\/v1\/system\/configs\? 'delpaths([["data","incentiveCfgList"]])'
+
+[Map Local]
+(?i)^https:\/\/(m2u-api\.getkwai|api-m2u\.kuaishou)\.com\/api-server\/api\/v1\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/(m2u-api\.getkwai|api-m2u\.kuaishou)\.com\/api-server\/api\/v4\/op\/actPositions\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% m2u-api.getkwai.com, api-m2u.kuaishou.com
 

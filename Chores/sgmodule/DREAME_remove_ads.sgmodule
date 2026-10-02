@@ -9,6 +9,16 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/DREAME_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/cn\.iot\.dreame\.tech:13267\/dreame-system\/dreame-app\/setting\/query$ 'delpaths([["data","appIconConfig"]])'
+
+[Map Local]
+(?i)^https:\/\/cn\.iot\.dreame\.tech:\d+\/dreame-product\/public\/advertisement\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/cn-mall\.dreame\.tech\/dreame-mall\/api\/v1\/tag\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/cn-wxmall\.dreame\.tech\/main\/goods\/get-topgoods$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% cn-mall.dreame.tech, cn-wxmall.dreame.tech, cn.iot.dreame.tech
 

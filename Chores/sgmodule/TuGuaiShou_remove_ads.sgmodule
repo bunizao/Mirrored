@@ -9,6 +9,13 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/TuGuaiShou_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/api\.818ps\.com\/v4\/advertisement\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.818ps\.com\/v4\/popup\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/api\.818ps\.com\/v4\/festival\/newYear\/pop\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% api.818ps.com
 

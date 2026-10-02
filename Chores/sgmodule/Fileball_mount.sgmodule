@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Fileball_mount.lpx
 
+[Script]
+三合一网盘挂载 = type=http-request, pattern=(?i)^http:\/\/(aliyun|quark|pikpak)\.example\.com, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/Fileball_mount.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% aliyun.example.com, quark.example.com, pikpak.example.com
 

@@ -10,6 +10,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/DidaPincheTaxi_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/capis\.didapinche\.com\/adbase\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% capis.didapinche.com
 

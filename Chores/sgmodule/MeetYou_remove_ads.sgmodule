@@ -13,6 +13,12 @@
 DOMAIN,ad.seeyouyima.com,REJECT
 DOMAIN,axxd.xmseeyouyima.com,REJECT
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/common\.seeyouyima\.com\/v2\/conf_list$ 'delpaths([["data","confList","Minor_mode_card"]])'
+
+[Map Local]
+(?i)^https:\/\/circle\.(xm)?seeyouyima\.com\/v\d\/article_recommend\? data-type=text data="" status-code=404
+
 [MITM]
 hostname = %APPEND% circle.seeyouyima.com, circle.xmseeyouyima.com, common.seeyouyima.com
 

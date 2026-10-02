@@ -9,6 +9,15 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/marki_remove_ads.lpx
 
+[Map Local]
+(?i)^https:\/\/marki\.markiapp\.com\/mkg\/MomStats\/getFlowWindowList$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https?:\/\/marki\.markiapp\.com\/mkg\/Advertising\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/marki\.markiapp\.com\/mkg\/MomStats\/getIntegralAdv$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+(?i)^https:\/\/market-callback\.markiapp\.com\/adcenter\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 [MITM]
 hostname = %APPEND% marki.markiapp.com, market-callback.markiapp.com
 

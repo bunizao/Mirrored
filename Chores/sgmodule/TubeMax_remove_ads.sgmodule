@@ -19,6 +19,9 @@ DOMAIN-SUFFIX,appier.net,REJECT
 DOMAIN-SUFFIX,adsmoloco.com,REJECT
 DOMAIN-SUFFIX,adcanvas.com,REJECT
 
+[Map Local]
+(?i)^https:\/\/.*\.i18n-pglstatp\.com\/obj\/ad-pattern-sg data-type=text data="" status-code=404
+
 [MITM]
 hostname = %APPEND% *.i18n-pglstatp.com
 

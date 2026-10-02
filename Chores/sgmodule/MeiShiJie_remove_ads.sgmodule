@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/MeiShiJie_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/newapi\.meishi\.cc\/indexnew\/home_feeds 'if .data.items then .data.items |= map(select(.type | . != "101" and . != "12")) else . end'
+
 [MITM]
 hostname = %APPEND% newapi.meishi.cc
 

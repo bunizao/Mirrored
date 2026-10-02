@@ -9,6 +9,9 @@
 #!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/DjDuoDuo_remove_ads.lpx
 
+[Script]
+去广告 = type=http-response, pattern=(?i)^https:\/\/api\.dianyinduoduo\.com\/v4\/config\.php\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/DjDuoDuo_remove_ads.js, requires-body=true
+
 [MITM]
 hostname = %APPEND% api.dianyinduoduo.com
 
