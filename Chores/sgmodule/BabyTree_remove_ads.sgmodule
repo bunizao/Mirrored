@@ -4,9 +4,9 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BabyTree.png
 #!openUrl=https://apps.apple.com/app/id523063187
 #!category=去广告
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
-#!date=2026-06-01 17:11:35
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/BabyTree_remove_ads.lpx
 
 [Rule]
@@ -15,13 +15,6 @@ URL-REGEX,"^http:\/\/go\.babytree\.com\/go_search\/api\/mobile_search_new\/get_m
 URL-REGEX,"^http:\/\/m\.meitun\.com\/newapi\/router\/topic\/hometptf\/feedRecommend",REJECT-TINYGIF
 URL-REGEX,"^http:\/\/pic08\.babytreeimg\.com\/knowledge\/2022\/0923\/\w+",REJECT
 URL-REGEX,"^http:\/\/plough\.babytree\.com\/plough\.do",REJECT-TINYGIF
-
-[Script]
-调整整体配置 = type=http-response, pattern=^http:\/\/api\.babytree\.com\/bafconfigcenter_intf\/config\/get\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BabyTree_remove_ads.js, requires-body=true
-
-移除各页面推广 = type=http-response, pattern=^http:\/\/go\.babytree\.com\/go_pregnancy\/api\/(app_index\/get_app_tab|cms_column\/get_column_list|feeds\/get_index_feeds_list|user\/get_user_info)\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BabyTree_remove_ads.js, requires-body=true
-
-移除搜索列表推广 = type=http-response, pattern=^http:\/\/go\.babytree\.com\/go_search\/api\/mobile_search_new\/search_index, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/BabyTree_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% api.babytree.com, go.babytree.com

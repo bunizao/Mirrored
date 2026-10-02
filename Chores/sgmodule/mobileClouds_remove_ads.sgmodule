@@ -4,15 +4,10 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/mobileClouds.png
 #!openUrl=https://apps.apple.com/app/id1618137934
 #!category=去广告
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
-#!date=2026-06-01 17:11:35
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/mobileClouds_remove_ads.lpx
-
-[Script]
-移除开屏广告 = type=http-response, pattern=^https:\/\/jzts\.cmpassport\.com\/personalized\/getPushContent, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/mobileClouds_remove_ads.js, requires-body=true
-
-移除应用内广告 = type=http-response, pattern=^https:\/\/ad\.mcloud\.139\.com\/advertapi\/adv-filter\/, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/mobileClouds_remove_ads.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% jzts.cmpassport.com, ad.mcloud.139.com

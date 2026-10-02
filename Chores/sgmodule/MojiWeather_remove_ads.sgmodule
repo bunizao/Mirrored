@@ -4,24 +4,10 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/MojiWeather.png
 #!openUrl=https://apps.apple.com/app/id434209233
 #!category=去广告
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
-#!date=2026-06-01 17:11:35
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/MojiWeather_remove_ads.lpx
-
-[URL Rewrite]
-^https:\/\/fcard\.api\.moji\.com\/flycard\/flyCard\? - reject
-
-[Map Local]
-^https:\/\/vdo\.api\.moji\.com\/shortvideo\/card\/subscribe$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/vdo\.api\.moji\.com\/shortvideo\/video\/index_flow\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/vdo\.api\.moji\.com\/shortvideo\/video_user\/hotGuyRcm\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/vdo\.api\.moji\.com\/shortvideo\/zone\/follow_src_zone\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/sns\.api\.moji\.com\/user\/dynamic_v9\/json\/someone_interest\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% fcard.api.moji.com, vdo.api.moji.com, sns.api.moji.com, mme.api.moji.com, psnlz.api.moji.com

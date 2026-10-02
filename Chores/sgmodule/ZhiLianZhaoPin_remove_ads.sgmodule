@@ -4,22 +4,13 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/ZhiLianZhaoPin.png
 #!openUrl=https://apps.apple.com/app/id488033535
 #!category=去广告
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c
-#!date=2026-06-01 17:11:35
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/ZhiLianZhaoPin_remove_ads.lpx
 
 [Rule]
 URL-REGEX,"^https:\/\/(ask|cgate)\.zhaopin\.com\/operation\/ad\/",REJECT
-
-[URL Rewrite]
-^https:\/\/cgate\.zhaopin\.com\/bdp\/commercial\/queryLinkData$ - reject
-
-[Map Local]
-^https:\/\/cgate\.zhaopin\.com\/resumeapi\/resumeCheck\/positionDetailBottomTipCheck$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-[Script]
-body_rewrite_14 = type=http-response, pattern=^https:\/\/ask\.zhaopin\.com\/plat-zqa-server\/home\/\d\.\d\.\d\/getHomeContents\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.templates%5B0%5D.data.banner%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% ask.zhaopin.com, cgate.zhaopin.com

@@ -4,21 +4,10 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/AlcidaeVideo.png
 #!openUrl=https://apps.apple.com/app/id1310128663
 #!category=去广告
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
-#!date=2026-07-03 11:35:16
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/AlcidaeVideo_remove_ads.lpx
-
-[URL Rewrite]
-^https:\/\/g\.ihaique\.net\/alcidae\/info\/index\.html$ - reject
-^https:\/\/shop151522958\.youzan\.com\/v\d\/showcase\/homepage\? - reject
-
-[Map Local]
-^https:\/\/app-api-32\.ihaique\.net\/api\/app\/v\d\/appad\/cmd\/AppadGetSplashAds\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/app-api-32\.ihaique\.net\/api\/app\/v\d\/appad\/cmd\/AppGetAttentionInfos\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/app-api-32\.ihaique\.net\/api\/app\/v\d\/appad\/cmd\/AppadGetBannerAds\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% app-api-32.ihaique.net, g.ihaique.net, shop151522958.youzan.com

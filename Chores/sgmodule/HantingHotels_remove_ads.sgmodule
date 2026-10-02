@@ -4,21 +4,10 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/HantingHotels.png
 #!openUrl=https://apps.apple.com/app/id556808349
 #!category=去广告
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
-#!date=2026-06-12 16:06:38
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/HantingHotels_remove_ads.lpx
-
-[Map Local]
-^https:\/\/hweb-manager\.huazhu\.com\/notice\/getAppPopupNotifyAlert$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/hweb-hotel\.huazhu\.com\/home\/getHomeLoinBanner$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/hweb-hotel\.huazhu\.com\/\/home\/querySelectHotel$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/hweb-hotel\.huazhu\.com\/home\/queryHotelBrand$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/hweb-manager\.huazhu\.com\/hotels\/ad\/getHotelListNoticeMerge$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% hweb-manager.huazhu.com, hweb-hotel.huazhu.com, res-pub.huazhu.com

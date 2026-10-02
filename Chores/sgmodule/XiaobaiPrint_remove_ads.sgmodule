@@ -4,22 +4,14 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/XiaobaiPrint.png
 #!openUrl=https://apps.apple.com/app/id1505946846
 #!category=去广告
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
-#!date=2026-07-03 10:43:28
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/XiaobaiPrint_remove_ads.lpx
 
 [Rule]
 DOMAIN,ad.lovefree.cc,REJECT
 DOMAIN-SUFFIX,adwanji.com,REJECT
-
-[Map Local]
-^https:\/\/epbox\.gongfudou\.com\/big_data\/v\d\/banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-^https:\/\/epbox\.gongfudou\.com\/big_data\/v\d\/canvas\/query_actions\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-[Script]
-body_rewrite_15 = type=http-response, pattern=^https:\/\/epbox\.gongfudou\.com\/graphql$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.mallConsumables%22%2C%22data.currentUser.goodsCoupons%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% epbox.gongfudou.com

@@ -4,20 +4,14 @@
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/MeetYou.png
 #!openUrl=https://apps.apple.com/app/id634896669
 #!category=去广告
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
-#!date=2026-06-01 17:11:35
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/MeetYou_remove_ads.lpx
 
 [Rule]
 DOMAIN,ad.seeyouyima.com,REJECT
 DOMAIN,axxd.xmseeyouyima.com,REJECT
-
-[URL Rewrite]
-^https:\/\/circle\.(xm)?seeyouyima\.com\/v\d\/article_recommend\? - reject
-
-[Script]
-body_rewrite_16 = type=http-response, pattern=^https:\/\/common\.seeyouyima\.com\/v2\/conf_list$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.confList.Minor_mode_card%22%5D%5D%5D
 
 [MITM]
 hostname = %APPEND% circle.seeyouyima.com, circle.xmseeyouyima.com, common.seeyouyima.com

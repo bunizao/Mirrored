@@ -5,13 +5,10 @@
 #!openUrl=https://apps.apple.com/app/id921478733
 #!category=去广告
 #!system=ios
-#!loon_version=3.4.0(962)
+#!loon_version=3.5.1(998)
 #!homepage=https://hub.kelee.one
-#!date=2026-06-01 17:11:35
+#!date=2026-10-02 13:57:49
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/DidaPincheTaxi_remove_ads.lpx
-
-[Map Local]
-^https:\/\/capis\.didapinche\.com\/adbase\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% capis.didapinche.com
