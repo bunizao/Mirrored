@@ -12,9 +12,9 @@
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/WPS_checkin.lpx
 
 [Script]
-{{{{{CaptureCookie}}}}}捕获Cookie = type=http-request, pattern=(?i)^https:\/\/moapi\.wps\.cn\/app\/ios\/v1\/app$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/WPS_checkin.js, requires-body=true
+{{{CaptureCookie}}}捕获Cookie = type=http-request, pattern=(?i)^https:\/\/moapi\.wps\.cn\/app\/ios\/v1\/app$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/WPS_checkin.js, requires-body=true
 
-WPS每日签到 = type=cron, cronexp="{{{{{CRONEXP}}}}}", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/WPS_checkin.js, timeout=120, argument=AK="{{{{{AK}}}}}"&SK="{{{{{SK}}}}}"&MAX_RETRIES="{{{{{MAX_RETRIES}}}}}"
+WPS每日签到 = type=cron, cronexp="{{{CRONEXP}}}", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/WPS_checkin.js, timeout=120, argument=AK="{{{AK}}}"&SK="{{{SK}}}"&MAX_RETRIES="{{{MAX_RETRIES}}}"
 
 [MITM]
 hostname = %APPEND% moapi.wps.cn

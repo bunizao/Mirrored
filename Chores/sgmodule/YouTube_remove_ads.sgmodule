@@ -13,11 +13,11 @@
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/YouTube_remove_ads.lpx
 
 [Script]
-YouTube去广告 = type=http-response, pattern=(?i)^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event|config))(\?(.*))?$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true, argument=blockUpload="{{{{{blockUpload}}}}}"&blockShorts="{{{{{blockShorts}}}}}"&blockImmersive="{{{{{blockImmersive}}}}}"&captionLang="{{{{{captionLang}}}}}"&debug="{{{{{debug}}}}}"
+YouTube去广告 = type=http-response, pattern=(?i)^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event|config))(\?(.*))?$, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_response.js, requires-body=true, binary-body-mode=true, argument=blockUpload="{{{blockUpload}}}"&blockShorts="{{{blockShorts}}}"&blockImmersive="{{{blockImmersive}}}"&captionLang="{{{captionLang}}}"&debug="{{{debug}}}"
 
-请求初始化 = type=http-request, pattern=(?i)^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.*, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_request.js, requires-body=true, binary-body-mode=true, argument=captionLang="{{{{{captionLang}}}}}"
+请求初始化 = type=http-request, pattern=(?i)^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.*, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_request.js, requires-body=true, binary-body-mode=true, argument=captionLang="{{{captionLang}}}"
 
-请求日志事件 = type=http-request, pattern=(?i)^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_request.js, requires-body=true, binary-body-mode=true, argument=blockUpload="{{{{{blockUpload}}}}}"&blockShorts="{{{{{blockShorts}}}}}"&blockImmersive="{{{{{blockImmersive}}}}}"&captionLang="{{{{{captionLang}}}}}"&debug="{{{{{debug}}}}}"
+请求日志事件 = type=http-request, pattern=(?i)^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/YouTube_remove_ads_request.js, requires-body=true, binary-body-mode=true, argument=blockUpload="{{{blockUpload}}}"&blockShorts="{{{blockShorts}}}"&blockImmersive="{{{blockImmersive}}}"&captionLang="{{{captionLang}}}"&debug="{{{debug}}}"
 
 [MITM]
 hostname = %APPEND% *.googlevideo.com, youtubei.googleapis.com

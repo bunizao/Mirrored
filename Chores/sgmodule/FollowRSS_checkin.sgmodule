@@ -12,7 +12,7 @@
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/FollowRSS_checkin.lpx
 
 [Script]
-Follow每日签到 = type=cron, cronexp="{{{{{cron}}}}}", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/FollowRSS_checkin.js, timeout=120, argument=token="{{{{{token}}}}}"&cookie="{{{{{cookie}}}}}"
+Follow每日签到 = type=cron, cronexp="{{{cron}}}", script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/FollowRSS_checkin.js, timeout=120, argument=token="{{{token}}}"&cookie="{{{cookie}}}"
 
 [MITM]
 hostname = %APPEND% api.follow.is
