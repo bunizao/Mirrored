@@ -1,30 +1,77 @@
 #!name=高德地图去广告
-#!desc=移除高德地图开屏广告、各页面推广，精简我的页面及配置文件。
+#!desc=过滤高德地图开屏广告、各页面推广，精简我的页面。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Amap.png
 #!openUrl=https://apps.apple.com/app/id461703208
 #!category=去广告
-#!loon_version=3.5.1(998)
+#!loon_version=3.4.0(962)
 #!homepage=https://hub.kelee.one
-#!date=2026-10-19 00:27:37
+#!date=2026-10-19 09:00:57
 # 🪞 Mirrored by https://github.com/bunizao/Mirrored · source: https://kelee.one/Tool/Loon/Lpx/Amap_remove_ads.lpx
 
+[Body Rewrite]
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","adStatementConfig"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","adCustomerRetainArchitecture"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","adImEntryConfig"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","adVenueConfig"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","adPerfSwitch"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","EndNaviC3AdCard"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","infoCpcReport"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","hotsaleConfig"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","marketing_resource_config"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","coupon_risk_asac"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","commonCouponSceneLog"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","sug_coupon_opt"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","giftEntryConfig"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","splashscreen"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","SplashScreenControl"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","splashview_config"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","feedback_banner"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","TrainOrderBanner"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","nearby_business_popup"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","shortcut_popup_frequency"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","tel_retention_popup"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","hotel_activity"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","taxi_activity"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","hotel_privilege"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","sportsActivityConfig"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","activity_qingke_contry_control"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","920bestwishes"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","custom_consultdata","widget_guide"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","free_ride"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","homepage_resource_config"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","home_message_guide"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","hotel_tipsicon"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","sur_bar"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","nearby_map_entry_guide"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","comment_info"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","small_biz_index"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","small_biz_fun"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","setpagesearch"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\? 'delpaths([["data","wallet"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaasv3\? 'del(.data.tipData, .data.wallet) | .data.cardList |= map(select(.dataKey == "MineNewFootprintCard" or .dataKey == "MineNewBEntranceCardV4")) | (.data.cardList[] | select(.dataKey == "MineNewBEntranceCardV4") | .content.entranceList_1) |= map(select(.id == 7 or .id == 8 or .id == 10 or .id == 17)) | (.data.cardList[] | select(.dataKey == "MineNewBEntranceCardV4") | .content.entranceList_2) |= map(select(.id == 32 or .id == 4 or .id == 9 or .id == 16 or .id == 14))'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/scene\/recommend\? 'delpaths([["$","data","shadingWords"]])'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/scene\/recommend\? '.data.toolsRecommend.data.default |= map(select(.id == 102 or .id == 103 or .id == 106 or .id == 151))'
+http-response-jq (?i)^https:\/\/sns\.amap\.com\/ws\/opc\/tools\/list\? '(if (type == "object") and ((.data | type) == "object") and ((.data.category | type) == "array") then (.data.category[] | select(type == "object") | .tools | select(type == "array") | .[] | select(type == "object")) |= del(.tips) else . end) | (if (type == "object") and ((.data | type) == "object") and ((.data.category | type) == "array") then (.data.category[] | select(type == "object") | .tools | select(type == "array")) |= map(select(if type == "object" then (((.id | type) == "string" and .id == "547") or ((.id | type) == "number" and .id == 547)) | not else true end)) else . end)'
+http-response-jq (?i)^https:\/\/m5-zb\.amap\.com\/ws\/boss\/car\/order\/content_info\? 'delpaths([["data","lubanData","skin"]])'
+http-response-jq (?i)^https:\/\/m5-zb\.amap\.com\/ws\/boss\/car\/order\/content_info\? 'delpaths([["data","lubanData","kingToolBoxBubble"]])'
+http-response-jq (?i)^https:\/\/m5-zb\.amap\.com\/ws\/boss\/car\/order\/content_info\? 'delpaths([["data","lubanData","popup"]])'
+http-response-jq (?i)^https:\/\/m5-zb\.amap\.com\/ws\/boss\/car\/order\/content_info\? 'def on_path($p; $t; f): if (try (getpath($p) | type == $t) catch false) then getpath($p) |= f else . end; (on_path(["data","lubanData","kingToolSort","dataList"]; "array"; map(if type == "object" then (if ((try (.biz | type) catch null) == "object" and (.biz | has("kingToolIdList"))) then (.biz.kingToolIdList |= (if type == "array" then map(select(IN("dache_toolbox_GDIntercity","dache_toolbox_hitch","dache_toolbox_chauffeur","dache_toolbox_quality","dache_toolbox_charterCar"))) else . end)) else . end) else . end))) | on_path(["data","lubanData","kingToolBox","dataList"]; "array"; map(select(if type == "object" then ((try (.biz | type) catch null) == "object" and (try (.biz.id | IN("dache_toolbox_GDIntercity","dache_toolbox_hitch","dache_toolbox_chauffeur","dache_toolbox_quality","dache_toolbox_charterCar")) catch false)) else false end)))'
+http-response-jq (?i)^https:\/\/m5-zb\.amap\.com\/ws\/amap\/hitch\/passenger\/content_info\? 'delpaths([["data","lubanData","banner"]])'
+http-response-jq (?i)^https:\/\/center\.amap\.com\/ws\/amc\/server\/conv\/raise_list\? 'def on_path($p; $t; f): if (try (getpath($p) | type == $t) catch false) then getpath($p) |= f else . end; on_path(["data","dataList"]; "array"; map(select(if type == "object" then (has("categoryId") or ((.data | type) == "object" and .data.id == "M_100007")) else false end)))'
+http-response-jq (?i)^https:\/\/m5\.amap\.com\/ws\/shield\/scene\/recommend\? 'delpaths([["data","wordInbox"]])'
+
 [Map Local]
-^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/main-page-assets\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+(?i)^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/main-page-assets\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/main-page-aiqs\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+(?i)^https:\/\/m5\.amap\.com\/ws\/faas\/amap-navigation\/main-page-aiqs\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/ai\.amap\.com\/v1\/ai_rec\/home_qs\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+(?i)^https:\/\/ai\.amap\.com\/v1\/ai_rec\/home_qs\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/m5-zb\.amap\.com\/ws\/promotion-web\/resource(\/home)?\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+(?i)^https:\/\/m5-zb\.amap\.com\/ws\/promotion-web\/resource(\/home)?\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-[Script]
-body_rewrite_12 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable\/1\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.adStatementConfig%22%2C%22data.adCustomerRetainArchitecture%22%2C%22data.adImEntryConfig%22%2C%22data.adVenueConfig%22%2C%22data.adPerfSwitch%22%2C%22data.EndNaviC3AdCard%22%2C%22data.infoCpcReport%22%2C%22data.hotsaleConfig%22%2C%22data.marketing_resource_config%22%2C%22data.coupon_risk_asac%22%2C%22data.commonCouponSceneLog%22%2C%22data.sug_coupon_opt%22%2C%22data.giftEntryConfig%22%2C%22data.splashscreen%22%2C%22data.SplashScreenControl%22%2C%22data.splashview_config%22%2C%22data.feedback_banner%22%2C%22data.TrainOrderBanner%22%2C%22data.nearby_business_popup%22%2C%22data.shortcut_popup_frequency%22%2C%22data.tel_retention_popup%22%2C%22data.hotel_activity%22%2C%22data.taxi_activity%22%2C%22data.hotel_privilege%22%2C%22data.sportsActivityConfig%22%2C%22data.activity_qingke_contry_control%22%2C%22data.920bestwishes%22%2C%22data.custom_consultdata.widget_guide%22%2C%22data.free_ride%22%2C%22data.homepage_resource_config%22%2C%22data.home_message_guide%22%2C%22data.hotel_tipsicon%22%2C%22data.sur_bar%22%2C%22data.nearby_map_entry_guide%22%2C%22data.comment_info%22%2C%22data.small_biz_index%22%2C%22data.small_biz_fun%22%2C%22data.setpagesearch%22%2C%22data.wallet%22%5D%5D%5D
-
-body_rewrite_15 = type=http-response, pattern=^https:\/\/m5\.amap\.com\/ws\/shield\/scene\/recommend\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22%24.data.shadingWords%22%5D%5D%5D
-
-body_rewrite_21 = type=http-response, pattern=^https:\/\/m5-zb\.amap\.com\/ws\/boss\/car\/order\/content_info\?, script-path=https://github.com/bunizao/Mirrored/raw/main/Chores/js/body-rewrite.js, requires-body=true, max-size=-1, timeout=30, argument=%5B%5B%22json-del%22%2C%5B%22data.lubanData.skin%22%5D%5D%5D
+(?i)^https:\/\/m5\.amap\.com\/ws\/info_bff\/rankingCard\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
-hostname = %APPEND% m5.amap.com, ai.amap.com, m5-zb.amap.com
+hostname = %APPEND% m5.amap.com, ai.amap.com, m5-zb.amap.com, center.amap.com, sns.amap.com
 
